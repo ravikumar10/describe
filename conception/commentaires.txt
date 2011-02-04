@@ -1,0 +1,36 @@
+Comment inclure des lib dans le jar final :
+	<!-- Ajout de la librairie sqlite directement dans le jar final -->
+	<target name="-post-jar">
+	<jar update="true" destfile="${dist.jar}">
+	<zipfileset src="lib\sqlitejdbc-v056.jar"/>
+	</jar>
+	<delete dir="dist\lib\"/>
+	</target>
+Donc pour les autres ajouter les lignes <zipfileset src=..."/>
+
+Conversion de dates
+Date.toString() retourne :
+Wed Jan 05 13:16:00 CET 2011
+
+Or pour parser cette String en Date il faut:
+        DateFormat formatter = new SimpleDateFormat( "EEE MMM d HH:mm:ss z yyyy", Locale.UK );
+        Date date = (Date)formatter.parse(d);
+
+
+
+
+Quand on créé une session on instancie puis insère toutes les questions dans la base.
+
+Créer une classe avec singleton SessionManager pour gérer les sessions (getSessionCourante, load...).
+
+faire un setup pour mac
+
+mettre l'appli dans le tray
+
+
+OK pour mac : installation, utilisation, lancement auto au démarrage, tache de fond, désinstallation.
+Windows : fait : utilisation, tache de fond, lancement auto au démarrage. à faire : installation, désinstallation
+Linux : fait : utilisation et tache de fond. à faire : installation, désinstallation, ajout au démarrage. => compliqué a faire car dépend vraiment de la distribution
+
+Principe de l'instance unique de l'application :
+http://www.javafr.com/codes/INSTANCE-UNIQUE-APPLICATION_40088.aspx
