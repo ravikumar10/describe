@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ter" company="ucbl" webLink="" view-date="2010-12-23" view-index="0" gantt-divider-location="308" resource-divider-location="301" version="2.0">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart"/>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="55" order="0"/>
+        <field id="1" name="Rôle par défaut" width="44" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+        <date year="" month="12" date="25"/>
+        <date year="" month="1" date="1"/>
+        <date year="" month="5" date="1"/>
+        <date year="" month="5" date="8"/>
+        <date year="" month="7" date="14"/>
+        <date year="" month="8" date="15"/>
+        <date year="" month="11" date="1"/>
+        <date year="" month="11" date="11"/>
+        <date year="2005" month="3" date="28"/>
+    </calendars>
+    <tasks color="#8cb6ce">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="préparation" color="#8cb6ce" meeting="false" start="2010-12-27" duration="5" complete="0" priority="1" expand="true">
+            <depend id="1" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="1" name="itération 1" color="#8cb6ce" meeting="false" start="2011-01-03" duration="10" complete="0" priority="1" expand="true">
+            <depend id="3" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="3" name="itération 2" color="#8cb6ce" meeting="false" start="2011-01-17" duration="5" complete="0" priority="1" expand="true">
+            <depend id="2" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="2" name="itération 3" color="#8cb6ce" meeting="false" start="2011-01-24" duration="5" complete="0" priority="1" expand="true">
+            <depend id="4" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="4" name="itération 4" color="#8cb6ce" meeting="false" start="2011-01-31" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="6" name="Documentation papier" color="#8cb6ce" meeting="false" start="2011-01-03" duration="25" complete="0" priority="1" expand="true">
+            <notes><![CDATA[Documentation papier]]></notes>
+        </task>
+    </tasks>
+    <resources>
+        <resource id="0" name="Sébastien FAURE" function="SoftwareDevelopment:2" contacts="" phone=""/>
+        <resource id="1" name="Bertrand GROS" function="SoftwareDevelopment:2" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="0" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="0" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="1" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="3" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="3" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="2" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="2" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="4" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="4" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="75.0"/>
+        <allocation task-id="6" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="25.0"/>
+        <allocation task-id="6" resource-id="1" function="SoftwareDevelopment:2" responsible="true" load="25.0"/>
+    </allocations>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="159"/>
+        <displaycolumn property-id="tpd4" order="1" width="33"/>
+        <displaycolumn property-id="tpd5" order="2" width="33"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
