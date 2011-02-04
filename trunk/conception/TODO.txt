@@ -1,0 +1,18 @@
+1. vérifier le 'public' du getConnexion
+2. trouver une sdolution pour les Logger.machin sur les exceptions
+3. constructeur privé pour un singleton ? (ConnexionBD / MainFrame)
+4. rajouter une sécurité sur l'appuie du valider ? non
+
+4 janvier 2010 :
+matin:      déterminer les tables de la base
+            faire des getEntries prenant un id de session etc... pour consulter les réponses.
+            faire l'interface graphique de l'apppli (swing).
+apres-midi: questionnnaires google
+
+
+5. Faire les DTD + ajouter entetes XML
+6. Inclure le jar dans le jar
+
+penser à virer les traces console de debug
+
+gérer une image des.gif générale
