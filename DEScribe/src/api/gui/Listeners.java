@@ -37,6 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import api.utils.DirFileFilter;
+import api.utils.LaunchProjectPage;
 import api.utils.LaunchReportPage;
 import api.utils.UrlHelper;
 import api.utils.getOs;
@@ -179,6 +180,8 @@ public class Listeners implements ActionListener, WindowListener {
             AskFrame.getTheFrame().showTheFrame();
         } else if (s.equals(TaskTrayMenu.ReportItemLabel)) {
             LaunchReportPage.LaunchPage();
+        } else if (s.equals(TaskTrayMenu.VisitUsItemLabel)) {
+            LaunchProjectPage.LaunchPage();
         } else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
             DBConnexion conn = DBConnexion.getConnexion();
             try {
