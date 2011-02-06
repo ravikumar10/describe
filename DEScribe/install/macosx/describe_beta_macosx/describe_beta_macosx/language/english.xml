@@ -165,7 +165,7 @@
 	</string>	
 	<string>
 		<ref>SessionFrame.importQuestionsSetBtFromUrl</ref>
-		<value>From XML file's URL</value>
+		<value>From an URL</value>
 	</string>	
 	<string>
 		<ref>SessionFrame.importQuestionsSetBtFromComputer</ref>
@@ -177,7 +177,7 @@
 	</string>			
 	<string>
 		<ref>SessionFrame.importQuestionsSetStr</ref>
-		<value>Please choose a question set import mod</value>
+		<value>Please choose a question set import mode</value>
 	</string>		
 	<string>
 		<ref>SessionFrame.importQuestionsSetTitle</ref>
@@ -213,7 +213,7 @@
 	</string>	
 	<string>
 		<ref>SessionFrame.labelStatusActive</ref>
-		<value>ACTIVE!</value>
+		<value>ACTIVE</value>
 	</string>	
 	<string>
 		<ref>SessionFrame.labelStatusPaused</ref>
@@ -223,7 +223,15 @@
 		<ref>SessionFrame.labelStatusClosed</ref>
 		<value>CLOSED!</value>
 	</string>
-
+	<string>
+		<ref>SessionFrame.noAnswers</ref>
+		<value>No answers recorded for this session.</value>
+	</string>
+	<string>
+		<ref>SessionFrame.noOldSessions</ref>
+		<value>No old sessions yet.</value>
+	</string>
+	
 	<!-- QuestionFrame -->
 	<string>
 		<ref>QuestionFrame.appTitle</ref>
@@ -269,6 +277,22 @@
 		<ref>TaskTrayMenu.AboutItemLabel</ref>
 		<value>About DEScribe...</value>
 	</string>
+	<string>
+		<ref>TaskTrayMenu.ReportItemLabel</ref>
+		<value>Report a bug</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.VisitUsItemLabel</ref>
+		<value>Visit us</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.AboutItemBtProjectPage</ref>
+		<value>Visit DEScribe's web page</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.OKAbout</ref>
+		<value>OK</value>
+	</string>		
 	<string>
 		<ref>TaskTrayMenu.strVersion</ref>
 		<value>Version</value>
