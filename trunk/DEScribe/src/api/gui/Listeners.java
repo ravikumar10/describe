@@ -201,7 +201,7 @@ public class Listeners implements ActionListener, WindowListener {
 
             // les textes figurant sur les boutons
 
-            String lesTextes[]={ Lang.getLang().getValueFromRef("TaskTrayMenu.OKAbout"), Lang.getLang().getValueFromRef("TaskTrayMenu.VisitUsItemLabel") };
+            String lesTextes[]={ Lang.getLang().getValueFromRef("TaskTrayMenu.OKAbout"), Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemBtProjectPage") };
 
             int  retour  = // indice du bouton qui a été cliqué ou CLOSED_OPTION
 
