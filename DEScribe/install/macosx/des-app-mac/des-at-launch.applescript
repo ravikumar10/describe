@@ -1,0 +1,6 @@
+tell application "System Events"
+	get exists login item "des-application"
+	if result is false then
+		make new login item at end of login items with properties {path:"/Applications/des-application/des-application.jar", hidden:true, kind:application, name:"des-application"}
+	end if
+end tell
