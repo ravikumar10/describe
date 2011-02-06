@@ -206,12 +206,10 @@ public class Listeners implements ActionListener, WindowListener {
             int retour = JOptionPane.showConfirmDialog(AskFrame.getTheFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 try {
-                    // Cloture de la session courante
-                    SessionFrame.getFrame().resetChrono();
-                    SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
 
 
-                    int ret = JOptionPane.showConfirmDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strFormChoiceForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameFormChoiceForNewSession"), JOptionPane.YES_NO_OPTION);
+
+                    int ret = JOptionPane.showConfirmDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strFormChoiceForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameFormChoiceForNewSession"), JOptionPane.YES_NO_CANCEL_OPTION);
                     if (ret == 0) {
                         try {
                             // form.xml
@@ -221,6 +219,9 @@ public class Listeners implements ActionListener, WindowListener {
                         }
                         // Initialisation de la nouvelle session
                         String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
+                        // Cloture de la session courante
+                        SessionFrame.getFrame().resetChrono();
+                        SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante()); 
                         if (!nom.equals("")) {
                             SessionManager.getSessionManager().createSession(nom);
                             SessionFrame.getFrame().RefreshFrame();
@@ -230,7 +231,7 @@ public class Listeners implements ActionListener, WindowListener {
                         }
                         // Création terminée
                         javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strSessionCreationSuccess"));
-                    } else {
+                    } else if (ret == 1){
                         String[] liste = {Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetBtFromUrl"), Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetBtFromComputer"), Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetBtCancel")};
                         JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
 
@@ -252,6 +253,9 @@ public class Listeners implements ActionListener, WindowListener {
                                     javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strQuestionsSetLoaded"));
                                     // Initialisation de la nouvelle session
                                     String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
+                                    // Cloture de la session courante
+                                    SessionFrame.getFrame().resetChrono();
+                                    SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
                                     if (!nom.equals("")) {
                                         SessionManager.getSessionManager().createSession(nom);
                                         SessionFrame.getFrame().RefreshFrame();
@@ -288,8 +292,12 @@ public class Listeners implements ActionListener, WindowListener {
                                     // ICI parser le fichier d'options pour mettre le chemin du nouveau fichier a la place de "form.xml"
                                     Utils.setNewFormFile(cheminFichierQuestions);
                                     javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strQuestionsSetLoaded"));
+
                                     // Initialisation de la nouvelle session
                                     String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
+                                    // Cloture de la session courante
+                                    SessionFrame.getFrame().resetChrono();
+                                    SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
                                     if (!nom.equals("")) {
                                         SessionManager.getSessionManager().createSession(nom);
                                         SessionFrame.getFrame().RefreshFrame();

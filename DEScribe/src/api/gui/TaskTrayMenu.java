@@ -91,9 +91,9 @@ public class TaskTrayMenu {
             
             popup.add(configItem);
             popup.add(sessionItem);
-            popup.add(aboutItem);
-            popup.add(reportItem);
             popup.add(visitUsItem);
+            popup.add(reportItem);
+            popup.add(aboutItem);
             popup.add(exitItem);
 
             final TrayIcon trayIcon = new TrayIcon(image, "DEScribe", popup);
