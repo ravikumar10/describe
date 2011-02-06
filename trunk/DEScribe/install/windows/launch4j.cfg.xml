@@ -1,8 +1,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Seb\UCBL\ter\version\projet\des-application\dist\des-application.jar</jar>
-  <outfile>C:\Users\Seb\Desktop\des-application.exe</outfile>
+  <jar>C:\Users\Seb\UCBL\ter\describe\DEScribe.jar</jar>
+  <outfile>C:\Users\Seb\UCBL\ter\describe\DEScribe\install\windows\DEScribe.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir></chdir>
