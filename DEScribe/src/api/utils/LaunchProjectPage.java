@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package api.utils;
 
+import des.Main;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -39,22 +40,21 @@ public class LaunchProjectPage {
     private static Properties sys = null;
     private static String os = null;
     private static Runtime r = null;
-    private static String ReportURL = "http://code.google.com/p/describe/";
 
     public static void LaunchPage() {
         if (getOs.isWindows()) {
             try {
-                Runtime.getRuntime().exec("cmd.exe /c start " + ReportURL);
+                Runtime.getRuntime().exec("cmd.exe /c start " + Main.projectPage);
             } catch (Exception e) {
             }
         } else if (getOs.isMac()) {
             try {
-                Runtime.getRuntime().exec(new String[]{"open", ReportURL});
+                Runtime.getRuntime().exec(new String[]{"open", Main.projectPage});
             } catch (IOException ex) {
                 Logger.getLogger(LaunchReportPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(null, "Rendez-vous sur la page :\n"+ReportURL);
+            javax.swing.JOptionPane.showMessageDialog(null, "Rendez-vous sur la page :\n"+Main.projectPage);
         }
     } //end LaunchPage$
 } //end LaunchReportPage

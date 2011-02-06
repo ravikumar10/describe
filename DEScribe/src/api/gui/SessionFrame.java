@@ -63,7 +63,7 @@ import model.SessionManager;
  * @description Session management frame
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
  * @author Bertrand Gros    <gros.bertrand@gmail.com>
- * @version 2011-01-29
+ * @version 2011-02-06
  */
 public class SessionFrame extends JFrame {
 
@@ -71,11 +71,6 @@ public class SessionFrame extends JFrame {
     static protected SessionFrame sf = null;
 
     private List c;
-    /*private Label lbSessions;
-    private Label lbnbsession;
-    private Label sessioncourante;
-    private Label lbinvitChoixSession;
-    private Label lbinvitChoixDateDelay;*/
     private JSpinner spinner;
     public static Label lbCurrentSession;
     public static Label lbCurrentSessionName;
@@ -291,6 +286,8 @@ public class SessionFrame extends JFrame {
                     }
                     DBConnexion conn = DBConnexion.getConnexion();
                     txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
+                    if (txtAreaSelectedOldSession.getText().equals(""))
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
 
                 }
             }
@@ -330,7 +327,10 @@ public class SessionFrame extends JFrame {
         }
 
 
-
+            if (txtAreaSelectedOldSession.getText().equals(""))
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+            if (txtAreaCurrentSession.getText().equals(""))
+                        txtAreaCurrentSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
 
         JPanel panelOK = new JPanel();
         btOk= new JButton(labelBtOk);
@@ -402,7 +402,11 @@ public class SessionFrame extends JFrame {
                 } else {
                     lbWarningUnexported.setVisible(false);
                 }
+            } else {
+                // Pas de sessions passées
+                c.add(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"));
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -448,7 +452,15 @@ public class SessionFrame extends JFrame {
             txtAreaCurrentSession.setText(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante()));
             if (getSessionSelectionnee()!=null){
                     txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
+                    if (txtAreaSelectedOldSession.getText().equals(""))
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+            } else {
+                        txtAreaSelectedOldSession.setText("");
             }
+            if (txtAreaCurrentSession.getText().equals(""))
+                    txtAreaCurrentSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+
+
         } catch (SQLException ex) {
             Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
         }
