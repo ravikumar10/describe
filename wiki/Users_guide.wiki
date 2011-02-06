@@ -1,0 +1,40 @@
+#summary All you need to know about DEScribe's use.
+#labels Phase-Deploy
+
+= Introduction =
+
+Information about DEScribe according to your operating system.
+
+
+= About DEScribe =
+- DEScribe is a new open source java application for Discrete Experience Sampling (DES). Launched in background, questions (loaded from an XML file form) will be asked to user and answers will be collected in order to export them (to XML file) and send them to an experimenter who will be able to analyze them.<br />
+
+- A set of questions and their answers represents what is here called "session". A session can be created, consulted, exported to XML, paused or closed.<br />
+
+<br />http://des-application.googlecode.com/files/AskFrameCapture.JPG<br />
+= MAC OS X =
+
+- <b>How to install DEScribe:</b><br />
+1. Launch DEScribe_beta_macosx.pkg and follow installer's instructions.<br />
+2. DEScribe will now automatically get launched at user's logging.<br /><br />
+
+- <b>How to uninstall DEScribe:</b><br />
+1. Launch remove-des-at-launch.app located in DEScribe/login_item/ directory in order to remove DEScribe from user's login item list (applications launched automatically when user gets logged).<br />
+2. Delete des-application directory (/Applications/DEScribe).<br /><br />
+
+= WINDOWS =
+- <b>How to install DEScribe:</b><br />
+1. Launch DEScribe_beta_windows installer and follow installer's instructions<br />
+2. DEScribe will now automatically get launched at user's logging.<br /><br />
+
+= LINUX =
+- <b>How to install DEScribe:</b><br />
+Compile java project from svn. Then add application to your starting at login process list according to your linux distribution.<br />
+
+= How to send us new languages for DEScribe =
+- Feel free to submit us new language files so we can add a new language to the application. To proceed, copy a file from directory "language" in DEScribe directory and translate it then rename it "yourlanguage.xml".<br />
+
+= Contacts =
+Sebastien Faure <sebastien.faure3@gmail.com><br />
+Bertrand Gros 	<gros.bertrand@gmail.com><br />
+Yannick Prié 	<yannick.prie@univ-lyon1.fr><br />
