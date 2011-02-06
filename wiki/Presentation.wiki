@@ -1,10 +1,13 @@
-#summary DES-Application summary
+#summary DEScribe summary
 #labels Phase-Implementation
 
 = Introduction =
 
 Dans le cadre d'un stage de recherche (TER) de Master Informatique à l'Université Lyon 1, développement d'une application de Discrete Experience Sampling.<br />
 
+<br />
+For complete description please read Designing Report in "Downloads" page.
+<br />
 
 L'objectif du stage est de fabriquer un outil permettant de mener une collecte d'information sur l'expérience vécue d'un utilisateur d'un système informatique classique (système d'exploitation + applications variées). Ce type d'information est notamment utile pour des études portant sur l'interaction homme-machine, associées à d'autres types de traces telles que des logs.<br />
 
@@ -17,7 +20,7 @@ Le stage consistera 1/ à lire quelques articles qui traitent de ce type de coll
 Du moment de l'expérience jusqu'à la récupération des données.<br />
 
 = Modèle du domaine =
-
+http://describe.googlecode.com/files/Domain.png
 
 = Analyse de risques =
 
