@@ -213,7 +213,7 @@
 	</string>	
 	<string>
 		<ref>SessionFrame.labelStatusActive</ref>
-		<value>ACTIVE!</value>
+		<value>ACTIVE</value>
 	</string>	
 	<string>
 		<ref>SessionFrame.labelStatusPaused</ref>
@@ -223,7 +223,15 @@
 		<ref>SessionFrame.labelStatusClosed</ref>
 		<value>CLOSE!</value>
 	</string>
-
+	<string>
+		<ref>SessionFrame.noAnswers</ref>
+		<value>Aucune réponse enregistrée pour cette session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.noOldSessions</ref>
+		<value>Aucune sessions passées</value>
+	</string>	
+	
 	<!-- QuestionFrame -->
 	<string>
 		<ref>QuestionFrame.appTitle</ref>
@@ -271,12 +279,20 @@
 	</string>	
 	<string>
 		<ref>TaskTrayMenu.VisitUsItemLabel</ref>
-		<value>Visitez la page du projet</value>
+		<value>Visiter la page du projet</value>
 	</string>		
 	<string>
 		<ref>TaskTrayMenu.AboutItemLabel</ref>
 		<value>A propos de DEScribe...</value>
 	</string>
+	<string>
+		<ref>TaskTrayMenu.AboutItemBtProjectPage</ref>
+		<value>Visiter la page web de DEScribe</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.OKAbout</ref>
+		<value>OK</value>
+	</string>		
 	<string>
 		<ref>TaskTrayMenu.strVersion</ref>
 		<value>Version</value>

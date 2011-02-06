@@ -180,8 +180,6 @@ public class Listeners implements ActionListener, WindowListener {
             AskFrame.getTheFrame().showTheFrame();
         } else if (s.equals(TaskTrayMenu.ReportItemLabel)) {
             LaunchReportPage.LaunchPage();
-        } else if (s.equals(TaskTrayMenu.VisitUsItemLabel)) {
-            LaunchProjectPage.LaunchPage();
         } else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
             DBConnexion conn = DBConnexion.getConnexion();
             try {
@@ -198,7 +196,22 @@ public class Listeners implements ActionListener, WindowListener {
         } else if ((s.equals(TaskTrayMenu.SessionItemLabel)) || (s.equals(TaskTrayMenu.SessionInPauseItemLabel))) {
             SessionFrame.getFrame().ShowFrame();
         } else if (s.equals(TaskTrayMenu.AboutItemLabel)) {
-            javax.swing.JOptionPane.showMessageDialog(null, Main.appName + "\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strVersion") + " " + Main.version + "\n" + Main.datemaj + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strProjectPage") + ": " + Main.projectPage + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strContacts") + ":\n" + Main.contacts + "\n\n" + Main.cpRight);
+        
+            JOptionPane d = new JOptionPane();
+
+            // les textes figurant sur les boutons
+
+            String lesTextes[]={ Lang.getLang().getValueFromRef("TaskTrayMenu.OKAbout"), Lang.getLang().getValueFromRef("TaskTrayMenu.VisitUsItemLabel") };
+
+            int  retour  = // indice du bouton qui a été cliqué ou CLOSED_OPTION
+
+                 d.showOptionDialog(null, Main.appName + "\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strVersion") + " " + Main.version + "\n" + Main.datemaj + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strProjectPage") + ": " + Main.projectPage + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strContacts") + ":\n" + Main.contacts + "\n\n" + Main.cpRight, Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemLabel"),
+
+JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1]);
+
+                  if( retour== 1) {
+                                LaunchProjectPage.LaunchPage();
+                  }
 
             //Bouton nouvelle session
         } else if (s.equals(SessionFrame.labelBtNewSessionCurrentSession)) {
@@ -347,7 +360,6 @@ public class Listeners implements ActionListener, WindowListener {
                 }
             }
         } else if (s.equals(SessionFrame.labelBtPauseCurrentSession)) {
-            //TimerQuestion.setDateDelay(SessionFrame.getFrame().getDateDelaySelectionnee());
             SessionFrame.getFrame().launchChrono();
         } else if (s.equals(SessionFrame.labelBtRetourDePauseCurrentSession)) {
             //TimerQuestion.resetDateDelay();
@@ -359,8 +371,6 @@ public class Listeners implements ActionListener, WindowListener {
         } else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
             try {
                 SessionManager.getSessionManager().deleteOldSession(SessionFrame.getFrame().getSessionSelectionnee());
-                SessionFrame.getFrame().RefreshFrame();
-                DBConnexion conn = DBConnexion.getConnexion();
                 SessionFrame.getFrame().RefreshFrame();
             } catch (SQLException ex) {
                 Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);

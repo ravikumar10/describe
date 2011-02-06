@@ -49,14 +49,12 @@ public class TaskTrayMenu {
     public static String SessionInPauseItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.SessionInPauseItemLabel");
     public static String AboutItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemLabel");
     public static String ReportItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ReportItemLabel");
-    public static String VisitUsItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.VisitUsItemLabel");
     public static MenuItem showItem;
     public static MenuItem exitItem;
     public static MenuItem configItem;
     public static MenuItem sessionItem;
     public static MenuItem aboutItem;
     public static MenuItem reportItem;
-    public static MenuItem visitUsItem;
 
     public TaskTrayMenu() {
 
@@ -85,13 +83,9 @@ public class TaskTrayMenu {
 
             reportItem = new MenuItem(ReportItemLabel);
             reportItem.addActionListener(Listeners.getListeners());
-
-            visitUsItem = new MenuItem(VisitUsItemLabel);
-            visitUsItem.addActionListener(Listeners.getListeners());
             
             popup.add(configItem);
             popup.add(sessionItem);
-            popup.add(visitUsItem);
             popup.add(reportItem);
             popup.add(aboutItem);
             popup.add(exitItem);
@@ -127,7 +121,6 @@ public class TaskTrayMenu {
         SessionInPauseItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.SessionInPauseItemLabel");
         AboutItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemLabel");
         ReportItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ReportItemLabel");
-        VisitUsItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.VisitUsItemLabel");
         //For debug only
          showItem.setLabel(Lang.getLang().getValueFromRef("TaskTrayMenu.ShowItemLabel"));
         
@@ -138,6 +131,5 @@ public class TaskTrayMenu {
         aboutItem.setLabel(Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemLabel"));
 
         reportItem.setLabel(Lang.getLang().getValueFromRef("TaskTrayMenu.ReportItemLabel"));
-        visitUsItem.setLabel(Lang.getLang().getValueFromRef("TaskTrayMenu.VisitUsItemLabel"));
     }
 }
