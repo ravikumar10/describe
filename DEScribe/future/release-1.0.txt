@@ -1,0 +1,26 @@
+== IMPROVEMENTS ===
+
+01. Revoir les sons.
+	> Le bip système n'est pas forcément le plus adapté,
+	> voir comment charger un wav plus 'doux'.
+	
+02. Travail sur les icônes.
+	> Idée d'une icône du 'systemTray' qui change selon
+	> l'état de la session.
+	
+03. Optimisation du code.
+	> Certaines parties du code méritent d'être revue :
+	> exemple des 'listenners', etc.
+	
+04. Revoir le nom des bouttons.
+	> Certains bouttons pourraient avoir un label qui
+	> décrive leurs actions plus clairement.
+	
+05. Certaines classes inutiles devront disparaître.
+
+06. Créer la doc utilisateur sur le wiki.
+	
+=== BUGS ===
+
+01. Les paramètres par defaut de l'install sont différents
+	de la configuration 'retour aux paramètres par defaut'.
