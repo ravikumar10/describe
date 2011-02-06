@@ -1,9 +1,6 @@
 <!-- ajouter une DTD -->
 <questions>
 	<question type="open">
-		A quoi pensiez-vous ?
-	</question>
-	<question type="open">
-		Qui etes vous ?
+		What was your experience ?
 	</question>
 </questions>
