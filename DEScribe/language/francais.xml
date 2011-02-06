@@ -266,6 +266,14 @@
 		<value>Sessions</value>
 	</string>
 	<string>
+		<ref>TaskTrayMenu.ReportItemLabel</ref>
+		<value>Signaler un bug</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.VisitUsItemLabel</ref>
+		<value>Visitez la page du projet</value>
+	</string>		
+	<string>
 		<ref>TaskTrayMenu.AboutItemLabel</ref>
 		<value>A propos de DEScribe...</value>
 	</string>

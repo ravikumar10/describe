@@ -270,6 +270,14 @@
 		<value>About DEScribe...</value>
 	</string>
 	<string>
+		<ref>TaskTrayMenu.ReportItemLabel</ref>
+		<value>Report a bug</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.VisitUsItemLabel</ref>
+		<value>Visit us</value>
+	</string>	
+	<string>
 		<ref>TaskTrayMenu.strVersion</ref>
 		<value>Version</value>
 	</string>	
