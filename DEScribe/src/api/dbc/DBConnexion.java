@@ -77,8 +77,8 @@ public class DBConnexion {
             this.conn = DriverManager.getConnection(nomDeLaBase);
             Statement stat = conn.createStatement();
             // stat.executeUpdate("create table if not exists entries (question, reponse,instant);");
-            stat.executeUpdate("create table if not exists entries (question,reponse,instant,session);");
-            stat.executeUpdate("create table if not exists session (idsession,datedebut,datefin,active,nom,dateexport);");
+            stat.executeUpdate("create table if not exists entries (question,reponse,instant,session INTEGER);");
+            stat.executeUpdate("create table if not exists session (idsession INTEGER,datedebut,datefin,active,nom,dateexport);");
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -110,8 +110,8 @@ public class DBConnexion {
             stat.executeUpdate("drop table if exists entries;");
             //stat.executeUpdate("create table entries (question, reponse, instant);");
             stat.executeUpdate("drop table if exists session;");
-            stat.executeUpdate("create table entries (question, reponse, instant,session);");
-            stat.executeUpdate("create table session (idsession,datedebut,datefin,active,nom,dateexport);"); //ajouter le nom
+            stat.executeUpdate("create table entries (question, reponse, instant,session INTEGER);");
+            stat.executeUpdate("create table session (idsession INTEGER,datedebut,datefin,active,nom,dateexport);"); //ajouter le nom
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }

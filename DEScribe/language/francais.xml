@@ -229,7 +229,7 @@
 	</string>
 	<string>
 		<ref>SessionFrame.noOldSessions</ref>
-		<value>Aucune sessions passées</value>
+		<value>Aucune session passée</value>
 	</string>	
 	
 	<!-- QuestionFrame -->

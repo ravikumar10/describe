@@ -277,6 +277,10 @@ public class SessionFrame extends JFrame {
 
             public void itemStateChanged(ItemEvent ie) {
                 if (ie.getStateChange() == ItemEvent.SELECTED) {
+                    if (c.getSelectedItem().equals(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"))) {
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+                        lbWarningUnexported.setVisible(false);
+                    } else {
                     if (getSessionSelectionnee().getLastExport() == null) {
                         lbWarningUnexported.setVisible(true);
                         //SessionFrame.getFrame().pack();
@@ -289,6 +293,7 @@ public class SessionFrame extends JFrame {
                     if (txtAreaSelectedOldSession.getText().equals(""))
                         txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
 
+                    }
                 }
             }
         });
@@ -405,6 +410,7 @@ public class SessionFrame extends JFrame {
             } else {
                 // Pas de sessions passées
                 c.add(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"));
+                txtAreaSelectedOldSession.setText("SessionFrame.noAnswers");
             }
 
         } catch (SQLException ex) {
@@ -460,7 +466,8 @@ public class SessionFrame extends JFrame {
             if (txtAreaCurrentSession.getText().equals(""))
                     txtAreaCurrentSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
 
-
+            if (txtAreaSelectedOldSession.getText().equals(""))
+                    txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
         } catch (SQLException ex) {
             Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
         }
