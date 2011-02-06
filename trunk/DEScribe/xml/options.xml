@@ -3,5 +3,5 @@
 	<form url="xml\form.xml"/>
 	<freq value="0"/>
 	<sound on="true"/>
-	<lang value="francais"/>
+	<lang value="english"/>
 </options>
