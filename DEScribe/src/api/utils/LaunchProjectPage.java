@@ -27,6 +27,13 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Class LaunchProjectPage.java
+ * @description Open DEScribe's web page in user's browser
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @author Bertrand Gros    <gros.bertrand@gmail.com>
+ * @version 2011-02-06
+ */
 public class LaunchProjectPage {
 
     private static Properties sys = null;
