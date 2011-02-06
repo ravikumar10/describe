@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Launch remove-des-at-launch.app
+
+open /Applications/des-application/des-app-mac/remove-des-at-launch.app
+
+exit 0
