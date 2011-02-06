@@ -171,7 +171,7 @@ public class Listeners implements ActionListener, WindowListener {
 
             }
         } else if (s.equals(TaskTrayMenu.ExitItemLabel)) {
-            int retour = JOptionPane.showConfirmDialog(AskFrame.getTheFrame(), Lang.getLang().getValueFromRef("SessionFrame.strReallyQuit"), Lang.getLang().getValueFromRef("SessionFrame.strFrameTitleReallyQuit"), JOptionPane.OK_CANCEL_OPTION);
+            int retour = JOptionPane.showConfirmDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strReallyQuit"), Lang.getLang().getValueFromRef("SessionFrame.strFrameTitleReallyQuit"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 DBConnexion.getConnexion().closeBDLink();
                 System.exit(0);
