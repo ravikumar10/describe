@@ -40,7 +40,7 @@ import model.SessionManager;
 public class Main {
 
     public static String version = "beta";
-    public static String datemaj = "2011-02-041";
+    public static String datemaj = "2011-02-06";
     public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nBertrand Gros<gros.bertrand@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://code.google.com/p/describe";
