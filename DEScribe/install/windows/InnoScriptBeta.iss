@@ -29,7 +29,7 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
 [Files]
 Source: "C:\Users\Beber\Desktop\windows\DEScribe.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Beber\Desktop\windows\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Beber\Desktop\windows\data"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\Beber\Desktop\windows\language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\Beber\Desktop\windows\media\*"; DestDir: "{app}\media"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\Beber\Desktop\windows\xml\*"; DestDir: "{app}\xml"; Flags: ignoreversion recursesubdirs createallsubdirs
