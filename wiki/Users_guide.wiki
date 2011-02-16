@@ -15,6 +15,7 @@ Information about DEScribe according to your operating system.
 <br />http://des-application.googlecode.com/files/SessionFrame.JPG<br />
 <br />http://des-application.googlecode.com/files/OptionFrame.JPG<br />
 <br />
+
 = MAC OS X =
 
 - <b>How to install DEScribe:</b><br />
