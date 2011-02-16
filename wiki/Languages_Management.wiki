@@ -10,15 +10,15 @@ This page shows how to make and submit us your own languages XML files to add ne
 - DEScribe's language files are located in "language" directory of DEScribe's folder.<br />
 
 = Contents =
-Each XML language file contains the same number of "strings" elements associating a reference of a string to display in DEScribe and its translation in the current language. Reference is not choosen randomly but respects the following pattern :"JavaClassName(dot)VariableName", so it is easier to call the getValueFromRef(ref) in source code.
+Each XML language file contains the same number of "strings" elements associating a reference of a string to display in DEScribe and its translation in the current language. Reference is not choosen randomly but respects the following pattern :"JavaClassName.VariableName", so it is easier to call the getValueFromRef(ref) in source code.
 
 <br />
 For instance, you will find in english.xml the following "string" element :<br />
 	<string>
-		<ref>SessionFrame(dot)strQuestionsSetLoaded</ref>
+		<ref>SessionFrame.strQuestionsSetLoaded</ref>
 		<value>Questions successfully loaded!</value>
 	</string> 
-<br />Comment : Here,SessionFrame(dot)strQuestionsSetLoaded reference is associated to the effective string "Questions successfully loaded!".
+<br />Comment : Here,SessionFrame.strQuestionsSetLoaded reference is associated to the effective string "Questions successfully loaded!".
 In source code, to get the effective translated string, just use method getValueFromRef("SessionFrame.strQuestionsSetLoaded").
 
 = How it works =
