@@ -10,7 +10,7 @@ Contents of DEScribe's XML files
 - DEScribe's XML files are located in "xml" directory of DEScribe's folder.<br />
 
 = List of files =
-Two files at the moment :
+Two files at the moment :<br />
 - form.xml : contains default question set.<br />
 <questions>
 	<question type="open">
@@ -27,8 +27,3 @@ More types can be added later...<br />
 	<sound on="true"/>
 	<lang value="english"/>
 </options><br />
-
-= Contacts =
-Sebastien Faure <sebastien.faure3@gmail.com><br />
-Bertrand Gros 	<gros.bertrand@gmail.com><br />
-Yannick Prié 	<yannick.prie@univ-lyon1.fr><br />
