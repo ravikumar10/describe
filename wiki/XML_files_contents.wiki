@@ -20,7 +20,7 @@ Two files at the moment :<br />
 "questions" node contains a lists of "question" which value is the question itself. "type" attribute determinates rather question is "open" (answer free to be keyed in) or "mcq" (multiple choice question). "mcq" type questions contain "choice" nodes which values are answer choices.<br />
 More types can be added later...<br />
 
-- options.xml : DEScribe configuration : question set path, question frequency, sound mode (enabled/disabled),selected language.
+- options.xml : DEScribe's settings: question set path (default is form.xml), question frequency, sound mode (enabled/disabled),selected language.
 <options>
 	<form url="xml\form.xml"/>
 	<freq value="0"/>
