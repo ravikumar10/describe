@@ -56,7 +56,7 @@ public class TimerQuestion {
     int coeffSlow = 1;
     int coeffSpeed = 3;
     int coeffCurrent = coeffSlow;
-    // Plage de tirage d'attente avant la prochaine question : 1h.
+    // Time before next question range : random int will be choosen between min and max. It's the time in seconds before asking next question.
     int min = 0, max = 3600000;
     TimerTask tache;
     static Date dateDeReprise;
