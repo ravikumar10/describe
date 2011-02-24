@@ -11,9 +11,9 @@ Information about DEScribe according to your operating system.
 
 - A set of questions and their answers represents what is here called "session". A session can be created, consulted, exported to XML, paused or closed.<br />
 
-<br />http://des-application.googlecode.com/files/AskFrameCapture.JPG<br />
-<br />http://des-application.googlecode.com/files/SessionFrame.jpg<br />
-<br />http://des-application.googlecode.com/files/OptionFrame.jpg<br />
+<br />http://describe.googlecode.com/files/questionFrame.JPG<br />
+<br />http://describe.googlecode.com/files/sessionsFrame.jpg<br />
+<br />http://describe.googlecode.com/files/settingsFrame.jpg<br />
 <br />
 
 = MAC OS X =
