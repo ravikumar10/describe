@@ -7,7 +7,7 @@ Information about DEScribe according to your operating system.
 
 
 = About DEScribe =
-- DEScribe is a new open source java application for Discrete Experience Sampling (DES). Launched in background, questions (loaded from an XML file form) will be asked to user and answers will be collected in order to export them (to XML file) and send them to an experimenter who will be able to analyze them.<br />
+- DEScribe is a new open source java application for Descriptive Experience Sampling (DES). Launched in background, questions (loaded from an XML file form) will be asked to user and answers will be collected in order to export them (to XML file) and send them to an experimenter who will be able to analyze them.<br />
 
 - A set of questions and their answers represents what is here called "session". A session can be created, consulted, exported to XML, paused or closed.<br />
 
