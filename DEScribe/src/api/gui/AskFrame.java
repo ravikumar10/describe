@@ -239,9 +239,9 @@ public class AskFrame extends GenericFrame {
                     Action s = it.next();
                     if (s instanceof ActionScreenshot) {
                         // TODO : ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"reponse"db.getMaxIdReponse()+);
-                       ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"_reponse"+conn.getMaxIdReponseBySession(sm.getSessionCourante())+"_screenshot");
+                        Long t =conn.getMaxIdReponseBySession(sm.getSessionCourante())+1;
+                       ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"_reponse"+t+"_screenshot");
                         absoluteScreenshotFilePath = ((ActionScreenshot) s).getAbsFileName();
-                        System.out.println("HERE!");
                     }
                 }
             } catch (Exception ex) {
@@ -263,6 +263,7 @@ public class AskFrame extends GenericFrame {
                 DBConnexion conn = DBConnexion.getConnexion();
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
+
                 Reponse rep = new Reponse(AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                 conn.newAddEntry(rep);
                 AskFrame.setText2("");

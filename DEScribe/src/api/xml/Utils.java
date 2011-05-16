@@ -25,6 +25,7 @@ package api.xml;
 import api.gui.OptionFrame;
 import api.utils.getOs;
 import exceptions.BadXMLFileException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,10 +36,12 @@ import model.Question;
 import model.Reponse;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -250,7 +253,12 @@ public class Utils {
             fw.write(r.getInstant().toString());
             fw.write("</timecode>\n");
 
+            fw.write("\t\t<screenshot>");
+            fw.write(r.getScreenshot());
+            fw.write("</screenshot>\n");
+
             fw.write("\t</reponse>\n");
+
 
 
         }
@@ -613,5 +621,48 @@ public class Utils {
 
     }
 
+    public static boolean isPriorityProgramRunningOSWin(String process){
+        List<String> processes = new ArrayList<String>();
+        try {
+            String line;
+            Process p = Runtime.getRuntime().exec("tasklist.exe /nh");
+            BufferedReader input = new BufferedReader
+            (new InputStreamReader(p.getInputStream()));
+            while ((line = input.readLine()) != null) {
+            if (!line.trim().equals("")) {
+            // keep only the process name
+                System.out.println(line.substring(0, line.indexOf(" ")));
+                if (line.indexOf(process)>=0) {
+                    return true;
+                }
+                processes.add(line.substring(0, line.indexOf(" ")));
+            }
 
+            }
+            input.close();
+        }
+        catch (Exception err) {
+            err.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isPriorityProgramRunningOSMacLinux(String process){
+    String command="ps -A -U "+System.getProperty("user.name")+" -d";
+    try {
+      String line;
+      Process p = Runtime.getRuntime().exec(command);
+      BufferedReader input =new BufferedReader(new InputStreamReader(p.getInputStream()));
+      while ((line = input.readLine()) != null) {
+        System.out.println(line);
+        if (line.indexOf(process)>0){
+            return true;
+        }
+      }
+      input.close();
+    }catch (Exception err) {
+      err.printStackTrace();
+    }
+return false;
+    }
 }
