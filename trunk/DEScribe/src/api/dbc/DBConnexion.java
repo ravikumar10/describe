@@ -205,7 +205,7 @@ public class DBConnexion {
 
             while (rs.next()) {
                 try {
-                    lesReponses.add(new Reponse(rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant"))));
+                    lesReponses.add(new Reponse(rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), rs.getString("screenshot")));
                 } catch (ParseException ex) {
                     Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -427,7 +427,8 @@ public class DBConnexion {
             prep.setString(5, rep.getScreenshot());
 
             // PROBLEME ICI
-            prep.setString(6, ""+getMaxIdReponseBySession(rep.getSession()));
+            Long t = getMaxIdReponseBySession(rep.getSession())+1;
+            prep.setString(6, ""+t);
             prep.addBatch();
             conn.setAutoCommit(false);
             prep.executeBatch();
@@ -558,17 +559,13 @@ public class DBConnexion {
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-
-             ResultSet rs0 = stat.executeQuery("select count(*) from entries;");
+             ResultSet rs0 = stat.executeQuery("select count(*) from entries where session=\""+s.getId()+"\";");
             while (rs0.next()){
-                System.out.println(Integer.parseInt(rs0.getString(1)));
                 if (Integer.parseInt(rs0.getString(1))==0){
                     return Long.parseLong("0");
                 }
             }
-
-            ResultSet rs = stat.executeQuery("select max(idreponse) from entries;");
+            ResultSet rs = stat.executeQuery("select max(idreponse) from entries where session=\""+s.getId()+"\";");
 
             while (rs.next()) {
                     idmax=Long.parseLong(rs.getString(1));

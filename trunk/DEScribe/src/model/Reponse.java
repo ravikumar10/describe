@@ -68,6 +68,13 @@ public class Reponse {
         this.screenshot=screenCapture;
     }
 
+        public Reponse(String q, String r, Date d, String screenCapture){
+        this.intituleQuestion = q;
+        this.laReponse = r;
+        this.instant = d;
+        this.screenshot=screenCapture;
+    }
+
     public String getIntituleQuestion(){
         return intituleQuestion;
     }

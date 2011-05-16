@@ -28,6 +28,7 @@ import api.dbc.DBConnexion;
 import api.gui.AskFrame;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
+import api.xml.Utils;
 import java.sql.SQLException;
 import model.SessionManager;
 
@@ -79,6 +80,11 @@ public class Main {
             timr.chrono();
 
             //DEBUG
+            if (Utils.isPriorityProgramRunningOSWin("POWERP")){
+                System.out.println("RUNNING");
+            } else {
+                System.out.println("NOT RUNNING");
+            }
             AskFrame.getTheFrame().showTheFrame();
         }
 
