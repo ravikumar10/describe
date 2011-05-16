@@ -42,6 +42,9 @@ public class Reponse {
 
     Session session;
 
+    String screenshot;
+
+
      public Reponse(String q, String r, Date d){
         this.intituleQuestion = q;
         this.laReponse = r;
@@ -54,6 +57,15 @@ public class Reponse {
         this.laReponse = r;
         this.instant = d;
         this.session = s;
+        this.screenshot="";
+    }
+
+    public Reponse(String q, String r, Date d, Session s, String screenCapture){
+        this.intituleQuestion = q;
+        this.laReponse = r;
+        this.instant = d;
+        this.session = s;
+        this.screenshot=screenCapture;
     }
 
     public String getIntituleQuestion(){
@@ -70,6 +82,10 @@ public class Reponse {
 
     public Session getSession(){
         return session;
+    }
+
+    public String getScreenshot() {
+        return screenshot;
     }
 
 }

@@ -25,6 +25,7 @@ package des;
 import api.time.TimerQuestion;
 import api.utils.UniqueInstance;
 import api.dbc.DBConnexion;
+import api.gui.AskFrame;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import java.sql.SQLException;
@@ -76,6 +77,9 @@ public class Main {
             OptionFrame.getOptionFrame();
             TimerQuestion timr = new TimerQuestion();
             timr.chrono();
+
+            //DEBUG
+            AskFrame.getTheFrame().showTheFrame();
         }
 
 

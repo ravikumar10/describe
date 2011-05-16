@@ -77,8 +77,8 @@ public class DBConnexion {
             this.conn = DriverManager.getConnection(nomDeLaBase);
             Statement stat = conn.createStatement();
             // stat.executeUpdate("create table if not exists entries (question, reponse,instant);");
-            stat.executeUpdate("create table if not exists entries (question,reponse,instant,session INTEGER);");
-            stat.executeUpdate("create table if not exists session (idsession INTEGER,datedebut,datefin,active,nom,dateexport);");
+            stat.executeUpdate("create table if not exists entries (question,reponse,instant,session,screenshot,idreponse);");
+            stat.executeUpdate("create table if not exists session (idsession,datedebut,datefin,active,nom,dateexport);");
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -89,7 +89,7 @@ public class DBConnexion {
     /**
      * METHODES PROPRES
      */
-    
+
     /**
      * methode de récupération de singleton de connexion à la base
      * @return l'instance unique de connexion ou une erreurs
@@ -110,8 +110,8 @@ public class DBConnexion {
             stat.executeUpdate("drop table if exists entries;");
             //stat.executeUpdate("create table entries (question, reponse, instant);");
             stat.executeUpdate("drop table if exists session;");
-            stat.executeUpdate("create table entries (question, reponse, instant,session INTEGER);");
-            stat.executeUpdate("create table session (idsession INTEGER,datedebut,datefin,active,nom,dateexport);"); //ajouter le nom
+            stat.executeUpdate("create table entries (question, reponse, instant,session,screenshot,idreponse);");
+            stat.executeUpdate("create table session (idsession,datedebut,datefin,active,nom,dateexport);"); //ajouter le nom
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -149,7 +149,7 @@ public class DBConnexion {
 
             while (rs.next()) {
                 try {
-                    lesReponses.add(new Reponse(rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), getSessionById(Long.parseLong(rs.getString("session")))));
+                    lesReponses.add(new Reponse(rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), getSessionById(Long.parseLong(rs.getString("session"))),rs.getString("screenshot")));
                 } catch (ParseException ex) {
                     Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -164,7 +164,7 @@ public class DBConnexion {
 
     public ArrayList<Reponse> getEntries() {
         ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
-        
+
         try {
             Statement stat = null;
             try {
@@ -192,7 +192,7 @@ public class DBConnexion {
 
     public ArrayList<Reponse> getEntriesBySession(Session se) {
         ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
-        
+
         try {
             Statement stat = null;
             try {
@@ -419,11 +419,15 @@ public class DBConnexion {
 
     public void newAddEntry(Reponse rep) {
         try {
-            PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?, ?);");
+            PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?, ?, ?, ?);");
             prep.setString(1, rep.getIntituleQuestion());
             prep.setString(2, rep.getLaReponse());
             prep.setString(3, rep.getInstant().toString());
             prep.setString(4, ""+rep.getSession().getId());
+            prep.setString(5, rep.getScreenshot());
+
+            // PROBLEME ICI
+            prep.setString(6, ""+getMaxIdReponseBySession(rep.getSession()));
             prep.addBatch();
             conn.setAutoCommit(false);
             prep.executeBatch();
@@ -480,7 +484,7 @@ public class DBConnexion {
                 prep.setString(5, "null");
             } else {
                 prep.setString(5, s.getLastExport().toString());
-            }           
+            }
             prep.addBatch();
             conn.setAutoCommit(false);
             prep.executeBatch();
@@ -520,7 +524,12 @@ public class DBConnexion {
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            ResultSet rs0 = stat.executeQuery("select count(*) from session;");
+            while (rs0.next()){
+                if (Integer.parseInt(rs0.getString(1))==0){
+                    return Long.parseLong("0");
+                }
+            }
             ResultSet rs = stat.executeQuery("select max(idsession) from session;");
 
             while (rs.next()) {
@@ -535,7 +544,43 @@ public class DBConnexion {
 
     }
 
+    /**
+     * Retourne le plus grand identifiant de réponse pour une session
+     * @return
+     */
+    public Long getMaxIdReponseBySession(Session s) {
+        Long idmax = Long.parseLong("0");
 
+        try {
+            Statement stat = null;
+            try {
+                stat = conn.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+             ResultSet rs0 = stat.executeQuery("select count(*) from entries;");
+            while (rs0.next()){
+                System.out.println(Integer.parseInt(rs0.getString(1)));
+                if (Integer.parseInt(rs0.getString(1))==0){
+                    return Long.parseLong("0");
+                }
+            }
+
+            ResultSet rs = stat.executeQuery("select max(idreponse) from entries;");
+
+            while (rs.next()) {
+                    idmax=Long.parseLong(rs.getString(1));
+            }
+            rs.close();
+            return idmax;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
      /**
      * Met a jour la session s dans la base
      * @param s la session

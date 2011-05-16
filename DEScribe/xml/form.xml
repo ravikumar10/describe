@@ -3,4 +3,7 @@
 	<question type="open">
 		What was your experience ?
 	</question>
+	<actions>
+		<action type="screenshot"/>
+	</actions>
 </questions>
