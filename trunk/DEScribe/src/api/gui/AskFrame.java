@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -53,6 +54,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.xml.parsers.ParserConfigurationException;
+import model.Action;
+import model.ActionScreenshot;
 import model.Question;
 import model.Reponse;
 import model.SessionManager;
@@ -72,6 +75,9 @@ public class AskFrame extends GenericFrame {
     public static String labelButtonValider = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonValider");
     public static String helpCtrlMaj = Lang.getLang().getValueFromRef("QuestionFrame.helpCtrlMaj");
     public static String appTitle = Lang.getLang().getValueFromRef("QuestionFrame.appTitle");
+
+    /** Full screenshot file name **/
+    private String absoluteScreenshotFilePath="";
 
     private static class interiorPanel extends JPanel {
 
@@ -94,7 +100,7 @@ public class AskFrame extends GenericFrame {
             jpUp.add(logo);
             jpUp.add(this.firstTextField());
             jpUp.setBackground(Color.white);
-           
+
             this.add(jpUp, BorderLayout.NORTH);
             this.add(this.secondTextField(), BorderLayout.CENTER);
             this.add(this.ButtonsRow(), BorderLayout.SOUTH);
@@ -221,7 +227,29 @@ public class AskFrame extends GenericFrame {
 
             appTitle = Lang.getLang().getValueFromRef("QuestionFrame.appTitle");
             this.setTitle(appTitle);
-            
+
+            ArrayList<Action> lesActions = new ArrayList<Action>();
+            lesActions = Utils.importFormActionsXML();
+            // For each action execute it
+
+            try{
+                DBConnexion conn = DBConnexion.getConnexion();
+                SessionManager sm = SessionManager.getSessionManager();
+                for (Iterator<Action> it = lesActions.iterator(); it.hasNext();) {
+                    Action s = it.next();
+                    if (s instanceof ActionScreenshot) {
+                        // TODO : ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"reponse"db.getMaxIdReponse()+);
+                       ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"_reponse"+conn.getMaxIdReponseBySession(sm.getSessionCourante())+"_screenshot");
+                        absoluteScreenshotFilePath = ((ActionScreenshot) s).getAbsFileName();
+                        System.out.println("HERE!");
+                    }
+                }
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+
         } catch (BadXMLFileException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -235,7 +263,7 @@ public class AskFrame extends GenericFrame {
                 DBConnexion conn = DBConnexion.getConnexion();
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
-                Reponse rep = new Reponse(AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante());
+                Reponse rep = new Reponse(AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                 conn.newAddEntry(rep);
                 AskFrame.setText2("");
                 this.hideTheFrame();

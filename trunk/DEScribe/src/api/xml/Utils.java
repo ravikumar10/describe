@@ -46,6 +46,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import model.Action;
+import model.ActionScreenshot;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -112,6 +114,69 @@ public class Utils {
                 }
             }
             return lesQuestions;
+        } catch (SAXException ex) {
+                    throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
+        } catch (IOException ex) {
+                    throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
+        } catch (ParserConfigurationException ex) {
+                    throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
+        }
+
+    }
+
+     /**
+     * Méthode de lecture d'un fichier XML pour
+     * @param File String définissant le chemin du fichier XML
+     * @throws SAXException
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws SQLException
+     * @throws ParseException
+     */
+    public static ArrayList<Action> importFormActionsXML() throws BadXMLFileException {
+        try {
+        ArrayList<Action> lesActions = new ArrayList<Action>();
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc;
+            if (getOs.isWindows()) {
+                doc = db.parse("xml\\options.xml"); //fichier d'options a parser
+            } else {
+                doc = db.parse("xml/options.xml");
+            }
+
+            Element root = doc.getDocumentElement();
+            NodeList form = null;
+            form = root.getElementsByTagName("form");
+            Element e = (Element) form.item(0);
+            String url = e.getAttribute("url");
+            /**
+             * Récupération des questions du fichier "url"
+             */
+            DocumentBuilder db2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc2 = db2.parse(url); //fichier d'options a parser
+
+            Element rootQuestions = doc2.getDocumentElement();
+            NodeList actionCourante = null;
+            actionCourante = rootQuestions.getElementsByTagName("action");
+            for (int k = 0; k < actionCourante.getLength(); k++) {
+                Element q = (Element) actionCourante.item(k);
+                String type = q.getAttribute("type");
+
+                /**
+                 * Adding new ActionScreenshot
+                 */
+                if (type.equals("screenshot")) {
+                    ActionScreenshot screen = new ActionScreenshot();
+                    lesActions.add(screen);
+                }
+
+                /* Add new actions here */
+                /*if (type.equals("screenshot")) {
+                    //...
+                }*/
+
+            }
+            return lesActions;
         } catch (SAXException ex) {
                     throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
         } catch (IOException ex) {
@@ -484,7 +549,7 @@ public class Utils {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
                     throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
             }
- 
+
 
     }
 
@@ -517,7 +582,7 @@ public class Utils {
                         questionCourante = rootQuestions.getElementsByTagName("question");
                         if (questionCourante==null){
                             throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
-                        } else {                            
+                        } else {
                             for (int k = 0; k < questionCourante.getLength(); k++) {
                                 Element q = (Element) questionCourante.item(k);
                                 String type = q.getAttribute("type");
@@ -529,7 +594,7 @@ public class Utils {
                                     QReponseLibre open = new QReponseLibre(intitule);
                                     lesQuestions.add(open);
                                 }
-                            }   
+                            }
                         }
                 }
             }
