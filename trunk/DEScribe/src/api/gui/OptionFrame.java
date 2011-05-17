@@ -164,7 +164,7 @@ public class OptionFrame extends JFrame {
 
                 TaskTrayMenu.refresh();
                 OptionFrame.refresh();
-                javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("OptionFrame.reConfigSuccess"));
+                //javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("OptionFrame.reConfigSuccess"));
             }
         });
 
