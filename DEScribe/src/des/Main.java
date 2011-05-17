@@ -81,11 +81,11 @@ public class Main {
             timr.chrono();
 
             //DEBUG
-            if (Utils.isPriorityProgramRunningOSWin("POWERP")){
+            /*if (Utils.isPriorityProgramRunningOSWin("POWERP")){
                 System.out.println("RUNNING");
             } else {
                 System.out.println("NOT RUNNING");
-            }
+            }*/
             AskFrame.getTheFrame().showTheFrame();
             //ImgTxtMerger.merge(".\\action_results\\screenshots\\session1_reponse8_screenshot.jpg", "Mon text");
         }

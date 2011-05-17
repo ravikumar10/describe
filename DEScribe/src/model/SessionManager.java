@@ -26,6 +26,7 @@ package model;
 import api.dbc.DBConnexion;
 import api.xml.Utils;
 import exceptions.BadXMLFileException;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class SessionManager {
             String nom = "default";
             lesSessions.add(new Session(Long.parseLong("1"), new Date(), null, true, nom,null));
             courante = lesSessions.get(0);
-
+            new File("Session0").mkdirs();
             DBConnexion conn = DBConnexion.getConnexion();
             conn.addSession(courante);
             try {
@@ -143,6 +144,9 @@ public class SessionManager {
             lesSessions.add(new Session(newId+1, new Date(), null, true, name,null));
             courante = lesSessions.get(lesSessions.size() - 1);
             conn.addSession(courante);
+            //Création du dossier de session
+            // getChemin vers le dossier de session
+            new File("reptest").mkdirs();
     }
 
     /**
