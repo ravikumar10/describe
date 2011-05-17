@@ -69,6 +69,7 @@ public class Utils {
 
     private static String defaultFormFile = "form.xml";
     private static String defaultOptionFile = "options.xml";
+    private static String defaultSessionsFolder = "sessions";
 
     /**
      * Méthode de lecture d'un fichier XML pour
