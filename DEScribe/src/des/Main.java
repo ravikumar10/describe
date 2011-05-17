@@ -28,6 +28,7 @@ import api.dbc.DBConnexion;
 import api.gui.AskFrame;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
+import api.utils.ImgTxtMerger;
 import api.xml.Utils;
 import java.sql.SQLException;
 import model.SessionManager;
@@ -86,6 +87,7 @@ public class Main {
                 System.out.println("NOT RUNNING");
             }
             AskFrame.getTheFrame().showTheFrame();
+            //ImgTxtMerger.merge(".\\action_results\\screenshots\\session1_reponse8_screenshot.jpg", "Mon text");
         }
 
 

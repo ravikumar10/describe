@@ -531,10 +531,13 @@ public class DBConnexion {
                     return Long.parseLong("0");
                 }
             }
-            ResultSet rs = stat.executeQuery("select max(idsession) from session;");
+            // Select max doesn't work apparently because it returns max in "string"
+            ResultSet rs = stat.executeQuery("select distinct idsession from session;");
 
             while (rs.next()) {
-                    idmax=Long.parseLong(rs.getString(1));
+                    if (Long.parseLong(rs.getString(1))>idmax) {
+                        idmax=Long.parseLong(rs.getString(1));
+                    }
             }
             rs.close();
             return idmax;
@@ -565,10 +568,12 @@ public class DBConnexion {
                     return Long.parseLong("0");
                 }
             }
-            ResultSet rs = stat.executeQuery("select max(idreponse) from entries where session=\""+s.getId()+"\";");
+            ResultSet rs = stat.executeQuery("select distinct idreponse from entries where session=\""+s.getId()+"\";");
 
             while (rs.next()) {
-                    idmax=Long.parseLong(rs.getString(1));
+                    if (Long.parseLong(rs.getString(1))>idmax) {
+                        idmax=Long.parseLong(rs.getString(1));
+                    }
             }
             rs.close();
             return idmax;

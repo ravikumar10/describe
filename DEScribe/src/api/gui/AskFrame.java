@@ -25,6 +25,8 @@ package api.gui;
 
 import api.dbc.DBConnexion;
 import api.i18n.Lang;
+import api.utils.ImgTxtMerger;
+import api.utils.getOs;
 import api.xml.Utils;
 import exceptions.BadXMLFileException;
 import java.awt.BorderLayout;
@@ -204,7 +206,8 @@ public class AskFrame extends GenericFrame {
                 AskFrame.getTheFrame().hideTheFrame();
             }
         };
-        hideCD.schedule(taskCD, 1200000);
+        // After 2 minutes of inactivity, the frame disappears by itself
+        hideCD.schedule(taskCD, 120000);
         thePanel.jta2.requestFocus();
         this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
         if (OptionFrame.isSoundEnabled()) {
@@ -238,7 +241,6 @@ public class AskFrame extends GenericFrame {
                 for (Iterator<Action> it = lesActions.iterator(); it.hasNext();) {
                     Action s = it.next();
                     if (s instanceof ActionScreenshot) {
-                        // TODO : ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"reponse"db.getMaxIdReponse()+);
                         Long t =conn.getMaxIdReponseBySession(sm.getSessionCourante())+1;
                        ((ActionScreenshot) s).takeCapture("session"+sm.getSessionCourante().getId()+"_reponse"+t+"_screenshot");
                         absoluteScreenshotFilePath = ((ActionScreenshot) s).getAbsFileName();
@@ -266,6 +268,8 @@ public class AskFrame extends GenericFrame {
 
                 Reponse rep = new Reponse(AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                 conn.newAddEntry(rep);
+                ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
+
                 AskFrame.setText2("");
                 this.hideTheFrame();
             } catch (Exception ex) {
