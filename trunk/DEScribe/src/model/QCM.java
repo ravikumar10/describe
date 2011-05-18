@@ -30,6 +30,9 @@ package model;
  * @author Bertrand Gros    <gros.bertrand@gmail.com>
  * @version 2011-01-28
  */
-public class QCM {
+public class QCM extends Question {
 
+    public QCM (String q){
+        super(q);
+    }
 }

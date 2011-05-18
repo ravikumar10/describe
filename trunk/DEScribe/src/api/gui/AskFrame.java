@@ -42,22 +42,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.xml.parsers.ParserConfigurationException;
 import model.Action;
 import model.ActionScreenshot;
+import model.QCMRadio;
+import model.QReponseLibre;
 import model.Question;
 import model.Reponse;
 import model.SessionManager;
@@ -90,6 +96,8 @@ public class AskFrame extends GenericFrame {
         public static JButton b1 = null;
         public static JLabel lbCtrlMaj = null;
 
+        public ButtonGroup bg2 = null;
+
         public interiorPanel(AskFrame param) {
             super();
             this.listeners = param;
@@ -104,7 +112,7 @@ public class AskFrame extends GenericFrame {
             jpUp.setBackground(Color.white);
 
             this.add(jpUp, BorderLayout.NORTH);
-            this.add(this.secondTextField(), BorderLayout.CENTER);
+            //this.add(this.secondTextField(), BorderLayout.CENTER);
             this.add(this.ButtonsRow(), BorderLayout.SOUTH);
             this.initThePanel();
         }
@@ -140,6 +148,33 @@ public class AskFrame extends GenericFrame {
             JScrollPane jsp = new JScrollPane(jta2);
             jsp.setPreferredSize(new Dimension(400, 150));
             res.add(jsp);
+            res.setBackground(new Color(178,34,34));
+            return res;
+        }
+
+        private JPanel radioGroup(ArrayList<String> choices) {
+            JPanel res = new JPanel(new GridLayout(0,1));
+            bg2 = new ButtonGroup();
+            for (Iterator<String> it = choices.iterator(); it.hasNext();) {
+                String s = it.next();
+                bg2.add(new JRadioButton(s));
+            }
+            Enumeration<AbstractButton> en = thePanel.bg2.getElements();
+            while (en.hasMoreElements()) {
+                AbstractButton ab = en.nextElement();
+                res.add(ab);
+
+            }
+
+
+            /*
+            jta2.setLineWrap(true);
+            jta2.addKeyListener(listeners);
+            JScrollPane jsp = new JScrollPane(bg2);
+            jsp.setPreferredSize(new Dimension(400, 150));
+            res.add(jsp);
+             */
+            res.setPreferredSize(new Dimension(400, 150));
             res.setBackground(new Color(178,34,34));
             return res;
         }
@@ -208,7 +243,19 @@ public class AskFrame extends GenericFrame {
         };
         // After 2 minutes of inactivity, the frame disappears by itself
         hideCD.schedule(taskCD, 120000);
-        thePanel.jta2.requestFocus();
+
+            ArrayList<Question> lesQuestions = new ArrayList<Question>();
+        try {
+            lesQuestions = Utils.importFormXML();
+        } catch (BadXMLFileException ex) {
+            Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            setText1(lesQuestions.get(0).intitule);
+            if (lesQuestions.get(0) instanceof QReponseLibre){
+                thePanel.jta2.requestFocus();
+            }
+
+        //thePanel.jta2.requestFocus();
         this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
         if (OptionFrame.isSoundEnabled()) {
             Toolkit.getDefaultToolkit().beep();
@@ -221,7 +268,19 @@ public class AskFrame extends GenericFrame {
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             lesQuestions = Utils.importFormXML();
             setText1(lesQuestions.get(0).intitule);
-            setText2("");
+            if (lesQuestions.get(0) instanceof QReponseLibre){
+                // Add textfield to panel
+                //this.add(this.secondTextField(), BorderLayout.CENTER);
+                thePanel.add(thePanel.secondTextField(), BorderLayout.CENTER);
+                pack();
+                setText2("");
+            }
+            if (lesQuestions.get(0) instanceof QCMRadio){
+                // Add radio buttons
+                thePanel.add(thePanel.radioGroup(((QCMRadio) lesQuestions.get(0)).getChoices()), BorderLayout.CENTER);
+                pack();
+            }
+
             labelButtonValider = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonValider");
             interiorPanel.b1.setText(labelButtonValider);
 
@@ -266,11 +325,37 @@ public class AskFrame extends GenericFrame {
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
 
-                Reponse rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-                conn.newAddEntry(rep);
-                ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
+                ArrayList<Question> lesQuestions = new ArrayList<Question>();
+                lesQuestions = Utils.importFormXML();
+                setText1(lesQuestions.get(0).intitule);
+                Reponse rep = null;
+                if (lesQuestions.get(0) instanceof QReponseLibre){
+                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                }
+                if (lesQuestions.get(0) instanceof QCMRadio){
+                    String res="";
+                    Enumeration<AbstractButton> en = thePanel.bg2.getElements();
+                    while (en.hasMoreElements()) {
+                        AbstractButton ab = en.nextElement();
+                        if (ab.isSelected()){
+                            if (!res.equals("")){
+                                res=res+"\n";
+                            }
+                            res+=ab.getText()+" ";
+                        }
+                    }
+                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
 
-                AskFrame.setText2("");
+                }
+
+                
+                conn.newAddEntry(rep);
+                // Probleme ici
+                ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
+                    if (lesQuestions.get(0) instanceof QReponseLibre){
+                    AskFrame.setText2("");
+                }
+                
                 this.hideTheFrame();
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());

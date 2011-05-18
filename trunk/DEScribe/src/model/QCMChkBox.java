@@ -23,6 +23,8 @@
 
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Class QCMChkBox.java
  * @description Multiple choice question with possible multiple answers
@@ -32,4 +34,11 @@ package model;
  */
 public class QCMChkBox extends QCM{
 
+    private ArrayList<String> choices;
+
+    public QCMChkBox(String intitule, ArrayList<String> ch) {
+        super(intitule);
+        choices=new ArrayList<String>();
+        choices=ch;
+    }
 }
