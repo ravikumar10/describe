@@ -43,10 +43,10 @@ import model.SessionManager;
 public class Main {
 
     public static String version = "beta";
-    public static String datemaj = "2011-02-06";
+    public static String datemaj = "2011-05-18";
     public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nBertrand Gros<gros.bertrand@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
     public static String appName = "DEScribe";
-    public static String projectPage = "http://code.google.com/p/describe";
+    public static String projectPage = "http://describe.googlecode.com";
     public static String cpRight = "(C)2010-2011";
 
     public static void main(String[] args) throws SQLException {
@@ -75,7 +75,7 @@ public class Main {
 
 
             SessionManager sm = SessionManager.getSessionManager();
-//            Lang.getLang();
+
             OptionFrame.getOptionFrame();
             TimerQuestion timr = new TimerQuestion();
             timr.chrono();
@@ -86,8 +86,7 @@ public class Main {
             } else {
                 System.out.println("NOT RUNNING");
             }*/
-            AskFrame.getTheFrame().showTheFrame();
-            //ImgTxtMerger.merge(".\\action_results\\screenshots\\session1_reponse8_screenshot.jpg", "Mon text");
+            AskFrame.getTheFrame().showTheFrame();    
         }
 
 

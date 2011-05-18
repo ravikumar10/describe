@@ -24,6 +24,7 @@
 package model;
 
 import api.dbc.DBConnexion;
+import api.utils.getOs;
 import api.xml.Utils;
 import exceptions.BadXMLFileException;
 import java.io.File;
@@ -97,7 +98,20 @@ public class SessionManager {
             String nom = "default";
             lesSessions.add(new Session(Long.parseLong("1"), new Date(), null, true, nom,null));
             courante = lesSessions.get(0);
-            new File("Session0").mkdirs();
+            try {
+                //Create Sessions folder if doesn't already exist
+                new File(api.xml.Utils.loadSessionsFolder()).mkdir();
+                // Create new session folder if doesn't already exist
+                if (getOs.isWindows()) {
+                    new File(api.xml.Utils.loadSessionsFolder()+"\\session"+courante.getId()).mkdir();
+                } else {
+                    new File(api.xml.Utils.loadSessionsFolder()+"/session"+courante.getId()).mkdir();
+                }
+
+
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
             DBConnexion conn = DBConnexion.getConnexion();
             conn.addSession(courante);
             try {
@@ -144,9 +158,20 @@ public class SessionManager {
             lesSessions.add(new Session(newId+1, new Date(), null, true, name,null));
             courante = lesSessions.get(lesSessions.size() - 1);
             conn.addSession(courante);
-            //Création du dossier de session
-            // getChemin vers le dossier de session
-            new File("reptest").mkdirs();
+        try {
+            //Create Sessions folder if doesn't already exist
+            new File(api.xml.Utils.loadSessionsFolder()).mkdir();
+            // Create new session folder if doesn't already exist
+            if (getOs.isWindows()) {
+                new File(api.xml.Utils.loadSessionsFolder()+"\\session"+courante.getId()).mkdir();
+            } else {
+                new File(api.xml.Utils.loadSessionsFolder()+"/session"+courante.getId()).mkdir();
+            }
+
+
+        } catch (BadXMLFileException ex) {
+            Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

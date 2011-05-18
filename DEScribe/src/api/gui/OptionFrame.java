@@ -22,7 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package api.gui;
 
 import api.i18n.Lang;
+import api.utils.DirFileFilter;
 import api.xml.Utils;
+import api.xml.Xmlfilter;
 import exceptions.BadXMLFileException;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,10 +41,12 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  * Class OptionFrame.java
@@ -69,6 +73,11 @@ public class OptionFrame extends JFrame {
     private String opt1 = "English";
     private String opt2 = "Francais";
 
+    public static JLabel jl4 = null;
+    public static JTextField sessionFolder;
+    public static JButton browseButton = null;
+
+
     private OptionFrame() {
         // LA FENETRE PRINCIPALE
         this.setTitle(Lang.getLang().getValueFromRef("OptionFrame.title"));
@@ -77,8 +86,8 @@ public class OptionFrame extends JFrame {
 
         // LA FENETRE INTERIEURE
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 1));
-        panel.setPreferredSize(new Dimension(250, 250));
+        panel.setLayout(new GridLayout(5, 1));
+        panel.setPreferredSize(new Dimension(300, 300));
         panel.setBackground(new Color(178, 34, 34));
         this.getContentPane().add(panel);
 
@@ -135,6 +144,42 @@ public class OptionFrame extends JFrame {
         Option3.add(c3);
         Option3.add(c4);
 
+        JPanel Option4 = new JPanel(new GridLayout(3, 1));
+        Option4.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+        Option4.setBackground(new Color(178, 34, 34));
+        Option4.setPreferredSize(new Dimension(300, 0));
+        sessionFolder = new JTextField("");
+        sessionFolder.setSize(new Dimension(240, 30));
+        //jrb.setBackground(new Color(178, 34, 34));
+        //jrb.setForeground(Color.white);
+        sessionFolder.setEditable(false);
+        jl4 = new JLabel(Lang.getLang().getValueFromRef("OptionFrame.sessions"));
+        jl4.setForeground(Color.white);
+        jl4.setFont(new Font("Verdana", Font.BOLD, 14));
+        browseButton = new JButton(Lang.getLang().getValueFromRef("OptionFrame.browseButton"));
+        browseButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                String path;
+                //Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
+                JFileChooser choix = new JFileChooser();
+                choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                choix.addChoosableFileFilter(new DirFileFilter());
+                int retour = choix.showOpenDialog(null);
+
+                path = "";
+                if (retour == JFileChooser.APPROVE_OPTION) {
+                    path = choix.getSelectedFile().getAbsolutePath();
+                    sessionFolder.setText(path);
+                }
+            }
+        });
+        Option4.add(jl4);
+        Option4.add(sessionFolder);
+        Option4.add(browseButton);
+
+
+
         //LA LIGNE DES BOUTTONS
         JPanel buttonline = new JPanel();
         buttonline.setLayout(new FlowLayout());
@@ -187,6 +232,7 @@ public class OptionFrame extends JFrame {
         panel.add(Option1);
         panel.add(Option2);
         panel.add(Option3);
+        panel.add(Option4);
         panel.add(buttonline);
         this.pack();
 

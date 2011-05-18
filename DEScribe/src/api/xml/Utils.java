@@ -69,7 +69,7 @@ public class Utils {
 
     private static String defaultFormFile = "form.xml";
     private static String defaultOptionFile = "options.xml";
-    private static String defaultSessionsFolder = "sessions";
+    public static String defaultSessionsFolder = "sessions";
 
     /**
      * Méthode de lecture d'un fichier XML pour
@@ -459,6 +459,10 @@ public class Utils {
                 OptionFrame.c4.setSelected(true);
             }
 
+            currentOption = options.getElementsByTagName("sessions");
+            e = (Element) currentOption.item(0);
+            OptionFrame.sessionFolder.setText(e.getAttribute("url"));
+
         } catch (SAXException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
@@ -533,6 +537,13 @@ public class Utils {
                                     osw.write("\t<lang value=\"francais\"/>\n");
                                 }
 
+                                // sessions folder
+                                    File rep = new File(OptionFrame.sessionFolder.getText());
+                                if (rep.exists()) {
+                                 osw.write("\t<sessions url=\""+OptionFrame.sessionFolder.getText()+"\"/>\n");
+                                } else {
+                                    osw.write("\t<sessions url=\""+defaultFormFile+"\"/>\n");
+                                }
                                 osw.write("</options>");
                                 osw.close();
                             } catch (IOException ex) {
@@ -560,6 +571,38 @@ public class Utils {
             }
 
 
+    }
+
+    /**
+     * LoadSessionsFolder : return current sessions' folder string
+     * @return
+     * @throws BadXMLFileException
+     */
+    public static String loadSessionsFolder() throws BadXMLFileException {
+        String s=defaultSessionsFolder;
+        try {
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc;
+            if (getOs.isWindows()) {
+                doc = db.parse("xml\\"+defaultOptionFile); //fichier d'options a parser
+            } else {
+                doc = db.parse("xml/"+defaultOptionFile);
+            }
+            Element options = doc.getDocumentElement();
+            NodeList currentOption = options.getElementsByTagName("sessions");
+            Element e = (Element) currentOption.item(0);
+            s = e.getAttribute("url");
+        } catch (SAXException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
+        }
+        return s;
     }
 
      /**
