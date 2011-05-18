@@ -23,6 +23,8 @@
 
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Class QCMRadio.java
  * @description Multiple choice question with at most one answer
@@ -31,5 +33,17 @@ package model;
  * @version 2011-01-28
  */
 public class QCMRadio extends QCM{
+
+    private ArrayList<String> choices;
+    
+    public QCMRadio(String intitule, ArrayList<String> ch) {
+        super(intitule);
+        choices=new ArrayList<String>();
+        choices=ch;
+    }
+
+    public ArrayList<String> getChoices(){
+        return choices;
+    }
 
 }

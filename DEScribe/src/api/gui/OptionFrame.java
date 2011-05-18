@@ -234,6 +234,9 @@ public class OptionFrame extends JFrame {
         panel.add(Option3);
         panel.add(Option4);
         panel.add(buttonline);
+
+        this.setAlwaysOnTop(true);
+        
         this.pack();
 
     }

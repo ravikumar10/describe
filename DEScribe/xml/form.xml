@@ -1,7 +1,12 @@
 <!-- ajouter une DTD -->
 <questions>
-	<question type="open">
-		What was your experience ?
+	<question type="QCMRadio">
+		<title>What was your experience?</title>
+		<choice>Surfing the internet</choice>
+		<choice>Chatting with friends</choice>
+		<choice>Programming</choice>
+		<choice>Playing video games</choice>
+		<choice>Other</choice>
 	</question>
 	<actions>
 		<action type="screenshot"/>
