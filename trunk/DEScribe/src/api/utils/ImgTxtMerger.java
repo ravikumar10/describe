@@ -52,7 +52,7 @@ public class ImgTxtMerger extends JPanel {
         image = process(image, text);
             File file2 = new File(file);
         try {
-            javax.imageio.ImageIO.write(image, "png", file2);
+            javax.imageio.ImageIO.write(image, "gif", file2);
         } catch (IOException ex) {
             Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
         }
