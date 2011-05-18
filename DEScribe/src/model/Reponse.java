@@ -44,6 +44,7 @@ public class Reponse {
 
     String screenshot;
 
+    Long id;
 
      public Reponse(String q, String r, Date d){
         this.intituleQuestion = q;
@@ -60,7 +61,8 @@ public class Reponse {
         this.screenshot="";
     }
 
-    public Reponse(String q, String r, Date d, Session s, String screenCapture){
+    public Reponse(Long num, String q, String r, Date d, Session s, String screenCapture){
+        this.id=num;
         this.intituleQuestion = q;
         this.laReponse = r;
         this.instant = d;
@@ -68,7 +70,8 @@ public class Reponse {
         this.screenshot=screenCapture;
     }
 
-        public Reponse(String q, String r, Date d, String screenCapture){
+    public Reponse(Long num, String q, String r, Date d, String screenCapture){
+        this.id=num;
         this.intituleQuestion = q;
         this.laReponse = r;
         this.instant = d;
@@ -93,6 +96,10 @@ public class Reponse {
 
     public String getScreenshot() {
         return screenshot;
+    }
+
+    public Long getId() {
+        return id;
     }
 
 }

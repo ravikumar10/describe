@@ -149,7 +149,7 @@ public class DBConnexion {
 
             while (rs.next()) {
                 try {
-                    lesReponses.add(new Reponse(rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), getSessionById(Long.parseLong(rs.getString("session"))),rs.getString("screenshot")));
+                    lesReponses.add(new Reponse(Long.parseLong(rs.getString("idreponse")), rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), getSessionById(Long.parseLong(rs.getString("session"))),rs.getString("screenshot")));
                 } catch (ParseException ex) {
                     Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -205,7 +205,7 @@ public class DBConnexion {
 
             while (rs.next()) {
                 try {
-                    lesReponses.add(new Reponse(rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), rs.getString("screenshot")));
+                    lesReponses.add(new Reponse(Long.parseLong(rs.getString("idreponse")), rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), rs.getString("screenshot")));
                 } catch (ParseException ex) {
                     Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -599,9 +599,22 @@ public class DBConnexion {
         }
     }
 
-    public void deleteAnwserOfSession(Session s) {
+    public void deleteAnswersOfSession(Session s) {
         try {
             PreparedStatement prep = conn.prepareStatement("delete from entries where session =\""+s.getId()+"\";");
+            prep.addBatch();
+            conn.setAutoCommit(false);
+            prep.executeUpdate();
+            conn.setAutoCommit(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void deleteAnwser(Reponse r) {
+        try {
+            PreparedStatement prep = conn.prepareStatement("delete from entries where session =\""+r.getSession().getId()+"\" and idreponse=\""+r.getId()+"\";");
             prep.addBatch();
             conn.setAutoCommit(false);
             prep.executeUpdate();
