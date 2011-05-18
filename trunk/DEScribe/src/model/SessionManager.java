@@ -203,7 +203,7 @@ public class SessionManager {
        for (Iterator<Session> it = lesSessions.iterator(); it.hasNext(); ) {
                 Session s = it.next();
                 if (!s.getActive()){
-                    conn.deleteAnwserOfSession(s);
+                    conn.deleteAnswersOfSession(s);
                     conn.deleteSession(s);
                     it.remove();
                 }
@@ -218,7 +218,7 @@ public class SessionManager {
     public void deleteOldSession(Session s){
                 if (!s.getActive()){
                     DBConnexion conn = DBConnexion.getConnexion();
-                    conn.deleteAnwserOfSession(s);
+                    conn.deleteAnswersOfSession(s);
                     conn.deleteSession(s);
                     lesSessions.remove(s);
                     lesSessions = conn.getSessions();

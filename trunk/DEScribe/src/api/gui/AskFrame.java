@@ -266,7 +266,7 @@ public class AskFrame extends GenericFrame {
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
 
-                Reponse rep = new Reponse(AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                Reponse rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                 conn.newAddEntry(rep);
                 ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
 
