@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package model;
 
 import api.utils.getOs;
+import exceptions.BadXMLFileException;
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -31,6 +32,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -56,11 +60,44 @@ public class ActionScreenshot extends Action {
 
            
             if (getOs.isWindows()) {
-                ImageIO.write(bi, "jpg", new File(".\\action_results\\screenshots\\"+resultFileName+".jpg"));
-                absoluteFileName = ".\\action_results\\screenshots\\"+resultFileName+".jpg";
+                //Create Sessions folder if doesn't already exist
+                // Create new session folder if doesn't already exist
+                try {
+                    new File(api.xml.Utils.loadSessionsFolder()).mkdir();                            
+                    new File(api.xml.Utils.loadSessionsFolder() + "\\session" + SessionManager.getSessionManager().getSessionCourante().getId()).mkdir();
+                } catch (BadXMLFileException ex) {
+                    Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    ImageIO.write(bi, "jpg", new File(api.xml.Utils.loadSessionsFolder() + "\\session" + SessionManager.getSessionManager().getSessionCourante().getId() + "\\" + resultFileName + ".jpg"));
+                    absoluteFileName = api.xml.Utils.loadSessionsFolder() + "\\session" + SessionManager.getSessionManager().getSessionCourante().getId() + "\\" + resultFileName + ".jpg";
+                } catch (SQLException ex) {
+                    Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadXMLFileException ex) {
+                Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             } else {
-                ImageIO.write(bi, "jpg", new File("./action_results/screenshots/"+resultFileName+".jpg"));
-                absoluteFileName = "./action_results/screenshots/"+resultFileName+".jpg";
+                try {
+                    new File(api.xml.Utils.loadSessionsFolder()).mkdir();
+                    new File(api.xml.Utils.loadSessionsFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId()).mkdir();
+                } catch (BadXMLFileException ex) {
+                    Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    ImageIO.write(bi, "jpg", new File(api.xml.Utils.loadSessionsFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "/" + resultFileName + ".jpg"));
+                    absoluteFileName = api.xml.Utils.loadSessionsFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "/" + resultFileName + ".jpg";
+                } catch (SQLException ex) {
+                    Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadXMLFileException ex) {
+                Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } catch (AWTException e) {
             e.printStackTrace();

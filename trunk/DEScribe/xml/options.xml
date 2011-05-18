@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><options>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<options>
 	<form url="xml\form.xml"/>
 	<freq value="0"/>
 	<sound on="true"/>
 	<lang value="english"/>
+	<sessions url="C:\Users\Seb\Desktop"/>
 </options>

@@ -359,6 +359,14 @@
 		<ref>OptionFrame.reConfigSuccess</ref>
 		<value>Préférences modifiées avec succès!</value>
 	</string>	
+	<string>
+		<ref>OptionFrame.sessions</ref>
+		<value>Dossier des sessions</value>
+	</string>				
+	<string>
+		<ref>OptionFrame.browseButton</ref>
+		<value>Parcourir</value>
+	</string>		
 
 	<!-- BadXMLFileException -->
 	<string>

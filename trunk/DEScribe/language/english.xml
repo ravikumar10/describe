@@ -358,8 +358,16 @@
 	<string>
 		<ref>OptionFrame.reConfigSuccess</ref>
 		<value>Settings successfully modified!</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.sessions</ref>
+		<value>Sessions location folder</value>
+	</string>			
+	<string>
+		<ref>OptionFrame.browseButton</ref>
+		<value>Browse</value>
 	</string>		
-
+	
 	<!-- BadXMLFileException -->
 	<string>
 		<ref>BadXMLFileException.BAD_OPTION_FILE</ref>
