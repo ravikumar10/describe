@@ -97,7 +97,6 @@ public class ViewAnswers extends JFrame {
             this.setSize(screen.width, screen.height);
             int width = screen.width;
             int height = (int)80*screen.height/100;
-            System.out.println(height);
             BufferedImage src = ImageIO.read(new File("test2.jpg"));
             JLabel imgContainer = new JLabel(new ImageIcon(resize(src, width, height)));
 
