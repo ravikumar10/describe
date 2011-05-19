@@ -31,6 +31,7 @@ import api.xml.Utils;
 import exceptions.BadXMLFileException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -53,6 +54,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -62,6 +64,7 @@ import javax.swing.JTextField;
 import javax.xml.parsers.ParserConfigurationException;
 import model.Action;
 import model.ActionScreenshot;
+import model.QCMChkBox;
 import model.QCMRadio;
 import model.QReponseLibre;
 import model.Question;
@@ -97,6 +100,7 @@ public class AskFrame extends GenericFrame {
         public static JLabel lbCtrlMaj = null;
 
         public ButtonGroup bg2 = null;
+        public JPanel jpMiddle = null;
 
         public interiorPanel(AskFrame param) {
             super();
@@ -152,30 +156,27 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
-        private JPanel radioGroup(ArrayList<String> choices) {
+        private JPanel radioGroup(ArrayList<String> choices, String style) {
             JPanel res = new JPanel(new GridLayout(0,1));
             bg2 = new ButtonGroup();
             for (Iterator<String> it = choices.iterator(); it.hasNext();) {
                 String s = it.next();
-                bg2.add(new JRadioButton(s));
+                if (style.equals("radio")){
+                    bg2.add(new JRadioButton(s));
+                    Enumeration<AbstractButton> en = thePanel.bg2.getElements();
+                    while (en.hasMoreElements()) {
+                        AbstractButton ab = en.nextElement();
+                        res.add(ab);
+                    }
+                } else if (style.equals("checkbox")){
+                    JCheckBox jcb = new JCheckBox(s);
+                    res.add(jcb);
+                }
             }
-            Enumeration<AbstractButton> en = thePanel.bg2.getElements();
-            while (en.hasMoreElements()) {
-                AbstractButton ab = en.nextElement();
-                res.add(ab);
 
-            }
-
-
-            /*
-            jta2.setLineWrap(true);
-            jta2.addKeyListener(listeners);
-            JScrollPane jsp = new JScrollPane(bg2);
-            jsp.setPreferredSize(new Dimension(400, 150));
-            res.add(jsp);
-             */
             res.setPreferredSize(new Dimension(400, 150));
             res.setBackground(new Color(178,34,34));
+            jpMiddle=res;
             return res;
         }
 
@@ -277,7 +278,13 @@ public class AskFrame extends GenericFrame {
             }
             if (lesQuestions.get(0) instanceof QCMRadio){
                 // Add radio buttons
-                thePanel.add(thePanel.radioGroup(((QCMRadio) lesQuestions.get(0)).getChoices()), BorderLayout.CENTER);
+                thePanel.add(thePanel.radioGroup(((QCMRadio) lesQuestions.get(0)).getChoices(), "radio"), BorderLayout.CENTER);
+                pack();
+            }
+
+            if (lesQuestions.get(0) instanceof QCMChkBox){
+                // Add radio buttons
+                thePanel.add(thePanel.radioGroup(((QCMChkBox) lesQuestions.get(0)).getChoices(), "checkbox"), BorderLayout.CENTER);
                 pack();
             }
 
@@ -332,27 +339,40 @@ public class AskFrame extends GenericFrame {
                 if (lesQuestions.get(0) instanceof QReponseLibre){
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                 }
-                if (lesQuestions.get(0) instanceof QCMRadio){
+                if (lesQuestions.get(0) instanceof QCMRadio) {
                     String res="";
                     Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                     while (en.hasMoreElements()) {
                         AbstractButton ab = en.nextElement();
                         if (ab.isSelected()){
                             if (!res.equals("")){
-                                res=res+"\n";
+                                res=res+" \n ";
                             }
-                            res+=ab.getText()+" ";
+                            res+=ab.getText();
                         }
                     }
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
 
                 }
-
+                if (lesQuestions.get(0) instanceof QCMChkBox){
+                    String res="";
+                    Component t[]= thePanel.jpMiddle.getComponents();
+                    for (int i=0; i<t.length;i++){
+                        AbstractButton ab=(AbstractButton) t[i];
+                        if (ab.isSelected()){
+                            if (!res.equals("")){
+                                res=res+" \n ";
+                            }
+                            res+=ab.getText();
+                        }
+                    }
+                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                }    
                 
                 conn.newAddEntry(rep);
-                // Probleme ici
+
                 ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
-                    if (lesQuestions.get(0) instanceof QReponseLibre){
+                if (lesQuestions.get(0) instanceof QReponseLibre){
                     AskFrame.setText2("");
                 }
                 

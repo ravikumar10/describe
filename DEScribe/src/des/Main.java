@@ -28,6 +28,7 @@ import api.dbc.DBConnexion;
 import api.gui.AskFrame;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
+import api.gui.ViewAnswers;
 import api.utils.ImgTxtMerger;
 import api.xml.Utils;
 import java.sql.SQLException;
@@ -86,7 +87,9 @@ public class Main {
             } else {
                 System.out.println("NOT RUNNING");
             }*/
-            AskFrame.getTheFrame().showTheFrame();    
+          //  AskFrame.getTheFrame().showTheFrame();
+            ViewAnswers v = new ViewAnswers();
+            v.setVisible(true);
         }
 
 

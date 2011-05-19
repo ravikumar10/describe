@@ -41,4 +41,8 @@ public class QCMChkBox extends QCM{
         choices=new ArrayList<String>();
         choices=ch;
     }
+    
+    public ArrayList<String> getChoices(){
+        return choices;
+    }
 }

@@ -1,6 +1,6 @@
 <!-- ajouter une DTD -->
 <questions>
-	<question type="QCMRadio">
+	<question type="QCMChkBox">
 		<title>What was your experience?</title>
 		<choice>Surfing the internet</choice>
 		<choice>Chatting with friends</choice>
