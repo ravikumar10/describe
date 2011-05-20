@@ -18,6 +18,8 @@ import java.awt.Insets;
 import java.awt.List;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.geom.AffineTransform;
@@ -59,24 +61,13 @@ public class ViewAnswers extends JFrame {
     private Session selectedSession;
     private ArrayList<Reponse> selectedSessionAnswers;
 
-    public static String labelAnswer = Lang.getLang().getValueFromRef("ViewAnswers.labelAnswer");
-    public static String labelSession = Lang.getLang().getValueFromRef("ViewAnswers.labelSession");
+    public static String lbAnswer = Lang.getLang().getValueFromRef("ViewAnswers.lbAnswer");
+    public static String lbSession = Lang.getLang().getValueFromRef("ViewAnswers.lbSession");
     public static String btDelete = Lang.getLang().getValueFromRef("ViewAnswers.btDelete");
     public static String btNext = Lang.getLang().getValueFromRef("ViewAnswers.btNext");
     public static String btPrevious = Lang.getLang().getValueFromRef("ViewAnswers.btPrevious");
     public static String btClose = Lang.getLang().getValueFromRef("ViewAnswers.btClose");
     public static String title = Lang.getLang().getValueFromRef("ViewAnswers.title");
-
-    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
-            int w = img.getWidth();
-            int h = img.getHeight();
-            BufferedImage dimg = dimg = new BufferedImage(newW, newH, img.getType());
-            Graphics2D g = dimg.createGraphics();
-            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
-            g.dispose();
-            return dimg;
-        }
 
     private ViewAnswers() {
         // 2 JPanels
@@ -96,9 +87,10 @@ public class ViewAnswers extends JFrame {
             this.setSize(screen.width, screen.height);
             int width = screen.width;
             int height = (int)80*screen.height/100;
-            BufferedImage src = ImageIO.read(new File("test2.jpg"));
-            imgContainer = new JLabel(new ImageIcon(resize(src, width, height)));
-
+            //BufferedImage src = ImageIO.read(new File("test2.jpg"));
+            //imgContainer = new JLabel(new ImageIcon(resize(src, width, height)));
+            imgContainer=new JLabel();
+            imgContainer.setSize(width, height);
             jpImg.add(imgContainer);
             c.gridx = 1;
             c.gridy = 1;
@@ -112,9 +104,8 @@ public class ViewAnswers extends JFrame {
             jpImg.add(imgContainer);
             jpInternal.add(jpImg, c);
 
-            JLabel answer = new JLabel(labelAnswer);
-            JLabel answerID = new JLabel("1");
-            JLabel session = new JLabel(labelSession);
+            JLabel answer = new JLabel(lbAnswer);
+            JLabel session = new JLabel(lbSession);
 
             listSessionID = new List();
       /*      listSessionID.add("1");
@@ -126,17 +117,24 @@ public class ViewAnswers extends JFrame {
                 sm = SessionManager.getSessionManager();
                 for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
                     Session s = it.next();
-                    if (!s.getActive()) {
-                        listSessionID.add(""+s.getId());
-                    }
+                    listSessionID.add(""+s.getId());
+
                 }
                 selectedSession=sm.getLesSessions().get(0);
+                listSessionID.select(0);
                 DBConnexion conn = DBConnexion.getConnexion();
                 selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
                 listAnswerID=new List();
                 for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
                     Reponse r = it.next();
                     listAnswerID.add(""+r.getId());
+                }
+                for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
+                    it.next().setSession(selectedSession);
+                }
+                if (selectedSessionAnswers.size()>0){
+                    listAnswerID.select(0);
+                    refresh();
                 }
 
             } catch (SQLException ex) {
@@ -148,6 +146,23 @@ public class ViewAnswers extends JFrame {
                 public void itemStateChanged(ItemEvent ie) {
                     if (ie.getStateChange() == ItemEvent.SELECTED) {
                         if (!listSessionID.getSelectedItem().equals("")){
+                            DBConnexion conn = DBConnexion.getConnexion();
+                            selectedSession=conn.getSessionById(Long.parseLong(listSessionID.getSelectedItem()));
+                            selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+                            if (selectedSessionAnswers.size()>0){
+                                listAnswerID.select(0);
+                            }
+                            refresh();
+                        }
+                    }
+                }
+            });
+
+            listAnswerID.addItemListener(new ItemListener() {
+
+                public void itemStateChanged(ItemEvent ie) {
+                    if (ie.getStateChange() == ItemEvent.SELECTED) {
+                        if (!listAnswerID.getSelectedItem().equals("")){
                             refresh();
                         }
                     }
@@ -157,8 +172,48 @@ public class ViewAnswers extends JFrame {
             JButton deleteButton = new JButton(btDelete);
             JButton previousButton = new JButton(btPrevious);
             JButton nextButton = new JButton(btNext);
+            nextButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (selectedSessionAnswers.size()>0){
+                        if(listAnswerID.getSelectedIndex()==selectedSessionAnswers.size()-1){
+                            listAnswerID.select(0);
+                        } else {
+                            listAnswerID.select(listAnswerID.getSelectedIndex()+1);
+                        }
+                    }
+                    refresh();
+                }
+            });
+
+            previousButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (selectedSessionAnswers.size()>0){
+                        if(listAnswerID.getSelectedIndex()== 0){
+                            listAnswerID.select(selectedSessionAnswers.size()-1);
+                        } else {
+                            listAnswerID.select(listAnswerID.getSelectedIndex()-1);
+                        }
+                        refresh();
+                    }
+                }
+            });
+
+            deleteButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    selectedSessionAnswers.get(listAnswerID.getSelectedIndex()).deleteReponse();
+                    reset();
+                }
+            });
+
             JButton closeButton = new JButton(btClose);
-            
+            closeButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                reset();
+            }
+        });
+
             jpControls.add(answer);
             jpControls.add(listAnswerID);
             jpControls.add(session);
@@ -180,20 +235,22 @@ public class ViewAnswers extends JFrame {
             c.anchor = GridBagConstraints.CENTER;
             c.insets = new Insets(0,10,0,10);
             jpInternal.add(jpControls,c);
+          //  refresh();
 
 
-        } catch (IOException ex) {
+
+        } catch (Exception ex) {
             Logger.getLogger(ViewAnswers.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.getContentPane().add(jpInternal);
-
+        this.setVisible(true);
         this.setTitle(title);
         //this.setPreferredSize(new Dimension(800,600));
 
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
         this.pack();
-        this.setVisible(false);
+
     }
 
     public static ViewAnswers getTheFrame() {
@@ -204,12 +261,14 @@ public class ViewAnswers extends JFrame {
     }
 
     private void refresh() {
-        DBConnexion conn = DBConnexion.getConnexion();
-        selectedSession=conn.getSessionById(Long.parseLong(listSessionID.getSelectedItem()));
-        selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+        setVisible(true);
+        if (selectedSessionAnswers.size()>0){
+            displayScreenshot();
+
+        }
     }
 
-    private void displayScreenshot(String path){
+    private void displayScreenshot(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screen.width;
         int height = (int)80*screen.height/100;
@@ -224,13 +283,61 @@ public class ViewAnswers extends JFrame {
                 }
             }
         src = ImageIO.read(new File(r.getScreenshot()));
-        imgContainer = new JLabel(new ImageIcon(resize(src, width, height)));
+        imgContainer.setIcon(new ImageIcon(resize(src, width, height)));
         } catch (IOException ex) {
             Logger.getLogger(ViewAnswers.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+        //this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
 
     }
 
+    public void reset(){
+        listAnswerID.removeAll();
+        listSessionID.removeAll();
+        //imgContainer.setEnabled(false);
+
+
+            SessionManager sm;
+            try {
+                sm = SessionManager.getSessionManager();
+                for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
+                    Session s = it.next();
+                    listSessionID.add(""+s.getId());
+
+                }
+                selectedSession=sm.getLesSessions().get(0);
+                listSessionID.select(0);
+                DBConnexion conn = DBConnexion.getConnexion();
+                selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+                for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
+                    Reponse r = it.next();
+                    listAnswerID.add(""+r.getId());
+                }
+                for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
+                    it.next().setSession(selectedSession);
+                }
+                if (selectedSessionAnswers.size()>0){
+                    listAnswerID.select(0);
+                    refresh();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+
+        pack();
+    }
+
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+            int w = img.getWidth();
+            int h = img.getHeight();
+            BufferedImage dimg = dimg = new BufferedImage(newW, newH, img.getType());
+            Graphics2D g = dimg.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
+            g.dispose();
+            return dimg;
+        }
 }
