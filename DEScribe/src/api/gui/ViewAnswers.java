@@ -118,7 +118,6 @@ public class ViewAnswers extends JFrame {
                 for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
                     Session s = it.next();
                     listSessionID.add(""+s.getId());
-
                 }
                 selectedSession=sm.getLesSessions().get(0);
                 listSessionID.select(0);
