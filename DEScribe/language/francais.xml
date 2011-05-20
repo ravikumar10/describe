@@ -367,7 +367,37 @@
 		<ref>OptionFrame.browseButton</ref>
 		<value>Parcourir</value>
 	</string>		
-
+	
+	<!-- ViewAnswers -->
+	<string>
+		<ref>ViewAnswers.title</ref>
+		<value>Answers visualization</value>
+	</string>
+	<string>
+		<ref>ViewAnswers.lbAnswer</ref>
+		<value>Answer:</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.lbSession</ref>
+		<value>Session:</value>
+	</string>		
+	<string>
+		<ref>ViewAnswers.btPrevious</ref>
+		<value>Previous</value>
+	</string>		
+	<string>
+		<ref>ViewAnswers.btNext</ref>
+		<value>Next</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.btClose</ref>
+		<value>Close</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.btDelete</ref>
+		<value>Delete</value>
+	</string>	
+	
 	<!-- BadXMLFileException -->
 	<string>
 		<ref>BadXMLFileException.BAD_OPTION_FILE</ref>
