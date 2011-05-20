@@ -375,7 +375,7 @@
 	</string>
 	<string>
 		<ref>ViewAnswers.lbAnswer</ref>
-		<value>Answer:</value>
+		<value>Réponse:</value>
 	</string>	
 	<string>
 		<ref>ViewAnswers.lbSession</ref>
@@ -383,19 +383,19 @@
 	</string>		
 	<string>
 		<ref>ViewAnswers.btPrevious</ref>
-		<value>Previous</value>
+		<value>Précédente</value>
 	</string>		
 	<string>
 		<ref>ViewAnswers.btNext</ref>
-		<value>Next</value>
+		<value>Suivante</value>
 	</string>	
 	<string>
 		<ref>ViewAnswers.btClose</ref>
-		<value>Close</value>
+		<value>Quitter</value>
 	</string>	
 	<string>
 		<ref>ViewAnswers.btDelete</ref>
-		<value>Delete</value>
+		<value>Supprimer</value>
 	</string>	
 	
 	<!-- BadXMLFileException -->

@@ -88,8 +88,8 @@ public class Main {
                 System.out.println("NOT RUNNING");
             }*/
           //  AskFrame.getTheFrame().showTheFrame();
-           // ViewAnswers v = new ViewAnswers();
-           // v.setVisible(true);
+
+            ViewAnswers.getTheFrame();
         }
 
 

@@ -23,6 +23,8 @@
 
 package model;
 
+import api.dbc.DBConnexion;
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -94,6 +96,10 @@ public class Reponse {
         return session;
     }
 
+    public void setSession(Session s){
+        session = s;
+    }
+
     public String getScreenshot() {
         return screenshot;
     }
@@ -102,4 +108,20 @@ public class Reponse {
         return id;
     }
 
+    public void deleteReponse(){
+        // First : Delete screenshot
+        if (!this.getScreenshot().equals(""))
+        {
+            File f = new File(this.getScreenshot());
+            if (f.exists()){
+                f.delete();
+            }
+        }
+
+        // Then delete answer in DB
+       DBConnexion conn = DBConnexion.getConnexion();
+       System.out.println(getId()+" "+getSession().getId());
+       conn.deleteAnwser(this);
+
+    }
 }
