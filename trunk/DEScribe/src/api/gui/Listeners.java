@@ -42,7 +42,9 @@ import api.utils.LaunchReportPage;
 import api.utils.UrlHelper;
 import api.utils.getOs;
 import des.Main;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JOptionPane;
 import model.SessionManager;
@@ -377,6 +379,8 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
             }
         } else if (s.equals(SessionFrame.labelBtOk)) {
             SessionFrame.getFrame().HideFrame();
+        } else if (s.equals(SessionFrame.labelBtVisualize)) {
+            ViewAnswers.getTheFrame().reset();
         }
 
     }

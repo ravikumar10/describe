@@ -48,6 +48,10 @@ import model.SessionManager;
  */
 public class ViewAnswers extends JFrame {
 
+    static Object getFrame() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     private JPanel jpImg;
     private JPanel jpControls;
     private JPanel jpInternal;
@@ -133,7 +137,7 @@ public class ViewAnswers extends JFrame {
                 }
                 if (selectedSessionAnswers.size()>0){
                     listAnswerID.select(0);
-                    refresh();
+                    //refresh();
                 }
 
             } catch (SQLException ex) {
@@ -209,7 +213,6 @@ public class ViewAnswers extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                reset();
             }
         });
 
@@ -243,7 +246,7 @@ public class ViewAnswers extends JFrame {
         }
 
         this.getContentPane().add(jpInternal);
-        this.setVisible(true);
+        this.setVisible(false);
         this.setTitle(title);
         //this.setPreferredSize(new Dimension(800,600));
 
@@ -259,11 +262,12 @@ public class ViewAnswers extends JFrame {
         return instance;
     }
 
-    private void refresh() {
+    public void refresh() {
+        pack();
+        this.setLocation(0, 0);
         setVisible(true);
         if (selectedSessionAnswers.size()>0){
             displayScreenshot();
-
         }
     }
 
@@ -272,6 +276,7 @@ public class ViewAnswers extends JFrame {
         int width = screen.width;
         int height = (int)80*screen.height/100;
         BufferedImage src;
+        String screens="";
         try {
 
             Reponse r = null;
@@ -281,10 +286,12 @@ public class ViewAnswers extends JFrame {
                             r=r2;
                 }
             }
-        src = ImageIO.read(new File(r.getScreenshot()));
+            screens=r.getScreenshot();
+        src = ImageIO.read(new File(screens));
         imgContainer.setIcon(new ImageIcon(resize(src, width, height)));
         } catch (IOException ex) {
-            Logger.getLogger(ViewAnswers.class.getName()).log(Level.SEVERE, null, ex);
+           String message = Lang.getLang().getValueFromRef("ViewAnswers.strFileError") + " "+screens;
+           javax.swing.JOptionPane.showMessageDialog(null, message);
         }
         //this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
 
@@ -323,9 +330,6 @@ public class ViewAnswers extends JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-
-
         pack();
     }
 
