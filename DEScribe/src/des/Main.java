@@ -68,13 +68,7 @@ public class Main {
             // On démarre l'application.
             DBConnexion conn = DBConnexion.getConnexion();
             //conn.resetBD();
-
-
-
             TaskTrayMenu tt = new TaskTrayMenu();
-
-
-
             SessionManager sm = SessionManager.getSessionManager();
 
             OptionFrame.getOptionFrame();
@@ -88,12 +82,6 @@ public class Main {
                 System.out.println("NOT RUNNING");
             }*/
             AskFrame.getTheFrame().showTheFrame();
-
-            
         }
-
-
-
-
     }
 }
