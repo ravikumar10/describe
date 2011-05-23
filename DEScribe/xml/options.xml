@@ -3,5 +3,5 @@
 	<freq value="0"/>
 	<sound on="true"/>
 	<lang value="english"/>
-	<sessions url="C:\Users\Seb\Desktop"/>
+	<sessions url="sessions"/>
 </options>
