@@ -1,0 +1,9 @@
+<!-- ajouter une DTD -->
+<questions>
+	<question type="open">
+		Qu'aimeriez-vous manger?
+	</question>
+	<question type="open">
+		Qui etes vous ?
+	</question>
+</questions>

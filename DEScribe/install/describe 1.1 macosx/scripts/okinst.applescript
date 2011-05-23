@@ -1,0 +1,1 @@
+display dialog "DEScribe is now launched in background and accessible from the System Tray icon DES."
