@@ -1,0 +1,52 @@
+---
+README -- DEScribe Version beta for Windows
+2011-02-04
+---
+
+
+
+----------------------------------
+About DEScribe
+----------------------------------
+
+- DEScribe is a new open source java application for Discrete Experience Sampling (DES). Launched in background, questions (loaded from an XML file form) will be asked to user and answers will be collected in order to export them (to XML file) and send them to an experimenter who will be able to analyze them.
+
+- A set of questions and their answers represents what is here called "session". A session can be created, consulted, exported to XML, paused or closed.
+
+
+
+----------------------------------
+Installing/Uninstalling DEScribe
+----------------------------------
+
+How to install DEScribe:
+1. Launch describe-setup.exe and follow installer's instructions.
+2. DEScribe will set automatically get launched at Windows starting.
+
+How to uninstall DEScribe:
+1. Launch unistall.exe in the application folder or unistall via Control Panel -> Uninstall a Program.
+
+
+
+----------------------------------
+Note
+----------------------------------
+
+- Feel free to submit us new language files so we can add a new language to the application. To proceed, copy a file from directory "language" in DEScribe directory and translate it then rename it "yourlanguage.xml"
+
+
+
+----------------------------------
+About us
+----------------------------------
+
+Project's page:
+http://code.google.com/p/des-application/
+
+Contacts:
+Sebastien Faure <sebastien.faure3@gmail.com>
+Bertrand Gros 	<gros.bertrand@gmail.com>
+Yannick Prié 	<yannick.prie@univ-lyon1.fr>
+
+
+( C ) Faure, Gros, Prie 2011
