@@ -231,6 +231,14 @@
 		<ref>SessionFrame.noOldSessions</ref>
 		<value>Aucune session passée</value>
 	</string>	
+	<string>
+		<ref>SessionFrame.labelBtVisualize</ref>
+		<value>Visualiser les réponses</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.toolTipBtVisualize</ref>
+		<value>Cliquez ici pour visualiser toute vos réponses et en effacer si besoin</value>
+	</string>		
 	
 	<!-- QuestionFrame -->
 	<string>
@@ -397,6 +405,10 @@
 		<ref>ViewAnswers.btDelete</ref>
 		<value>Supprimer</value>
 	</string>	
+	<string>
+		<ref>ViewAnswers.strFileError</ref>
+		<value>Lecture impossible pour le fichier :</value>
+	</string>		
 	
 	<!-- BadXMLFileException -->
 	<string>

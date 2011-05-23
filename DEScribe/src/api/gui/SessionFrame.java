@@ -107,6 +107,7 @@ public class SessionFrame extends JFrame {
     public static String toolTipBtConsultOldSessions = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtConsultOldSessions");
     public static String toolTipBtExportOldSessions = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtExportOldSessions");
     public static String toolTipBtDeleteOldSessions = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtDeleteOldSessions");
+
     public static Label lbWarningUnexported;
     public static String lbUnexportedSessionWarning = Lang.getLang().getValueFromRef("SessionFrame.lbUnexportedSessionWarning");
 
@@ -129,6 +130,9 @@ public class SessionFrame extends JFrame {
     public static Label lbStatusClosed;
     public static String labelStatusClosed = Lang.getLang().getValueFromRef("SessionFrame.labelStatusClosed");
 
+    private static JButton btVisualize = null;
+    public static String labelBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.labelBtVisualize");
+    public static String toolTipBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtVisualize");
 
     public SessionFrame() {
 
@@ -229,6 +233,11 @@ public class SessionFrame extends JFrame {
         btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
         jpUpFlowBt.add(btCloseSessionCurrentSession);
         btCloseSessionCurrentSession.setToolTipText(toolTipBtCloseSessionCurrentSession);
+
+        btVisualize = new JButton(labelBtVisualize);
+        btVisualize.addActionListener(Listeners.getListeners());
+        jpUpFlowBt.add(btVisualize);
+        btVisualize.setToolTipText(toolTipBtVisualize);
 
         jpUpFlowBt.setBackground(new Color(178,34,34));
 
@@ -450,6 +459,8 @@ public class SessionFrame extends JFrame {
         labelStatusPaused = Lang.getLang().getValueFromRef("SessionFrame.labelStatusPaused");
         labelStatusClosed = Lang.getLang().getValueFromRef("SessionFrame.labelStatusClosed");
 
+        labelBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.labelBtVisualize");
+        toolTipBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtVisualize");
 
         // ---
 
@@ -500,6 +511,9 @@ public class SessionFrame extends JFrame {
         btExportOldSessions.setToolTipText(toolTipBtExportOldSessions);
         btDeleteOldSessions.setText(labelBtDeleteOldSessions);
         btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
+
+        btVisualize.setText(labelBtVisualize);
+        btVisualize.setToolTipText(toolTipBtVisualize);
 
         lbName.setText(labelName);
         lbStatus.setText(labelStatus);

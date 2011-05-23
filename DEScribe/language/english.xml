@@ -231,6 +231,14 @@
 		<ref>SessionFrame.noOldSessions</ref>
 		<value>No old sessions yet.</value>
 	</string>
+	<string>
+		<ref>SessionFrame.labelBtVisualize</ref>
+		<value>Visualize answers</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.toolTipBtVisualize</ref>
+		<value>Click here to see all yours answers and delete them if necessary</value>
+	</string>		
 	
 	<!-- QuestionFrame -->
 	<string>
@@ -396,6 +404,10 @@
 	<string>
 		<ref>ViewAnswers.btDelete</ref>
 		<value>Delete</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.strFileError</ref>
+		<value>Can't read file :</value>
 	</string>	
 	
 	<!-- BadXMLFileException -->
