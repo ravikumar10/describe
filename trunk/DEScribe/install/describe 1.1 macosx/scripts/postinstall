@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Launch des-at-launch.app
+
+open /Applications/DEScribe/login_item/des-at-launch.app
+open /Applications/DEScribe/DEScribe.app
+open /Applications/DEScribe/install/okinst.app
+exit 0
