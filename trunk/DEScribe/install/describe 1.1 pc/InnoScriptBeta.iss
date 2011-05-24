@@ -39,7 +39,7 @@ Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\DEScribe"; Filename: "{app}\DEScribe.exe"
+Name: "{group}\DEScribe"; Filename: "{app}\DEScribe.exe"; WorkingDir: "{app}"
 Name: {commonstartup}\DEScribe; Filename: {app}\DEScribe.exe; WorkingDir: "{app}"
 Name: "{group}\{cm:ProgramOnTheWeb,Describe}"; Filename: "http://describe.googlecode.com/"
 Name: "{group}\{cm:UninstallProgram,Describe}"; Filename: "{uninstallexe}"
