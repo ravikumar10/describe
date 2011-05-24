@@ -38,6 +38,9 @@ Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1
 Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\sessions"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}"
+
 [Icons]
 Name: "{group}\DEScribe"; Filename: "{app}\DEScribe.exe"; WorkingDir: "{app}"
 Name: {commonstartup}\DEScribe; Filename: {app}\DEScribe.exe; WorkingDir: "{app}"
@@ -47,4 +50,70 @@ Name: "{group}\{cm:UninstallProgram,Describe}"; Filename: "{uninstallexe}"
 [Run]
 Filename: "{app}\DEScribe.exe"; Description: "{cm:LaunchProgram,Describe}"; Flags: nowait postinstall skipifsilent
 
+;-------------------------------------------------------------------------------
+
+[Code]
+
+////////// Customize the following constants to suit your own program //////////
+
+
+function InitializeSetup(): Boolean;
+var
+  msgFr : String;
+  msgEn : String;
+  msg : String;
+begin
+  msgFr :='Avertissement : Si une ancienne version de DEScribe est déjà installée, veuiller annuler et la désinstaller d''abord';
+  msgEn :='Warning : If you already installed former version of DEScribe, please click cancel and uninstall it first';
+
+  if ActiveLanguage() = 'english' then
+  begin
+    msg := msgEn;
+  end
+  else
+  begin
+    msg := msgFr;
+  end;
+
+if MsgBox( msg, mbInformation, MB_OKCANCEL ) = 1 then
+begin
+  result := true;
+end
+else
+begin
+  result := false;
+end;
+end;
+
+//------------------------------------------------------------------------------
+
+function InitializeUninstall(): Boolean;
+var
+  msgFr : String;
+  msgEn : String;
+  msg : String;
+begin
+  msgFr :='Avertissement : Si DEScribe est encore en exécution, veuillez le fermer d''abord via l''icône DES dans la barre des tâches, puis cliquer sur OK pour lancer la désinstallation';
+  msgEn :='Warning : If DEScribe is launched please close it by using DES icon next to clock in task bar, and click OK button to resume uninstall';
+
+  if ActiveLanguage() = 'english' then
+  begin
+    msg := msgEn;
+  end
+  else
+  begin
+    msg := msgFr;
+  end;
+
+if MsgBox(  msg, mbInformation, MB_OKCANCEL ) = 1 then
+begin
+  result := true;
+end
+else
+begin
+  result := false;
+end;
+end;
+
+//---------------------------------------------------
                                                                                       
