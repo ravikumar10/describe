@@ -225,4 +225,6 @@ public class SessionManager {
                 }
         }
 
+
+    //SEssion manager charge liste sessions
 }
