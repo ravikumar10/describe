@@ -35,6 +35,7 @@ One answer max.<br />
 		<action type="screenshot"/>
 	</actions>
 </questions>
+<br />http://describe.googlecode.com/files/askframe_qcm_radiobt.jpg<br />
 
 = Example of Multiple Choice Question with 0..n answers (Checkboxes) =
 As many answers as user wants.<br />
@@ -51,7 +52,8 @@ As many answers as user wants.<br />
 		<action type="screenshot"/>
 	</actions>
 </questions>
-
+<br />http://describe.googlecode.com/files/askframe_qcm_ckbox.jpg<br />
 
 <br />
+
 More question types to come...<br />
