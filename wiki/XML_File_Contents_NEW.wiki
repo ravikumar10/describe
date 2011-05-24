@@ -1,0 +1,29 @@
+#summary All you need to know about DEScribe's XML files.
+#labels Phase-Implementation
+
+= Introduction =
+
+Contents of DEScribe's XML files
+
+
+= Location =
+- DEScribe's XML files are located in "xml" directory of DEScribe's folder.<br />
+
+= List of files =
+Two files at the moment :<br />
+- form.xml : contains default question set.<br />
+<questions>
+	<question type="open">
+		What was your experience ?
+	</question>
+</questions><br />
+"questions" node contains a lists of "question" which value is the question itself. "type" attribute determinates rather question is "open" (answer free to be keyed in) or "mcq" (multiple choice question). "mcq" type questions contain "choice" nodes which values are answer choices.<br />
+More question types to come...<br />
+
+- options.xml : DEScribe's settings: question set path (default is form.xml), question frequency (value at 0 for regular, 1 for slow mode) , sound mode (on at true for enabled, false for disabled),selected language (value at name of language).
+<options>
+	<form url="xml\form.xml"/>
+	<freq value="0"/>
+	<sound on="true"/>
+	<lang value="english"/>
+</options><br />
