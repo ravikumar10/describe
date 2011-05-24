@@ -18,7 +18,7 @@ User can type his own answer.<br />
 	</actions>
 </questions><br />
 
-<br /><center>http://describe.googlecode.com/files/questionFrame.JPG</center><br />
+<br />http://describe.googlecode.com/files/questionFrame.JPG<br />
 
 = Example of Multiple Choice Question with 0..1 answer (Radio Buttons) =
 One answer max.<br />
