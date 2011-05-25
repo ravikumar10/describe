@@ -102,6 +102,8 @@ public class AskFrame extends GenericFrame {
         public ButtonGroup bg2 = null;
         public JPanel jpMiddle = null;
 
+        public JTextArea jtaOther = null;
+
         public interiorPanel(AskFrame param) {
             super();
             this.listeners = param;
@@ -156,7 +158,7 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
-        private JPanel radioGroup(ArrayList<String> choices, String style) {
+        private JPanel choicesGroup(ArrayList<String> choices, String style) {
             JPanel res = new JPanel(new GridLayout(0,1));
             bg2 = new ButtonGroup();
             for (Iterator<String> it = choices.iterator(); it.hasNext();) {
@@ -278,13 +280,14 @@ public class AskFrame extends GenericFrame {
             }
             if (lesQuestions.get(0) instanceof QCMRadio){
                 // Add radio buttons
-                thePanel.add(thePanel.radioGroup(((QCMRadio) lesQuestions.get(0)).getChoices(), "radio"), BorderLayout.CENTER);
+                thePanel.add(thePanel.choicesGroup(((QCMRadio) lesQuestions.get(0)).getChoices(), "radio"), BorderLayout.CENTER);
+
                 pack();
             }
 
             if (lesQuestions.get(0) instanceof QCMChkBox){
                 // Add radio buttons
-                thePanel.add(thePanel.radioGroup(((QCMChkBox) lesQuestions.get(0)).getChoices(), "checkbox"), BorderLayout.CENTER);
+                thePanel.add(thePanel.choicesGroup(((QCMChkBox) lesQuestions.get(0)).getChoices(), "checkbox"), BorderLayout.CENTER);
                 pack();
             }
 
@@ -325,7 +328,6 @@ public class AskFrame extends GenericFrame {
 
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
-
         if (s.equals(labelButtonValider)) {
             try {
                 DBConnexion conn = DBConnexion.getConnexion();
@@ -352,12 +354,15 @@ public class AskFrame extends GenericFrame {
                         }
                     }
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-
+                    //thePanel.bg2.clearSelection();
                 }
+                
                 if (lesQuestions.get(0) instanceof QCMChkBox){
                     String res="";
-                    Component t[]= thePanel.jpMiddle.getComponents();
+                    Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
+                    System.out.println("Choix : "+t.length);
                     for (int i=0; i<t.length;i++){
+                        
                         AbstractButton ab=(AbstractButton) t[i];
                         if (ab.isSelected()){
                             if (!res.equals("")){
@@ -366,10 +371,19 @@ public class AskFrame extends GenericFrame {
                             res+=ab.getText();
                         }
                     }
+                    System.out.println("Ajouté : "+res);
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                    // Reinit
+                    
+                    for (int i =0; i<t.length; i++){
+                        ((JCheckBox) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setSelected(false);
+                    }
+
                 }    
                 
                 conn.newAddEntry(rep);
+
+
 
                 //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
                 if (lesQuestions.get(0) instanceof QReponseLibre){
