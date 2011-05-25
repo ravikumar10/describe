@@ -41,6 +41,10 @@ public class ImgTxtMerger extends JPanel {
 
     private BufferedImage image;
 
+    public ImgTxtMerger(){
+        
+    }
+
     public ImgTxtMerger(String file, String text) {
         try {
             image = ImageIO.read(new File(file));
@@ -58,7 +62,7 @@ public class ImgTxtMerger extends JPanel {
         }
     }
 
-    private BufferedImage process(BufferedImage old, String text) {
+    public BufferedImage process(BufferedImage old, String text) {
         int w = old.getWidth();
         int h = old.getHeight();
         BufferedImage img = new BufferedImage(

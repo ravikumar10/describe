@@ -371,7 +371,7 @@ public class AskFrame extends GenericFrame {
                 
                 conn.newAddEntry(rep);
 
-                ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
+                //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
                 if (lesQuestions.get(0) instanceof QReponseLibre){
                     AskFrame.setText2("");
                 }

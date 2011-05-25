@@ -120,7 +120,6 @@ public class Reponse {
 
         // Then delete answer in DB
        DBConnexion conn = DBConnexion.getConnexion();
-       System.out.println(getId()+" "+getSession().getId());
        conn.deleteAnwser(this);
 
     }
