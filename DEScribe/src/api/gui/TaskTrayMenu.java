@@ -83,12 +83,25 @@ public class TaskTrayMenu {
 
             reportItem = new MenuItem(ReportItemLabel);
             reportItem.addActionListener(Listeners.getListeners());
-            
+
+
+
             popup.add(configItem);
             popup.add(sessionItem);
             popup.add(reportItem);
             popup.add(aboutItem);
             popup.add(exitItem);
+
+            //DEBUG
+            MenuItem displayAskFrame = new MenuItem("Display AskFrame");
+            displayAskFrame.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    AskFrame.getTheFrame().showTheFrame();
+                }
+            });
+            popup.add(displayAskFrame);
+            // \DEBUG
 
             final TrayIcon trayIcon = new TrayIcon(image, "DEScribe", popup);
 

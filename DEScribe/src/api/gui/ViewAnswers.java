@@ -7,6 +7,7 @@ package api.gui;
 
 import api.dbc.DBConnexion;
 import api.i18n.Lang;
+import api.utils.ImgTxtMerger;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +15,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.List;
 import java.awt.RenderingHints;
@@ -203,7 +205,8 @@ public class ViewAnswers extends JFrame {
 
             deleteButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    selectedSessionAnswers.get(listAnswerID.getSelectedIndex()).deleteReponse();
+                    if (selectedSessionAnswers.size()>0)
+                        selectedSessionAnswers.get(listAnswerID.getSelectedIndex()).deleteReponse();
                     reset();
                 }
             });
@@ -268,6 +271,8 @@ public class ViewAnswers extends JFrame {
         setVisible(true);
         if (selectedSessionAnswers.size()>0){
             displayScreenshot();
+        } else {
+            imgContainer.setIcon(null);
         }
     }
 
@@ -287,8 +292,19 @@ public class ViewAnswers extends JFrame {
                 }
             }
             screens=r.getScreenshot();
-        src = ImageIO.read(new File(screens));
-        imgContainer.setIcon(new ImageIcon(resize(src, width, height)));
+            src = ImageIO.read(new File(screens));
+
+            int rectHeight = (int) height*20/100;
+            BufferedImage buf = new BufferedImage(width, rectHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = buf.createGraphics();
+            g2.drawRect(0, 0, width, rectHeight);
+
+            //imgContainer.setIcon(new ImageIcon(resize(src, width, height)));
+            ImgTxtMerger iTM = new ImgTxtMerger();
+            if (selectedSessionAnswers.size()>0){
+                Reponse currentAnswer = selectedSessionAnswers.get(listAnswerID.getSelectedIndex());
+                imgContainer.setIcon(new ImageIcon(iTM.process(resize(append(buf, src), width, height), currentAnswer.getIntituleQuestion()+" \n "+currentAnswer.getLaReponse()+" \n "+currentAnswer.getInstant().toString())));
+            }
         } catch (IOException ex) {
            String message = Lang.getLang().getValueFromRef("ViewAnswers.strFileError") + " "+screens;
            javax.swing.JOptionPane.showMessageDialog(null, message);
@@ -324,8 +340,9 @@ public class ViewAnswers extends JFrame {
                 }
                 if (selectedSessionAnswers.size()>0){
                     listAnswerID.select(0);
-                    refresh();
+                    ////refresh();
                 }
+                refresh();
 
             } catch (SQLException ex) {
                 Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -343,4 +360,51 @@ public class ViewAnswers extends JFrame {
             g.dispose();
             return dimg;
         }
+
+
+
+    // Pour fusionner le screenshot avec un blanc en haut:
+    public static BufferedImage append(Image img1, Image img2) {
+        BufferedImage buf = null;
+        if(img1 != null && img2 != null) {
+            int w1 = img1.getWidth(null);
+            int h1 = img1.getHeight(null);
+            int w2 = img2.getWidth(null);
+            int h2 = img2.getHeight(null);
+            int hMax = 0;
+            int wMax = 0;
+
+            hMax = h1 + h2;
+            wMax = (w1 >= w2) ? w1 : w2;
+            buf = new BufferedImage(wMax, hMax, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = buf.createGraphics();
+            g2.drawImage(img1, 0, 0, null);
+            g2.drawImage(img2, 0, h1, null);
+        }
+        return buf;
+    }
+
+  /*
+   public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setDefaultCloseOperation(3);
+        f.setSize(800, 600);
+        f.setLocationRelativeTo(null);
+
+
+        ImageIcon img1 = new ImageIcon("img1.png");
+        ImageIcon img2 = new ImageIcon("img2.png");
+        ImageIcon image = new ImageIcon(append(img1.getImage(), img2.getImage()));
+        JLabel label = new JLabel();
+        label.setIcon(image);
+
+
+        f.setContentPane(label);
+        f.setVisible(true);
+    }
+   */
+
+
+    //Puis mettre le texte
+    //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
 }

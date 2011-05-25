@@ -81,7 +81,7 @@ public class Main {
             } else {
                 System.out.println("NOT RUNNING");
             }*/
-            AskFrame.getTheFrame().showTheFrame();
+            
         }
     }
 }
