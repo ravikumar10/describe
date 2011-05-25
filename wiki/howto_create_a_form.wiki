@@ -11,7 +11,7 @@ Contents of DEScribe's XML form files
 User can type his own answer.<br />
 <questions>
 	<question type="open">
-		What was your experience?
+	           <title>What was your experience?</title>
 	</question>
 	<actions>
 		<action type="screenshot"/>
