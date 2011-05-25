@@ -360,7 +360,7 @@ public class AskFrame extends GenericFrame {
                 if (lesQuestions.get(0) instanceof QCMChkBox){
                     String res="";
                     Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
-                    System.out.println("Choix : "+t.length);
+
                     for (int i=0; i<t.length;i++){
                         
                         AbstractButton ab=(AbstractButton) t[i];
@@ -371,7 +371,6 @@ public class AskFrame extends GenericFrame {
                             res+=ab.getText();
                         }
                     }
-                    System.out.println("Ajouté : "+res);
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                     // Reinit
                     
