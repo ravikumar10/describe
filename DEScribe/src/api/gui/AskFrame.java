@@ -167,7 +167,6 @@ public class AskFrame extends GenericFrame {
                 QCMChoice qcmC = it.next();
                 if (style.equals("radio")){
                     bg2.add(new JRadioButton(qcmC.getText()));
-                    System.out.println("TTT1");
                     Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                     while (en.hasMoreElements()) {
                         AbstractButton ab = en.nextElement();
@@ -353,7 +352,6 @@ public class AskFrame extends GenericFrame {
                 }
                 if (lesQuestions.get(0) instanceof QCMRadio) {
                     String res="";
-                    System.out.println("TTT2");
                     Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                     while (en.hasMoreElements()) {
 
@@ -374,9 +372,8 @@ public class AskFrame extends GenericFrame {
                     Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
 
                     for (int i=0; i<t.length;i++){
-                        System.out.println("TTT3");
+
                         if (t[i] instanceof AbstractButton){
-                            System.out.println("TTT4");
                             AbstractButton ab=(AbstractButton) t[i];
                             if (ab.isSelected()){
                                 if (!res.equals("")){
