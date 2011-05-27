@@ -12,11 +12,7 @@ Contents of DEScribe's XML files
 = List of files =
 Two files at the moment :<br />
 - form.xml : contains default question set.<br />
-<questions>
-	<question type="open">
-		What was your experience ?
-	</question>
-</questions><br />
+Its contents is explained in wiki "How to create a form".<br />
 "questions" node contains a lists of "question" which value is the question itself. "type" attribute determinates rather question is "open" (answer free to be keyed in) or "mcq" (multiple choice question). "mcq" type questions contain "choice" nodes which values are answer choices.<br />
 More question types to come...<br />
 
