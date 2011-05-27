@@ -29,7 +29,7 @@ One answer max.<br />
 		<choice type="normal">Chatting with friends</choice>
 		<choice type="normal">Programming</choice>
 		<choice type="normal">Playing video games</choice>
-		<choice type="other">Other</choice>
+		<choice type="normal">Other</choice>
 	</question>
 	<actions>
 		<action type="screenshot"/>
@@ -52,7 +52,7 @@ As many answers as user wants.<br />
 		<action type="screenshot"/>
 	</actions>
 </questions>
-<br />http://describe.googlecode.com/files/askframe_qcm_ckbox.jpg<br />
+<br />http://describe.googlecode.com/files/askframe_qcmother.jpg<br />
 
 <br />
 
