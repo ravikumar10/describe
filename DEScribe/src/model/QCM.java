@@ -23,6 +23,8 @@
 
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Class QCM.java
  * @description Multiple choice question
@@ -32,6 +34,8 @@ package model;
  */
 public class QCM extends Question {
 
+    protected ArrayList<QCMChoice> choices;
+    
     public QCM (String q){
         super(q);
     }

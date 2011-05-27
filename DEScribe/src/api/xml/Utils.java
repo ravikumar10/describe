@@ -52,6 +52,7 @@ import javax.xml.transform.stream.StreamResult;
 import model.Action;
 import model.ActionScreenshot;
 import model.QCMChkBox;
+import model.QCMChoice;
 import model.QCMRadio;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -112,7 +113,7 @@ public class Utils {
                 Element q = (Element) questionCourante.item(k);
                 String type = q.getAttribute("type");
                 String intitule=q.getElementsByTagName("title").item(0).getFirstChild().getNodeValue().trim();
-                ArrayList<String> choices;
+                //ArrayList<String> choices;
 
                 //String intitule = q.getFirstChild().getNodeValue().trim();
                 /**
@@ -125,24 +126,42 @@ public class Utils {
 
                 if (type.equals("QCMRadio")) {
                     // Choices list
-                    choices=new ArrayList<String>();
+                   /* choices=new ArrayList<String>();
                     NodeList choicesNL = q.getElementsByTagName("choice");
                     for (int n = 0; n < choicesNL.getLength(); n++) {
                         choices.add(choicesNL.item(n).getFirstChild().getNodeValue().trim());
                     }
+                    */
+
+                    ArrayList<QCMChoice> choices;
+                    choices=new ArrayList<QCMChoice>();
+                    NodeList choicesNL = q.getElementsByTagName("choice");
+                    for (int n = 0; n < choicesNL.getLength(); n++) {
+                        choices.add(new QCMChoice(choicesNL.item(n).getFirstChild().getNodeValue().trim(),(((Element) choicesNL.item(n)).getAttribute("type").equals("other"))));
+                    }
                     QCMRadio qcmr = new QCMRadio(intitule,choices);
+
                     lesQuestions.add(qcmr);
                 }
 
                 if (type.equals("QCMChkBox")) {
                     // Choices list
-                    choices=new ArrayList<String>();
+                   /* choices=new ArrayList<String>();
                     NodeList choicesNL = q.getElementsByTagName("choice");
                     for (int n = 0; n < choicesNL.getLength(); n++) {
                         choices.add(choicesNL.item(n).getFirstChild().getNodeValue().trim());
                     }
+                    */
+                    ArrayList<QCMChoice> choices;
+                    choices=new ArrayList<QCMChoice>();
+                    NodeList choicesNL = q.getElementsByTagName("choice");
+                    for (int n = 0; n < choicesNL.getLength(); n++) {
+                        choices.add(new QCMChoice(choicesNL.item(n).getFirstChild().getNodeValue().trim(),(((Element) choicesNL.item(n)).getAttribute("type").equals("other"))));
+                    }
+
                     QCMChkBox qcmcb = new QCMChkBox(intitule,choices);
                     lesQuestions.add(qcmcb);
+
                 }
             }
             return lesQuestions;
