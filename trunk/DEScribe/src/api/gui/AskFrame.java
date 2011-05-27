@@ -65,6 +65,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import model.Action;
 import model.ActionScreenshot;
 import model.QCMChkBox;
+import model.QCMChoice;
 import model.QCMRadio;
 import model.QReponseLibre;
 import model.Question;
@@ -102,7 +103,7 @@ public class AskFrame extends GenericFrame {
         public ButtonGroup bg2 = null;
         public JPanel jpMiddle = null;
 
-        public JTextArea jtaOther = null;
+        public JTextField jtaOther = null;
 
         public interiorPanel(AskFrame param) {
             super();
@@ -158,24 +159,33 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
-        private JPanel choicesGroup(ArrayList<String> choices, String style) {
+        private JPanel choicesGroup(ArrayList<QCMChoice> choices, String style) {
+            Boolean other=false;
             JPanel res = new JPanel(new GridLayout(0,1));
             bg2 = new ButtonGroup();
-            for (Iterator<String> it = choices.iterator(); it.hasNext();) {
-                String s = it.next();
+            for (Iterator<QCMChoice> it = choices.iterator(); it.hasNext();) {
+                QCMChoice qcmC = it.next();
                 if (style.equals("radio")){
-                    bg2.add(new JRadioButton(s));
+                    bg2.add(new JRadioButton(qcmC.getText()));
+                    System.out.println("TTT1");
                     Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                     while (en.hasMoreElements()) {
                         AbstractButton ab = en.nextElement();
                         res.add(ab);
                     }
                 } else if (style.equals("checkbox")){
-                    JCheckBox jcb = new JCheckBox(s);
+                    JCheckBox jcb = new JCheckBox(qcmC.getText());
                     res.add(jcb);
                 }
+                if (qcmC.getIsOtherChoice()){
+                    other=true;
+                }
             }
-
+            if (other){
+                jtaOther = new JTextField();
+                res.add(jtaOther);
+            }
+            //res.add(this);
             res.setPreferredSize(new Dimension(400, 150));
             res.setBackground(new Color(178,34,34));
             jpMiddle=res;
@@ -245,7 +255,7 @@ public class AskFrame extends GenericFrame {
             }
         };
         // After 2 minutes of inactivity, the frame disappears by itself
-        hideCD.schedule(taskCD, 120000);
+        hideCD.schedule(taskCD, 100000);
 
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
         try {
@@ -343,8 +353,10 @@ public class AskFrame extends GenericFrame {
                 }
                 if (lesQuestions.get(0) instanceof QCMRadio) {
                     String res="";
+                    System.out.println("TTT2");
                     Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                     while (en.hasMoreElements()) {
+
                         AbstractButton ab = en.nextElement();
                         if (ab.isSelected()){
                             if (!res.equals("")){
@@ -362,20 +374,30 @@ public class AskFrame extends GenericFrame {
                     Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
 
                     for (int i=0; i<t.length;i++){
-                        
-                        AbstractButton ab=(AbstractButton) t[i];
-                        if (ab.isSelected()){
-                            if (!res.equals("")){
-                                res=res+" \n ";
+                        System.out.println("TTT3");
+                        if (t[i] instanceof AbstractButton){
+                            System.out.println("TTT4");
+                            AbstractButton ab=(AbstractButton) t[i];
+                            if (ab.isSelected()){
+                                if (!res.equals("")){
+                                    res=res+" \n ";
+                                }
+                                res+=ab.getText();
                             }
-                            res+=ab.getText();
+                        } else if (!((JTextField) t[i]).getText().equals("")){
+                            res+=" \n "+((JTextField) t[i]).getText();
                         }
                     }
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                     // Reinit
                     
                     for (int i =0; i<t.length; i++){
-                        ((JCheckBox) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setSelected(false);
+                        if (t[i] instanceof JCheckBox)
+                            ((JCheckBox) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setSelected(false);
+                        if (t[i] instanceof JTextField){
+                            ((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setText("");
+                            //((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setVisible(false);
+                        }
                     }
 
                 }    

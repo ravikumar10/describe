@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 public class QCMChkBox extends QCM{
 
-    private ArrayList<String> choices;
+    /*private ArrayList<String> choices;
 
     public QCMChkBox(String intitule, ArrayList<String> ch) {
         super(intitule);
@@ -43,6 +43,18 @@ public class QCMChkBox extends QCM{
     }
     
     public ArrayList<String> getChoices(){
+        return choices;
+    }
+
+     */
+
+    public QCMChkBox(String intitule, ArrayList<QCMChoice> ch) {
+        super(intitule);
+        choices=new ArrayList<QCMChoice>();
+        choices=ch;
+    }
+
+    public ArrayList<QCMChoice> getChoices(){
         return choices;
     }
 }

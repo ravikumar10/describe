@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 public class QCMRadio extends QCM{
 
-    private ArrayList<String> choices;
+/*    private ArrayList<String> choices;
     
     public QCMRadio(String intitule, ArrayList<String> ch) {
         super(intitule);
@@ -45,5 +45,14 @@ public class QCMRadio extends QCM{
     public ArrayList<String> getChoices(){
         return choices;
     }
+*/
+    public QCMRadio(String intitule, ArrayList<QCMChoice> ch) {
+        super(intitule);
+        choices=new ArrayList<QCMChoice>();
+        choices=ch;
+    }
 
+    public ArrayList<QCMChoice> getChoices(){
+        return choices;
+    }
 }
