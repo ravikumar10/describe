@@ -407,7 +407,7 @@ public class AskFrame extends GenericFrame {
                 if (lesQuestions.get(0) instanceof QReponseLibre){
                     AskFrame.setText2("");
                 }
-                
+                        hideCD.cancel();
                 this.hideTheFrame();
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
