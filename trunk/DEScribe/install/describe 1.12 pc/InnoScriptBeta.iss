@@ -7,8 +7,8 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{FC7EADD5-53D8-441C-AF1A-7810B43600F3}
 AppName=DEScribe
-AppVersion=1.1
-AppVerName=DEScribe 1.1
+AppVersion=1.12
+AppVerName=DEScribe 1.12
 AppPublisher=DEScribe Devs
 AppPublisherURL=http://describe.googlecode.com/
 AppSupportURL=http://describe.googlecode.com/
@@ -16,10 +16,10 @@ AppUpdatesURL=http://describe.googlecode.com/
 DefaultDirName={pf}\DEScribe
 DefaultGroupName=DEScribe
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\COPYING.txt
-OutputDir=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\
-OutputBaseFilename=DEScribe-1.1-setup
-SetupIconFile=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\des-icon.ico
+LicenseFile=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\COPYING.txt
+OutputDir=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\
+OutputBaseFilename=DEScribe-1.12-setup
+SetupIconFile=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\des-icon.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -28,14 +28,14 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
 [Files]
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\DEScribe.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\data"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\media\*"; DestDir: "{app}\media"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\xml\*"; DestDir: "{app}\xml"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\README"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\COPYING"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.1 pc\sessions"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\DEScribe.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\data"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\media\*"; DestDir: "{app}\media"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\xml\*"; DestDir: "{app}\xml"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\README"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\COPYING"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\sessions"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [UninstallDelete]
