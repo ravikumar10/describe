@@ -1,0 +1,51 @@
+<questions>
+
+    <question type="QCMChkBox">
+
+        <title>
+
+        What was your experience?
+
+        </title>
+
+        <choice type="normal">
+
+        Surfing the internet
+
+        </choice>
+
+        <choice type="normal">
+
+        Chatting with friends
+
+        </choice>
+
+        <choice type="normal">
+
+        Programming
+
+        </choice>
+
+        <choice type="normal">
+
+        Playing video games
+
+        </choice>
+
+        <choice type="other">
+
+        Other
+
+        </choice>
+
+    </question>
+
+    <actions>
+
+        <action type="screenshot">
+
+        </action>
+
+    </actions>
+
+</questions>

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<strings>
+	<!-- SessionFrame -->
+	<string>
+		<ref>SessionFrame.title</ref>
+		<value>Sessions</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelCurrentSession</ref>
+		<value>Session courante</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtConsultCurrentSession</ref>
+		<value>Consulter les réponses</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtExportCurrentSession</ref>
+		<value>Exporter les réponses</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtPauseCurrentSession</ref>
+		<value>Mettre en pause pour X heures =></value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtRetourDePauseCurrentSession</ref>
+		<value>Sortir de pause</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtNewSessionCurrentSession</ref>
+		<value>Nouvelle session</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtCloseSessionCurrentSession</ref>
+		<value>Clore la session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtConsultCurrentSession</ref>
+		<value>Cliquez ici pour consulter la liste des réponses de la session courante</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtExportCurrentSession</ref>
+		<value>Cliquez ici pour exporter les réponses de la session courante vers un fichier XML</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtPauseCurrentSession</ref>
+		<value>Cliquez ici pour mettre en pause la session pour le nombre d'heures saisi dans le champs prévu à cet effet</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtNewSessionCurrentSession</ref>
+		<value>Cliquez ici pour créer une nouvelle session. Attention : la session courante sera définitivement close</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtCloseSessionCurrentSession</ref>
+		<value>Cliquez ici pour clore la session courante : il faudra ensuite créer une nouvelle session pour que l'expérience continue</value>
+	</string>
+	
+	<string>
+		<ref>SessionFrame.textInactiveTimer</ref>
+		<value>nb heures</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelOldSessions</ref>
+		<value>Sessions passées</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtConsultOldSessions</ref>
+		<value>Consulter les réponses</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtExportOldSessions</ref>
+		<value>Exporter</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtDeleteOldSessions</ref>
+		<value>Supprimer la session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtConsultOldSessions</ref>
+		<value>Cliquez ici pour afficher les réponses de la session sélectionnée</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtExportOldSessions</ref>
+		<value>Cliquez ici pour exporter les réponses de la session sélectionnée</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtDeleteOldSessions</ref>
+		<value>Cliquez ici pour supprimer la session passée sélectionnée ainsi que toutes les réponses qui lui sont associées</value>
+	</string>
+	<string>
+		<ref>SessionFrame.lbUnexportedSessionWarning</ref>
+		<value>Attention : la session choisie n'a jamais été exportée!</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtOk</ref>
+		<value>OK</value>
+	</string>
+	<string>
+		<ref>SessionFrame.lbErrorNbHoursMessage</ref>
+		<value>Veuillez saisir un nombre d'heures correct avant de demander la mise en pause.</value>
+	</string>
+	
+	<string>
+		<ref>SessionFrame.strXmlError</ref>
+		<value>Erreur XML: </value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strXmlFile</ref>
+		<value>Fichier XML (.xml)</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strReallyQuit</ref>
+		<value>Voulez-vous vraiment fermer DEScribe?</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFrameTitleReallyQuit</ref>
+		<value>Fermeture de DEScribe</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strWarningBeforeClosingSession</ref>
+		<value>Cela fermera la session courante et mettra en place une nouvelle session. Voulez-vous continuer?</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFrameWarningBeforeClosingSession</ref>
+		<value>Création d'une nouvelle session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strNameForNewSession</ref>
+		<value>Veuillez saisir un nom pour la nouvelle session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strSessionCreationSuccess</ref>
+		<value>Session créée avec succès!</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFormChoiceForNewSession</ref>
+		<value>Utiliser le fichier de questions par défaut? Cliquez sur non si vous préférer indiquer le chemin ou l'URL d'un autre fichier de questions</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strFrameFormChoiceForNewSession</ref>
+		<value>Jeu de questions</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strDefaultSessionName</ref>
+		<value>Sans nom</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strQuestionsSetLoaded</ref>
+		<value>Jeu de questions chargé avec succès!</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strDefaultQuestionsSetLoaded</ref>
+		<value>Jeu de questions par défaut chargé avec succès!</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.strWarningClosingSession</ref>
+		<value>Attention : après la fermeture de la session aucune question ne sera posée tant qu'une nouvelle session ne sera pas créée</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFrameWarningClosingSession</ref>
+		<value>Fermeture de session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strSessionClosedSuccess</ref>
+		<value>Session close avec succès! N'oubliez pas de créer une nouvelle session pour poursuivre l'expérience</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetBtFromUrl</ref>
+		<value>Depuis une URL</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetBtFromComputer</ref>
+		<value>Depuis un fichier de cet ordinateur</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetBtCancel</ref>
+		<value>Abandonner la création</value>
+	</string>			
+	<string>
+		<ref>SessionFrame.importQuestionsSetStr</ref>
+		<value>Veuillez choisir le mode d'import du fichier XML de questions</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.importQuestionsSetTitle</ref>
+		<value>Import d'un questionnaire</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLStr</ref>
+		<value>Veuillez saisir l'URL du fichier XML de questions</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLTitle</ref>
+		<value>Import d'un questionnaire depuis son URL</value>
+	</string>			
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLErrorURL</ref>
+		<value>Opération annulée car l'URL est invalide. Annulation de la création de la session...</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLErrorURLOrFile</ref>
+		<value>Opération annulée car l'URL est invalide ou le fichier ne correspond pas au format attendu (XML). Annulation de la création de la session...</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strSessionCreationFailure</ref>
+		<value>Création de nouvelle session annulée. Attention : l'ancienne session courante a été close. Veuillez en créer une nouvelle pour poursuivre l'expérience.</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelName</ref>
+		<value>Nom :</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelStatus</ref>
+		<value>Statut :</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelStatusActive</ref>
+		<value>ACTIVE</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelStatusPaused</ref>
+		<value>EN PAUSE!</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelStatusClosed</ref>
+		<value>CLOSE!</value>
+	</string>
+	<string>
+		<ref>SessionFrame.noAnswers</ref>
+		<value>Aucune réponse enregistrée pour cette session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.noOldSessions</ref>
+		<value>Aucune session passée</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtVisualize</ref>
+		<value>Visualiser les réponses</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.toolTipBtVisualize</ref>
+		<value>Cliquez ici pour visualiser toute vos réponses et en effacer si besoin</value>
+	</string>		
+	
+	<!-- QuestionFrame -->
+	<string>
+		<ref>QuestionFrame.appTitle</ref>
+		<value>DEScribe</value>
+	</string>			
+	<string>
+		<ref>QuestionFrame.labelButtonValider</ref>
+		<value>Enregistrer la réponse</value>
+	</string>	
+	<string>
+		<ref>QuestionFrame.helpCtrlMaj</ref>
+		<value>Astuce : Appuyez sur Ctrl+Entrée pour enregistrer votre réponse directement.</value>
+	</string>	
+	<string>
+		<ref>QuestionFrame.labelButtonSkip</ref>
+		<value>Passer</value>
+	</string>		
+	<string>
+		<ref>QuestionFrame.toolTipButtonSkip</ref>
+		<value>Cliquez ici pour ne pas répondre à cette question</value>
+	</string>		
+	
+	<!-- ConsultFrame -->
+	<string>
+		<ref>ConsultFrame.lbAnswersPresentation</ref>
+		<value>Liste des réponses aux questions</value>
+	</string>
+	<string>
+		<ref>ConsultFrame.okButton</ref>
+		<value>OK</value>
+	</string>		
+	
+	<!-- TaskTrayMenu -->
+	<string>
+		<ref>TaskTrayMenu.ShowItemLabel</ref>
+		<value>Afficher</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.ExitItemLabel</ref>
+		<value>Fermer</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.ConfigItemLabel</ref>
+		<value>Préférences</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.SessionItemLabel</ref>
+		<value>Sessions</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.ReportItemLabel</ref>
+		<value>Signaler un bug</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.VisitUsItemLabel</ref>
+		<value>Visiter la page du projet</value>
+	</string>		
+	<string>
+		<ref>TaskTrayMenu.AboutItemLabel</ref>
+		<value>A propos de DEScribe...</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.AboutItemBtProjectPage</ref>
+		<value>Visiter la page web de DEScribe</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.OKAbout</ref>
+		<value>OK</value>
+	</string>		
+	<string>
+		<ref>TaskTrayMenu.strVersion</ref>
+		<value>Version</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.strProjectPage</ref>
+		<value>Page du projet</value>
+	</string>		
+	<string>
+		<ref>TaskTrayMenu.strContacts</ref>
+		<value>Contacts</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.SessionInPauseItemLabel</ref>
+		<value>Sessions (en PAUSE!)</value>
+	</string>			
+	<string>
+		<ref>TaskTrayMenu.TrayError</ref>
+		<value>System Tray non supporté</value>
+	</string>
+	
+	<!-- OptionFrame -->
+	<string>
+		<ref>OptionFrame.title</ref>
+		<value>Préférences</value>
+	</string>
+	<string>
+		<ref>OptionFrame.normalFrequency</ref>
+		<value>Fréquence normale</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.slowFrequency</ref>
+		<value>Fréquence ralentie</value>
+	</string>
+	<string>
+		<ref>OptionFrame.frequencies</ref>
+		<value>Fréquence des questions</value>
+	</string>
+	<string>
+		<ref>OptionFrame.language</ref>
+		<value>Langue de DEScribe</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.sound</ref>
+		<value>Son</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.soundEnable</ref>
+		<value>Activé</value>
+	</string>
+	<string>
+		<ref>OptionFrame.okButton</ref>
+		<value>OK</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.cancelButton</ref>
+		<value>Annuler</value>
+	</string>
+	<string>
+		<ref>OptionFrame.resetButton</ref>
+		<value>Valeurs par défaut</value>
+	</string>		
+	<string>
+		<ref>OptionFrame.reConfigSuccess</ref>
+		<value>Préférences modifiées avec succès!</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.sessions</ref>
+		<value>Dossier des sessions</value>
+	</string>				
+	<string>
+		<ref>OptionFrame.browseButton</ref>
+		<value>Parcourir</value>
+	</string>		
+	
+	<!-- ViewAnswers -->
+	<string>
+		<ref>ViewAnswers.title</ref>
+		<value>Answers visualization</value>
+	</string>
+	<string>
+		<ref>ViewAnswers.lbAnswer</ref>
+		<value>Réponse:</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.lbSession</ref>
+		<value>Session:</value>
+	</string>		
+	<string>
+		<ref>ViewAnswers.btPrevious</ref>
+		<value>Précédente</value>
+	</string>		
+	<string>
+		<ref>ViewAnswers.btNext</ref>
+		<value>Suivante</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.btClose</ref>
+		<value>Quitter</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.btDelete</ref>
+		<value>Supprimer</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.strFileError</ref>
+		<value>Lecture impossible pour le fichier :</value>
+	</string>		
+	
+	<!-- BadXMLFileException -->
+	<string>
+		<ref>BadXMLFileException.BAD_OPTION_FILE</ref>
+		<value>La configuration de DEScribe car le fichier XML d'options est corrompu ou manquant. Veuillez réinstaller l'application. </value>
+	</string>	
+	<string>
+		<ref>BadXMLFileException.BAD_FORM_FILE</ref>
+		<value>Le chargement du jeu de questions a echoué car le fichier XML de questions est corrompu ou absent. Veuillez réinstaller l'application et/ou créer une nouvelle session en choisissant un fichier de questions correct.</value>
+	</string>	
+	
+	<!-- Not found -->
+	<string>
+		<ref>string.undefined</ref>
+		<value>non_défini</value>
+	</string>	
+</strings>
