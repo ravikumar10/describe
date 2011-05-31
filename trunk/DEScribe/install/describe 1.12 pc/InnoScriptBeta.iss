@@ -16,10 +16,10 @@ AppUpdatesURL=http://describe.googlecode.com/
 DefaultDirName={pf}\DEScribe
 DefaultGroupName=DEScribe
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\COPYING.txt
-OutputDir=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\
+LicenseFile=COPYING.txt
+OutputDir=.
 OutputBaseFilename=DEScribe-1.12-setup
-SetupIconFile=C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\des-icon.ico
+SetupIconFile=des-icon.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -28,14 +28,14 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
 [Files]
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\DEScribe.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\data"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\media\*"; DestDir: "{app}\media"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\xml\*"; DestDir: "{app}\xml"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\README"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\COPYING"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Seb\UCBL\stage_describe\describe\DEScribe\install\describe 1.12 pc\sessions"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "DEScribe.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "data"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "media\*"; DestDir: "{app}\media"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "xml\*"; DestDir: "{app}\xml"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "README"; DestDir: "{app}"; Flags: ignoreversion
+Source: "COPYING"; DestDir: "{app}"; Flags: ignoreversion
+Source: "sessions"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [UninstallDelete]
