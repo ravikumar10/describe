@@ -253,6 +253,14 @@
 		<ref>QuestionFrame.helpCtrlMaj</ref>
 		<value>Astuce : Appuyez sur Ctrl+Entrée pour enregistrer votre réponse directement.</value>
 	</string>	
+	<string>
+		<ref>QuestionFrame.labelButtonSkip</ref>
+		<value>Passer</value>
+	</string>		
+	<string>
+		<ref>QuestionFrame.toolTipButtonSkip</ref>
+		<value>Cliquez ici pour ne pas répondre à cette question</value>
+	</string>		
 	
 	<!-- ConsultFrame -->
 	<string>

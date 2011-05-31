@@ -253,6 +253,14 @@
 		<ref>QuestionFrame.helpCtrlMaj</ref>
 		<value>Hint:Press Ctrl+Enter to validate your answer without using mouse</value>
 	</string>	
+	<string>
+		<ref>QuestionFrame.labelButtonSkip</ref>
+		<value>Skip</value>
+	</string>		
+	<string>
+		<ref>QuestionFrame.toolTipButtonSkip</ref>
+		<value>Click here if you want to skip question for this time</value>
+	</string>
 	
 	<!-- ConsultFrame -->
 	<string>

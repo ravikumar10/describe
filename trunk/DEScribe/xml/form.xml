@@ -1,14 +1,51 @@
-<!-- ajouter une DTD -->
 <questions>
-	<question type="QCMChkBox">
-		<title>What was your experience?</title>
-		<choice>Surfing the internet</choice>
-		<choice>Chatting with friends</choice>
-		<choice>Programming</choice>
-		<choice>Playing video games</choice>
-		<choice>Other</choice>
-	</question>
-	<actions>
-		<action type="screenshot"/>
-	</actions>
+
+    <question type="QCMChkBox">
+
+        <title>
+
+        What was your experience?
+
+        </title>
+
+        <choice type="normal">
+
+        Surfing the internet
+
+        </choice>
+
+        <choice type="normal">
+
+        Chatting with friends
+
+        </choice>
+
+        <choice type="normal">
+
+        Programming
+
+        </choice>
+
+        <choice type="normal">
+
+        Playing video games
+
+        </choice>
+
+        <choice type="other">
+
+        Other
+
+        </choice>
+
+    </question>
+
+    <actions>
+
+        <action type="screenshot">
+
+        </action>
+
+    </actions>
+
 </questions>
