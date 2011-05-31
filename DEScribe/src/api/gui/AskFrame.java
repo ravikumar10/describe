@@ -33,12 +33,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -88,6 +90,9 @@ public class AskFrame extends GenericFrame {
     public static String helpCtrlMaj = Lang.getLang().getValueFromRef("QuestionFrame.helpCtrlMaj");
     public static String appTitle = Lang.getLang().getValueFromRef("QuestionFrame.appTitle");
 
+    public static String labelButtonSkip = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonSkip");
+    public static String toolTipButtonSkip = Lang.getLang().getValueFromRef("QuestionFrame.toolTipButtonSkip");
+
     /** Full screenshot file name **/
     private String absoluteScreenshotFilePath="";
 
@@ -104,6 +109,8 @@ public class AskFrame extends GenericFrame {
         public JPanel jpMiddle = null;
 
         public JTextField jtaOther = null;
+
+        public static JButton buttonSkip = null;
 
         public interiorPanel(AskFrame param) {
             super();
@@ -131,7 +138,6 @@ public class AskFrame extends GenericFrame {
         }
 
         private JPanel firstTextField() {
-            //Proposition : if "one line" question use JTextfield, if "multiple lines" question use JTextarea
             JPanel res = this.oneRow();
             jta1 = new JTextField();
             jta1.setEditable(false);
@@ -194,13 +200,25 @@ public class AskFrame extends GenericFrame {
         private JPanel ButtonsRow() {
             JPanel res = this.oneRow();
             res.setLayout(new GridLayout(2, 1));
+            JPanel jpBt = new JPanel(new FlowLayout());
             lbCtrlMaj = new JLabel(helpCtrlMaj);
             lbCtrlMaj.setFont(new Font("Verdana", Font.PLAIN, 10));
             lbCtrlMaj.setForeground(Color.white);
             b1 = new JButton(labelButtonValider); //i18n
             b1.addActionListener(listeners);
+
+            buttonSkip = new JButton(labelButtonSkip);
+            buttonSkip.addActionListener(listeners);
+            buttonSkip.setToolTipText(toolTipButtonSkip);
+
             res.add(lbCtrlMaj);
-            res.add(b1);
+            jpBt.add(b1);
+            jpBt.add(new JLabel("                       "));
+            jpBt.add(buttonSkip);
+            res.add(jpBt);
+            jpBt.setBackground(new Color(178,34,34));
+            /*res.add(b1);
+            res.add(buttonSkip);*/
             res.setBackground(new Color(178,34,34));
             return res;
         }
@@ -303,6 +321,12 @@ public class AskFrame extends GenericFrame {
             labelButtonValider = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonValider");
             interiorPanel.b1.setText(labelButtonValider);
 
+            labelButtonSkip = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonSkip");
+            interiorPanel.buttonSkip.setText(labelButtonSkip);
+
+            toolTipButtonSkip = Lang.getLang().getValueFromRef("QuestionFrame.toolTipButtonSkip");
+            interiorPanel.buttonSkip.setToolTipText(toolTipButtonSkip);
+
             helpCtrlMaj = Lang.getLang().getValueFromRef("QuestionFrame.helpCtrlMaj");
             interiorPanel.lbCtrlMaj.setText(helpCtrlMaj);
 
@@ -335,6 +359,33 @@ public class AskFrame extends GenericFrame {
         }
     }
 
+    private void clearFrame() {
+                ArrayList<Question> lesQuestions = new ArrayList<Question>();
+            try{
+                lesQuestions = Utils.importFormXML();
+                if (lesQuestions.get(0) instanceof QReponseLibre) {
+                    AskFrame.setText2("");
+                }
+
+
+                if (lesQuestions.get(0) instanceof QCMRadio)
+                    thePanel.bg2.clearSelection();
+                if (lesQuestions.get(0) instanceof QCMChkBox){
+                    Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
+                    for (int i =0; i<t.length; i++){
+                        if (t[i] instanceof JCheckBox)
+                            ((JCheckBox) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setSelected(false);
+                        if (t[i] instanceof JTextField){
+                            ((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setText("");
+                            //((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setVisible(false);
+                        }
+                    }
+                }
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            hideCD.cancel();
+    }
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         if (s.equals(labelButtonValider)) {
@@ -364,7 +415,7 @@ public class AskFrame extends GenericFrame {
                         }
                     }
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-                    //thePanel.bg2.clearSelection();
+                    thePanel.bg2.clearSelection();
                 }
                 
                 if (lesQuestions.get(0) instanceof QCMChkBox){
@@ -412,6 +463,17 @@ public class AskFrame extends GenericFrame {
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
             }
+        } else if (s.equals(labelButtonSkip)) {
+                // Hide frame & delete screenshot
+                if (!absoluteScreenshotFilePath.equals("")) {
+                    File f = new File(absoluteScreenshotFilePath);
+                    if (f.exists()) {
+                        f.delete();
+                    }
+                }
+                clearFrame();
+                this.hideTheFrame();
+
         }
     }
 
