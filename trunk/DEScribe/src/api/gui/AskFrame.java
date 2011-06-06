@@ -259,9 +259,12 @@ public class AskFrame extends GenericFrame {
         return thePanel.jta2.getText();
     }
 
-    @Override
-    public void showTheFrame() {
+    public void showTheFrame(String quest) {
         this.refresh();
+
+        if (quest!=null){
+            setText1(quest);
+        }
 
         hideCD = new Timer();
         TimerTask taskCD = new TimerTask() {
