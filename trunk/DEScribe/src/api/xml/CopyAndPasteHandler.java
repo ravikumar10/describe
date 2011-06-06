@@ -39,11 +39,13 @@ public class CopyAndPasteHandler {
         while (true){
             try {
                 if (isNewCopyDone()) {
-                    System.out.println("COPIER-COLLER! - type de contenu : " + contentsType);
-
-                    // Ask a new question
+                    // Ask a new question - Only for test. To be generalized with rules in form.xml
                     if (oldContents.isDataFlavorSupported(DataFlavor.imageFlavor)){
-                        AskFrame.getTheFrame().showTheFrame();
+                        AskFrame.getTheFrame().showTheFrame("What did you want to do with this picture?");
+                    } else if (oldContents.isDataFlavorSupported(DataFlavor.javaFileListFlavor)){
+                        AskFrame.getTheFrame().showTheFrame("What did you want to do with this(thise) file(s)?");
+                    } else if (oldContents.isDataFlavorSupported(DataFlavor.stringFlavor)){
+                        AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
                     }
                 }
                 try {
