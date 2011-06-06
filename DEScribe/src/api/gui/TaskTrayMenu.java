@@ -97,7 +97,7 @@ public class TaskTrayMenu {
             displayAskFrame.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    AskFrame.getTheFrame().showTheFrame();
+                    AskFrame.getTheFrame().showTheFrame(null);
                 }
             });
             popup.add(displayAskFrame);

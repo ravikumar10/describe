@@ -176,10 +176,12 @@ public class AskFrame extends GenericFrame {
                     Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                     while (en.hasMoreElements()) {
                         AbstractButton ab = en.nextElement();
+                        ab.addKeyListener(listeners);
                         res.add(ab);
                     }
                 } else if (style.equals("checkbox")){
                     JCheckBox jcb = new JCheckBox(qcmC.getText());
+                    jcb.addKeyListener(listeners);
                     res.add(jcb);
                 }
                 if (qcmC.getIsOtherChoice()){
@@ -188,6 +190,7 @@ public class AskFrame extends GenericFrame {
             }
             if (other){
                 jtaOther = new JTextField();
+                jtaOther.addKeyListener(listeners);
                 res.add(jtaOther);
             }
             //res.add(this);
@@ -259,12 +262,11 @@ public class AskFrame extends GenericFrame {
         return thePanel.jta2.getText();
     }
 
+    @Override
     public void showTheFrame(String quest) {
         this.refresh();
 
-        if (quest!=null){
-            setText1(quest);
-        }
+
 
         hideCD = new Timer();
         TimerTask taskCD = new TimerTask() {
@@ -284,6 +286,10 @@ public class AskFrame extends GenericFrame {
             Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
             setText1(lesQuestions.get(0).intitule);
+                    if (quest!=null){
+            System.out.println(quest);
+            setText1(quest);
+        }
             if (lesQuestions.get(0) instanceof QReponseLibre){
                 thePanel.jta2.requestFocus();
             }
@@ -399,7 +405,7 @@ public class AskFrame extends GenericFrame {
 
                 ArrayList<Question> lesQuestions = new ArrayList<Question>();
                 lesQuestions = Utils.importFormXML();
-                setText1(lesQuestions.get(0).intitule);
+                //setText1(lesQuestions.get(0).intitule);
                 Reponse rep = null;
                 if (lesQuestions.get(0) instanceof QReponseLibre){
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);

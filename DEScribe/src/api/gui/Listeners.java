@@ -179,13 +179,13 @@ public class Listeners implements ActionListener, WindowListener {
                 System.exit(0);
             }
         } else if (s.equals(TaskTrayMenu.ShowItemLabel)) {
-            AskFrame.getTheFrame().showTheFrame();
+            AskFrame.getTheFrame().showTheFrame(null);
         } else if (s.equals(TaskTrayMenu.ReportItemLabel)) {
             LaunchReportPage.LaunchPage();
         } else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
             DBConnexion conn = DBConnexion.getConnexion();
             try {
-                ConsultFrame.getTheFrame(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante())).showTheFrame();
+                ConsultFrame.getTheFrame(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante())).showTheFrame(null);
             } catch (SQLException ex) {
                 Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
             }

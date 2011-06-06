@@ -60,7 +60,7 @@ public abstract class GenericFrame extends JFrame implements ActionListener, Win
         y=screen.height;
     }
 
-    public void showTheFrame() {
+    public void showTheFrame(String quest) {
         this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
         this.setVisible(true);
     }
