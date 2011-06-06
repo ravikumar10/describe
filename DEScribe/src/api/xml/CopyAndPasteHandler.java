@@ -105,7 +105,7 @@ public class CopyAndPasteHandler {
 
     public Boolean isEqual(Transferable tr1, Transferable tr2) throws UnsupportedFlavorException, IOException{
         if (tr1.isDataFlavorSupported(DataFlavor.imageFlavor) && tr2.isDataFlavorSupported(DataFlavor.imageFlavor)){
-            if (((Image) tr1.getTransferData(DataFlavor.imageFlavor)).equals(((Image) tr2.getTransferData(DataFlavor.imageFlavor))))
+            if ((((Image) tr1.getTransferData(DataFlavor.imageFlavor)).getWidth(null)==((Image) tr2.getTransferData(DataFlavor.imageFlavor)).getWidth(null)) && (((Image) tr1.getTransferData(DataFlavor.imageFlavor)).getHeight(null)==((Image) tr2.getTransferData(DataFlavor.imageFlavor)).getHeight(null)))
                 return true;
             else
                 return false;
