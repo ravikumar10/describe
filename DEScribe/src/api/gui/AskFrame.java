@@ -71,6 +71,7 @@ import model.QCMChoice;
 import model.QCMRadio;
 import model.QReponseLibre;
 import model.Question;
+import model.Regle;
 import model.Reponse;
 import model.SessionManager;
 import org.xml.sax.SAXException;
@@ -399,7 +400,24 @@ public class AskFrame extends GenericFrame {
     // Faire
     public Question selectQuestionFromForm(){
         // Mettre les regles dans la classe Question et initialisé dans importForm.xml
+            ArrayList<Question> lesQuestions = new ArrayList<Question>();
+            Question selectedQuestion = null;
+            try{
+                lesQuestions = Utils.importFormXML();
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
+            //Faire des while avec deux booleens plutot pour la validité.
+            for (int j=0; j<lesQuestions.size();j++){
+                ArrayList<Regle> lesRegles = new ArrayList<Regle>();
+                // Pour chaque regle on vérifie si elle est valide.
+                //Si une seule n'est pas valide la question ne l'est pas
+                // Si elles le sont toutes alors on a trouvé la question à poser
+                for (int k=0;k <lesRegles.size();k++){
+                    // Test is valide
+                }
+            }
         return null;
     }
 
