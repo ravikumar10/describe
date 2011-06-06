@@ -30,9 +30,12 @@ import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.gui.ViewAnswers;
 import api.utils.ImgTxtMerger;
+import api.xml.CopyAndPasteHandler;
 import api.xml.Utils;
 import java.sql.SQLException;
 import model.SessionManager;
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
 
 /**
  * Class Main.java
@@ -81,7 +84,11 @@ public class Main {
             } else {
                 System.out.println("NOT RUNNING");
             }*/
-            
+
+            /* Lancer le détecteur de Copier-Coller */
+            CopyAndPasteHandler cPH = new CopyAndPasteHandler();
         }
     }
+
+
 }
