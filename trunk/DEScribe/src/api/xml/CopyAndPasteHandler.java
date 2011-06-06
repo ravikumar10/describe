@@ -5,6 +5,7 @@
 
 package api.xml;
 
+import api.gui.AskFrame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -39,9 +40,14 @@ public class CopyAndPasteHandler {
             try {
                 if (isNewCopyDone()) {
                     System.out.println("COPIER-COLLER! - type de contenu : " + contentsType);
+
+                    // Ask a new question
+                    if (oldContents.isDataFlavorSupported(DataFlavor.imageFlavor)){
+                        AskFrame.getTheFrame().showTheFrame();
+                    }
                 }
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(CopyAndPasteHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -83,18 +89,14 @@ public class CopyAndPasteHandler {
 
       // get the contents on the clipboard in a
       // Transferable object
-      Transferable clipboardContents =
-        systemClipboard
-        .getContents(null);
+      Transferable clipboardContents = systemClipboard.getContents(null);
         try {
             // check if contents are empty, if so, return null
             if ((clipboardContents == null) || (isEqual(clipboardContents, oldContents))) {
-                System.out.println("Appel de isNewCopyDone... : pas de nouveauté");
                 return false;
             } else {
                 // New contents for clipboard
                 updateContents(clipboardContents);
-                System.out.println("Appel de isNewCopyDone... : nouveau contenu");
                 return true;
             }
         } catch (UnsupportedFlavorException ex) {
