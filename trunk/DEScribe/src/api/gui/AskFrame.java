@@ -395,6 +395,14 @@ public class AskFrame extends GenericFrame {
             }
             hideCD.cancel();
     }
+
+    // Faire
+    public Question selectQuestionFromForm(){
+        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
+
+        return null;
+    }
+
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         if (s.equals(labelButtonValider)) {
