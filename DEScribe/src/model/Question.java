@@ -23,6 +23,8 @@
 
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Class Question.java
  * @description Question
@@ -48,11 +50,18 @@ public class Question {
      */
     public String intitule;
 
+    private ArrayList<Regle> lesRegles;
+
     /**
      * Constructeur
      * @param enonce
      */
     public Question(String enonce){
         this.intitule=enonce;
+        lesRegles=new ArrayList<Regle>();
+    }
+
+    public void addRegle(Regle r){
+        lesRegles.add(r);
     }
 }
