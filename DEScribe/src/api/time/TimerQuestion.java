@@ -105,7 +105,7 @@ public class TimerQuestion {
                 try {
                     if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
                         heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
-                        AskFrame.getTheFrame().showTheFrame();
+                        AskFrame.getTheFrame().showTheFrame(null);
                         Random rand = new Random();
 
                         int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
