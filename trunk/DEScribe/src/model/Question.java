@@ -64,4 +64,8 @@ public class Question {
     public void addRegle(Regle r){
         lesRegles.add(r);
     }
+
+    public void setRegles(ArrayList<Regle> lesR){
+        lesRegles=lesR;
+    }
 }
