@@ -54,6 +54,7 @@ import model.ActionScreenshot;
 import model.QCMChkBox;
 import model.QCMChoice;
 import model.QCMRadio;
+import model.Regle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -119,8 +120,24 @@ public class Utils {
                 /**
                  * Ajout de la question
                  */
+
+
+                NodeList rules = null;
+                rules = q.getElementsByTagName("rules");
+
+                ArrayList<Regle> lesRegles = new ArrayList<Regle>();
+                for (int l = 0; l < rules.getLength(); l++) {
+                    Element ruleCourante = (Element) rules.item(l);
+                    String typeR = ruleCourante.getAttribute("type");
+                    String eventR = ruleCourante.getAttribute("event");
+                    lesRegles.add(new Regle(eventR, typeR));
+                }
+
                 if (type.equals("open")) {
                     QReponseLibre open = new QReponseLibre(intitule);
+                    if (lesRegles.size()>0){
+                        open.setRegles(lesRegles);
+                    }
                     lesQuestions.add(open);
                 }
 
@@ -140,7 +157,9 @@ public class Utils {
                         choices.add(new QCMChoice(choicesNL.item(n).getFirstChild().getNodeValue().trim(),(((Element) choicesNL.item(n)).getAttribute("type").equals("other"))));
                     }
                     QCMRadio qcmr = new QCMRadio(intitule,choices);
-
+                    if (lesRegles.size()>0){
+                        qcmr.setRegles(lesRegles);
+                    }
                     lesQuestions.add(qcmr);
                 }
 
@@ -160,6 +179,9 @@ public class Utils {
                     }
 
                     QCMChkBox qcmcb = new QCMChkBox(intitule,choices);
+                    if (lesRegles.size()>0){
+                        qcmcb.setRegles(lesRegles);
+                    }
                     lesQuestions.add(qcmcb);
 
                 }
