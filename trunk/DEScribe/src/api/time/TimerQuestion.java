@@ -61,6 +61,20 @@ public class TimerQuestion {
     TimerTask tache;
     static Date dateDeReprise;
 
+    private static TimerQuestion instance;
+
+    public TimerQuestion(){
+        chrono();
+    }
+
+    public static TimerQuestion getTimerQuestion(){
+        if (instance == null) {
+            instance = new TimerQuestion();
+        }
+        return instance;
+
+    }
+
     public void chrono() {
 
         // délai avant la mise en route (0 demarre immediatement)
