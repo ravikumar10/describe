@@ -122,8 +122,8 @@ public class Utils {
                  */
 
 
-                NodeList rules = null;
-                rules = q.getElementsByTagName("rules");
+                NodeList rules = q.getElementsByTagName("rule");
+
 
                 ArrayList<Regle> lesRegles = new ArrayList<Regle>();
                 for (int l = 0; l < rules.getLength(); l++) {

@@ -28,6 +28,8 @@ public class CopyAndPasteHandler {
     private Transferable oldContents=null;
     private String contentsType="";
 
+    private static CopyAndPasteHandler instance;
+
     public CopyAndPasteHandler(){
         // get the system clipboard
         Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -35,17 +37,33 @@ public class CopyAndPasteHandler {
         scrutation();
     }
 
+
+    public static CopyAndPasteHandler getInstance(){
+
+        if (instance == null) {
+            instance = new CopyAndPasteHandler();
+        }
+        return instance;
+    }
+
     public void scrutation(){
         while (true){
             try {
                 if (isNewCopyDone()) {
+                    System.out.println("New copy");
                     // Ask a new question - Only for test. To be generalized with rules in form.xml
                     if (oldContents.isDataFlavorSupported(DataFlavor.imageFlavor)){
-                        AskFrame.getTheFrame().showTheFrame("What did you want to do with this picture?");
+                        //AskFrame.getTheFrame().showTheFrame("What did you want to do with this picture?");
+                        AskFrame.getTheFrame().askQuestionWithRule("copyImage");
                     } else if (oldContents.isDataFlavorSupported(DataFlavor.javaFileListFlavor)){
-                        AskFrame.getTheFrame().showTheFrame("What did you want to do with this(thise) file(s)?");
+                        //AskFrame.getTheFrame().showTheFrame("What did you want to do with this(thise) file(s)?");
+                        AskFrame.getTheFrame().askQuestionWithRule("copyFile");
                     } else if (oldContents.isDataFlavorSupported(DataFlavor.stringFlavor)){
-                        AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
+                        //AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
+                        AskFrame.getTheFrame().askQuestionWithRule("copyText");
+                    } else if (contentsType.equals("unsupported")){
+                        //AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
+                        AskFrame.getTheFrame().askQuestionWithRule("copy");
                     }
                 }
                 try {

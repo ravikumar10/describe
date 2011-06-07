@@ -86,7 +86,7 @@ public class Main {
             }*/
 
             /* Lancer le détecteur de Copier-Coller */
-            CopyAndPasteHandler cPH = new CopyAndPasteHandler();
+            CopyAndPasteHandler cPH =CopyAndPasteHandler.getInstance();
         }
     }
 
