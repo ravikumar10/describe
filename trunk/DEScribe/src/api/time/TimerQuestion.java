@@ -78,7 +78,7 @@ public class TimerQuestion {
     public void chrono() {
 
         // délai avant la mise en route (0 demarre immediatement)
-        timer = new Timer();                     // création du timer
+        timer = new Timer();           // création du timer
         tache = new TimerTask() {      // création et spécification de la tache à effectuer
 
             @Override
@@ -173,7 +173,6 @@ public class TimerQuestion {
         GregorianCalendar gc = new GregorianCalendar();
         try {
             if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
-                heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
                 return true;
             }
         } catch (SQLException ex) {
@@ -183,8 +182,10 @@ public class TimerQuestion {
     }
 
 
-    // Call it when a new question has been asked
+    // Call it when a new question has been asked : not needed
     public void resetTimerAfterQuestion(){
+                GregorianCalendar gc = new GregorianCalendar();
+                heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
                 if (OptionFrame.getOptionFrame().isNormalSpeed())
                     coeffCurrent = coeffSlow;
                 else

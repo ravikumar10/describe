@@ -49,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -585,7 +586,14 @@ public class AskFrame extends GenericFrame {
             q=selectQuestionFromFormWithRule(new Regle(event, "if"));
             if (q!=null){
                 currentQuestion=q;
-                showTheFrame("rule");
+                Random rand = new Random();
+
+                int nb = rand.nextInt(100);
+                System.out.println("Valeur au tirage : "+nb);
+                if (nb<10){
+                    showTheFrame("rule");
+                    TimerQuestion.getTimerQuestion().resetTimerAfterQuestion();
+                }
             }
         }
 
