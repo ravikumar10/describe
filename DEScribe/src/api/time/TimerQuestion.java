@@ -154,4 +154,33 @@ public class TimerQuestion {
     public static void resetDateDelay() {
         dateDeReprise = null;
     }
+
+    public Boolean canIAskQuestionNow(){
+        GregorianCalendar gc = new GregorianCalendar();
+        try {
+            if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
+                heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+
+    // Call it when a new question has been asked
+    public void resetTimerAfterQuestion(){
+                if (OptionFrame.getOptionFrame().isNormalSpeed())
+                    coeffCurrent = coeffSlow;
+                else
+                    coeffCurrent = coeffSpeed;
+                Random rand = new Random();
+                int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
+                setRandomNum(nb);
+                setTemps(nb);
+                setNewTimer();
+
+    }
+
 }

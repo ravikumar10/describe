@@ -68,4 +68,9 @@ public class Question {
     public void setRegles(ArrayList<Regle> lesR){
         lesRegles=lesR;
     }
+
+    public ArrayList<Regle> getRegles(){
+        return lesRegles;
+    }
+
 }
