@@ -25,6 +25,7 @@ package api.gui;
 
 import api.dbc.DBConnexion;
 import api.i18n.Lang;
+import api.time.TimerQuestion;
 import api.utils.ImgTxtMerger;
 import api.utils.getOs;
 import api.xml.CopyAndPasteHandler;
@@ -515,7 +516,6 @@ public class AskFrame extends GenericFrame {
                 while ((k< lesRegles.size()) && ((foundRuleFalse) || (!foundThisRule))){
 
                     Regle r = lesRegles.get(k);
-                    System.out.println(r.getEvent()+":"+r.getType()+ "vs "+reg.getEvent()+":"+reg.getType());
                     if ((r.getEvent().equals(reg.getEvent())) && (r.getType().equals(reg.getType()))){
                         foundThisRule=true;
                     }
@@ -577,16 +577,16 @@ public class AskFrame extends GenericFrame {
 
     public void askQuestionWithRule(String event) {
         Question q;
-        // TODO
         // Check if it's not to early to ask a question
-
-        // Then check if there is an "askable" question with the rule "event" and type "if"
-        // If so, ask the first
-        // Else do nothing
-        q=selectQuestionFromFormWithRule(new Regle(event, "if"));
-        if (q!=null){
-            currentQuestion=q;
-            showTheFrame("rule");
+        if (TimerQuestion.getTimerQuestion().canIAskQuestionNow()){
+            // Then check if there is an "askable" question with the rule "event" and type "if"
+            // If so, ask the first
+            // Else do nothing
+            q=selectQuestionFromFormWithRule(new Regle(event, "if"));
+            if (q!=null){
+                currentQuestion=q;
+                showTheFrame("rule");
+            }
         }
 
     }

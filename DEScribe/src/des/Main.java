@@ -75,8 +75,9 @@ public class Main {
             SessionManager sm = SessionManager.getSessionManager();
 
             OptionFrame.getOptionFrame();
-            TimerQuestion timr = new TimerQuestion();
-            timr.chrono();
+            //TimerQuestion timr = new TimerQuestion();
+            TimerQuestion timr=TimerQuestion.getTimerQuestion();
+            //timr.chrono();
 
             //DEBUG
             /*if (Utils.isPriorityProgramRunningOSWin("POWERP")){

@@ -50,7 +50,6 @@ public class CopyAndPasteHandler {
         while (true){
             try {
                 if (isNewCopyDone()) {
-                    System.out.println("New copy");
                     // Ask a new question - Only for test. To be generalized with rules in form.xml
                     if (oldContents.isDataFlavorSupported(DataFlavor.imageFlavor)){
                         //AskFrame.getTheFrame().showTheFrame("What did you want to do with this picture?");
