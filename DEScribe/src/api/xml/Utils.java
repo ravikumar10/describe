@@ -692,6 +692,7 @@ public class Utils {
 
             DocumentBuilder db2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc2 = db2.parse(file); //fichier d'options a parser
+            Boolean questions = false;
             if (doc2==null){
                 throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
             } else {
@@ -704,6 +705,7 @@ public class Utils {
                         if (questionCourante==null){
                             throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
                         } else {
+
                             for (int k = 0; k < questionCourante.getLength(); k++) {
                                 Element q = (Element) questionCourante.item(k);
                                 String type = q.getAttribute("type");
@@ -711,15 +713,14 @@ public class Utils {
                                 /**
                                  * Ajout de la question
                                  */
-                                if (type.equals("open")) {
-                                    QReponseLibre open = new QReponseLibre(intitule);
-                                    lesQuestions.add(open);
-                                }
+                                if (type.equals("open") || (type.equals("QCMRadio")) || type.equals("QCMChkBox")) {
+                                    questions = true;
+                                } 
                             }
                         }
                 }
             }
-            if (lesQuestions.isEmpty()){
+            if (!questions){
                 throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
 
             }
