@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package api.xml;
+package api.utils;
 
 import api.gui.AskFrame;
 import java.awt.Image;
