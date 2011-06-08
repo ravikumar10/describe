@@ -326,6 +326,12 @@ public class AskFrame extends GenericFrame {
                 if (OptionFrame.isSoundEnabled()) {
                     Toolkit.getDefaultToolkit().beep();
                 }
+                this.pack();
+                this.validate();
+                this.repaint();
+                thePanel.revalidate();
+                thePanel.jta1.revalidate();
+                thePanel.jpMiddle.revalidate();
                 this.setVisible(true);
 
             }
@@ -601,7 +607,7 @@ public class AskFrame extends GenericFrame {
                 Random rand = new Random();
 
                 int nb = rand.nextInt(100);
-                if (nb<10){
+                if (nb<20){
                     showTheFrame("rule");
                     TimerQuestion.getTimerQuestion().resetTimerAfterQuestion();
                 }
