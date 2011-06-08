@@ -25,17 +25,11 @@ package des;
 import api.time.TimerQuestion;
 import api.utils.UniqueInstance;
 import api.dbc.DBConnexion;
-import api.gui.AskFrame;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
-import api.gui.ViewAnswers;
-import api.utils.ImgTxtMerger;
 import api.utils.CopyAndPasteHandler;
-import api.xml.Utils;
 import java.sql.SQLException;
 import model.SessionManager;
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
 
 /**
  * Class Main.java
@@ -46,8 +40,8 @@ import sun.misc.SignalHandler;
  */
 public class Main {
 
-    public static String version = "beta";
-    public static String datemaj = "2011-05-18";
+    public static String version = "1.1";
+    public static String datemaj = "2011-06-08";
     public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nBertrand Gros<gros.bertrand@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
