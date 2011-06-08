@@ -90,10 +90,9 @@ public class TaskTrayMenu {
             popup.add(sessionItem);
             popup.add(reportItem);
             popup.add(aboutItem);
-            popup.add(exitItem);
 
             //DEBUG
-            MenuItem displayAskFrame = new MenuItem("Display AskFrame");
+            MenuItem displayAskFrame = new MenuItem("Display AskFrame (testing)");
             displayAskFrame.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
@@ -102,6 +101,10 @@ public class TaskTrayMenu {
             });
             popup.add(displayAskFrame);
             // \DEBUG
+
+            popup.add(exitItem);
+
+
 
             final TrayIcon trayIcon = new TrayIcon(image, "DEScribe", popup);
 
