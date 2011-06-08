@@ -89,10 +89,10 @@ public class CopyAndPasteHandler {
             } else if (oldContents.isDataFlavorSupported(DataFlavor.stringFlavor)){
                 // Texte
                 contentsType="text";
-            } else {
+            }/* else {
                 // Unsupported
                 contentsType="unsupported";
-            }
+            }*/
         } else {
             contentsType="void";
         }
