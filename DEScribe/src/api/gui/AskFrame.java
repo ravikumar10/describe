@@ -28,7 +28,7 @@ import api.i18n.Lang;
 import api.time.TimerQuestion;
 import api.utils.ImgTxtMerger;
 import api.utils.getOs;
-import api.xml.CopyAndPasteHandler;
+import api.utils.CopyAndPasteHandler;
 import api.xml.Utils;
 import exceptions.BadXMLFileException;
 import java.awt.BorderLayout;

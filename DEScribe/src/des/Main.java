@@ -30,7 +30,7 @@ import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.gui.ViewAnswers;
 import api.utils.ImgTxtMerger;
-import api.xml.CopyAndPasteHandler;
+import api.utils.CopyAndPasteHandler;
 import api.xml.Utils;
 import java.sql.SQLException;
 import model.SessionManager;
