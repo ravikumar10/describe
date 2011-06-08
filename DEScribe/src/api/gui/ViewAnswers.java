@@ -270,12 +270,14 @@ public class ViewAnswers extends JFrame {
     public void refresh() {
         pack();
         this.setLocation(0, 0);
+        validate();
         setVisible(true);
         if (selectedSessionAnswers.size()>0){
             displayScreenshot();
         } else {
             imgContainer.setIcon(null);
         }
+
     }
 
     private void displayScreenshot(){
@@ -350,6 +352,14 @@ public class ViewAnswers extends JFrame {
                 Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         pack();
+        validate();
+
+        jpImg.revalidate();
+        jpControls.revalidate();
+        jpInternal.revalidate();
+        imgContainer.revalidate();
+        this.repaint();    
+
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
