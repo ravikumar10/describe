@@ -293,17 +293,17 @@ public class ViewAnswers extends JFrame {
             }
             screens=r.getScreenshot();
             src = ImageIO.read(new File(screens));
-
+/*
             int rectHeight = (int) height*20/100;
             BufferedImage buf = new BufferedImage(width, rectHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = buf.createGraphics();
             g2.drawRect(0, 0, width, rectHeight);
 
             //imgContainer.setIcon(new ImageIcon(resize(src, width, height)));
-            ImgTxtMerger iTM = new ImgTxtMerger();
+            ImgTxtMerger iTM = new ImgTxtMerger();*/
             if (selectedSessionAnswers.size()>0){
                 Reponse currentAnswer = selectedSessionAnswers.get(listAnswerID.getSelectedIndex());
-                imgContainer.setIcon(new ImageIcon(iTM.process(resize(append(buf, src), width, height), currentAnswer.getIntituleQuestion()+" \n "+currentAnswer.getLaReponse()+" \n "+currentAnswer.getInstant().toString())));
+                imgContainer.setIcon(new ImageIcon(src));
             }
         } catch (IOException ex) {
            String message = Lang.getLang().getValueFromRef("ViewAnswers.strFileError") + " "+screens;
