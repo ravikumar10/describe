@@ -270,6 +270,15 @@ public class AskFrame extends GenericFrame {
 
     @Override
     public void showTheFrame(String quest) {
+
+        try{
+            if (thePanel.getComponent(2)!=null){
+                thePanel.remove(thePanel.getComponent(2));
+            }
+        }
+        catch (Exception ex){
+            
+        }
         if (quest==null)
             currentQuestion=selectQuestionFromForm();
         else if(!quest.equals("rule")){
@@ -325,16 +334,19 @@ public class AskFrame extends GenericFrame {
 
     private void refresh() {
         try {
+
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             lesQuestions = Utils.importFormXML();
             //setText1(lesQuestions.get(0).intitule);
             setText1(currentQuestion.intitule);
+            //thePanel.remove(thePanel.getComponent(0));
+            //Component xt[]= ((JPanel)thePanel.getComponent(2)).getComponents();
             if (currentQuestion instanceof QReponseLibre){
                 // Add textfield to panel
                 //this.add(this.secondTextField(), BorderLayout.CENTER);
                 thePanel.add(thePanel.secondTextField(), BorderLayout.CENTER);
-                pack();
                 setText2("");
+                pack();
             }
             if (currentQuestion instanceof QCMRadio){
                 // Add radio buttons
