@@ -601,7 +601,6 @@ public class AskFrame extends GenericFrame {
                 Random rand = new Random();
 
                 int nb = rand.nextInt(100);
-                System.out.println("Valeur au tirage : "+nb);
                 if (nb<10){
                     showTheFrame("rule");
                     TimerQuestion.getTimerQuestion().resetTimerAfterQuestion();

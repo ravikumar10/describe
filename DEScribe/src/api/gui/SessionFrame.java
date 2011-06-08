@@ -359,7 +359,7 @@ public class SessionFrame extends JFrame {
         panel.add(panelUp, BorderLayout.NORTH);
         panel.add(panelDown, BorderLayout.CENTER);
         panel.add(panelOK, BorderLayout.SOUTH);
-
+        this.setAlwaysOnTop(true);
         this.setPreferredSize(new Dimension(1000,672));
        
         this.pack();

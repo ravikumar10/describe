@@ -253,6 +253,8 @@ public class ViewAnswers extends JFrame {
         this.setTitle(title);
         //this.setPreferredSize(new Dimension(800,600));
 
+        this.setAlwaysOnTop(true);
+
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
         this.pack();
 

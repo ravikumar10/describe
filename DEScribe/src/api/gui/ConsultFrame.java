@@ -73,6 +73,7 @@ public class ConsultFrame extends GenericFrame {
         getContentPane().add(jp);
         
         fill(param);
+        this.setAlwaysOnTop(true);
         pack();
     }
     private static ConsultFrame instance;
