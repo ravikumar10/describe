@@ -28,6 +28,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,6 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import model.Reponse;
 
 public class ImgTxtMerger extends JPanel {
 
@@ -133,6 +136,69 @@ public class ImgTxtMerger extends JPanel {
 
 
 
+    }
+
+    public void fusion(Reponse r){
+        try {
+            BufferedImage src = ImageIO.read(new File(r.getScreenshot()));
+            int newHeight= (int)80*src.getHeight()/100;
+            int newWidth= src.getWidth();
+
+            // Rectangle blanc au dessus
+            int rectHeight = (int) newHeight*20/100;
+            BufferedImage buf = new BufferedImage(newWidth, rectHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = buf.createGraphics();
+            g2.drawRect(0, 0, newWidth, rectHeight);
+
+            BufferedImage res=process(resize(append(buf, src), newWidth, newHeight), r.getIntituleQuestion() + " \n " + r.getLaReponse() + " \n " + r.getInstant().toString());
+            File file2 = new File(r.getScreenshot());
+            try {
+                javax.imageio.ImageIO.write(res, "gif", file2);
+            } catch (IOException ex) {
+                Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+
+
+
+    // New version
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+            int w = img.getWidth();
+            int h = img.getHeight();
+            BufferedImage dimg = dimg = new BufferedImage(newW, newH, img.getType());
+            Graphics2D g = dimg.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
+            g.dispose();
+            return dimg;
+        }
+
+
+
+    // Pour fusionner le screenshot avec un blanc en haut:
+    public static BufferedImage append(Image img1, Image img2) {
+        BufferedImage buf = null;
+        if(img1 != null && img2 != null) {
+            int w1 = img1.getWidth(null);
+            int h1 = img1.getHeight(null);
+            int w2 = img2.getWidth(null);
+            int h2 = img2.getHeight(null);
+            int hMax = 0;
+            int wMax = 0;
+
+            hMax = h1 + h2;
+            wMax = (w1 >= w2) ? w1 : w2;
+            buf = new BufferedImage(wMax, hMax, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = buf.createGraphics();
+            g2.drawImage(img1, 0, 0, null);
+            g2.drawImage(img2, 0, h1, null);
+        }
+        return buf;
     }
 
 }

@@ -270,7 +270,7 @@ public class AskFrame extends GenericFrame {
 
     @Override
     public void showTheFrame(String quest) {
-
+        absoluteScreenshotFilePath="";
         try{
             if (thePanel.getComponent(2)!=null){
                 thePanel.remove(thePanel.getComponent(2));
@@ -678,7 +678,11 @@ public class AskFrame extends GenericFrame {
                 conn.newAddEntry(rep);
 
 
-
+                if (!absoluteScreenshotFilePath.equals("")){
+                    // Réouvrir l'image et la resize et ajouter réponse comme dans ViewAnswers
+                    ImgTxtMerger imTxtM  = new ImgTxtMerger();
+                    imTxtM.fusion(rep);
+                }
                 //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
                 if (currentQuestion instanceof QReponseLibre){
                     AskFrame.setText2("");
