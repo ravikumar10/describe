@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<strings>
+	<!-- SessionFrame -->
+	<string>
+		<ref>SessionFrame.title</ref>
+		<value>Sessions</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelCurrentSession</ref>
+		<value>Current session</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtConsultCurrentSession</ref>
+		<value>Browse current session</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtExportCurrentSession</ref>
+		<value>Export current session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtPauseCurrentSession</ref>
+		<value>Delay current session for X hours =></value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtRetourDePauseCurrentSession</ref>
+		<value>Resume current session</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtNewSessionCurrentSession</ref>
+		<value>New session</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelBtCloseSessionCurrentSession</ref>
+		<value>Close session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtConsultCurrentSession</ref>
+		<value>Click here to browse current session's answers</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtExportCurrentSession</ref>
+		<value>Click here to export current session's answers to xml file</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtPauseCurrentSession</ref>
+		<value>Click here to delay current session for the number of hours set in the field at the right of this button</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtNewSessionCurrentSession</ref>
+		<value>Click here to create a new session. Warning : the current session will be definitely closed</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtCloseSessionCurrentSession</ref>
+		<value>Click here to close current session. Warning : no questions will be asked until a new session is created</value>
+	</string>
+	
+	<string>
+		<ref>SessionFrame.textInactiveTimer</ref>
+		<value>hours of delay</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelOldSessions</ref>
+		<value>Closed sessions</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtConsultOldSessions</ref>
+		<value>Browse session's answers</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtExportOldSessions</ref>
+		<value>Export</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtDeleteOldSessions</ref>
+		<value>Delete session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtConsultOldSessions</ref>
+		<value>Click here to browse selected session's anwsers</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtExportOldSessions</ref>
+		<value>Click here to export selected session's answers to XML file</value>
+	</string>
+	<string>
+		<ref>SessionFrame.toolTipBtDeleteOldSessions</ref>
+		<value>Click here to delete the selected session and all its answers</value>
+	</string>
+	<string>
+		<ref>SessionFrame.lbUnexportedSessionWarning</ref>
+		<value>Warning : the selected session has never been exported!</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtOk</ref>
+		<value>OK</value>
+	</string>
+	<string>
+		<ref>SessionFrame.lbErrorNbHoursMessage</ref>
+		<value>Please insert a correct number of hours in the field at the right of Delay button before asking to delay current session</value>
+	</string>
+	
+	<string>
+		<ref>SessionFrame.strXmlError</ref>
+		<value>XML error : </value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strXmlFile</ref>
+		<value>XML file (.xml)</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strReallyQuit</ref>
+		<value>Do you really want to quit DEScribe?</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFrameTitleReallyQuit</ref>
+		<value>Closing DEScribe</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strWarningBeforeClosingSession</ref>
+		<value>It will close the current session and set a new session up. Do you wish to continue?</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFrameWarningBeforeClosingSession</ref>
+		<value>Creating new session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strNameForNewSession</ref>
+		<value>Please choose a name for the new session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strSessionCreationSuccess</ref>
+		<value>Session successfully created!</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFormChoiceForNewSession</ref>
+		<value>Do you want to use the default questions set for the new session?</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strFrameFormChoiceForNewSession</ref>
+		<value>Set of questions</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strDefaultSessionName</ref>
+		<value>unnamed</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strQuestionsSetLoaded</ref>
+		<value>Questions successfully loaded!</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strDefaultQuestionsSetLoaded</ref>
+		<value>Default question set successfully loaded!</value>
+	</string>			
+	<string>
+		<ref>SessionFrame.strWarningClosingSession</ref>
+		<value>Warning : closing current session will stop questions to be asked until a new session is created</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.strFrameWarningClosingSession</ref>
+		<value>Closing session</value>
+	</string>
+	<string>
+		<ref>SessionFrame.strSessionClosedSuccess</ref>
+		<value>Session successfully closed! Don't forget to create a new one in order to keep the experience alive.</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetBtFromUrl</ref>
+		<value>From an URL</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetBtFromComputer</ref>
+		<value>From this computer</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetBtCancel</ref>
+		<value>Cancel creation</value>
+	</string>			
+	<string>
+		<ref>SessionFrame.importQuestionsSetStr</ref>
+		<value>Please choose a question set import mode</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.importQuestionsSetTitle</ref>
+		<value>Importing question set</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLStr</ref>
+		<value>Please enter question set XML file's URL</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLTitle</ref>
+		<value>Importing question set from URL</value>
+	</string>			
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLErrorURL</ref>
+		<value>Import cancelled because of incorrect URL. Cancelling new session's creation.</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.importQuestionsSetFromURLErrorURLOrFile</ref>
+		<value>Import cancelled because of incorrect URL or bad XML file. Cancelling new session's creation.</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.strSessionCreationFailure</ref>
+		<value>New session's creation cancelled. Warning : old session is now closed. Please create a new one to keep experience alive.</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelName</ref>
+		<value>Name :</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelStatus</ref>
+		<value>Status :</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelStatusActive</ref>
+		<value>ACTIVE</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelStatusPaused</ref>
+		<value>PAUSED!</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelStatusClosed</ref>
+		<value>CLOSED!</value>
+	</string>
+	<string>
+		<ref>SessionFrame.noAnswers</ref>
+		<value>No answers recorded for this session.</value>
+	</string>
+	<string>
+		<ref>SessionFrame.noOldSessions</ref>
+		<value>No old sessions yet.</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelBtVisualize</ref>
+		<value>Visualize answers</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.toolTipBtVisualize</ref>
+		<value>Click here to see all yours answers and delete them if necessary</value>
+	</string>		
+	
+	<!-- QuestionFrame -->
+	<string>
+		<ref>QuestionFrame.appTitle</ref>
+		<value>DEScribe</value>
+	</string>			
+	<string>
+		<ref>QuestionFrame.labelButtonValider</ref>
+		<value>Record</value>
+	</string>	
+	<string>
+		<ref>QuestionFrame.helpCtrlMaj</ref>
+		<value>Hint:Press Ctrl+Enter to validate your answer without using mouse</value>
+	</string>	
+	<string>
+		<ref>QuestionFrame.labelButtonSkip</ref>
+		<value>Skip</value>
+	</string>		
+	<string>
+		<ref>QuestionFrame.toolTipButtonSkip</ref>
+		<value>Click here if you want to skip question for this time</value>
+	</string>
+	
+	<!-- ConsultFrame -->
+	<string>
+		<ref>ConsultFrame.lbAnswersPresentation</ref>
+		<value>Session's answers list</value>
+	</string>
+	<string>
+		<ref>ConsultFrame.okButton</ref>
+		<value>OK</value>
+	</string>		
+	
+	<!-- TaskTrayMenu -->
+	<string>
+		<ref>TaskTrayMenu.ShowItemLabel</ref>
+		<value>Show</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.ExitItemLabel</ref>
+		<value>Exit</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.ConfigItemLabel</ref>
+		<value>Settings</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.SessionItemLabel</ref>
+		<value>Sessions</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.AboutItemLabel</ref>
+		<value>About DEScribe...</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.ReportItemLabel</ref>
+		<value>Report a bug</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.VisitUsItemLabel</ref>
+		<value>Visit us</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.AboutItemBtProjectPage</ref>
+		<value>Visit DEScribe's web page</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.OKAbout</ref>
+		<value>OK</value>
+	</string>		
+	<string>
+		<ref>TaskTrayMenu.strVersion</ref>
+		<value>Version</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.strProjectPage</ref>
+		<value>Project's page</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.strContacts</ref>
+		<value>Contacts</value>
+	</string>			
+	<string>
+		<ref>TaskTrayMenu.SessionInPauseItemLabel</ref>
+		<value>Sessions (PAUSED!)</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.TrayError</ref>
+		<value>System Tray unsupported</value>
+	</string>
+	
+	<!-- OptionFrame -->
+	<string>
+		<ref>OptionFrame.title</ref>
+		<value>Settings</value>
+	</string>
+	<string>
+		<ref>OptionFrame.normalFrequency</ref>
+		<value>Normal frequency</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.slowFrequency</ref>
+		<value>Slow frequency</value>
+	</string>
+	<string>
+		<ref>OptionFrame.frequencies</ref>
+		<value>Questions' frequency</value>
+	</string>
+	<string>
+		<ref>OptionFrame.language</ref>
+		<value>Language</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.sound</ref>
+		<value>Sound</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.soundEnable</ref>
+		<value>Enabled</value>
+	</string>
+	<string>
+		<ref>OptionFrame.okButton</ref>
+		<value>OK</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.cancelButton</ref>
+		<value>Cancel</value>
+	</string>
+	<string>
+		<ref>OptionFrame.resetButton</ref>
+		<value>Default settings</value>
+	</string>		
+	<string>
+		<ref>OptionFrame.reConfigSuccess</ref>
+		<value>Settings successfully modified!</value>
+	</string>	
+	<string>
+		<ref>OptionFrame.sessions</ref>
+		<value>Sessions location folder</value>
+	</string>			
+	<string>
+		<ref>OptionFrame.browseButton</ref>
+		<value>Browse</value>
+	</string>		
+	
+	<!-- ViewAnswers -->
+	<string>
+		<ref>ViewAnswers.title</ref>
+		<value>Answers visualization</value>
+	</string>
+	<string>
+		<ref>ViewAnswers.lbAnswer</ref>
+		<value>Answer:</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.lbSession</ref>
+		<value>Session:</value>
+	</string>		
+	<string>
+		<ref>ViewAnswers.btPrevious</ref>
+		<value>Previous</value>
+	</string>		
+	<string>
+		<ref>ViewAnswers.btNext</ref>
+		<value>Next</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.btClose</ref>
+		<value>Close</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.btDelete</ref>
+		<value>Delete</value>
+	</string>	
+	<string>
+		<ref>ViewAnswers.strFileError</ref>
+		<value>Can't read file :</value>
+	</string>	
+	
+	<!-- BadXMLFileException -->
+	<string>
+		<ref>BadXMLFileException.BAD_OPTION_FILE</ref>
+		<value>DEScribe configuration failed because of bad or missing XML file. Please reinstall the application. </value>
+	</string>	
+	<string>
+		<ref>BadXMLFileException.BAD_FORM_FILE</ref>
+		<value>Session's question set loading failed because of bad or missing question set XML file. Please reinstall the application or create a new session using a proper question set XML file. </value>
+	</string>		
+	
+	<!-- Not found -->
+	<string>
+		<ref>string.undefined</ref>
+		<value>undefined</value>
+	</string>	
+</strings>
