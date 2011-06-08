@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<questions>
+	<!-- Les questions : par spécificité décroissante             -->
+	<!-- They have to be sorted in this order because only        --> 
+	<!-- first question with all rules checked is asked           -->
+	
+	<!-- More specific question -->
+    <question type="QCMChkBox">
+
+        <title>
+
+        What did you want to do with this image?
+
+        </title>
+
+        <choice type="normal">
+
+        Copy it into a document
+
+        </choice>
+
+        <choice type="normal">
+
+        Make a new image from this one
+
+        </choice>
+
+        <choice type="other">
+
+        Other:
+
+        </choice>
+		<rules>
+			<!-- if : Condition for asking -->
+			<rule type="if" event="copyImage">
+			</rule>
+			<!-- notif : Condition for not asking -->
+			<rule type="notif" event="fullscreen">
+			</rule>
+		</rules>
+    </question>
+
+    <question type="QCMChkBox">
+
+        <title>
+
+        What did you want to do with this text?
+        </title>
+
+        <choice type="normal">
+
+        Put it into a new document
+
+        </choice>
+
+        <choice type="normal">
+
+        Put it once or more times in the current document
+
+        </choice>
+
+        <choice type="normal">
+
+        Keep it in the clipboard in case of future use
+
+        </choice>
+
+        <choice type="other">
+
+        Other
+
+        </choice>
+		<rules>
+			<rule type="if" event="copyText">
+			</rule>
+			<rule type="notif" event="fullscreen">
+			</rule>
+		</rules>
+    </question>	
+	
+    <question type="QCMRadio">
+
+        <title>
+
+        What did you want to do with this(these) file(s)?
+        </title>
+
+        <choice type="normal">
+
+        First step of moving files
+
+        </choice>
+
+        <choice type="normal">
+
+        Make a save of files
+
+        </choice>
+
+        <choice type="normal">
+
+        Give it (them) to someone
+
+        </choice>
+
+        <choice type="normal">
+
+        Make new file(s) from this(these)
+
+        </choice>
+
+        <choice type="other">
+
+        Other
+
+        </choice>
+		<rules>
+			<rule type="if" event="copyFile">
+			</rule>
+			<rule type="notif" event="fullscreen">
+			</rule>
+		</rules>
+    </question>		
+	
+    <question type="QCMChkBox">
+
+        <title>
+        What and Why did you copy?
+        </title>
+
+        <choice type="normal">
+
+        Specific software data
+
+        </choice>
+
+        <choice type="other">
+
+        Other
+
+        </choice>
+		<rules>
+			<rule type="if" event="copy">
+			</rule>
+			<rule type="notif" event="fullscreen">
+			</rule>
+		</rules>
+    </question>		
+	
+<!-- Less specific question -->
+<question type="QCMChkBox">
+
+        <title>
+        What was your experience?
+        </title>
+
+        <choice type="normal">
+
+        Surfing the internet
+
+        </choice>
+
+        <choice type="normal">
+
+        Chatting with friends
+
+        </choice>
+
+        <choice type="normal">
+
+        Using mail client
+
+        </choice>
+
+        <choice type="normal">
+
+        Reading/Writing document
+
+        </choice>
+		
+        <choice type="normal">
+
+        Social networking
+
+        </choice>		
+		
+        <choice type="normal">
+
+        Using software for work
+
+        </choice>				
+
+        <choice type="other">
+
+        Other
+
+        </choice>
+		<rules>
+			<rule type="notif" event="fullscreen">
+			</rule>
+		</rules>
+    </question>		
+	
+<!-- Also possible : "open" question, free answer -->
+<!-- 
+<question type="open">
+
+        <title>
+        What was your experience?
+        </title>
+
+		<rules>
+			<rule type="notif" event="fullscreen">
+			</rule>
+		</rules>
+</question>		
+-->	
+    <actions>
+        <action type="screenshot">
+        </action>
+    </actions>
+</questions>
