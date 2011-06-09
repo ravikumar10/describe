@@ -607,7 +607,7 @@ public class AskFrame extends GenericFrame {
                 Random rand = new Random();
 
                 int nb = rand.nextInt(100);
-                if (nb<100){
+                if (nb<20){
                     showTheFrame("rule");
                     TimerQuestion.getTimerQuestion().resetTimerAfterQuestion();
                 }

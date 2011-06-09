@@ -120,7 +120,6 @@ public class CopyAndPasteHandler {
                             //AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
                             AskFrame.getTheFrame().askQuestionWithRule("copyText");
                         } else {
-                            System.out.println("unsupported");
                             //AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
                             AskFrame.getTheFrame().askQuestionWithRule("copy");
                         }
@@ -218,11 +217,9 @@ public class CopyAndPasteHandler {
         try {
             // check if contents are empty, if so, return null
             if ((clipboardContents == null) || (isEqual(clipboardContents, oldContents))) {
-                System.out.println("5");
                 return false;
             } else {
                 // New contents for clipboard
-                System.out.println("6");
                 updateContents(clipboardContents);
                 return true;
             }
@@ -254,7 +251,6 @@ public class CopyAndPasteHandler {
             }*/
 
             if (isImageTransferable(tr1) && isImageTransferable(tr2)){
-                            System.out.println("4");
                 if ((((Image) tr1.getTransferData(DataFlavor.imageFlavor)).getWidth(null)==((Image) tr2.getTransferData(DataFlavor.imageFlavor)).getWidth(null)) && (((Image) tr1.getTransferData(DataFlavor.imageFlavor)).getHeight(null)==((Image) tr2.getTransferData(DataFlavor.imageFlavor)).getHeight(null)))
                     return true;
                 else
@@ -279,12 +275,10 @@ public class CopyAndPasteHandler {
             }
 
         } else if ((tr1.getTransferDataFlavors().length==0) && (tr2.getTransferDataFlavors().length==0)){
-            System.out.println("1");
             return true;
-        } else if (contentsType.equals("unsupported")){            System.out.println("2");
+        } else if (contentsType.equals("unsupported")){
             return true;
        } else {
-                       System.out.println("3");
            return false;
         }
 
@@ -293,8 +287,11 @@ public class CopyAndPasteHandler {
     public Boolean isImageTransferable(Transferable tr){
         DataFlavor t[]=tr.getTransferDataFlavors();
         if (t.length>0){
-            if (api.utils.getOs.isWindows())
-                return (t[0].getHumanPresentableName().equals("IMAGE/x-java-image"));
+            if (api.utils.getOs.isWindows()){
+                System.out.println(t[0].getHumanPresentableName());
+                                return (t[0].getHumanPresentableName().contains("image"));
+            }
+
             else
                 return (t[0].getHumanPresentableName().contains("image"));
         }
