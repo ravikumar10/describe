@@ -329,6 +329,22 @@
 		<ref>TaskTrayMenu.TrayError</ref>
 		<value>System Tray unsupported</value>
 	</string>
+	<string>
+		<ref>TaskTrayMenu.PauseSession1HLabel</ref>
+		<value>Pause session 1 hour</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.PauseSession3HLabel</ref>
+		<value>Pause session 3 hours</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.PauseSession24HLabel</ref>
+		<value>Pause session 24 hours</value>
+	</string>	
+	<string>
+		<ref>TaskTrayMenu.ResumeSessionLabel</ref>
+		<value>Leave pause for session</value>
+	</string>	
 	
 	<!-- OptionFrame -->
 	<string>
