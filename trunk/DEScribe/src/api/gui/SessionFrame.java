@@ -574,6 +574,10 @@ public class SessionFrame extends JFrame {
             TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionInPauseItemLabel);
             TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.BOLD, 12));
             RefreshFrame();
+            TaskTrayMenu.pauseSession1HItem.setEnabled(false);
+            TaskTrayMenu.pauseSession3HItem.setEnabled(false);
+            TaskTrayMenu.pauseSession24HItem.setEnabled(false);
+            TaskTrayMenu.resumeSessionItem.setEnabled(true);
         } catch (SQLException ex) {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -601,6 +605,10 @@ public class SessionFrame extends JFrame {
                         btPauseCurrentSession.setText(labelBtPauseCurrentSession);
                         TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
                         TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
+                        TaskTrayMenu.pauseSession1HItem.setEnabled(true);
+                        TaskTrayMenu.pauseSession3HItem.setEnabled(true);
+                        TaskTrayMenu.pauseSession24HItem.setEnabled(true);
+                        TaskTrayMenu.resumeSessionItem.setEnabled(false);
                         chrono.setEditable(false);
                     } else {
                         long seconds = remaining / 1000;
@@ -628,6 +636,10 @@ public class SessionFrame extends JFrame {
 
             TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
             TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
+            TaskTrayMenu.pauseSession1HItem.setEnabled(true);
+            TaskTrayMenu.pauseSession3HItem.setEnabled(true);
+            TaskTrayMenu.pauseSession24HItem.setEnabled(true);
+            TaskTrayMenu.resumeSessionItem.setEnabled(false);
             RefreshFrame();
         }
         }
@@ -636,6 +648,10 @@ public class SessionFrame extends JFrame {
     public void resetChrono() {
         try {
             SessionManager.getSessionManager().getSessionCourante().setPause(false);
+            TaskTrayMenu.pauseSession1HItem.setEnabled(true);
+            TaskTrayMenu.pauseSession3HItem.setEnabled(true);
+            TaskTrayMenu.pauseSession24HItem.setEnabled(true);
+            TaskTrayMenu.resumeSessionItem.setEnabled(false);
             RefreshFrame();
             if (timer != null) {
                 timer.stop();
@@ -646,4 +662,14 @@ public class SessionFrame extends JFrame {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void setNbHoursOfDelay(int nbH){
+        chrono.setText(""+nbH);
+        btPauseCurrentSession.doClick();
+    }
+
+    void leavePause() {
+        btPauseCurrentSession.doClick();
+    }
+
 }
