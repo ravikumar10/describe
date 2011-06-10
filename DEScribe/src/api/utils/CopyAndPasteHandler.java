@@ -37,7 +37,7 @@ public class CopyAndPasteHandler {
         // get the system clipboard
         systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 /*
- *      //Can't use it! Only detects types' change and not contents changes (e.g. a text to another text not detected).
+ *      //Can't use it! Only detects types' changes and not contents changes (e.g. a text to another text not detected).
         systemClipboard.addFlavorListener(new FlavorListener() {
 
                 public void flavorsChanged(FlavorEvent e) {
@@ -81,32 +81,6 @@ public class CopyAndPasteHandler {
             try {
                 if (isNewCopyDone()) {
                     DataFlavor t[]=systemClipboard.getAvailableDataFlavors();
-                    
-                    /* 2
-                    if (systemClipboard.getAvailableDataFlavors().length>0){
-                        System.out.println(t[0].getHumanPresentableName());
-                        javax.swing.JOptionPane.showMessageDialog(null, t[0].getHumanPresentableName());
-
-                        // Ask a new question - Only for test. To be generalized with rules in form.xml
-                        if ((t[0].getHumanPresentableName().equals("image/x-java-image")) || (t[0].getHumanPresentableName().equals("application/pdf"))){
-                            System.out.println("image");
-                            //AskFrame.getTheFrame().showTheFrame("What did you want to do with this picture?");
-                            AskFrame.getTheFrame().askQuestionWithRule("copyImage");
-                        } else if ((t[0].getHumanPresentableName().equals("application/x-java-file-list")) ||(t[0].getHumanPresentableName().equals("application/x-java-url"))){
-                            System.out.println("fichiers");
-                            //AskFrame.getTheFrame().showTheFrame("What did you want to do with this(thise) file(s)?");
-                            AskFrame.getTheFrame().askQuestionWithRule("copyFile");
-                        } else if ((t[0].getHumanPresentableName().equals("application/x-java-text-encoding") ) || (t[0].getHumanPresentableName().equals("Unicode String")) || (t[0].getHumanPresentableName().equals("txt/rtf"))){
-                            System.out.println("text");
-                            //AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
-                            AskFrame.getTheFrame().askQuestionWithRule("copyText");
-                        } else {
-                            System.out.println("unsupported");
-                            //AskFrame.getTheFrame().showTheFrame("What did you want to do with this text?");
-                            AskFrame.getTheFrame().askQuestionWithRule("copy");
-                        }
-                    }*/
-
                     if (systemClipboard.getAvailableDataFlavors().length>0){
 
                         // Ask a new question - Only for test. To be generalized with rules in form.xml
@@ -288,7 +262,6 @@ public class CopyAndPasteHandler {
         DataFlavor t[]=tr.getTransferDataFlavors();
         if (t.length>0){
             if (api.utils.getOs.isWindows()){
-                System.out.println(t[0].getHumanPresentableName());
                                 return (t[0].getHumanPresentableName().contains("image"));
             }
 
