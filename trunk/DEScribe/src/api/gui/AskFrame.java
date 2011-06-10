@@ -327,19 +327,15 @@ public class AskFrame extends GenericFrame {
                     Toolkit.getDefaultToolkit().beep();
                 }
                 this.pack();
-                this.validate();
-                this.repaint();
-                thePanel.revalidate();
-                thePanel.jta1.revalidate();
-                thePanel.jpMiddle.revalidate();
                 this.setVisible(true);
 
                 thePanel.jta1.requestFocus();
-                thePanel.jpMiddle.requestFocus();
+
                 //thePanel.j
                 if (currentQuestion instanceof QReponseLibre){
                     thePanel.jta2.requestFocus();
                 } else if (thePanel.jtaOther!=null){
+                    thePanel.jpMiddle.requestFocus();
                     thePanel.jtaOther.requestFocus();
                 }
             }
@@ -355,6 +351,10 @@ public class AskFrame extends GenericFrame {
             setText1(currentQuestion.intitule);
             //thePanel.remove(thePanel.getComponent(0));
             //Component xt[]= ((JPanel)thePanel.getComponent(2)).getComponents();
+
+            if (thePanel.jtaOther!=null){
+                thePanel.remove(thePanel.jtaOther);
+            }
             if (currentQuestion instanceof QReponseLibre){
                 // Add textfield to panel
                 //this.add(this.secondTextField(), BorderLayout.CENTER);
@@ -652,6 +652,16 @@ public class AskFrame extends GenericFrame {
                             res+=ab.getText();
                         }
                     }
+                    
+                    Component ti[]= ((JPanel)thePanel.getComponent(2)).getComponents();
+                    for (int i=0; i<ti.length;i++){
+                        if (ti[i] instanceof JTextField){
+                            if (!((JTextField) ti[i]).getText().equals("")){
+                                res+=" \n "+((JTextField) ti[i]).getText();
+                            }
+                        }                        
+                    }
+
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                     thePanel.bg2.clearSelection();
                 }
