@@ -334,6 +334,14 @@ public class AskFrame extends GenericFrame {
                 thePanel.jpMiddle.revalidate();
                 this.setVisible(true);
 
+                thePanel.jta1.requestFocus();
+                thePanel.jpMiddle.requestFocus();
+                //thePanel.j
+                if (currentQuestion instanceof QReponseLibre){
+                    thePanel.jta2.requestFocus();
+                } else if (thePanel.jtaOther!=null){
+                    thePanel.jtaOther.requestFocus();
+                }
             }
 
     }
