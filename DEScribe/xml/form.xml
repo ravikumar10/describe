@@ -1,35 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <questions>
-	<!-- Les questions : par spécificité décroissante             -->
+	<!-- Questions list											  -->
 	<!-- They have to be sorted in this order because only        --> 
 	<!-- first question with all rules checked is asked           -->
 	
 	<!-- More specific question -->
-    <question type="QCMChkBox">
-
+	<question type="open">
         <title>
-
-        What did you want to do with this image?
-
+        What was your experience?
         </title>
-
-        <choice type="normal">
-
-        Copy it into a document
-
-        </choice>
-
-        <choice type="normal">
-
-        Make a new image from this one
-
-        </choice>
-
-        <choice type="other">
-
-        Other:
-
-        </choice>
 		<rules>
 			<!-- if : Condition for asking -->
 			<rule type="if" event="copyImage">
@@ -40,36 +19,11 @@
 		</rules>
     </question>
 
-    <question type="QCMChkBox">
+	<question type="open">
 
         <title>
-
-        What did you want to do with this text?
+        What was your experience?
         </title>
-
-        <choice type="normal">
-
-        Put it into a new document
-
-        </choice>
-
-        <choice type="normal">
-
-        Put it once or more times in the current document
-
-        </choice>
-
-        <choice type="normal">
-
-        Keep it in the clipboard in case of future use
-
-        </choice>
-
-        <choice type="other">
-
-        Other
-
-        </choice>
 		<rules>
 			<rule type="if" event="copyText">
 			</rule>
@@ -78,42 +32,10 @@
 		</rules>
     </question>	
 	
-    <question type="QCMRadio">
-
+	<question type="open">
         <title>
-
-        What did you want to do with this(these) file(s)?
+        What was your experience?
         </title>
-
-        <choice type="normal">
-
-        First step of moving files
-
-        </choice>
-
-        <choice type="normal">
-
-        Make a save of files
-
-        </choice>
-
-        <choice type="normal">
-
-        Give it (them) to someone
-
-        </choice>
-
-        <choice type="normal">
-
-        Make new file(s) from this(these)
-
-        </choice>
-
-        <choice type="other">
-
-        Other
-
-        </choice>
 		<rules>
 			<rule type="if" event="copyFile">
 			</rule>
@@ -122,23 +44,10 @@
 		</rules>
     </question>		
 	
-    <question type="QCMChkBox">
-
+	<question type="open">
         <title>
-        What and Why did you copy?
+        What was your experience?
         </title>
-
-        <choice type="normal">
-
-        Specific software data
-
-        </choice>
-
-        <choice type="other">
-
-        Other
-
-        </choice>
 		<rules>
 			<rule type="if" event="copy">
 			</rule>
@@ -147,75 +56,68 @@
 		</rules>
     </question>		
 	
-<!-- Less specific question -->
-<question type="QCMChkBox">
-
+	<question type="open">
         <title>
         What was your experience?
         </title>
-
-        <choice type="normal">
-
-        Surfing the internet
-
-        </choice>
-
-        <choice type="normal">
-
-        Chatting with friends
-
-        </choice>
-
-        <choice type="normal">
-
-        Using mail client
-
-        </choice>
-
-        <choice type="normal">
-
-        Reading/Writing document
-
-        </choice>
-		
-        <choice type="normal">
-
-        Social networking
-
-        </choice>		
-		
-        <choice type="normal">
-
-        Using software for work
-
-        </choice>				
-
-        <choice type="other">
-
-        Other
-
-        </choice>
 		<rules>
 			<rule type="notif" event="fullscreen">
 			</rule>
 		</rules>
-    </question>		
-	
-<!-- Also possible : "open" question, free answer -->
-<!-- 
-<question type="open">
+	</question>		
 
-        <title>
-        What was your experience?
-        </title>
+	<!-- Examples of other types of question -->
+	<!-- Multiple choice question with radio buttons (one choice max) -->
+	<!--
+	<question type="QCMRadio">
+			<title>
+			What was your experience?
+			</title>
+			<choices>
+				<choice type="normal">
+					Waiting for some event
+				</choice>
+				<choice type="normal">
+					Thinking about some other activity
+				</choice>
+				<choice type="other">
+					Other
+				</choice>					
+			<choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>		
+	-->
 
-		<rules>
-			<rule type="notif" event="fullscreen">
-			</rule>
-		</rules>
-</question>		
--->	
+	<!-- Multiple choice question with checkboxes (answer can be composed of more than one choice at once) -->
+	<!--
+	<question type="QCMChkBox">
+			<title>
+			What was your experience?
+			</title>
+			<choices>
+				<choice type="normal">
+					Waiting for some event
+				</choice>
+				<choice type="normal">
+					Thinking about some other activity
+				</choice>
+				<choice type="other">
+					Other
+				</choice>					
+			<choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>		
+	-->
+
+	<!-- Actions associated with all questions of the form -->
     <actions>
+		<!-- Takes a screenshot every time a question is asked -->
         <action type="screenshot">
         </action>
     </actions>
