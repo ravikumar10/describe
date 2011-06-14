@@ -160,6 +160,7 @@ public class OptionFrame extends JFrame {
         browseButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                OptionFrame.getOptionFrame().setAlwaysOnTop(false);
                 String path;
                 //Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
                 JFileChooser choix = new JFileChooser();
@@ -172,6 +173,7 @@ public class OptionFrame extends JFrame {
                     path = choix.getSelectedFile().getAbsolutePath();
                     sessionFolder.setText(path);
                 }
+                OptionFrame.getOptionFrame().setAlwaysOnTop(true);
             }
         });
         Option4.add(jl4);
