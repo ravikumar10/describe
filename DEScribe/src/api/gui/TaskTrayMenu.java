@@ -200,8 +200,8 @@ public class TaskTrayMenu {
 
 
         PauseSession1HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession1HLabel");
-        PauseSession3HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession1HLabel");
-        PauseSession24HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession1HLabel");
+        PauseSession3HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession3HLabel");
+        PauseSession24HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession24HLabel");
         ResumeSessionLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ResumeSessionLabel");
 
 

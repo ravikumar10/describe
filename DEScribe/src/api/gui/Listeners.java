@@ -43,6 +43,7 @@ import api.utils.UrlHelper;
 import api.utils.getOs;
 import des.Main;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
@@ -82,102 +83,187 @@ public class Listeners implements ActionListener, WindowListener {
         } catch (SQLException ex) {
         Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
         }
-        } else */        if (s.equals(SessionFrame.labelBtExportCurrentSession)) {
+        } else */
+        if (s.equals(SessionFrame.labelBtExportCurrentSession)) {
             // CE QU'ON VEUT FAIRE AVEC LE BOUTON EXPORTER
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             String cheminExportation;
             Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
-            JFileChooser choix = new JFileChooser();
-            choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            choix.addChoosableFileFilter(new DirFileFilter());
-            int retour = choix.showOpenDialog(null);
 
-            try {
-                cheminExportation = "";
-                if (retour == JFileChooser.APPROVE_OPTION) {
-                    // un fichier a été choisi ( sortie par OK)
-                    // nom du fichier  choisi
-                    //choix.getSelectedFile().getName();
-                    // chemin absolu du fichier choisi
-                    cheminExportation = choix.getSelectedFile().getAbsolutePath();
+            /* UTILISER CA PLUTOT */
+            if (!getOs.isWindows()){
+                System.setProperty("apple.awt.fileDialogForDirectories", "true");
+                FileDialog d = new FileDialog(SessionFrame.getFrame());
+                d.setVisible(true);
+                if (d.getFile()!=null){
 
-                    if (getOs.isWindows()) {
-                        cheminExportation = cheminExportation + "\\";
-                    } else {
-                        cheminExportation = cheminExportation + "/";
+                    try {
+                        cheminExportation = "";
+                        // un fichier a été choisi ( sortie par OK)
+                        // nom du fichier  choisi
+                        //choix.getSelectedFile().getName();
+                        // chemin absolu du fichier choisi
+                        cheminExportation = d.getDirectory()+d.getFile()+"/";
+
+                        // A FAIRE : Mettre date debut et date fin au bon format
+                        if (SessionManager.getSessionManager().getSessionCourante().getFin() != null) {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                        } else {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                        }
+                        // On met à jour la nouvelle date d'export pour la session
+                        SessionManager.getSessionManager().getSessionCourante().setLastExport(new Date());
+                        conn.updateSession(SessionManager.getSessionManager().getSessionCourante());
+                        SessionFrame.getFrame().RefreshFrame();
+                    } catch (Exception ex) {
+                        javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
+                        SessionFrame.getFrame().setAlwaysOnTop(true);
                     }
 
-                    // A FAIRE : Mettre date debut et date fin au bon format
-                    if (SessionManager.getSessionManager().getSessionCourante().getFin() != null) {
-                        Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                        javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                    } else {
-                        Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                        javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                    }
-                    // On met à jour la nouvelle date d'export pour la session
-                    SessionManager.getSessionManager().getSessionCourante().setLastExport(new Date());
-                    conn.updateSession(SessionManager.getSessionManager().getSessionCourante());
-                    SessionFrame.getFrame().RefreshFrame();
-                    SessionFrame.getFrame().setAlwaysOnTop(true);
                 }
-                /**
-                 * Faire redirection ou message de succès
-                 */
-            } catch (Exception ex) {
-                javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
-                SessionFrame.getFrame().setAlwaysOnTop(true);
+            } else {
+                /* Windows */
+                JFileChooser choix = new JFileChooser();
+                choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                choix.addChoosableFileFilter(new DirFileFilter());
+                int retour = choix.showOpenDialog(null);
+
+                try {
+                    cheminExportation = "";
+                    if (retour == JFileChooser.APPROVE_OPTION) {
+                        // un fichier a été choisi ( sortie par OK)
+                        // nom du fichier  choisi
+                        //choix.getSelectedFile().getName();
+                        // chemin absolu du fichier choisi
+                        cheminExportation = choix.getSelectedFile().getAbsolutePath();
+
+                        if (getOs.isWindows()) {
+                            cheminExportation = cheminExportation + "\\";
+                        } else {
+                            cheminExportation = cheminExportation + "/";
+                        }
+
+                        // A FAIRE : Mettre date debut et date fin au bon format
+                        if (SessionManager.getSessionManager().getSessionCourante().getFin() != null) {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                        } else {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                        }
+                        // On met à jour la nouvelle date d'export pour la session
+                        SessionManager.getSessionManager().getSessionCourante().setLastExport(new Date());
+                        conn.updateSession(SessionManager.getSessionManager().getSessionCourante());
+                        SessionFrame.getFrame().RefreshFrame();
+
+                    }
+                    /**
+                     * Faire redirection ou message de succès
+                     */
+                } catch (Exception ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
+                    SessionFrame.getFrame().setAlwaysOnTop(true);
+
+                }
+
 
             }
+            /* */
+
+            SessionFrame.getFrame().setAlwaysOnTop(true);
+
+
         } else if (s.equals(SessionFrame.labelBtExportOldSessions)) {
             // CE QU'ON VEUT FAIRE AVEC LE BOUTON EXPORTER
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             String cheminExportation;
-            Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
-            JFileChooser choix = new JFileChooser();
-            choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            choix.addChoosableFileFilter(new DirFileFilter());
-            int retour = choix.showOpenDialog(null);
 
-            try {
-                cheminExportation = "";
-                if (retour == JFileChooser.APPROVE_OPTION) {
-                    // un fichier a été choisi ( sortie par OK)
-                    // nom du fichier  choisi
-                    //choix.getSelectedFile().getName();
-                    // chemin absolu du fichier choisi
-                    cheminExportation = choix.getSelectedFile().getAbsolutePath();
+            if (!getOs.isWindows()){
+                /* Mac / Linux */
+                System.setProperty("apple.awt.fileDialogForDirectories", "true");
+                FileDialog d = new FileDialog(SessionFrame.getFrame());
+                d.setVisible(true);
+                if (d.getFile()!=null){
 
-                    if (getOs.isWindows()) {
-                        cheminExportation = cheminExportation + "\\";
-                    } else {
-                        cheminExportation = cheminExportation + "/";
+                    try {
+                        cheminExportation = "";
+                        // un fichier a été choisi ( sortie par OK)
+                        // nom du fichier  choisi
+                        //choix.getSelectedFile().getName();
+                        // chemin absolu du fichier choisi
+                        cheminExportation = d.getDirectory()+d.getFile()+"/";
+
+                        // A FAIRE : Mettre date debut et date fin au bon format
+                        if (SessionFrame.getFrame().getSessionSelectionnee().getFin() != null) {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                        } else {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                        }
+                        // On met à jour la nouvelle date d'export pour la session
+                        SessionFrame.getFrame().getSessionSelectionnee().setLastExport(new Date());
+                        conn.updateSession(SessionFrame.getFrame().getSessionSelectionnee());
+                        SessionFrame.getFrame().RefreshFrame();
+                    } catch (Exception ex) {
+                        javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
+                        SessionFrame.getFrame().setAlwaysOnTop(true);
                     }
 
-                    // A FAIRE : Mettre date debut et date fin au bon format
-                    if (SessionFrame.getFrame().getSessionSelectionnee().getFin() != null) {
-                        Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                        javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                    } else {
-                        Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                        javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                    }
-                    // On met à jour la nouvelle date d'export pour la session
-                    SessionFrame.getFrame().getSessionSelectionnee().setLastExport(new Date());
-                    conn.updateSession(SessionFrame.getFrame().getSessionSelectionnee());
-                    SessionFrame.getFrame().RefreshFrame();
                 }
-                    SessionFrame.getFrame().setAlwaysOnTop(true);
-                /**
-                 * Faire redirection ou message de succès
-                 */
-            } catch (Exception ex) {
-                javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
-                SessionFrame.getFrame().setAlwaysOnTop(true);
+            } else {
+                /* Windows */
+                Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
+                JFileChooser choix = new JFileChooser();
+                choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                choix.addChoosableFileFilter(new DirFileFilter());
+                int retour = choix.showOpenDialog(null);
 
+                try {
+                    cheminExportation = "";
+                    if (retour == JFileChooser.APPROVE_OPTION) {
+                        // un fichier a été choisi ( sortie par OK)
+                        // nom du fichier  choisi
+                        //choix.getSelectedFile().getName();
+                        // chemin absolu du fichier choisi
+                        cheminExportation = choix.getSelectedFile().getAbsolutePath();
+
+                        if (getOs.isWindows()) {
+                            cheminExportation = cheminExportation + "\\";
+                        } else {
+                            cheminExportation = cheminExportation + "/";
+                        }
+
+                        // A FAIRE : Mettre date debut et date fin au bon format
+                        if (SessionFrame.getFrame().getSessionSelectionnee().getFin() != null) {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
+                        } else {
+                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
+                        }
+                        // On met à jour la nouvelle date d'export pour la session
+                        SessionFrame.getFrame().getSessionSelectionnee().setLastExport(new Date());
+                        conn.updateSession(SessionFrame.getFrame().getSessionSelectionnee());
+                        SessionFrame.getFrame().RefreshFrame();
+                    }
+                        SessionFrame.getFrame().setAlwaysOnTop(true);
+                    /**
+                     * Faire redirection ou message de succès
+                     */
+                } catch (Exception ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
+                    SessionFrame.getFrame().setAlwaysOnTop(true);
+
+                }
             }
+
+
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(TaskTrayMenu.ExitItemLabel)) {
             int retour = JOptionPane.showConfirmDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strReallyQuit"), Lang.getLang().getValueFromRef("SessionFrame.strFrameTitleReallyQuit"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
