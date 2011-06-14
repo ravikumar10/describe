@@ -134,240 +134,10 @@ public class SessionFrame extends JFrame {
     public static String labelBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.labelBtVisualize");
     public static String toolTipBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtVisualize");
 
-    /*
-    public SessionFrame() {
-
-        // LA FENETRE PRINCIPALE
-        this.setTitle(title);
-        this.setIconImage(new ImageIcon("media/des.gif").getImage());
-        this.setResizable(true);
-        this.addWindowListener(Listeners.getListeners());
-
-
-
-        JPanel panelUp = new JPanel();
-        panelUp.setBorder(BorderFactory.createLineBorder(Color.GRAY,4));
-        panelUp.setLayout(new GridLayout(4,1));
-        JPanel jpUpCurrentSession = new JPanel();
-        jpUpCurrentSession.setLayout(new FlowLayout());
-
-        jpUpCurrentSession.setBackground(new Color(178,34,34));
-        lbCurrentSession = new Label(labelCurrentSession);
-        lbCurrentSession.setFont(new Font("Verdana", Font.BOLD, 30));
-        lbCurrentSession.setForeground(Color.white);
-        lbCurrentSession.setBackground(new Color(178,34,34));
-        jpUpCurrentSession.add(lbCurrentSession);
-        JPanel jpUpCurrentSessionInfo = new JPanel();
-        jpUpCurrentSessionInfo.setLayout(new FlowLayout());
-        try {
-            lbName = new Label (labelName);
-            jpUpCurrentSessionInfo.add(lbName);
-
-            lbName.setForeground(Color.white);
-            lbName.setBackground(new Color(178,34,34));
-            lbName.setFont(new Font("Verdana", Font.PLAIN, 14));
-
-            lbCurrentSessionName = new Label(SessionManager.getSessionManager().getSessionCourante().getNom());
-            jpUpCurrentSessionInfo.add(lbCurrentSessionName);
-            jpUpCurrentSessionInfo.setBackground(new Color(178,34,34));
-            lbCurrentSessionName.setForeground(Color.white);
-            lbCurrentSessionName.setBackground(new Color(178,34,34));
-            lbCurrentSessionName.setFont(new Font("Verdana", Font.BOLD, 14));
-
-            lbStatus = new Label (labelStatus);
-            jpUpCurrentSessionInfo.add(lbStatus);
-            lbStatus.setForeground(Color.white);
-            lbStatus.setBackground(new Color(178,34,34));
-            lbStatus.setFont(new Font("Verdana", Font.PLAIN, 14));
-
-            lbStatusValue = new Label (labelStatusActive);
-            jpUpCurrentSessionInfo.add(lbStatusValue);
-            lbStatusValue.setForeground(Color.GREEN);
-            lbStatusValue.setBackground(new Color(178,34,34));
-            lbStatusValue.setFont(new Font("Verdana", Font.BOLD, 14));
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        txtAreaCurrentSession = new JTextArea();
-        txtAreaCurrentSession.setEditable(false);
-
-        JScrollPane jsp = new JScrollPane(txtAreaCurrentSession);
-        jsp.setBackground(Color.LIGHT_GRAY);
-        jsp.setPreferredSize(new Dimension(500, 70));
-
-
-
-        JPanel jpUpFlowBt = new JPanel();
-        jpUpFlowBt.setLayout(new FlowLayout());
-        btPauseCurrentSession = new JButton(labelBtPauseCurrentSession);
-        btPauseCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btPauseCurrentSession);
-        btPauseCurrentSession.setToolTipText(toolTipBtPauseCurrentSession);
-        chrono = new JTextField(textInactiveTimer, 8);
-        chrono.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                //TODO : effacer le texte
-                chrono.setSelectionStart(0);
-                chrono.setSelectionEnd(chrono.getText().length());
-            }
-        });
-
-        jpUpFlowBt.add(chrono);
-        btExportCurrentSession = new JButton(labelBtExportCurrentSession);
-        btExportCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btExportCurrentSession);
-        btExportCurrentSession.setToolTipText(toolTipBtExportCurrentSession);
-
-        btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
-        btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btNewSessionCurrentSession);
-        btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
-
-        btCloseSessionCurrentSession = new JButton(labelBtCloseSessionCurrentSession);
-        btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btCloseSessionCurrentSession);
-        btCloseSessionCurrentSession.setToolTipText(toolTipBtCloseSessionCurrentSession);
-
-        btVisualize = new JButton(labelBtVisualize);
-        btVisualize.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btVisualize);
-        btVisualize.setToolTipText(toolTipBtVisualize);
-
-        jpUpFlowBt.setBackground(new Color(178,34,34));
-
-        panelUp.add(jpUpCurrentSession);
-        panelUp.add(jpUpCurrentSessionInfo);
-        panelUp.add(jpUpFlowBt);
-        panelUp.add(jsp);
-        panelUp.setBackground(new Color(178,34,34));
-
-        JPanel panelDown = new JPanel();
-        panelDown.setBorder(BorderFactory.createLineBorder(Color.GRAY,4));
-
-        panelDown.setLayout(new GridLayout(5,1));
-        JPanel jpDownOldSessions = new JPanel();
-        jpDownOldSessions.setLayout(new FlowLayout());
-
-        jpDownOldSessions.setBackground(new Color(178,34,34));
-        lbOldSessions = new Label(labelOldSessions);
-        lbOldSessions.setFont(new Font("Verdana", Font.BOLD, 30));
-        lbOldSessions.setForeground(Color.white);
-        lbOldSessions.setBackground(new Color(178,34,34));
-        jpDownOldSessions.add(lbOldSessions);
-        panelDown.add(jpDownOldSessions);
-
-        lbWarningUnexported = new Label(lbUnexportedSessionWarning);
-        lbWarningUnexported.setFont(new Font("Verdana", Font.BOLD, 20));
-        lbWarningUnexported.setForeground(Color.YELLOW);
-        lbWarningUnexported.setBackground(new Color(178,34,34));
-
-        c = new List();
-        c.setPreferredSize(new Dimension(280, 20));
-        SessionManager sm;
-        try {
-            sm = SessionManager.getSessionManager();
-            for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
-                Session s = it.next();
-                if (!s.getActive()) {
-                    c.add("" + s.getId() + " - " + s.getNom() + " - " + s.getDebut());
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //panelDownList.add(c);
-        c.addItemListener(new ItemListener() {
-
-            public void itemStateChanged(ItemEvent ie) {
-                if (ie.getStateChange() == ItemEvent.SELECTED) {
-                    if (c.getSelectedItem().equals(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"))) {
-                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
-                        lbWarningUnexported.setVisible(false);
-                    } else {
-                    if (getSessionSelectionnee().getLastExport() == null) {
-                        lbWarningUnexported.setVisible(true);
-                        //SessionFrame.getFrame().pack();
-                    } else {
-                        lbWarningUnexported.setVisible(false);
-                        //SessionFrame.getFrame().pack();
-                    }
-                    DBConnexion conn = DBConnexion.getConnexion();
-                    txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
-                    if (txtAreaSelectedOldSession.getText().equals(""))
-                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
-
-                    }
-                }
-            }
-        });
-
-        panelDown.add(c);
-
-        JPanel jpDownFlowBt = new JPanel();
-        jpDownFlowBt.setLayout(new FlowLayout());
-        btExportOldSessions = new JButton(labelBtExportOldSessions);
-        btExportOldSessions.addActionListener(Listeners.getListeners());
-        jpDownFlowBt.add(btExportOldSessions);
-        btExportOldSessions.setToolTipText(toolTipBtExportOldSessions);
-
-        btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
-        btDeleteOldSessions.addActionListener(Listeners.getListeners());
-        jpDownFlowBt.add(btDeleteOldSessions);
-        btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
-
-        jpDownFlowBt.setBackground(new Color(178,34,34));
-        panelDown.add(jpDownFlowBt);
-        panelDown.add(lbWarningUnexported);
-        panelDown.setBackground(new Color(178,34,34));
-        txtAreaSelectedOldSession = new JTextArea();
-        txtAreaSelectedOldSession.setEditable(false);
-        JScrollPane jsp2 = new JScrollPane(txtAreaSelectedOldSession);
-        jsp2.setBackground(Color.LIGHT_GRAY);
-        jsp2.setPreferredSize(new Dimension(500, 70));
-
-        panelDown.add(jsp2);
-
-        DBConnexion conn = DBConnexion.getConnexion();
-        try {
-            txtAreaCurrentSession.setText(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante()));
-        } catch (SQLException ex) {
-            Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-            if (txtAreaSelectedOldSession.getText().equals(""))
-                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
-            if (txtAreaCurrentSession.getText().equals(""))
-                        txtAreaCurrentSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
-
-        JPanel panelOK = new JPanel();
-        btOk= new JButton(labelBtOk);
-        btOk.addActionListener(Listeners.getListeners());
-        panelOK.setBackground(new Color(178,34,34));
-        panelOK.add(btOk);
- 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        getContentPane().add(panel);
-
-        panel.add(panelUp, BorderLayout.NORTH);
-        panel.add(panelDown, BorderLayout.CENTER);
-        panel.add(panelOK, BorderLayout.SOUTH);
-        this.setAlwaysOnTop(true);
-        this.setPreferredSize(new Dimension(1000,672));
-       
-        this.pack();
-        lbWarningUnexported.setVisible(false);
-        this.setVisible(false);
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
-    }
-    */
-
+    public static Label lbCommandsCurrentSession;
+    public static Label lbCommandsClosedSession;
+    public static String labelCommandsCurrentSession = Lang.getLang().getValueFromRef("SessionFrame.labelCommandsCurrentSession");
+    public static String labelCommandsClosedSession = Lang.getLang().getValueFromRef("SessionFrame.labelCommandsClosedSession");
 
     public SessionFrame() {
 
@@ -376,49 +146,53 @@ public class SessionFrame extends JFrame {
         this.setIconImage(new ImageIcon("media/des.gif").getImage());
         this.setResizable(true);
         this.addWindowListener(Listeners.getListeners());
-
 
 
         /**
          * New version
          */
-        JPanel panelLeft = new JPanel();
-        panelLeft.setBorder(BorderFactory.createLineBorder(Color.GRAY,4));
-        panelLeft.setLayout(new GridLayout(2,1));
-        JPanel jpUpCurrentSession = new JPanel();
-        jpUpCurrentSession.setLayout(new GridLayout(3,1));
+        JPanel jpLeft = new JPanel();
+        jpLeft.setBorder(BorderFactory.createLineBorder(Color.darkGray,4));
+        jpLeft.setLayout(new GridLayout(3,1));
+        JPanel jpLeftUp = new JPanel(new GridLayout(2,1));
 
-        jpUpCurrentSession.setBackground(new Color(178,34,34));
+        jpLeftUp.setBackground(new Color(178,34,34));
+        jpLeftUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+
+        JPanel jpLeftUpFlowOne = new JPanel(new FlowLayout());
+        jpLeftUpFlowOne.setBackground(Color.white);
+
         lbCurrentSession = new Label(labelCurrentSession);
         lbCurrentSession.setFont(new Font("Verdana", Font.BOLD, 30));
-        lbCurrentSession.setForeground(Color.white);
-        lbCurrentSession.setBackground(new Color(178,34,34));
-        jpUpCurrentSession.add(lbCurrentSession);
-        JPanel jpUpCurrentSessionInfo = new JPanel();
-        jpUpCurrentSessionInfo.setLayout(new FlowLayout());
+        lbCurrentSession.setForeground(new Color(178,34,34));
+        lbCurrentSession.setBackground(Color.white);
+        jpLeftUpFlowOne.add(lbCurrentSession);
+        JPanel jpLeftUpFlowTwo = new JPanel(new FlowLayout());
+        jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+
         try {
             lbName = new Label (labelName);
-            jpUpCurrentSessionInfo.add(lbName);
+            jpLeftUpFlowTwo.add(lbName);
 
             lbName.setForeground(Color.white);
             lbName.setBackground(new Color(178,34,34));
             lbName.setFont(new Font("Verdana", Font.PLAIN, 14));
 
             lbCurrentSessionName = new Label(SessionManager.getSessionManager().getSessionCourante().getNom());
-            jpUpCurrentSessionInfo.add(lbCurrentSessionName);
-            jpUpCurrentSessionInfo.setBackground(new Color(178,34,34));
+            jpLeftUpFlowTwo.add(lbCurrentSessionName);
+            jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
             lbCurrentSessionName.setForeground(Color.white);
             lbCurrentSessionName.setBackground(new Color(178,34,34));
             lbCurrentSessionName.setFont(new Font("Verdana", Font.BOLD, 14));
 
             lbStatus = new Label (labelStatus);
-            jpUpCurrentSessionInfo.add(lbStatus);
+            jpLeftUpFlowTwo.add(lbStatus);
             lbStatus.setForeground(Color.white);
             lbStatus.setBackground(new Color(178,34,34));
             lbStatus.setFont(new Font("Verdana", Font.PLAIN, 14));
 
             lbStatusValue = new Label (labelStatusActive);
-            jpUpCurrentSessionInfo.add(lbStatusValue);
+            jpLeftUpFlowTwo.add(lbStatusValue);
             lbStatusValue.setForeground(Color.GREEN);
             lbStatusValue.setBackground(new Color(178,34,34));
             lbStatusValue.setFont(new Font("Verdana", Font.BOLD, 14));
@@ -427,82 +201,111 @@ public class SessionFrame extends JFrame {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        txtAreaCurrentSession = new JTextArea();
-        txtAreaCurrentSession.setEditable(false);
+        jpLeftUp.add(jpLeftUpFlowOne);
+        jpLeftUp.add(jpLeftUpFlowTwo);
 
-        JScrollPane jsp = new JScrollPane(txtAreaCurrentSession);
-        jsp.setBackground(Color.LIGHT_GRAY);
-        jsp.setPreferredSize(new Dimension(500, 70));
+        jpLeft.add(jpLeftUp);
 
 
+        JPanel jpLeftMid = new JPanel(new GridLayout(3,1));
+        jpLeftMid.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+        JPanel jpLeftMidFlowOne = new JPanel(new FlowLayout());
+        JPanel jpLeftMidFlowTwo = new JPanel(new FlowLayout());
+        JPanel jpLeftMidFlowThree = new JPanel(new FlowLayout());
 
-        JPanel jpUpFlowBt = new JPanel();
-        jpUpFlowBt.setLayout(new FlowLayout());
+        lbCommandsCurrentSession = new Label(labelCommandsCurrentSession);
+        lbCommandsCurrentSession.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbCommandsCurrentSession.setForeground(Color.white);
+        lbCommandsCurrentSession.setBackground(new Color(178,34,34));
+        jpLeftMidFlowOne.add(lbCommandsCurrentSession);
+        jpLeftMidFlowOne.setBackground(new Color(178,34,34));
+
         btPauseCurrentSession = new JButton(labelBtPauseCurrentSession);
         btPauseCurrentSession.addActionListener(Listeners.getListeners());
-        //jpUpFlowBt.add(btPauseCurrentSession);
-        jpUpFlowBt.add(btPauseCurrentSession);
+        jpLeftMidFlowTwo.add(btPauseCurrentSession);
         btPauseCurrentSession.setToolTipText(toolTipBtPauseCurrentSession);
         chrono = new JTextField(textInactiveTimer, 8);
         chrono.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                //TODO : effacer le texte
                 chrono.setSelectionStart(0);
                 chrono.setSelectionEnd(chrono.getText().length());
             }
         });
 
-        jpUpFlowBt.add(chrono);
+        jpLeftMidFlowTwo.add(chrono);
         btExportCurrentSession = new JButton(labelBtExportCurrentSession);
         btExportCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btExportCurrentSession);
+        jpLeftMidFlowThree.add(btExportCurrentSession);
         btExportCurrentSession.setToolTipText(toolTipBtExportCurrentSession);
 
         btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
         btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btNewSessionCurrentSession);
+        jpLeftMidFlowThree.add(btNewSessionCurrentSession);
         btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
 
         btCloseSessionCurrentSession = new JButton(labelBtCloseSessionCurrentSession);
         btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btCloseSessionCurrentSession);
+        jpLeftMidFlowThree.add(btCloseSessionCurrentSession);
         btCloseSessionCurrentSession.setToolTipText(toolTipBtCloseSessionCurrentSession);
 
         btVisualize = new JButton(labelBtVisualize);
         btVisualize.addActionListener(Listeners.getListeners());
-        jpUpFlowBt.add(btVisualize);
+        jpLeftMidFlowThree.add(btVisualize);
         btVisualize.setToolTipText(toolTipBtVisualize);
 
-        jpUpCurrentSessionInfo.setBackground(new Color(178,34,34));
+        jpLeftMid.setBackground(new Color(178,34,34));
+        jpLeftMidFlowOne.setBackground(new Color(178,34,34));
+        jpLeftMidFlowTwo.setBackground(new Color(178,34,34));
+        jpLeftMidFlowThree.setBackground(new Color(178,34,34));
+        jpLeft.setBackground(new Color(178,34,34));
+        jpLeftMid.add(jpLeftMidFlowOne);
+        jpLeftMid.add(jpLeftMidFlowTwo);
+        jpLeftMid.add(jpLeftMidFlowThree);
+        jpLeft.add(jpLeftMid);
 
-        jpUpCurrentSession.add(jpUpCurrentSessionInfo);
-        jpUpCurrentSession.add(jpUpFlowBt);
 
-        panelLeft.add(jpUpCurrentSession);
+        txtAreaCurrentSession = new JTextArea();
+        txtAreaCurrentSession.setEditable(false);
+
+        JScrollPane jpLeftDown = new JScrollPane(txtAreaCurrentSession);
+        jpLeftDown.setBackground(Color.LIGHT_GRAY);
+        jpLeftDown.setPreferredSize(new Dimension(500, 70));
+        jpLeftDown.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+
         //panelLeft.add(jpUpCurrentSessionInfo);
         //panelLeft.add(jpUpFlowBt);
-        panelLeft.add(jsp);
-        panelLeft.setBackground(new Color(178,34,34));
+        jpLeft.add(jpLeftDown);
+        jpLeft.setBackground(new Color(178,34,34));
 
-        JPanel panelRight = new JPanel();
-        panelRight.setBorder(BorderFactory.createLineBorder(Color.GRAY,4));
 
-        panelRight.setLayout(new GridLayout(5,1));
-        JPanel jpDownOldSessions = new JPanel();
-        jpDownOldSessions.setLayout(new FlowLayout());
 
-        jpDownOldSessions.setBackground(new Color(178,34,34));
+
+        
+        JPanel jpRight = new JPanel();
+        jpRight.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,4));
+        jpRight.setLayout(new GridLayout(3,1));
+
+
+        JPanel jpRightUp = new JPanel(new GridLayout(2,1));
+        JPanel jpRightUpFlowOne = new JPanel(new FlowLayout());
+        jpRightUpFlowOne.setBackground(Color.white);
+
         lbOldSessions = new Label(labelOldSessions);
         lbOldSessions.setFont(new Font("Verdana", Font.BOLD, 30));
-        lbOldSessions.setForeground(Color.white);
-        lbOldSessions.setBackground(new Color(178,34,34));
-        jpDownOldSessions.add(lbOldSessions);
-        panelRight.add(jpDownOldSessions);
+        lbOldSessions.setForeground(new Color(178,34,34));
+        lbOldSessions.setBackground(Color.white);
+        jpRightUpFlowOne.add(lbOldSessions);
+        jpRightUp.add(jpRightUpFlowOne);
+        JPanel jpRightUpFlowTwo = new JPanel(new FlowLayout());
+        jpRightUpFlowTwo.setBackground(new Color(178,34,34));
+        jpRightUp.add(jpRightUpFlowTwo);
+
+        jpRightUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
 
         lbWarningUnexported = new Label(lbUnexportedSessionWarning);
-        lbWarningUnexported.setFont(new Font("Verdana", Font.BOLD, 20));
+        lbWarningUnexported.setFont(new Font("Verdana", Font.BOLD, 16));
         lbWarningUnexported.setForeground(Color.YELLOW);
         lbWarningUnexported.setBackground(new Color(178,34,34));
 
@@ -546,31 +349,50 @@ public class SessionFrame extends JFrame {
             }
         });
 
-        panelRight.add(c);
+        jpRight.add(jpRightUp);
 
-        JPanel jpDownFlowBt = new JPanel();
-        jpDownFlowBt.setLayout(new FlowLayout());
+        JPanel jpRightMid = new JPanel(new GridLayout(4,1));
+        jpRightMid.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+
+        JPanel jpRightMidFlowOne = new JPanel(new FlowLayout());
+        jpRightMidFlowOne.setBackground(new Color(178,34,34));
+        lbCommandsClosedSession = new Label(labelCommandsClosedSession);
+        lbCommandsClosedSession.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbCommandsClosedSession.setForeground(Color.white);
+        lbCommandsClosedSession.setBackground(new Color(178,34,34));
+        jpRightMidFlowOne.add(lbCommandsClosedSession);
+        jpRightMid.add(jpRightMidFlowOne);
+
+        jpRightMid.add(c);
+
+        JPanel jpRightMidFlowTwo = new JPanel();
+        jpRightMidFlowTwo.setLayout(new FlowLayout());
+        jpRightMidFlowTwo.setBackground(new Color(178,34,34));
         btExportOldSessions = new JButton(labelBtExportOldSessions);
         btExportOldSessions.addActionListener(Listeners.getListeners());
-        jpDownFlowBt.add(btExportOldSessions);
+        jpRightMidFlowTwo.add(btExportOldSessions);
         btExportOldSessions.setToolTipText(toolTipBtExportOldSessions);
 
         btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
         btDeleteOldSessions.addActionListener(Listeners.getListeners());
-        jpDownFlowBt.add(btDeleteOldSessions);
+        jpRightMidFlowTwo.add(btDeleteOldSessions);
         btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
 
-        jpDownFlowBt.setBackground(new Color(178,34,34));
-        panelRight.add(jpDownFlowBt);
-        panelRight.add(lbWarningUnexported);
-        panelRight.setBackground(new Color(178,34,34));
+        jpRightMidFlowTwo.setBackground(new Color(178,34,34));
+        jpRightMid.add(jpRightMidFlowTwo);
+        jpRightMid.add(lbWarningUnexported);
+        jpRightMid.setBackground(new Color(178,34,34));
+
+        jpRight.add(jpRightMid);
+
         txtAreaSelectedOldSession = new JTextArea();
         txtAreaSelectedOldSession.setEditable(false);
         JScrollPane jsp2 = new JScrollPane(txtAreaSelectedOldSession);
         jsp2.setBackground(Color.LIGHT_GRAY);
+        jsp2.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
         jsp2.setPreferredSize(new Dimension(500, 70));
 
-        panelRight.add(jsp2);
+        jpRight.add(jsp2);
 
         DBConnexion conn = DBConnexion.getConnexion();
         try {
@@ -595,13 +417,12 @@ public class SessionFrame extends JFrame {
         panel.setLayout(new GridLayout(1, 2));
         getContentPane().add(panel);
 
-        panel.add(panelLeft);
-        panel.add(panelRight);
+        panel.add(jpLeft);
+        panel.add(jpRight);
         //panel.add(panelOK, BorderLayout.SOUTH);
         this.setAlwaysOnTop(true);
-        panelLeft.setSize(498, 672);
-        panelRight.setSize(498, 672);
-        this.setPreferredSize(new Dimension(1000,672));
+
+        this.setPreferredSize(new Dimension(1280,720));
 
         this.pack();
         lbWarningUnexported.setVisible(false);
@@ -621,6 +442,7 @@ public class SessionFrame extends JFrame {
         RefreshFrame();
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
+                this.setAlwaysOnTop(true);
         setVisible(true);
     }
 

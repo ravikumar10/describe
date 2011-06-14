@@ -84,6 +84,7 @@ public class Listeners implements ActionListener, WindowListener {
         }
         } else */        if (s.equals(SessionFrame.labelBtExportCurrentSession)) {
             // CE QU'ON VEUT FAIRE AVEC LE BOUTON EXPORTER
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             String cheminExportation;
             Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
@@ -119,16 +120,19 @@ public class Listeners implements ActionListener, WindowListener {
                     SessionManager.getSessionManager().getSessionCourante().setLastExport(new Date());
                     conn.updateSession(SessionManager.getSessionManager().getSessionCourante());
                     SessionFrame.getFrame().RefreshFrame();
+                    SessionFrame.getFrame().setAlwaysOnTop(true);
                 }
                 /**
                  * Faire redirection ou message de succès
                  */
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
+                SessionFrame.getFrame().setAlwaysOnTop(true);
 
             }
         } else if (s.equals(SessionFrame.labelBtExportOldSessions)) {
             // CE QU'ON VEUT FAIRE AVEC LE BOUTON EXPORTER
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             String cheminExportation;
             Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
@@ -165,11 +169,13 @@ public class Listeners implements ActionListener, WindowListener {
                     conn.updateSession(SessionFrame.getFrame().getSessionSelectionnee());
                     SessionFrame.getFrame().RefreshFrame();
                 }
+                    SessionFrame.getFrame().setAlwaysOnTop(true);
                 /**
                  * Faire redirection ou message de succès
                  */
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
+                SessionFrame.getFrame().setAlwaysOnTop(true);
 
             }
         } else if (s.equals(TaskTrayMenu.ExitItemLabel)) {
@@ -183,15 +189,19 @@ public class Listeners implements ActionListener, WindowListener {
         } else if (s.equals(TaskTrayMenu.ReportItemLabel)) {
             LaunchReportPage.LaunchPage();
         } else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             try {
                 ConsultFrame.getTheFrame(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante())).showTheFrame(null);
             } catch (SQLException ex) {
                 Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
             }
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtConsultOldSessions)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strBeforeListAnwsers") + conn.getEntriesStringBySession(SessionFrame.getFrame().getSessionSelectionnee()));
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(TaskTrayMenu.ConfigItemLabel)) {
             OptionFrame.getOptionFrame().ShowFrame();
             // dossier par défaut (d'export et pour les données)\n- ...");
@@ -217,6 +227,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
 
             //Bouton nouvelle session
         } else if (s.equals(SessionFrame.labelBtNewSessionCurrentSession)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             int retour = JOptionPane.showConfirmDialog(AskFrame.getTheFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
@@ -348,7 +359,9 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                     Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtCloseSessionCurrentSession)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             int retour = JOptionPane.showConfirmDialog(AskFrame.getTheFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningClosingSession"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 try {
@@ -361,22 +374,29 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                     Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtPauseCurrentSession)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             SessionFrame.getFrame().launchChrono();
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtRetourDePauseCurrentSession)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             //TimerQuestion.resetDateDelay();
             SessionFrame.getFrame().resetChrono();
             SessionFrame.btPauseCurrentSession.setText(SessionFrame.labelBtPauseCurrentSession);
             TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
             TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
             SessionFrame.getFrame().RefreshFrame();
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
+            SessionFrame.getFrame().setAlwaysOnTop(false);
             try {
                 SessionManager.getSessionManager().deleteOldSession(SessionFrame.getFrame().getSessionSelectionnee());
                 SessionFrame.getFrame().RefreshFrame();
             } catch (SQLException ex) {
                 Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
             }
+            SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtOk)) {
             SessionFrame.getFrame().HideFrame();
         } else if (s.equals(SessionFrame.labelBtVisualize)) {
