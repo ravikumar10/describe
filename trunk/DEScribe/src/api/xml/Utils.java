@@ -530,7 +530,7 @@ public class Utils {
 
             currentOption = options.getElementsByTagName("sessions");
             e = (Element) currentOption.item(0);
-            OptionFrame.sessionFolder.setText(e.getAttribute("url"));
+            OptionFrame.getOptionFrame().setSessionFolder(e.getAttribute("url"));
 
         } catch (SAXException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
@@ -607,9 +607,9 @@ public class Utils {
                                 }
 
                                 // sessions folder
-                                    File rep = new File(OptionFrame.sessionFolder.getText());
+                                    File rep = new File(OptionFrame.getOptionFrame().sessionFolder.getText());
                                 if (rep.exists()) {
-                                 osw.write("\t<sessions url=\""+OptionFrame.sessionFolder.getText()+"\"/>\n");
+                                    osw.write("\t<sessions url=\""+OptionFrame.getOptionFrame().sessionFolder.getText()+"\"/>\n");
                                 } else {
                                     osw.write("\t<sessions url=\""+defaultFormFile+"\"/>\n");
                                 }

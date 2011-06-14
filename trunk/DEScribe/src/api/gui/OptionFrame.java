@@ -23,11 +23,13 @@ package api.gui;
 
 import api.i18n.Lang;
 import api.utils.DirFileFilter;
+import api.utils.getOs;
 import api.xml.Utils;
 import api.xml.Xmlfilter;
 import exceptions.BadXMLFileException;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -70,11 +72,13 @@ public class OptionFrame extends JFrame {
     public static JLabel jl2 = null;
     public static JLabel jl3 = null;
     public static String currentLang = null;
+
+
     private String opt1 = "English";
     private String opt2 = "Francais";
 
     public static JLabel jl4 = null;
-    public static JTextField sessionFolder;
+    public JTextField sessionFolder=null;
     public static JButton browseButton = null;
 
 
@@ -162,17 +166,42 @@ public class OptionFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 OptionFrame.getOptionFrame().setAlwaysOnTop(false);
                 String path;
-                //Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
-                JFileChooser choix = new JFileChooser();
-                choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                choix.addChoosableFileFilter(new DirFileFilter());
-                int retour = choix.showOpenDialog(null);
-
-                path = "";
-                if (retour == JFileChooser.APPROVE_OPTION) {
-                    path = choix.getSelectedFile().getAbsolutePath();
-                    sessionFolder.setText(path);
+                System.out.println("truc");
+                if (!getOs.isWindows()){
+                    /* Mac / Linux */
+                    System.setProperty("apple.awt.fileDialogForDirectories", "true");
+                    FileDialog d = new FileDialog(SessionFrame.getFrame());
+                    d.setVisible(true);
+                    if (d.getFile()!=null){
+                            path = "";
+                            // un fichier a été choisi ( sortie par OK)
+                            // nom du fichier  choisi
+                            //choix.getSelectedFile().getName();
+                            // chemin absolu du fichier choisi
+                            path = d.getDirectory()+d.getFile();
+                            sessionFolder.setEditable(true);
+                            sessionFolder.setText(path);
+                            sessionFolder.setEditable(false);
+                    }
                 }
+                else {
+                    System.out.println("machin");
+                    JFileChooser choix = new JFileChooser();
+                    choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    choix.addChoosableFileFilter(new DirFileFilter());
+                    int retour = choix.showOpenDialog(null);
+
+                    path = "";
+                    if (retour == JFileChooser.APPROVE_OPTION) {
+                        System.out.println("chose");
+                        path = choix.getSelectedFile().getAbsolutePath();
+                        sessionFolder.setEditable(true);
+                        sessionFolder.setText(path);
+                        sessionFolder.setEditable(false);
+                    }
+                }
+
+                OptionFrame.refresh();
                 OptionFrame.getOptionFrame().setAlwaysOnTop(true);
             }
         });
@@ -247,13 +276,13 @@ public class OptionFrame extends JFrame {
         if (of == null) {
             of = new OptionFrame();
         }
-        OptionFrame.loadSettings();
         return of;
     }
 
     public void ShowFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
+        OptionFrame.loadSettings();
         setVisible(true);
     }
 
@@ -280,6 +309,10 @@ public class OptionFrame extends JFrame {
         } catch (BadXMLFileException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+    }
+
+    public void setSessionFolder(String outputDir) {
+        sessionFolder.setText(outputDir);
     }
 
     public static void refresh() {
