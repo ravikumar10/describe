@@ -239,7 +239,15 @@
 		<ref>SessionFrame.toolTipBtVisualize</ref>
 		<value>Click here to see all yours answers and delete them if necessary</value>
 	</string>		
-	
+	<string>
+		<ref>SessionFrame.labelCommandsCurrentSession</ref>
+		<value>Commands</value>
+	</string>	
+		<string>
+		<ref>SessionFrame.labelCommandsClosedSession</ref>
+		<value>Commands</value>
+	</string>	
+
 	<!-- QuestionFrame -->
 	<string>
 		<ref>QuestionFrame.appTitle</ref>
