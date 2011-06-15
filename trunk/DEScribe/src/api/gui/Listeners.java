@@ -315,22 +315,22 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
         } else if (s.equals(SessionFrame.labelBtNewSessionCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
-            int retour = JOptionPane.showConfirmDialog(AskFrame.getTheFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
+            int retour = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 try {
 
 
 
-                    int ret = JOptionPane.showConfirmDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strFormChoiceForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameFormChoiceForNewSession"), JOptionPane.YES_NO_CANCEL_OPTION);
+                    int ret = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strFormChoiceForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameFormChoiceForNewSession"), JOptionPane.YES_NO_CANCEL_OPTION);
                     if (ret == 0) {
                         try {
                             // form.xml
                             Utils.setDefaultFormFile();
                         } catch (BadXMLFileException ex) {
-                            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+                            javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), ex.getMessage());
                         }
                         // Initialisation de la nouvelle session
-                        String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
+                        String nom = JOptionPane.showInputDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
                         // Cloture de la session courante
                         SessionFrame.getFrame().resetChrono();
                         SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante()); 
@@ -342,7 +342,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                             SessionFrame.getFrame().RefreshFrame();
                         }
                         // Création terminée
-                        javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strSessionCreationSuccess"));
+                        javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strSessionCreationSuccess"));
                     } else if (ret == 1){
                         String[] liste = {Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetBtFromUrl"), Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetBtFromComputer"), Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetBtCancel")};
                         JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
@@ -362,9 +362,9 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                                         Utils.setNewFormFile("xml/importedForm.xml");
                                     }
 
-                                    javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strQuestionsSetLoaded"));
+                                    javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strQuestionsSetLoaded"));
                                     // Initialisation de la nouvelle session
-                                    String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
+                                    String nom = JOptionPane.showInputDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
                                     // Cloture de la session courante
                                     SessionFrame.getFrame().resetChrono();
                                     SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
@@ -376,12 +376,12 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                                         SessionFrame.getFrame().RefreshFrame();
                                     }
                                     // Création terminée
-                                    javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strSessionCreationSuccess"));
+                                    javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strSessionCreationSuccess"));
                                 } catch (Exception ex) {
-                                    javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetFromURLErrorURLOrFile"));
+                                    javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetFromURLErrorURLOrFile"));
                                 }
                             } else {
-                                javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetFromURLErrorURL"));
+                                javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.importQuestionsSetFromURLErrorURL"));
                             }
                         } else if (rang == 1) {
 
@@ -448,7 +448,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
             SessionFrame.getFrame().setAlwaysOnTop(true);
         } else if (s.equals(SessionFrame.labelBtCloseSessionCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
-            int retour = JOptionPane.showConfirmDialog(AskFrame.getTheFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningClosingSession"), JOptionPane.OK_CANCEL_OPTION);
+            int retour = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningClosingSession"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 try {
                     // Cloture de la session courante
