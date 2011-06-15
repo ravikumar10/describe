@@ -40,8 +40,8 @@ import model.SessionManager;
  */
 public class Main {
 
-    public static String version = "1.0.3";
-    public static String datemaj = "2011-06-08";
+    public static String version = "1.0.4";
+    public static String datemaj = "2011-06-15";
     public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nBertrand Gros<gros.bertrand@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
