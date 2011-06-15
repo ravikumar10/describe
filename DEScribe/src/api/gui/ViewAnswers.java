@@ -155,6 +155,11 @@ public class ViewAnswers extends JFrame {
                             selectedSession=conn.getSessionById(Long.parseLong(listSessionID.getSelectedItem()));
                             selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
                             if (selectedSessionAnswers.size()>0){
+                                listAnswerID.removeAll();
+                                for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
+                                    Reponse r = it.next();
+                                    listAnswerID.add(""+r.getId());
+                                }
                                 listAnswerID.select(0);
                             }
                             refresh();
@@ -311,7 +316,7 @@ public class ViewAnswers extends JFrame {
             }
         } catch (IOException ex) {
            String message = Lang.getLang().getValueFromRef("ViewAnswers.strFileError") + " "+screens;
-           javax.swing.JOptionPane.showMessageDialog(null, message);
+           javax.swing.JOptionPane.showMessageDialog(this, message);
         }
         //this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
 
