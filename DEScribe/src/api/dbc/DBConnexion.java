@@ -37,6 +37,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import api.utils.DateOutils;
 import api.utils.getOs;
+import java.util.StringTokenizer;
+import model.Regle;
 
 /**
  * Class DBConnexion.java
@@ -77,7 +79,7 @@ public class DBConnexion {
             this.conn = DriverManager.getConnection(nomDeLaBase);
             Statement stat = conn.createStatement();
             // stat.executeUpdate("create table if not exists entries (question, reponse,instant);");
-            stat.executeUpdate("create table if not exists entries (question,reponse,instant,session,screenshot,idreponse);");
+            stat.executeUpdate("create table if not exists entries (question,reponse,instant,session,screenshot,idreponse,regles);");
             stat.executeUpdate("create table if not exists session (idsession,datedebut,datefin,active,nom,dateexport);");
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,7 +112,7 @@ public class DBConnexion {
             stat.executeUpdate("drop table if exists entries;");
             //stat.executeUpdate("create table entries (question, reponse, instant);");
             stat.executeUpdate("drop table if exists session;");
-            stat.executeUpdate("create table entries (question, reponse, instant,session,screenshot,idreponse);");
+            stat.executeUpdate("create table entries (question, reponse, instant,session,screenshot,idreponse,regles);");
             stat.executeUpdate("create table session (idsession,datedebut,datefin,active,nom,dateexport);"); //ajouter le nom
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,7 +207,20 @@ public class DBConnexion {
 
             while (rs.next()) {
                 try {
-                    lesReponses.add(new Reponse(Long.parseLong(rs.getString("idreponse")), rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), rs.getString("screenshot")));
+                    Reponse r1= new Reponse(Long.parseLong(rs.getString("idreponse")), rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), rs.getString("screenshot"));
+                    ArrayList<Regle> lesR=new ArrayList<Regle>();
+                    System.out.println(rs.getString("regles"));
+                    String tokens[]=rs.getString("regles").split(", ");
+                    for (String token : tokens)
+                    {
+                        String all=token;
+                        System.out.println("La chaine : "+all);
+                        String type=all.split(":")[0];
+                        String event=all.split(":")[1];
+                        lesR.add(new Regle(event, type));
+                    }
+                    r1.setReglesQuestion(lesR);
+                    lesReponses.add(r1);
                 } catch (ParseException ex) {
                     Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -419,16 +434,29 @@ public class DBConnexion {
 
     public void newAddEntry(Reponse rep) {
         try {
-            PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?, ?, ?, ?);");
+            PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?, ?, ?, ?, ?);");
             prep.setString(1, rep.getIntituleQuestion());
             prep.setString(2, rep.getLaReponse());
             prep.setString(3, rep.getInstant().toString());
             prep.setString(4, ""+rep.getSession().getId());
             prep.setString(5, rep.getScreenshot());
 
-            // PROBLEME ICI
+
             Long t = getMaxIdReponseBySession(rep.getSession())+1;
             prep.setString(6, ""+t);
+
+            ArrayList<Regle> lesR=rep.getReglesQuestion();
+            System.out.println("Nombre de règles (C) : "+lesR.size());
+            String strRegles="";
+            for (int i=0; i<lesR.size();i++){
+                if (i==0) {
+                    strRegles+=lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                } else if (i<=(lesR.size()-1)){
+                    strRegles+=", "+lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                }
+            }
+            prep.setString(7, strRegles);
+
             prep.addBatch();
             conn.setAutoCommit(false);
             prep.executeBatch();

@@ -352,7 +352,11 @@
 	<string>
 		<ref>TaskTrayMenu.ResumeSessionLabel</ref>
 		<value>Leave pause for session</value>
-	</string>	
+	</string>
+	<string>
+		<ref>TaskTrayMenu.PopupDelayLabel</ref>
+		<value>Delay session</value>
+	</string>		
 	
 	<!-- OptionFrame -->
 	<string>

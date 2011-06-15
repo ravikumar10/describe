@@ -638,6 +638,7 @@ public class AskFrame extends GenericFrame {
                 Reponse rep = null;
                 if (currentQuestion instanceof QReponseLibre){
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                    rep.setReglesQuestion(currentQuestion.getRegles());
                 }
                 if (currentQuestion instanceof QCMRadio) {
                     String res="";
@@ -663,6 +664,7 @@ public class AskFrame extends GenericFrame {
                     }
 
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                    rep.setReglesQuestion(currentQuestion.getRegles());
                     thePanel.bg2.clearSelection();
                 }
                 
@@ -685,6 +687,8 @@ public class AskFrame extends GenericFrame {
                         }
                     }
                     rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                    rep.setReglesQuestion(currentQuestion.getRegles());
+
                     // Reinit
                     
                     for (int i =0; i<t.length; i++){
@@ -696,8 +700,18 @@ public class AskFrame extends GenericFrame {
                         }
                     }
 
-                }    
+                }
                 
+                ArrayList<Regle> lesR=rep.getReglesQuestion();
+                String strRegles="";
+                            System.out.println("Nombre de règles (B) : "+lesR.size());
+                for (int i=0; i<lesR.size();i++){
+                    if (i==0) {
+                        strRegles+=lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                    } else if (i<=(lesR.size()-1)){
+                        strRegles+=", "+lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                    }
+                }
                 conn.newAddEntry(rep);
 
 

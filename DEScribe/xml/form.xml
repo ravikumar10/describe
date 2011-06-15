@@ -62,7 +62,7 @@
         </title>
 		<rules>
 			<rule type="notif" event="fullscreen">
-			</rule>
+			</rule>	
 		</rules>
 	</question>		
 

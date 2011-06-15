@@ -25,6 +25,7 @@ package model;
 
 import api.dbc.DBConnexion;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -48,10 +49,13 @@ public class Reponse {
 
     Long id;
 
+    private ArrayList<Regle> lesRegles;
+
      public Reponse(String q, String r, Date d){
         this.intituleQuestion = q;
         this.laReponse = r;
         this.instant = d;
+        this.lesRegles=new ArrayList<Regle>();
     }
 
 
@@ -61,6 +65,7 @@ public class Reponse {
         this.instant = d;
         this.session = s;
         this.screenshot="";
+        this.lesRegles=new ArrayList<Regle>();
     }
 
     public Reponse(Long num, String q, String r, Date d, Session s, String screenCapture){
@@ -70,6 +75,7 @@ public class Reponse {
         this.instant = d;
         this.session = s;
         this.screenshot=screenCapture;
+        this.lesRegles=new ArrayList<Regle>();
     }
 
     public Reponse(Long num, String q, String r, Date d, String screenCapture){
@@ -78,6 +84,7 @@ public class Reponse {
         this.laReponse = r;
         this.instant = d;
         this.screenshot=screenCapture;
+        this.lesRegles=new ArrayList<Regle>();
     }
 
     public String getIntituleQuestion(){
@@ -122,5 +129,13 @@ public class Reponse {
        DBConnexion conn = DBConnexion.getConnexion();
        conn.deleteAnwser(this);
 
+    }
+
+    public void setReglesQuestion(ArrayList<Regle> lesR){
+        this.lesRegles=lesR;
+    }
+
+    public ArrayList<Regle> getReglesQuestion(){
+        return lesRegles;
     }
 }
