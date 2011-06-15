@@ -55,6 +55,8 @@ public class TaskTrayMenu {
     public static String PauseSession24HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession24HLabel");
     public static String ResumeSessionLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ResumeSessionLabel");
 
+    public static String PopupDelayLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PopupDelayLabel");
+
     public static MenuItem showItem;
     public static MenuItem exitItem;
     public static MenuItem configItem;
@@ -67,6 +69,8 @@ public class TaskTrayMenu {
     public static MenuItem pauseSession3HItem;
     public static MenuItem pauseSession24HItem;
     public static MenuItem resumeSessionItem;
+
+    public static PopupMenu popupDelay;
 
     public TaskTrayMenu() {
 
@@ -100,8 +104,10 @@ public class TaskTrayMenu {
 
             popup.add(configItem);
             popup.add(sessionItem);
-            popup.add(reportItem);
-            popup.add(aboutItem);
+
+
+            popupDelay = new PopupMenu(PopupDelayLabel);
+            popup.add(popupDelay);
 
             pauseSession1HItem = new MenuItem(PauseSession1HLabel);
             pauseSession1HItem.addActionListener(new ActionListener() {
@@ -110,7 +116,7 @@ public class TaskTrayMenu {
                     SessionFrame.getFrame().setNbHoursOfDelay(1);
                 }
             });
-            popup.add(pauseSession1HItem);
+            popupDelay.add(pauseSession1HItem);
 
             pauseSession3HItem = new MenuItem(PauseSession3HLabel);
             pauseSession3HItem.addActionListener(new ActionListener() {
@@ -119,7 +125,7 @@ public class TaskTrayMenu {
                     SessionFrame.getFrame().setNbHoursOfDelay(3);
                 }
             });
-            popup.add(pauseSession3HItem);
+            popupDelay.add(pauseSession3HItem);
 
             pauseSession24HItem = new MenuItem(PauseSession24HLabel);
             pauseSession24HItem.addActionListener(new ActionListener() {
@@ -128,7 +134,7 @@ public class TaskTrayMenu {
                     SessionFrame.getFrame().setNbHoursOfDelay(24);
                 }
             });
-            popup.add(pauseSession24HItem);
+            popupDelay.add(pauseSession24HItem);
 
             resumeSessionItem = new MenuItem(ResumeSessionLabel);
             resumeSessionItem.addActionListener(new ActionListener() {
@@ -139,6 +145,9 @@ public class TaskTrayMenu {
             });
             resumeSessionItem.setEnabled(false);
             popup.add(resumeSessionItem);
+
+            popup.add(reportItem);
+            popup.add(aboutItem);
 
             //DEBUG
             MenuItem displayAskFrame = new MenuItem("Display AskFrame (testing)");
@@ -203,11 +212,12 @@ public class TaskTrayMenu {
         PauseSession3HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession3HLabel");
         PauseSession24HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession24HLabel");
         ResumeSessionLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ResumeSessionLabel");
-
+        PopupDelayLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PopupDelayLabel");
 
         pauseSession1HItem.setLabel(PauseSession1HLabel);
-        pauseSession3HItem.setLabel(PauseSession1HLabel);
+        pauseSession3HItem.setLabel(PauseSession3HLabel);
         pauseSession24HItem.setLabel(PauseSession24HLabel);
         resumeSessionItem.setLabel(ResumeSessionLabel);
+        popupDelay.setLabel(PopupDelayLabel);
     }
 }
