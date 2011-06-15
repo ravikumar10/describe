@@ -166,7 +166,6 @@ public class OptionFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 OptionFrame.getOptionFrame().setAlwaysOnTop(false);
                 String path;
-                System.out.println("truc");
                 if (!getOs.isWindows()){
                     /* Mac / Linux */
                     System.setProperty("apple.awt.fileDialogForDirectories", "true");
@@ -185,7 +184,6 @@ public class OptionFrame extends JFrame {
                     }
                 }
                 else {
-                    System.out.println("machin");
                     JFileChooser choix = new JFileChooser();
                     choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     choix.addChoosableFileFilter(new DirFileFilter());
@@ -193,7 +191,6 @@ public class OptionFrame extends JFrame {
 
                     path = "";
                     if (retour == JFileChooser.APPROVE_OPTION) {
-                        System.out.println("chose");
                         path = choix.getSelectedFile().getAbsolutePath();
                         sessionFolder.setEditable(true);
                         sessionFolder.setText(path);
