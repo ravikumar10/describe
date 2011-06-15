@@ -353,6 +353,10 @@
 		<ref>TaskTrayMenu.ResumeSessionLabel</ref>
 		<value>Reprendre la session</value>
 	</string>		
+	<string>
+		<ref>TaskTrayMenu.PopupDelayLabel</ref>
+		<value>Mise en pause session</value>
+	</string>	
 	
 	<!-- OptionFrame -->
 	<string>

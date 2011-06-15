@@ -315,6 +315,21 @@ public class Utils {
             fw.write(r.getIntituleQuestion());
             fw.write("</question>\n");
 
+            fw.write("\t\t<rules>");
+            ArrayList<Regle> lesR=r.getReglesQuestion();
+            System.out.println("Nombre de règles (A) : "+lesR.size());
+            String strRegles="";
+            for (int i=0; i<lesR.size();i++){
+                if (i==0) {
+                    strRegles+=lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                } else if (i<=(lesR.size()-1)){
+                    strRegles+=", "+lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                }
+            }
+            System.out.println("Les regles enregistrées : "+strRegles);
+            fw.write(strRegles);
+            fw.write("</rules>\n");
+
             fw.write("\t\t<content>");
             fw.write(r.getLaReponse());
             fw.write("</content>\n");
