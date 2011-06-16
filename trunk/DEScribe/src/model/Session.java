@@ -41,6 +41,12 @@ public class Session {
     String nom;
     boolean pause;
     Date lastExport;
+
+    /* Life time of the session in number of hours */
+    /* For instance, 48 hours */
+    int timeToLive;
+
+
     public Session(Long id, Date d, Date f, Boolean a, String n, Date e){
         this.debut=d;
         this.fin=f;
@@ -96,5 +102,13 @@ public class Session {
 
     public Date getLastExport(){
         return lastExport;
+    }
+
+    public void setTimeToLive(int ttl){
+        this.timeToLive=ttl;
+    }
+
+    public int getTimeToLive(){
+        return timeToLive;
     }
 }

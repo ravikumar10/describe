@@ -39,4 +39,8 @@ public class DateOutils {
         return date;
     }
 
+   public static int nbHoursBetweenTwoDates(Date d1, Date d2){
+       return (int) ((d2.getTime()-d1.getTime())/3600000);
+   }
+
 }
