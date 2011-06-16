@@ -25,6 +25,7 @@ package api.time;
 
 import api.gui.AskFrame;
 import api.gui.OptionFrame;
+import api.i18n.Lang;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,10 +88,20 @@ public class TimerQuestion {
                 int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
                 setRandomNum(nb);
                 setTemps(nb);
+                try {
+                    System.out.println("Durée de vie : " + SessionManager.getSessionManager().getSessionCourante().getTimeToLive());
+                } catch (SQLException ex) {
+                    Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    System.out.println("Age : " + api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 setNewTimer();
                 timer.cancel();
                 Date madate = new Date();
-                //System.out.println(madate.toString()+" - Premiere question dans : " + randomNum/(1000*60) + " minutes, soit "+randomNum/1000+" secondes.");
+                System.out.println(madate.toString()+" - Premiere question dans : " + randomNum/(1000*60) + " minutes, soit "+randomNum/1000+" secondes.");
             }
         };
         timer.schedule(tache, temps);  // ici on lance la mecanique
@@ -117,6 +128,13 @@ public class TimerQuestion {
 
                 GregorianCalendar gc = new GregorianCalendar();
                 try {
+                    System.out.println("Durée de vie : "+SessionManager.getSessionManager().getSessionCourante().getTimeToLive());
+                    System.out.println("Age : "+api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date()));
+                    if ((SessionManager.getSessionManager().getSessionCourante().getActive()) && (SessionManager.getSessionManager().getSessionCourante().getTimeToLive()<=(api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date())))){
+                          SessionManager.getSessionManager().getSessionCourante().setActive(false);
+                          SessionManager.getSessionManager().getSessionCourante().setfin(new Date());
+                          javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("TimerQuestion.endOfSession"));
+                    }
                     if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
                         heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
                         AskFrame.getTheFrame().showTheFrame(null);

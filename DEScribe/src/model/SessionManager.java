@@ -94,30 +94,33 @@ public class SessionManager {
     public void load() {
         //Lancement de la session par défaut
         if (lesSessions.isEmpty()) {
-            // Initialisation de la nouvelle session
-            String nom = "default";
-            lesSessions.add(new Session(Long.parseLong("1"), new Date(), null, true, nom,null));
-            courante = lesSessions.get(0);
             try {
-                //Create Sessions folder if doesn't already exist
-                new File(api.xml.Utils.loadSessionsFolder()).mkdir();
-                // Create new session folder if doesn't already exist
-                if (getOs.isWindows()) {
-                    new File(api.xml.Utils.loadSessionsFolder()+"\\session"+courante.getId()).mkdir();
-                } else {
-                    new File(api.xml.Utils.loadSessionsFolder()+"/session"+courante.getId()).mkdir();
+                // Initialisation de la nouvelle session
+                String nom = "default";
+                lesSessions.add(new Session(Long.parseLong("1"), new Date(), null, true, nom, null));
+                courante = lesSessions.get(0);
+                try {
+                    //Create Sessions folder if doesn't already exist
+                    new File(api.xml.Utils.loadSessionsFolder()).mkdir();
+                    // Create new session folder if doesn't already exist
+                    if (getOs.isWindows()) {
+                        new File(api.xml.Utils.loadSessionsFolder() + "\\session" + courante.getId()).mkdir();
+                    } else {
+                        new File(api.xml.Utils.loadSessionsFolder() + "/session" + courante.getId()).mkdir();
+                    }
+                } catch (BadXMLFileException ex) {
+                    Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-
+                DBConnexion conn = DBConnexion.getConnexion();
+                courante.setTimeToLive(api.xml.Utils.loadSessionsTimeToLive());
+                conn.addSession(courante);
+                try {
+                    Utils.setDefaultFormFile();
+                } catch (BadXMLFileException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             } catch (BadXMLFileException ex) {
-                Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            DBConnexion conn = DBConnexion.getConnexion();
-            conn.addSession(courante);
-            try {
-                Utils.setDefaultFormFile();
-            } catch (BadXMLFileException ex) {
-                javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+                Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE,null, ex);
             }
            
 
@@ -153,19 +156,24 @@ public class SessionManager {
      * @return
      */
     public void createSession(String name) {
+        try {
             DBConnexion conn = DBConnexion.getConnexion();
             Long newId = conn.getMaxIdSession();
-            lesSessions.add(new Session(newId+1, new Date(), null, true, name,null));
+            lesSessions.add(new Session(newId + 1, new Date(), null, true, name, null));
             courante = lesSessions.get(lesSessions.size() - 1);
+            courante.setTimeToLive(api.xml.Utils.loadSessionsTimeToLive());
             conn.addSession(courante);
-        try {
-            //Create Sessions folder if doesn't already exist
-            new File(api.xml.Utils.loadSessionsFolder()).mkdir();
-            // Create new session folder if doesn't already exist
-            if (getOs.isWindows()) {
-                new File(api.xml.Utils.loadSessionsFolder()+"\\session"+courante.getId()).mkdir();
-            } else {
-                new File(api.xml.Utils.loadSessionsFolder()+"/session"+courante.getId()).mkdir();
+            try {
+                //Create Sessions folder if doesn't already exist
+                new File(api.xml.Utils.loadSessionsFolder()).mkdir();
+                // Create new session folder if doesn't already exist
+                if (getOs.isWindows()) {
+                    new File(api.xml.Utils.loadSessionsFolder() + "\\session" + courante.getId()).mkdir();
+                } else {
+                    new File(api.xml.Utils.loadSessionsFolder() + "/session" + courante.getId()).mkdir();
+                }
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, null, ex);
             }
 
 
