@@ -77,7 +77,6 @@ public class TimerQuestion {
             instance = new TimerQuestion();
         }
         return instance;
-
     }
 
     public void chrono() {
