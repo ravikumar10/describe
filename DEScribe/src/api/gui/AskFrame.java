@@ -704,7 +704,6 @@ public class AskFrame extends GenericFrame {
                 
                 ArrayList<Regle> lesR=rep.getReglesQuestion();
                 String strRegles="";
-                            System.out.println("Nombre de règles (B) : "+lesR.size());
                 for (int i=0; i<lesR.size();i++){
                     if (i==0) {
                         strRegles+=lesR.get(i).getType()+":"+lesR.get(i).getEvent();

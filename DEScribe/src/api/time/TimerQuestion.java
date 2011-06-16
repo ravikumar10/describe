@@ -47,6 +47,9 @@ import model.SessionManager;
 public class TimerQuestion {
 
     int heureDerniereQuestion = -1;
+
+    long instantDerniereQuestion=-1;
+
     static int randomNum;
     static Timer timer;
     static Timer timer2;
@@ -58,7 +61,8 @@ public class TimerQuestion {
     int coeffSpeed = 3;
     int coeffCurrent = coeffSlow;
     // Time before next question range : random int will be choosen between min and max. It's the time in seconds before asking next question.
-    int min = 0, max = 3600000;
+    //int min = 0, max = 3600000;
+    int min = 0, max = 36000;
     TimerTask tache;
     static Date dateDeReprise;
 
@@ -135,8 +139,10 @@ public class TimerQuestion {
                           SessionManager.getSessionManager().getSessionCourante().setfin(new Date());
                           javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("TimerQuestion.endOfSession"));
                     }
-                    if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
+//                    if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
+                    if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>1800000)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
                         heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
+                        instantDerniereQuestion=new Date().getTime();
                         AskFrame.getTheFrame().showTheFrame(null);
                         Random rand = new Random();
 
@@ -190,8 +196,9 @@ public class TimerQuestion {
     public Boolean canIAskQuestionNow(){
         GregorianCalendar gc = new GregorianCalendar();
         try {
-            if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
-                return true;
+//            if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
+        if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>1800000)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
+            return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,6 +211,7 @@ public class TimerQuestion {
     public void resetTimerAfterQuestion(){
                 GregorianCalendar gc = new GregorianCalendar();
                 heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
+                instantDerniereQuestion=new Date().getTime();
                 if (OptionFrame.getOptionFrame().isNormalSpeed())
                     coeffCurrent = coeffSlow;
                 else

@@ -317,7 +317,6 @@ public class Utils {
 
             fw.write("\t\t<rules>");
             ArrayList<Regle> lesR=r.getReglesQuestion();
-            System.out.println("Nombre de règles (A) : "+lesR.size());
             String strRegles="";
             for (int i=0; i<lesR.size();i++){
                 if (i==0) {
@@ -326,7 +325,6 @@ public class Utils {
                     strRegles+=", "+lesR.get(i).getType()+":"+lesR.get(i).getEvent();
                 }
             }
-            System.out.println("Les regles enregistrées : "+strRegles);
             fw.write(strRegles);
             fw.write("</rules>\n");
 
@@ -760,7 +758,6 @@ public class Utils {
             while ((line = input.readLine()) != null) {
             if (!line.trim().equals("")) {
             // keep only the process name
-                System.out.println(line.substring(0, line.indexOf(" ")));
                 if (line.indexOf(process)>=0) {
                     return true;
                 }
@@ -828,7 +825,6 @@ return false;
 
             Element q = (Element) httl.item(0);
             ttl=Integer.parseInt(q.getTextContent());
-            System.out.println("Time to live : "+ttl);
             return ttl;
 
         } catch (SAXException ex) {
