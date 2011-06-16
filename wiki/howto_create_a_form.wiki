@@ -11,10 +11,11 @@ Contents of DEScribe's XML form files
 Root is "questions" node. Within this node, are first a list of "question" nodes described further in this Wiki page. Then a node "actions" containing a list of actions to do when the question is asked. After "actions" node, comes a "meta" node containing any other information about the session itself like the time to live of any session created with this form or the number max of Questions asked per hour (for instance 2 per hour max). Example : <br />
    
 <questions>
-    <question ...>
+    <question>
     ...
     </question>
-    ...
+
+
     <!-- Actions associated with all questions of the form -->
     <actions>
 	<!-- Takes a screenshot every time a question is asked -->
