@@ -1,6 +1,6 @@
 /**
  *
-DEScribe - A Discrete Experience Sampling cross platform application
+DEScribe - A Descriptive Experience Sampling cross platform application
 Copyright (C) 2011
 Sébastien Faure <sebastien.faure3@gmail.com>,
 Bertrand Gros   <gros.bertrand@gmail.com>,
