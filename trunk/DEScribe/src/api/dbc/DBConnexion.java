@@ -209,12 +209,10 @@ public class DBConnexion {
                 try {
                     Reponse r1= new Reponse(Long.parseLong(rs.getString("idreponse")), rs.getString("question"), rs.getString("reponse"), DateOutils.stringToDate(rs.getString("instant")), rs.getString("screenshot"));
                     ArrayList<Regle> lesR=new ArrayList<Regle>();
-                    System.out.println(rs.getString("regles"));
                     String tokens[]=rs.getString("regles").split(", ");
                     for (String token : tokens)
                     {
                         String all=token;
-                        System.out.println("La chaine : "+all);
                         String type=all.split(":")[0];
                         String event=all.split(":")[1];
                         lesR.add(new Regle(event, type));
@@ -457,7 +455,6 @@ public class DBConnexion {
             prep.setString(6, ""+t);
 
             ArrayList<Regle> lesR=rep.getReglesQuestion();
-            System.out.println("Nombre de règles (C) : "+lesR.size());
             String strRegles="";
             for (int i=0; i<lesR.size();i++){
                 if (i==0) {
