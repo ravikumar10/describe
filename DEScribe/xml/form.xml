@@ -121,4 +121,10 @@
         <action type="screenshot">
         </action>
     </actions>
+	<meta>
+		<!-- When a new session is created the countdown starts -->
+		<!-- Once it reaches his end, session is automatically  -->
+		<!-- closed and user is warned 							--> 
+		<htimetolive>48</htimetolive>
+	</meta>
 </questions>
