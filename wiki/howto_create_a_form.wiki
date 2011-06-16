@@ -17,19 +17,18 @@ Root is "questions" node. Within this node, are first a list of "question" nodes
 
 
     <!-- Actions associated with all questions of the form -->
+    <!-- Takes a screenshot every time a question is asked -->
     <actions>
-	<!-- Takes a screenshot every time a question is asked -->
         <action type="screenshot">
         </action>
-  </actions>
-    <meta>
+    </actions>
+	<meta>
 	<!-- When a new session is created the countdown starts -->
 	<!-- Once it reaches his end, session is automatically  -->
 	<!-- closed and user is warned 				--> 
 	<htimetolive>48</htimetolive>
 	<!-- Max is 2 questions asked per hour			-->
-	<nbQuestionsPerHour>2</nbQuestionsPerHour>		
-    </meta>
+	<nbQuestionsPerHour>2</nbQuestionsPerHour></meta>
 </questions>
 
 
