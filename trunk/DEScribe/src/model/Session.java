@@ -46,6 +46,8 @@ public class Session {
     /* For instance, 48 hours */
     int timeToLive;
 
+    int questionsPerHour;
+
 
     public Session(Long id, Date d, Date f, Boolean a, String n, Date e){
         this.debut=d;
@@ -110,5 +112,13 @@ public class Session {
 
     public int getTimeToLive(){
         return timeToLive;
+    }
+
+    public void setQuestionsPerHour(int nbQuestions){
+        this.questionsPerHour=nbQuestions;
+    }
+
+    public int getQuestionsPerHour() {
+        return questionsPerHour;
     }
 }

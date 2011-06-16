@@ -113,6 +113,7 @@ public class SessionManager {
                 }
                 DBConnexion conn = DBConnexion.getConnexion();
                 courante.setTimeToLive(api.xml.Utils.loadSessionsTimeToLive());
+                courante.setQuestionsPerHour(api.xml.Utils.loadSessionsNbQuestionsPerHour());
                 conn.addSession(courante);
                 try {
                     Utils.setDefaultFormFile();
@@ -162,6 +163,7 @@ public class SessionManager {
             lesSessions.add(new Session(newId + 1, new Date(), null, true, name, null));
             courante = lesSessions.get(lesSessions.size() - 1);
             courante.setTimeToLive(api.xml.Utils.loadSessionsTimeToLive());
+            courante.setQuestionsPerHour(api.xml.Utils.loadSessionsNbQuestionsPerHour());
             conn.addSession(courante);
             try {
                 //Create Sessions folder if doesn't already exist

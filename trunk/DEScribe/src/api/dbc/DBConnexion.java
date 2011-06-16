@@ -80,7 +80,7 @@ public class DBConnexion {
             Statement stat = conn.createStatement();
             // stat.executeUpdate("create table if not exists entries (question, reponse,instant);");
             stat.executeUpdate("create table if not exists entries (question,reponse,instant,session,screenshot,idreponse,regles);");
-            stat.executeUpdate("create table if not exists session (idsession,datedebut,datefin,active,nom,dateexport,timetolive);");
+            stat.executeUpdate("create table if not exists session (idsession,datedebut,datefin,active,nom,dateexport,timetolive,questionsperhour);");
         } catch (SQLException ex) {
             Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -248,20 +248,24 @@ public class DBConnexion {
                                             if(rs.getString("dateexport").equals("null")){
                                                 Session s = new Session(Long.parseLong(rs.getString("idsession")), DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
                                                 s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                                                 lesSessions.add(s);
                                             } else {
                                                 Session s = new Session(Long.parseLong(rs.getString("idsession")), DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
                                                 s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                                                 lesSessions.add(s);
                                             }
                     } else {
                                             if(rs.getString("dateexport").equals("null")){
                                                 Session s = new Session(Long.parseLong(rs.getString("idsession")), DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
                                                 s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                                                 lesSessions.add(s);
                                             } else {
                                                 Session s = new Session(Long.parseLong(rs.getString("idsession")), DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
                                                 s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                                                 lesSessions.add(s);
                                             }
                     }
@@ -295,16 +299,21 @@ public class DBConnexion {
                         if(rs.getString("dateexport").equals("null")){
                                 s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
                                 s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                         } else {
                                 s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
-                                s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));                        }
+                                s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));     
+                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
+                        }
                     } else {
                         if(rs.getString("dateexport").equals("null")){
                             s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
                             s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                            s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                         } else {
                             s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
                             s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                            s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
                         }
                     }
                 } catch (ParseException ex) {
@@ -476,7 +485,7 @@ public class DBConnexion {
 
     public void addSession(Session s) {
         try {
-            PreparedStatement prep = conn.prepareStatement("insert into session values (?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement prep = conn.prepareStatement("insert into session values (?, ?, ?, ?, ?, ?, ?, ?);");
             prep.setString(1, ""+s.getId());
             prep.setString(2, s.getDebut().toString());
             if (s.getFin()==null){
@@ -494,6 +503,8 @@ public class DBConnexion {
             }
 
             prep.setString(7, ""+s.getTimeToLive());
+
+            prep.setString(8, ""+s.getQuestionsPerHour());
 
             prep.addBatch();
             conn.setAutoCommit(false);

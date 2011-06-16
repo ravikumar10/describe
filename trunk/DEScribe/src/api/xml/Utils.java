@@ -836,4 +836,49 @@ return false;
         }
     }
 
+    /**
+     * loadSessionsNbQuestionsPerHour : return current sessions' number of questions per
+     * hour
+     * @return
+     * @throws BadXMLFileException
+     */
+    public static int loadSessionsNbQuestionsPerHour() throws BadXMLFileException {
+        int ttl =0;
+        try {
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc;
+            if (getOs.isWindows()) {
+                doc = db.parse("xml\\options.xml"); //fichier d'options a parser
+            } else {
+                doc = db.parse("xml/options.xml");
+            }
+
+            Element root = doc.getDocumentElement();
+            NodeList form = null;
+            form = root.getElementsByTagName("form");
+            Element e = (Element) form.item(0);
+            String url = e.getAttribute("url");
+            /**
+             * Récupération des questions du fichier "url"
+             */
+            DocumentBuilder db2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc2 = db2.parse(url); //fichier d'options a parser
+
+            Element rootQuestions = doc2.getDocumentElement();
+            NodeList httl = null;
+            httl = rootQuestions.getElementsByTagName("nbQuestionsPerHour");
+
+            Element q = (Element) httl.item(0);
+            ttl=Integer.parseInt(q.getTextContent());
+            return ttl;
+
+        } catch (SAXException ex) {
+                    throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
+        } catch (IOException ex) {
+                    throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
+        } catch (ParserConfigurationException ex) {
+                    throw new BadXMLFileException(BadXMLFileException.BAD_FORM_FILE);
+        }
+    }
+
 }
