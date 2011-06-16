@@ -28,10 +28,14 @@ import api.i18n.Lang;
 import java.awt.BorderLayout;
 import java.awt.List;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -138,7 +142,7 @@ public class SessionFrame extends JFrame {
     public static Label lbCommandsClosedSession;
     public static String labelCommandsCurrentSession = Lang.getLang().getValueFromRef("SessionFrame.labelCommandsCurrentSession");
     public static String labelCommandsClosedSession = Lang.getLang().getValueFromRef("SessionFrame.labelCommandsClosedSession");
-
+/*
     public SessionFrame() {
 
         // LA FENETRE PRINCIPALE
@@ -147,10 +151,6 @@ public class SessionFrame extends JFrame {
         this.setResizable(true);
         this.addWindowListener(Listeners.getListeners());
 
-
-        /**
-         * New version
-         */
         JPanel jpLeft = new JPanel();
         jpLeft.setBorder(BorderFactory.createLineBorder(Color.darkGray,4));
         jpLeft.setLayout(new GridLayout(3,1));
@@ -383,6 +383,389 @@ public class SessionFrame extends JFrame {
         jpRightMid.add(lbWarningUnexported);
         jpRightMid.setBackground(new Color(178,34,34));
 
+        jpRight.add(jpRightMid);
+
+        txtAreaSelectedOldSession = new JTextArea();
+        txtAreaSelectedOldSession.setEditable(false);
+        JScrollPane jsp2 = new JScrollPane(txtAreaSelectedOldSession);
+        jsp2.setBackground(Color.LIGHT_GRAY);
+        jsp2.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+        jsp2.setPreferredSize(new Dimension(500, 70));
+
+        jpRight.add(jsp2);
+
+        DBConnexion conn = DBConnexion.getConnexion();
+        try {
+            txtAreaCurrentSession.setText(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante()));
+        } catch (SQLException ex) {
+            Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+            if (txtAreaSelectedOldSession.getText().equals(""))
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+            if (txtAreaCurrentSession.getText().equals(""))
+                        txtAreaCurrentSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+
+        JPanel panelOK = new JPanel();
+        btOk= new JButton(labelBtOk);
+        btOk.addActionListener(Listeners.getListeners());
+        panelOK.setBackground(new Color(178,34,34));
+        panelOK.add(btOk);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        getContentPane().add(panel);
+
+        panel.add(jpLeft);
+        panel.add(jpRight);
+        //panel.add(panelOK, BorderLayout.SOUTH);
+        this.setAlwaysOnTop(true);
+
+        this.setPreferredSize(new Dimension(1280,720));
+
+        this.pack();
+        lbWarningUnexported.setVisible(false);
+        this.setVisible(false);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
+    }
+ * 
+ */
+
+    public SessionFrame() {
+
+        // LA FENETRE PRINCIPALE
+
+        // New version
+
+        this.setTitle(title);
+        this.setIconImage(new ImageIcon("media/des.gif").getImage());
+        this.setResizable(true);
+        this.addWindowListener(Listeners.getListeners());
+
+        JPanel jpLeft = new JPanel(new GridBagLayout());
+        jpLeft.setBorder(BorderFactory.createLineBorder(Color.darkGray,4));
+
+
+        JPanel jpLeftUpFlowOne = new JPanel(new FlowLayout());
+        jpLeftUpFlowOne.setBackground(Color.white);
+
+        lbCurrentSession = new Label(labelCurrentSession);
+        lbCurrentSession.setFont(new Font("Verdana", Font.BOLD, 30));
+        lbCurrentSession.setForeground(new Color(178,34,34));
+        lbCurrentSession.setBackground(Color.white);
+        jpLeftUpFlowOne.add(lbCurrentSession);
+
+
+        /*c.gridy = 0;
+        c.gridx = 1;
+        c.gridheight = 2;
+        container.add(Button3, c);*/
+
+        /*jpLeft.setLayout(new GridLayout(3,1));
+        JPanel jpLeftUp = new JPanel(new GridLayout(2,1));
+
+        jpLeftUp.setBackground(new Color(178,34,34));
+        jpLeftUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+*/
+
+        JPanel jpLeftUpFlowTwo = new JPanel(new FlowLayout());
+        jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+
+        try {
+            lbName = new Label (labelName);
+            jpLeftUpFlowTwo.add(lbName);
+
+            lbName.setForeground(Color.white);
+            lbName.setBackground(new Color(178,34,34));
+            lbName.setFont(new Font("Verdana", Font.PLAIN, 14));
+
+            lbCurrentSessionName = new Label(SessionManager.getSessionManager().getSessionCourante().getNom());
+            jpLeftUpFlowTwo.add(lbCurrentSessionName);
+            jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+            lbCurrentSessionName.setForeground(Color.white);
+            lbCurrentSessionName.setBackground(new Color(178,34,34));
+            lbCurrentSessionName.setFont(new Font("Verdana", Font.BOLD, 14));
+
+            lbStatus = new Label (labelStatus);
+            jpLeftUpFlowTwo.add(lbStatus);
+            lbStatus.setForeground(Color.white);
+            lbStatus.setBackground(new Color(178,34,34));
+            lbStatus.setFont(new Font("Verdana", Font.PLAIN, 14));
+
+            lbStatusValue = new Label (labelStatusActive);
+            jpLeftUpFlowTwo.add(lbStatusValue);
+            lbStatusValue.setForeground(Color.GREEN);
+            lbStatusValue.setBackground(new Color(178,34,34));
+            lbStatusValue.setFont(new Font("Verdana", Font.BOLD, 14));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //jpLeft.add(jpLeftUpFlowOne);
+        //jpLeftUp.add(jpLeftUpFlowOne);
+        //jpLeftUp.add(jpLeftUpFlowTwo);
+
+        //jpLeft.add(jpLeftUp);
+        c = new List();
+        c.setPreferredSize(new Dimension(280, 20));
+        SessionManager sm;
+        try {
+            sm = SessionManager.getSessionManager();
+            for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
+                Session s = it.next();
+                c.add("" + s.getId() + " - " + s.getNom() + " - " + s.getDebut());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //panelDownList.add(c);
+        c.addItemListener(new ItemListener() {
+
+            public void itemStateChanged(ItemEvent ie) {
+                if (ie.getStateChange() == ItemEvent.SELECTED) {
+                    if (c.getSelectedItem().equals(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"))) {
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+                        lbWarningUnexported.setVisible(false);
+                    } else {
+                    if (getSessionSelectionnee().getLastExport() == null) {
+                        lbWarningUnexported.setVisible(true);
+                        //SessionFrame.getFrame().pack();
+                    } else {
+                        lbWarningUnexported.setVisible(false);
+                        //SessionFrame.getFrame().pack();
+                    }
+                    DBConnexion conn = DBConnexion.getConnexion();
+                    txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
+                    if (txtAreaSelectedOldSession.getText().equals(""))
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+
+                    }
+                }
+            }
+        });
+        
+        GridBagConstraints c1 = new  GridBagConstraints();
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        //c1.ipady = 0;
+        c1.weightx = 1;
+        c1.gridwidth=3;
+        c1.gridx = 1;
+        c1.gridy = 0;
+        jpLeft.add(jpLeftUpFlowOne, c1);
+
+
+        JPanel jpLeftUpOneOne = new JPanel(new FlowLayout());
+        jpLeftUpOneOne.setBackground(Color.white);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.ipady = 49;
+        c1.weightx = 1;
+        c1.gridwidth=3;
+        c1.gridx = 1;
+        c1.gridy = 1;
+        jpLeft.add(jpLeftUpOneOne, c1);
+        JPanel jpLeftUpOneTwo = new JPanel(new FlowLayout());
+        jpLeftUpOneTwo.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+        jpLeftUpOneTwo.setBackground(new Color(178,34,34));
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.ipady = 100;
+        c1.weightx = 1;
+        c1.gridwidth=3;
+        c1.gridx = 1;
+        c1.gridy = 2;
+        jpLeft.add(jpLeftUpOneTwo, c1);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.ipady = 376;      //make this component tall
+        c1.weightx = 1;
+        c1.gridwidth = 3;
+        c1.gridx = 1;
+        c1.gridy = 3;
+        jpLeft.add(c, c1);
+
+
+        JPanel jpLeftMid = new JPanel(new GridLayout(3,1));
+        jpLeftMid.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+        JPanel jpLeftMidFlowOne = new JPanel(new FlowLayout());
+        JPanel jpLeftMidFlowTwo = new JPanel(new FlowLayout());
+        JPanel jpLeftMidFlowThree = new JPanel(new FlowLayout());
+
+        lbCommandsCurrentSession = new Label(labelCommandsCurrentSession);
+        lbCommandsCurrentSession.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbCommandsCurrentSession.setForeground(Color.white);
+        lbCommandsCurrentSession.setBackground(new Color(178,34,34));
+        jpLeftMidFlowOne.add(lbCommandsCurrentSession);
+        jpLeftMidFlowOne.setBackground(new Color(178,34,34));
+
+        btPauseCurrentSession = new JButton(labelBtPauseCurrentSession);
+        btPauseCurrentSession.addActionListener(Listeners.getListeners());
+        jpLeftMidFlowTwo.add(btPauseCurrentSession);
+        btPauseCurrentSession.setToolTipText(toolTipBtPauseCurrentSession);
+        chrono = new JTextField(textInactiveTimer, 8);
+        chrono.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                chrono.setSelectionStart(0);
+                chrono.setSelectionEnd(chrono.getText().length());
+            }
+        });
+
+        jpLeftMidFlowTwo.add(chrono);
+        btExportCurrentSession = new JButton(labelBtExportCurrentSession);
+        btExportCurrentSession.addActionListener(Listeners.getListeners());
+        //jpLeftMidFlowThree.add(btExportCurrentSession);
+        btExportCurrentSession.setToolTipText(toolTipBtExportCurrentSession);
+
+        btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
+        btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
+        jpLeftMidFlowThree.add(btNewSessionCurrentSession);
+        btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
+
+        btCloseSessionCurrentSession = new JButton(labelBtCloseSessionCurrentSession);
+        btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
+        jpLeftMidFlowThree.add(btCloseSessionCurrentSession);
+        btCloseSessionCurrentSession.setToolTipText(toolTipBtCloseSessionCurrentSession);
+
+        btVisualize = new JButton(labelBtVisualize);
+        btVisualize.addActionListener(Listeners.getListeners());
+        jpLeftMidFlowThree.add(btVisualize);
+        btVisualize.setToolTipText(toolTipBtVisualize);
+
+        jpLeftMid.setBackground(new Color(178,34,34));
+        jpLeftMidFlowOne.setBackground(new Color(178,34,34));
+        jpLeftMidFlowTwo.setBackground(new Color(178,34,34));
+        jpLeftMidFlowThree.setBackground(new Color(178,34,34));
+        jpLeft.setBackground(new Color(178,34,34));
+        jpLeftMid.add(jpLeftMidFlowOne);
+        jpLeftMid.add(jpLeftMidFlowTwo);
+        jpLeftMid.add(jpLeftMidFlowThree);
+        //jpLeft.add(jpLeftMid);
+
+
+        txtAreaCurrentSession = new JTextArea();
+        txtAreaCurrentSession.setEditable(false);
+
+        JScrollPane jpLeftDown = new JScrollPane(txtAreaCurrentSession);
+        jpLeftDown.setBackground(Color.LIGHT_GRAY);
+        jpLeftDown.setPreferredSize(new Dimension(500, 70));
+        jpLeftDown.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+
+        //panelLeft.add(jpUpCurrentSessionInfo);
+        //panelLeft.add(jpUpFlowBt);
+        //jpLeft.add(jpLeftDown);
+
+        jpLeft.setBackground(new Color(178,34,34));
+
+
+
+
+
+        JPanel jpRight = new JPanel();
+        jpRight.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,4));
+        jpRight.setLayout(new GridLayout(3,1));
+
+
+        JPanel jpRightUp = new JPanel(new GridLayout(2,1));
+        JPanel jpRightUpFlowOne = new JPanel(new FlowLayout());
+        jpRightUpFlowOne.setBackground(Color.white);
+
+        lbOldSessions = new Label(labelOldSessions);
+        lbOldSessions.setFont(new Font("Verdana", Font.BOLD, 30));
+        lbOldSessions.setForeground(new Color(178,34,34));
+        lbOldSessions.setBackground(Color.white);
+        jpRightUpFlowOne.add(lbOldSessions);
+        jpRightUp.add(jpRightUpFlowOne);
+        JPanel jpRightUpFlowTwo = new JPanel(new FlowLayout());
+        jpRightUpFlowTwo.setBackground(new Color(178,34,34));
+        jpRightUpFlowTwo.add(jpLeftUpFlowTwo);
+        jpRightUp.add(jpRightUpFlowTwo);
+
+        jpRightUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+
+        lbWarningUnexported = new Label(lbUnexportedSessionWarning);
+        lbWarningUnexported.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbWarningUnexported.setForeground(Color.YELLOW);
+        lbWarningUnexported.setBackground(new Color(178,34,34));
+
+        /*c = new List();
+        c.setPreferredSize(new Dimension(280, 20));
+        SessionManager sm;
+        try {
+            sm = SessionManager.getSessionManager();
+            for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
+                Session s = it.next();
+                if (!s.getActive()) {
+                    c.add("" + s.getId() + " - " + s.getNom() + " - " + s.getDebut());
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //panelDownList.add(c);
+        c.addItemListener(new ItemListener() {
+
+            public void itemStateChanged(ItemEvent ie) {
+                if (ie.getStateChange() == ItemEvent.SELECTED) {
+                    if (c.getSelectedItem().equals(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"))) {
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+                        lbWarningUnexported.setVisible(false);
+                    } else {
+                    if (getSessionSelectionnee().getLastExport() == null) {
+                        lbWarningUnexported.setVisible(true);
+                        //SessionFrame.getFrame().pack();
+                    } else {
+                        lbWarningUnexported.setVisible(false);
+                        //SessionFrame.getFrame().pack();
+                    }
+                    DBConnexion conn = DBConnexion.getConnexion();
+                    txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
+                    if (txtAreaSelectedOldSession.getText().equals(""))
+                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+
+                    }
+                }
+            }
+        });
+*/
+        jpRight.add(jpRightUp);
+
+        JPanel jpRightMid = new JPanel(new GridLayout(5,1));
+        jpRightMid.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
+
+        JPanel jpRightMidFlowOne = new JPanel(new FlowLayout());
+        jpRightMidFlowOne.setBackground(new Color(178,34,34));
+        lbCommandsClosedSession = new Label(labelCommandsClosedSession);
+        lbCommandsClosedSession.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbCommandsClosedSession.setForeground(Color.white);
+        lbCommandsClosedSession.setBackground(new Color(178,34,34));
+        jpRightMidFlowOne.add(lbCommandsClosedSession);
+        jpRightMid.add(jpRightMidFlowOne);
+
+        //jpRightMid.add(c);
+
+        JPanel jpRightMidFlowTwo = new JPanel();
+        jpRightMidFlowTwo.setLayout(new FlowLayout());
+        jpRightMidFlowTwo.setBackground(new Color(178,34,34));
+        btExportOldSessions = new JButton(labelBtExportOldSessions);
+        btExportOldSessions.addActionListener(Listeners.getListeners());
+        jpRightMidFlowTwo.add(btExportOldSessions);
+        btExportOldSessions.setToolTipText(toolTipBtExportOldSessions);
+
+        btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
+        btDeleteOldSessions.addActionListener(Listeners.getListeners());
+        jpRightMidFlowTwo.add(btDeleteOldSessions);
+        btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
+
+        jpRightMidFlowTwo.setBackground(new Color(178,34,34));
+
+        jpRightMid.setBackground(new Color(178,34,34));
+
+        jpRightMid.add(jpLeftMidFlowTwo);
+        jpRightMid.add(jpLeftMidFlowThree);
+        jpRightMid.add(jpRightMidFlowTwo);
+        jpRightMid.add(lbWarningUnexported);
         jpRight.add(jpRightMid);
 
         txtAreaSelectedOldSession = new JTextArea();
