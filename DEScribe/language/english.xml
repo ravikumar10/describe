@@ -446,6 +446,12 @@
 		<value>Can't read file :</value>
 	</string>	
 	
+	<!-- TimerQuestion -->
+	<string>
+		<ref>TimerQuestion.endOfSession</ref>
+		<value>Current session closed because it has reached its time to live.</value>
+	</string>	
+	
 	<!-- BadXMLFileException -->
 	<string>
 		<ref>BadXMLFileException.BAD_OPTION_FILE</ref>

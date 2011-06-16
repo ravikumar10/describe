@@ -445,6 +445,12 @@
 		<ref>ViewAnswers.strFileError</ref>
 		<value>Lecture impossible pour le fichier :</value>
 	</string>		
+
+	<!-- TimerQuestion -->
+	<string>
+		<ref>TimerQuestion.endOfSession</ref>
+		<value>La session courante vient d'être close car sa durée de vie a été dépassée.</value>
+	</string>	
 	
 	<!-- BadXMLFileException -->
 	<string>
