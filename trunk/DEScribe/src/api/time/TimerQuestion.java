@@ -167,7 +167,7 @@ public class TimerQuestion {
                             //System.out.println(madate.toString() + "Déjà questionné dans l'heure. Nouveau calcul pour la prochaine question...");
                         }
                         Random rand = new Random();
-
+                        max = (int) 3600000 / SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour();
                         int nb = rand.nextInt(max - min + 1) + min;
                         setRandomNum(nb);
                         setTemps(nb);
@@ -214,18 +214,24 @@ public class TimerQuestion {
 
     // Call it when a new question has been asked : not needed
     public void resetTimerAfterQuestion(){
-                GregorianCalendar gc = new GregorianCalendar();
-                heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
-                instantDerniereQuestion=new Date().getTime();
-                if (OptionFrame.getOptionFrame().isNormalSpeed())
-                    coeffCurrent = coeffSlow;
-                else
-                    coeffCurrent = coeffSpeed;
-                Random rand = new Random();
-                int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
-                setRandomNum(nb);
-                setTemps(nb);
-                setNewTimer();
+        try {
+            GregorianCalendar gc = new GregorianCalendar();
+            heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
+            instantDerniereQuestion = new Date().getTime();
+            if (OptionFrame.getOptionFrame().isNormalSpeed()) {
+                coeffCurrent = coeffSlow;
+            } else {
+                coeffCurrent = coeffSpeed;
+            }
+            Random rand = new Random();
+            max = (int) 3600000 / SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour();
+            int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
+            setRandomNum(nb);
+            setTemps(nb);
+            setNewTimer();
+        } catch (SQLException ex) {
+            Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
