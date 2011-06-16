@@ -21,7 +21,7 @@ Root is "questions" node. Within this node, are first a list of "question" nodes
 	<!-- Takes a screenshot every time a question is asked -->
         <action type="screenshot">
         </action>
-    </actions>
+  </actions>
     <meta>
 	<!-- When a new session is created the countdown starts -->
 	<!-- Once it reaches his end, session is automatically  -->
