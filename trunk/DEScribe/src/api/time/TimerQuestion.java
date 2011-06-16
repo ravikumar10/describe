@@ -62,7 +62,7 @@ public class TimerQuestion {
     int coeffCurrent = coeffSlow;
     // Time before next question range : random int will be choosen between min and max. It's the time in seconds before asking next question.
     //int min = 0, max = 3600000;
-    int min = 0, max = 36000;
+    int min = 0, max = 3600000;
     TimerTask tache;
     static Date dateDeReprise;
 
@@ -88,24 +88,29 @@ public class TimerQuestion {
 
             @Override
             public void run() {
-                Random rand = new Random();
-                int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
-                setRandomNum(nb);
-                setTemps(nb);
                 try {
-                    System.out.println("Durée de vie : " + SessionManager.getSessionManager().getSessionCourante().getTimeToLive());
+                    Random rand = new Random();
+                    max = (int) 3600000 / SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour();
+                    int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
+                    setRandomNum(nb);
+                    setTemps(nb);
+                    try {
+                        System.out.println("Durée de vie : " + SessionManager.getSessionManager().getSessionCourante().getTimeToLive());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        System.out.println("Age : " + api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date()));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    setNewTimer();
+                    timer.cancel();
+                    Date madate = new Date();
+                    System.out.println(madate.toString() + " - Premiere question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                 } catch (SQLException ex) {
                     Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                try {
-                    System.out.println("Age : " + api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date()));
-                } catch (SQLException ex) {
-                    Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                setNewTimer();
-                timer.cancel();
-                Date madate = new Date();
-                System.out.println(madate.toString()+" - Premiere question dans : " + randomNum/(1000*60) + " minutes, soit "+randomNum/1000+" secondes.");
             }
         };
         timer.schedule(tache, temps);  // ici on lance la mecanique
@@ -145,7 +150,7 @@ public class TimerQuestion {
                         instantDerniereQuestion=new Date().getTime();
                         AskFrame.getTheFrame().showTheFrame(null);
                         Random rand = new Random();
-
+                        max = (int) 3600000 / SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour();
                         int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
                         setRandomNum(nb);
                         setTemps(nb);
