@@ -453,7 +453,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                 try {
                     // Cloture de la session courante
                     SessionFrame.getFrame().resetChrono();
-                    SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
+                    SessionManager.getSessionManager().closeSession(SessionFrame.getFrame().getSessionSelectionnee());
                     javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strSessionClosedSuccess"));
                     SessionFrame.getFrame().RefreshFrame();
                 } catch (SQLException ex) {
@@ -477,7 +477,12 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
         } else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             try {
-                SessionManager.getSessionManager().deleteOldSession(SessionFrame.getFrame().getSessionSelectionnee());
+                if (SessionManager.getSessionManager().getSessionCourante().getId()!= SessionFrame.getFrame().getSessionSelectionnee().getId()){
+                    SessionManager.getSessionManager().deleteOldSession(SessionFrame.getFrame().getSessionSelectionnee());
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strCantDeleteActiveSession"));
+                }
+
                 SessionFrame.getFrame().RefreshFrame();
             } catch (SQLException ex) {
                 Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
