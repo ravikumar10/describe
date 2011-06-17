@@ -243,11 +243,23 @@
 		<ref>SessionFrame.labelCommandsCurrentSession</ref>
 		<value>Commands</value>
 	</string>	
-		<string>
+	<string>
 		<ref>SessionFrame.labelCommandsClosedSession</ref>
 		<value>Commands</value>
 	</string>
-
+	<string>
+		<ref>SessionFrame.strCantDeleteActiveSession</ref>
+		<value>Vous ne pouvez pas supprimer une session active. Veuillez d'abord la clore.</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelSessionsList</ref>
+		<value>Liste des sessions</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelSelectedSession</ref>
+		<value>Session sélectionnée</value>
+	</string>	
+	
 	<!-- QuestionFrame -->
 	<string>
 		<ref>QuestionFrame.appTitle</ref>

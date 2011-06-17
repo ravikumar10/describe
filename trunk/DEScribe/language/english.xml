@@ -243,11 +243,23 @@
 		<ref>SessionFrame.labelCommandsCurrentSession</ref>
 		<value>Commands</value>
 	</string>	
-		<string>
+	<string>
 		<ref>SessionFrame.labelCommandsClosedSession</ref>
 		<value>Commands</value>
 	</string>	
-
+	<string>
+		<ref>SessionFrame.strCantDeleteActiveSession</ref>
+		<value>You can't delete an active session. Close it first.</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelSessionsList</ref>
+		<value>Sessions list</value>
+	</string>		
+	<string>
+		<ref>SessionFrame.labelSelectedSession</ref>
+		<value>Selected session</value>
+	</string>	
+	
 	<!-- QuestionFrame -->
 	<string>
 		<ref>QuestionFrame.appTitle</ref>
