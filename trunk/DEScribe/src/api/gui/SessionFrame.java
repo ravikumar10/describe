@@ -635,7 +635,7 @@ public class SessionFrame extends JFrame {
         c1.gridy = 2;
         jpLeft.add(jpLeftUpOneTwo, c1);
         c1.fill = GridBagConstraints.HORIZONTAL;
-        c1.ipady = 374;      //make this component tall
+        c1.ipady = 383;      //make this component tall
         c1.weightx = 1;
         c1.gridwidth = 3;
         c1.gridx = 1;
