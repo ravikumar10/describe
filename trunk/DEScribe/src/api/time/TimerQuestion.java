@@ -129,9 +129,11 @@ public class TimerQuestion {
                     //System.out.println("Durée de vie : "+SessionManager.getSessionManager().getSessionCourante().getTimeToLive());
                     //System.out.println("Age : "+api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date()));
                     if ((SessionManager.getSessionManager().getSessionCourante().getActive()) && (SessionManager.getSessionManager().getSessionCourante().getTimeToLive()<=(api.utils.DateOutils.nbHoursBetweenTwoDates(SessionManager.getSessionManager().getSessionCourante().getDebut(), new Date())))){
-                          SessionManager.getSessionManager().getSessionCourante().setActive(false);
-                          SessionManager.getSessionManager().getSessionCourante().setfin(new Date());
-                          javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("TimerQuestion.endOfSession"));
+                        /*SessionManager.getSessionManager().getSessionCourante().setActive(false);
+                        SessionManager.getSessionManager().getSessionCourante().setfin(new Date());*/
+                        SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
+                        javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("TimerQuestion.endOfSession"));
+
                     }
 //                    if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
                     if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>(3600000/SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour()))) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
