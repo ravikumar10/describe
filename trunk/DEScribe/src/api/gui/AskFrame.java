@@ -38,9 +38,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
@@ -78,6 +83,7 @@ import model.Regle;
 import model.Reponse;
 import model.SessionManager;
 import org.xml.sax.SAXException;
+import sun.awt.resources.awt;
 
 /**
  * Class AskFrame.java
@@ -124,6 +130,16 @@ public class AskFrame extends GenericFrame {
             this.setLayout(new BorderLayout(0, 10));
             this.setBackground(new Color(178,34,34));
             JLabel logo= new JLabel(new ImageIcon("media/describe-title.jpg"));
+            logo.addMouseMotionListener(new MouseMotionListener() {
+
+                public void mouseDragged(MouseEvent e) {
+                    AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX(), AskFrame.getTheFrame().getLocation().y+e.getY());
+                }
+
+                public void mouseMoved(MouseEvent e) {
+                    //throw new UnsupportedOperationException("Not supported yet.");
+                }
+            });
             JPanel jpUp = new JPanel();
             jpUp.setLayout(new GridLayout(2,1));
             //logo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
