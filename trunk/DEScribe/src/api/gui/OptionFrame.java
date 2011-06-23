@@ -156,6 +156,11 @@ public class OptionFrame extends JFrame {
         Option4.setPreferredSize(new Dimension(300, 0));
         sessionFolder = new JTextField("");
         sessionFolder.setSize(new Dimension(240, 30));
+        try {
+            sessionFolder.setText(api.xml.Utils.loadSessionsFolder());
+        } catch (BadXMLFileException ex) {
+            Logger.getLogger(OptionFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //jrb.setBackground(new Color(178, 34, 34));
         //jrb.setForeground(Color.white);
         sessionFolder.setEditable(false);
@@ -313,6 +318,10 @@ public class OptionFrame extends JFrame {
 
     public void setSessionFolder(String outputDir) {
         sessionFolder.setText(outputDir);
+    }
+
+    public String getSessionFolder(){
+        return sessionFolder.getText();
     }
 
     public static void refresh() {
