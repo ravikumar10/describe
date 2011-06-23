@@ -81,6 +81,8 @@ public class OptionFrame extends JFrame {
     public JTextField sessionFolder=null;
     public static JButton browseButton = null;
 
+    public static String defaultSessionFolder="sessions";
+
 
     private OptionFrame() {
         // LA FENETRE PRINCIPALE
@@ -254,6 +256,7 @@ public class OptionFrame extends JFrame {
                 c1.setSelected(true);
                 jrb.setSelected(true);
                 c3.setSelected(true);
+                sessionFolder.setText(defaultSessionFolder);
             }
         });
 
