@@ -223,9 +223,8 @@ public class OptionFrame extends JFrame {
         cancelButton = new JButton(Lang.getLang().getValueFromRef("OptionFrame.cancelButton"));
         defaultButton = new JButton(Lang.getLang().getValueFromRef("OptionFrame.resetButton"));
         buttonline.add(cancelButton);
-        buttonline.add(okButton);
         buttonline.add(defaultButton);
-
+        buttonline.add(okButton);
         okButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {

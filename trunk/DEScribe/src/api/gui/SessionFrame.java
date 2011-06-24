@@ -404,7 +404,7 @@ public class SessionFrame extends JFrame {
         jpLeftMidFlowThree.setBackground(new Color(178,34,34));
         jpLeft.setBackground(new Color(178,34,34));
         jpLeftMid.add(jpLeftMidFlowOne);
-        jpLeftMid.add(jpLeftMidFlowTwo);
+        //jpLeftMid.add(jpLeftMidFlowTwo);
         jpLeftMid.add(jpLeftMidFlowThree);
         //jpLeft.add(jpLeftMid);
 
