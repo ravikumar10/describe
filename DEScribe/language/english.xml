@@ -368,7 +368,23 @@
 	<string>
 		<ref>TaskTrayMenu.PopupDelayLabel</ref>
 		<value>Delay session</value>
-	</string>		
+	</string>
+	<string>
+		<ref>TaskTrayMenu.PauseSessionCustomLabel</ref>
+		<value>Custom delay...</value>
+	</string>
+	<string>
+		<ref>TaskTrayMenu.DelayDialogTitle</ref>
+		<value>Delaying session</value>
+	</string>				
+	<string>
+		<ref>TaskTrayMenu.DelayDialogContent</ref>
+		<value>Please enter the number of hours of the delay.</value>
+	</string>				
+	<string>
+		<ref>TaskTrayMenu.NotPositiveIntegerValue</ref>
+		<value>Session's pause cancelled, please be sure to only type positive integer value for the number of hours.</value>
+	</string>			
 	
 	<!-- OptionFrame -->
 	<string>
