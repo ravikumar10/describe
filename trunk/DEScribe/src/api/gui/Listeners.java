@@ -364,7 +364,8 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                         // Initialisation de la nouvelle session
                         String nom = JOptionPane.showInputDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
                         // Cloture de la session courante
-                        SessionFrame.getFrame().resetChrono();
+                        //SessionFrame.getFrame().resetChrono();
+                        SessionFrame.getFrame().resetInstantReprise();
                         SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante()); 
                         if (!nom.equals("")) {
                             SessionManager.getSessionManager().createSession(nom);
@@ -398,7 +399,8 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                                     // Initialisation de la nouvelle session
                                     String nom = JOptionPane.showInputDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
                                     // Cloture de la session courante
-                                    SessionFrame.getFrame().resetChrono();
+                                    //SessionFrame.getFrame().resetChrono();
+                                    SessionFrame.getFrame().resetInstantReprise();
                                     SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
                                     if (!nom.equals("")) {
                                         SessionManager.getSessionManager().createSession(nom);
@@ -440,7 +442,8 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                                     // Initialisation de la nouvelle session
                                     String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
                                     // Cloture de la session courante
-                                    SessionFrame.getFrame().resetChrono();
+                                    //SessionFrame.getFrame().resetChrono();
+                                    SessionFrame.getFrame().resetInstantReprise();
                                     SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante());
                                     if (!nom.equals("")) {
                                         SessionManager.getSessionManager().createSession(nom);
@@ -484,7 +487,8 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
             if (retour == 0) {
                 try {
                     // Cloture de la session courante
-                    SessionFrame.getFrame().resetChrono();
+                    //SessionFrame.getFrame().resetChrono();
+                    SessionFrame.getFrame().resetInstantReprise();
                     SessionManager.getSessionManager().closeSession(SessionFrame.getFrame().getSessionSelectionnee());
                     javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strSessionClosedSuccess"));
                     SessionFrame.getFrame().RefreshFrame();
@@ -493,7 +497,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                 }
             }
             SessionFrame.getFrame().setAlwaysOnTop(true);
-        } else if (s.equals(SessionFrame.labelBtPauseCurrentSession)) {
+        }/* else if (s.equals(SessionFrame.labelBtPauseCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             SessionFrame.getFrame().launchChrono();
             SessionFrame.getFrame().setAlwaysOnTop(true);
@@ -506,7 +510,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
             TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
             SessionFrame.getFrame().RefreshFrame();
             SessionFrame.getFrame().setAlwaysOnTop(true);
-        } else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
+        }*/ else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             try {
                 if (SessionManager.getSessionManager().getSessionCourante().getId()!= SessionFrame.getFrame().getSessionSelectionnee().getId()){
