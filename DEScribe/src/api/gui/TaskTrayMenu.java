@@ -32,6 +32,7 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  * Class TaskTrayMenu.java
@@ -53,6 +54,7 @@ public class TaskTrayMenu {
     public static String PauseSession1HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession1HLabel");
     public static String PauseSession3HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession3HLabel");
     public static String PauseSession24HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession24HLabel");
+    public static String PauseSessionCustomLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSessionCustomLabel");
     public static String ResumeSessionLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ResumeSessionLabel");
 
     public static String PopupDelayLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PopupDelayLabel");
@@ -68,6 +70,7 @@ public class TaskTrayMenu {
     public static MenuItem pauseSession1HItem;
     public static MenuItem pauseSession3HItem;
     public static MenuItem pauseSession24HItem;
+    public static MenuItem pauseSessionCustomItem;
     public static MenuItem resumeSessionItem;
 
     public static PopupMenu popupDelay;
@@ -136,6 +139,23 @@ public class TaskTrayMenu {
             });
             popupDelay.add(pauseSession24HItem);
 
+            pauseSessionCustomItem = new MenuItem(PauseSessionCustomLabel);
+            pauseSessionCustomItem.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    String nom = JOptionPane.showInputDialog(null, Lang.getLang().getValueFromRef("TaskTrayMenu.DelayDialogContent"), Lang.getLang().getValueFromRef("TaskTrayMenu.DelayDialogTitle"), JOptionPane.QUESTION_MESSAGE);
+                    if (!nom.equals("")){
+                        try {
+                        SessionFrame.getFrame().setNbHoursOfDelay(Integer.parseInt(nom));
+                        } catch (Exception ex){
+                            javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("TaskTrayMenu.NotPositiveIntegerValue"));
+                        }
+                    }
+                }
+            });
+            popupDelay.add(pauseSessionCustomItem);
+
+
             resumeSessionItem = new MenuItem(ResumeSessionLabel);
             resumeSessionItem.addActionListener(new ActionListener() {
 
@@ -158,7 +178,7 @@ public class TaskTrayMenu {
                 }
             });
             popup.add(displayAskFrame);
-            // \DEBUG
+            // \DEBUG-ONLY\
 
             popup.add(exitItem);
 
@@ -211,12 +231,14 @@ public class TaskTrayMenu {
         PauseSession1HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession1HLabel");
         PauseSession3HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession3HLabel");
         PauseSession24HLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSession24HLabel");
+        PauseSessionCustomLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PauseSessionCustomLabel");
         ResumeSessionLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ResumeSessionLabel");
         PopupDelayLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.PopupDelayLabel");
 
         pauseSession1HItem.setLabel(PauseSession1HLabel);
         pauseSession3HItem.setLabel(PauseSession3HLabel);
         pauseSession24HItem.setLabel(PauseSession24HLabel);
+        pauseSessionCustomItem.setLabel(PauseSessionCustomLabel);
         resumeSessionItem.setLabel(ResumeSessionLabel);
         popupDelay.setLabel(PopupDelayLabel);
     }

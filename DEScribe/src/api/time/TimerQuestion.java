@@ -25,6 +25,7 @@ package api.time;
 
 import api.gui.AskFrame;
 import api.gui.OptionFrame;
+import api.gui.SessionFrame;
 import api.i18n.Lang;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -95,8 +96,8 @@ public class TimerQuestion {
                     setTemps(nb);
                     setNewTimer();
                     timer.cancel();
-                    //Date madate = new Date();
-                    //System.out.println(madate.toString() + " - Premiere question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                    Date madate = new Date();
+                    System.out.println(madate.toString() + " - Premiere question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                 } catch (SQLException ex) {
                     Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -135,6 +136,14 @@ public class TimerQuestion {
                         javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("TimerQuestion.endOfSession"));
 
                     }
+
+                    if (SessionManager.getSessionManager().getSessionCourante().getPause()){
+                        System.out.println("Nb ms remaining : "+(SessionFrame.getFrame().instantReprise-new Date().getTime()));
+                        if (SessionFrame.getFrame().isTimeToResumeSession()){
+                            SessionFrame.getFrame().leavePause();
+                        }
+                    }
+
 //                    if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
                     if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>(3600000/SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour()))) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
                         heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
@@ -146,7 +155,7 @@ public class TimerQuestion {
                         setRandomNum(nb);
                         setTemps(nb);
                         Date madate = new Date();
-                        //System.out.println(madate.toString() + "Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                        System.out.println(madate.toString() + "Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                         setNewTimer();
                     } else {
                         Date madate = new Date();
@@ -162,7 +171,7 @@ public class TimerQuestion {
                         int nb = rand.nextInt(max - min + 1) + min;
                         setRandomNum(nb);
                         setTemps(nb);
-                        //System.out.println("Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                        System.out.println(new Date().toString()+" Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                         setNewTimer();
                     }
                 } catch (SQLException ex) {

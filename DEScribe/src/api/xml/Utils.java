@@ -297,9 +297,6 @@ public class Utils {
     }
 
     public static void ExportReponsesToXML(ArrayList<Reponse> entries, String fichier) throws IOException {
-
-        //FileWriter fw = new FileWriter(fichier);
-
         OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(fichier), "ISO-8859-1");
         fw.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n");
         fw.write("<reponses>\n");
