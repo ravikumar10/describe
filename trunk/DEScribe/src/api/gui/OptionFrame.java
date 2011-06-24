@@ -93,7 +93,7 @@ public class OptionFrame extends JFrame {
         // LA FENETRE INTERIEURE
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 1));
-        panel.setPreferredSize(new Dimension(300, 300));
+        panel.setPreferredSize(new Dimension(360, 300));
         panel.setBackground(new Color(178, 34, 34));
         this.getContentPane().add(panel);
 
@@ -222,8 +222,8 @@ public class OptionFrame extends JFrame {
         okButton = new JButton(Lang.getLang().getValueFromRef("OptionFrame.okButton"));
         cancelButton = new JButton(Lang.getLang().getValueFromRef("OptionFrame.cancelButton"));
         defaultButton = new JButton(Lang.getLang().getValueFromRef("OptionFrame.resetButton"));
-        buttonline.add(okButton);
         buttonline.add(cancelButton);
+        buttonline.add(okButton);
         buttonline.add(defaultButton);
 
         okButton.addActionListener(new ActionListener() {
