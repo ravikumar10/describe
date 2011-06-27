@@ -65,7 +65,7 @@
 			</rule>	
 		</rules>
 	</question>		
-
+	
 	<!-- Examples of other types of question -->
 	<!-- Multiple choice question with radio buttons (one choice max) -->
 	<!--
@@ -128,6 +128,6 @@
 		<htimetolive>48</htimetolive>
 		
 		<!-- Max is 2 questions asked per hour					-->
-		<nbQuestionsPerHour>2</nbQuestionsPerHour>		
+		<nbQuestionsPerHour>3</nbQuestionsPerHour>		
 	</meta>
 </questions>
