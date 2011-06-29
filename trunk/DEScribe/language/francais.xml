@@ -281,6 +281,10 @@
 		<ref>QuestionFrame.toolTipButtonSkip</ref>
 		<value>Cliquez ici pour ne pas répondre à cette question</value>
 	</string>		
+	<string>
+		<ref>QuestionFrame.toolTipLogo</ref>
+		<value>Cliquez-glissez pour déplacer la fenêtre</value>
+	</string>
 	
 	<!-- ConsultFrame -->
 	<string>

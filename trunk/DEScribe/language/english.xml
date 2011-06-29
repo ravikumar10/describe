@@ -281,6 +281,10 @@
 		<ref>QuestionFrame.toolTipButtonSkip</ref>
 		<value>Click here if you want to skip question for this time</value>
 	</string>
+	<string>
+		<ref>QuestionFrame.toolTipLogo</ref>
+		<value>Drag and drop to move the frame</value>
+	</string>
 	
 	<!-- ConsultFrame -->
 	<string>
