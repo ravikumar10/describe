@@ -28,7 +28,23 @@ import api.dbc.DBConnexion;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.utils.CopyAndPasteHandler;
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import model.SessionManager;
 
 /**
@@ -40,8 +56,8 @@ import model.SessionManager;
  */
 public class Main {
 
-    public static String version = "1.0.4";
-    public static String datemaj = "2011-06-15";
+    public static String version = "1.0.6";
+    public static String datemaj = "2011-06-28";
     public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nBertrand Gros<gros.bertrand@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
@@ -59,6 +75,11 @@ public class Main {
             public void run() {
             }
         };
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         UniqueInstance uniqueInstance = new UniqueInstance(PORT, MESSAGE, RUN_ON_RECEIVE);
         // Si aucune autre instance n'est lancée...
         if (uniqueInstance.launch()) {
@@ -71,19 +92,17 @@ public class Main {
             OptionFrame.getOptionFrame();
             //TimerQuestion timr = new TimerQuestion();
             TimerQuestion timr=TimerQuestion.getTimerQuestion();
-            //timr.chrono();
 
-            //DEBUG
             /*if (Utils.isPriorityProgramRunningOSWin("POWERP")){
-                System.out.println("RUNNING");
+            System.out.println("RUNNING");
             } else {
-                System.out.println("NOT RUNNING");
+            System.out.println("NOT RUNNING");
             }*/
-
+            
             /* Lancer le détecteur de Copier-Coller */
             CopyAndPasteHandler cPH =CopyAndPasteHandler.getInstance();
+
         }
     }
-
 
 }

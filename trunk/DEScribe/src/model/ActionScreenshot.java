@@ -24,14 +24,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package model;
 
 import api.utils.getOs;
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import des.Main;
 import exceptions.BadXMLFileException;
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,11 +50,6 @@ import javax.imageio.ImageIO;
 public class ActionScreenshot extends Action {
 
     private String absoluteFileName;
-    
-    public ActionScreenshot(String resultFileName){
-        name ="screenshot";
-        takeCapture(resultFileName);
-    }
 
     public ActionScreenshot() {
         name ="screenshot";
@@ -72,7 +76,9 @@ public class ActionScreenshot extends Action {
                 }
 
                 try {
-                    ImageIO.write(bi, "jpg", new File(api.xml.Utils.loadSessionsFolder() + "\\session" + SessionManager.getSessionManager().getSessionCourante().getId() + "\\" + resultFileName + ".jpg"));
+                    File tf = new File(api.xml.Utils.loadSessionsFolder() + "\\session" + SessionManager.getSessionManager().getSessionCourante().getId() + "\\" + resultFileName + ".jpg");
+                    api.utils.ImageBytes.createFileFromBytes(api.utils.ImageBytes.bufferedImageToByteArray(bi), tf);
+//                    ImageIO.write(bi, "jpg", tf);
                     absoluteFileName = api.xml.Utils.loadSessionsFolder() + "\\session" + SessionManager.getSessionManager().getSessionCourante().getId() + "\\" + resultFileName + ".jpg";
                 } catch (SQLException ex) {
                     Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +97,10 @@ public class ActionScreenshot extends Action {
                 }
 
                 try {
-                    ImageIO.write(bi, "jpg", new File(api.xml.Utils.loadSessionsFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "/" + resultFileName + ".jpg"));
+
+                    File tf = new File(api.xml.Utils.loadSessionsFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "/" + resultFileName + ".jpg");
+                    api.utils.ImageBytes.createFileFromBytes(api.utils.ImageBytes.bufferedImageToByteArray(bi), tf);
+                    //ImageIO.write(bi, "jpg", tf);
                     absoluteFileName = api.xml.Utils.loadSessionsFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "/" + resultFileName + ".jpg";
                 } catch (SQLException ex) {
                     Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,15 +108,18 @@ public class ActionScreenshot extends Action {
                 Logger.getLogger(ActionScreenshot.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            bi.flush();
         } catch (AWTException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public String getAbsFileName(){
         return absoluteFileName;
     }
+
 }
 

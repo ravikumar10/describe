@@ -30,6 +30,7 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -319,7 +320,22 @@ public class ViewAnswers extends JFrame {
                 }
             }
             screens=r.getScreenshot();
-            src = ImageIO.read(new File(screens));
+
+                ImageIcon icon = new ImageIcon(screens);
+                Image imageG = icon.getImage();
+
+                // Create empty BufferedImage, sized to Image
+                src =
+                  new BufferedImage(
+                      imageG.getWidth(null),
+                      imageG.getHeight(null),
+                      BufferedImage.TYPE_INT_ARGB);
+
+                // Draw Image into BufferedImage
+                Graphics g = src.getGraphics();
+                g.drawImage(imageG, 0, 0, null);
+
+       //     src = ImageIO.read(new File(screens));
 /*
             int rectHeight = (int) height*20/100;
             BufferedImage buf = new BufferedImage(width, rectHeight, BufferedImage.TYPE_INT_ARGB);
@@ -332,7 +348,7 @@ public class ViewAnswers extends JFrame {
                 Reponse currentAnswer = selectedSessionAnswers.get(listAnswerID.getSelectedIndex());
                 imgContainer.setIcon(new ImageIcon(src));
             }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
            String message = Lang.getLang().getValueFromRef("ViewAnswers.strFileError") + " "+screens;
            javax.swing.JOptionPane.showMessageDialog(this, message);
         }

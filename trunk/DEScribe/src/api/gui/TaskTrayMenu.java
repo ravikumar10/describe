@@ -32,6 +32,7 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
@@ -180,6 +181,19 @@ public class TaskTrayMenu {
             popup.add(displayAskFrame);
             // \DEBUG-ONLY\
 
+            //DEBUG
+            MenuItem restartDES = new MenuItem("Restart");
+            restartDES.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println(api.utils.appManagement.restartApplication(this));
+                }
+            });
+            popup.add(restartDES);
+            // \DEBUG-ONLY\
+
+
+
             popup.add(exitItem);
 
 
@@ -242,4 +256,5 @@ public class TaskTrayMenu {
         resumeSessionItem.setLabel(ResumeSessionLabel);
         popupDelay.setLabel(PopupDelayLabel);
     }
+
 }

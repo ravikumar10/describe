@@ -27,9 +27,8 @@ import api.dbc.DBConnexion;
 import api.i18n.Lang;
 import api.time.TimerQuestion;
 import api.utils.ImgTxtMerger;
-import api.utils.getOs;
-import api.utils.CopyAndPasteHandler;
 import api.xml.Utils;
+import com.sun.management.OperatingSystemMXBean;
 import exceptions.BadXMLFileException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -39,8 +38,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.MouseInfo;
-import java.awt.PointerInfo;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -49,8 +46,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -72,7 +67,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.xml.parsers.ParserConfigurationException;
 import model.Action;
 import model.ActionScreenshot;
 import model.QCMChkBox;
@@ -83,8 +77,7 @@ import model.Question;
 import model.Regle;
 import model.Reponse;
 import model.SessionManager;
-import org.xml.sax.SAXException;
-import sun.awt.resources.awt;
+import sun.management.ManagementFactory;
 
 /**
  * Class AskFrame.java
@@ -109,8 +102,9 @@ public class AskFrame extends GenericFrame {
 
     private Question currentQuestion=null;
 
-    private static class interiorPanel extends JPanel {
+    private static int EVENT_CPY_PROBA = 20;
 
+    private static class interiorPanel extends JPanel {
 
         AskFrame listeners = null;
         public JTextField jta1 = null;
@@ -829,7 +823,7 @@ public class AskFrame extends GenericFrame {
                 Random rand = new Random();
 
                 int nb = rand.nextInt(100);
-                if (nb<20){
+                if (nb<EVENT_CPY_PROBA){
                     showTheFrame("rule");
                     TimerQuestion.getTimerQuestion().resetTimerAfterQuestion();
                 }
@@ -837,6 +831,347 @@ public class AskFrame extends GenericFrame {
         }
 
     }
+
+
+
+
+    public ArrayList<Question> getAskableQuestionsFromForm(){
+        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
+//            ArrayList<Question> lesQuestions = new ArrayList<Question>();
+//            Question selectedQuestion = null;
+//            try{
+//                lesQuestions = Utils.importFormXML();
+//            } catch (BadXMLFileException ex) {
+//                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            //Faire des while avec deux booleens plutot pour la validité.
+//
+//            Boolean foundQuestion = false;
+//            int j=0;
+//            while ((j<lesQuestions.size()) && (!foundQuestion)){
+//
+//                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
+//
+//                // Pour chaque regle on vérifie si elle est valide.
+//                //Si une seule n'est pas valide la question ne l'est pas
+//                // Si elles le sont toutes alors on a trouvé la question à poser
+//
+//                Boolean foundRuleFalse = false;
+//                int k=0;
+//                while ((k< lesRegles.size()) &&(!foundRuleFalse)){
+//
+//                    Regle r = lesRegles.get(k);
+//                    if (r.getEvent().equals("fullscreen")){
+//                        if (r.getType().equals("if")){
+//                            //TODO
+//                          /*  if (!checkEvent("fullscreen")){
+//                                foundRuleFalse=true;
+//                            } */
+//                        } else if (r.getType().equals("notif")){
+//                            //TODO
+//                          /*  if (checkEvent("fullscreen")){
+//                                foundRuleFalse=true;
+//                            } */
+//                        }
+//                    } else if (r.getEvent().equals("copyImage")){
+//                            //Traité dans CopyAndPasteHandler
+//                            foundRuleFalse=true;
+//
+//                    } else if (r.getEvent().equals("copyText")){
+//                            //Traité dans CopyAndPasteHandler
+//                            foundRuleFalse=true;
+//
+//
+//                    } else if (r.getEvent().equals("copyFile")){
+//                            //Traité dans CopyAndPasteHandler
+//                            foundRuleFalse=true;
+//                    } else if (r.getEvent().equals("copyFile")){
+//                            //Traité dans CopyAndPasteHandler
+//                            foundRuleFalse=true;
+//                    } else if (r.getEvent().equals("copy")){
+//                            foundRuleFalse=true;
+//                    }
+//
+//                    k++;
+//                }
+//                if (!foundRuleFalse){
+//                    foundQuestion=true;
+//                    selectedQuestion=lesQuestions.get(j);
+//                }
+//
+//                j++;
+//            }
+//
+//        return selectedQuestion;
+            ArrayList<Question> lesQuestions = new ArrayList<Question>();
+            ArrayList<Question> askableQuestions = new ArrayList<Question>();
+            Question selectedQuestion = null;
+            try{
+                lesQuestions = Utils.importFormXML();
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Faire des while avec deux booleens plutot pour la validité.
+
+            Boolean foundQuestion = false;
+            int j=0;
+            while ((j<lesQuestions.size())){
+
+                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
+
+                // Pour chaque regle on vérifie si elle est valide.
+                //Si une seule n'est pas valide la question ne l'est pas
+                // Si elles le sont toutes alors on a trouvé la question à poser
+
+                Boolean foundRuleFalse = false;
+                int k=0;
+                while ((k< lesRegles.size()) &&(!foundRuleFalse)){
+
+                    Regle r = lesRegles.get(k);
+                    if (r.getEvent().equals("fullscreen")){
+                        if (r.getType().equals("if")){
+                            //TODO
+                          /*  if (!checkEvent("fullscreen")){
+                                foundRuleFalse=true;
+                            } */
+                        } else if (r.getType().equals("notif")){
+                            //TODO
+                          /*  if (checkEvent("fullscreen")){
+                                foundRuleFalse=true;
+                            } */
+                        }
+                    } else if (r.getEvent().equals("copyImage")){
+                            //Traité dans CopyAndPasteHandler
+                            foundRuleFalse=true;
+
+                    } else if (r.getEvent().equals("copyText")){
+                            //Traité dans CopyAndPasteHandler
+                            foundRuleFalse=true;
+
+
+                    } else if (r.getEvent().equals("copyFile")){
+                            //Traité dans CopyAndPasteHandler
+                            foundRuleFalse=true;
+                    } else if (r.getEvent().equals("copyFile")){
+                            //Traité dans CopyAndPasteHandler
+                            foundRuleFalse=true;
+                    } else if (r.getEvent().equals("copy")){
+                            foundRuleFalse=true;
+                    }
+
+                    k++;
+                }
+                if (!foundRuleFalse){
+                    foundQuestion=true;
+//                    selectedQuestion=lesQuestions.get(j);
+                    askableQuestions.add(lesQuestions.get(j));
+
+                }
+
+                j++;
+            }
+            //System.out.println("Nombre de questions posables_ : "+askableQuestions.size());
+            if (askableQuestions.size()>0){
+                int rang = (new Random().nextInt(askableQuestions.size()));
+                //System.out.println("Num question choisie : "+rang);
+                selectedQuestion=askableQuestions.get(rang);
+            } else {
+                selectedQuestion=null;
+            }
+
+        return askableQuestions;
+
+    }
+
+    public ArrayList<Question> getAskableQuestionsFromFormWithRule(Regle reg){
+        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
+//            ArrayList<Question> lesQuestions = new ArrayList<Question>();
+//            ArrayList<Question> askableQuestions = new ArrayList<Question>();
+//            Question selectedQuestion = null;
+//            try{
+//                lesQuestions = Utils.importFormXML();
+//            } catch (BadXMLFileException ex) {
+//                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            //Faire des while avec deux booleens plutot pour la validité.
+//
+//            Boolean foundQuestion = false;
+//            int j=0;
+//            while ((j<lesQuestions.size()) && (!foundQuestion)){
+//                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
+//
+//                // Pour chaque regle on vérifie si elle est valide.
+//                //Si une seule n'est pas valide la question ne l'est pas
+//                // Si elles le sont toutes alors on a trouvé la question à poser
+//
+//                Boolean foundRuleFalse = false;
+//                Boolean foundThisRule = false;
+//                int k=0;
+//                while ((k< lesRegles.size()) && ((foundRuleFalse) || (!foundThisRule))){
+//
+//                    Regle r = lesRegles.get(k);
+//                    if ((r.getEvent().equals(reg.getEvent())) && (r.getType().equals(reg.getType()))){
+//                        foundThisRule=true;
+//                    }
+//                    if (r.getEvent().equals("fullscreen")){
+//                        if (r.getType().equals("if")){
+//                            //TODO
+//                          /*  if (!checkEvent("fullscreen")){
+//                                foundRuleFalse=true;
+//                            } */
+//                        } else if (r.getType().equals("notif")){
+//                            //TODO
+//                            //TODO
+//                          /*  if (checkEvent("fullscreen")){
+//                                foundRuleFalse=true;
+//                            } */
+//                        }
+//                    } else if (r.getEvent().equals("copyImage")){
+//                        if (r.getType().equals("if")){
+//                            //Traité dans CopyAndPasteHandler
+//                        }
+//                        else if (r.getType().equals("notif")){
+//                            // rien
+//                        }
+//                    } else if (r.getEvent().equals("copyText")){
+//                        if (r.getType().equals("if")){
+//                            //Traité dans CopyAndPasteHandler
+//                        }
+//                        else if (r.getType().equals("notif")){
+//                            // rien
+//                        }
+//                    } else if (r.getEvent().equals("copyFile")){
+//                        if (r.getType().equals("if")){
+//                            //Traité dans CopyAndPasteHandler
+//                        }
+//                        else if (r.getType().equals("notif")){
+//                            // rien
+//                        }
+//                    } else if (r.getEvent().equals("copy")){
+//                        if (r.getType().equals("if")){
+//                            //Traité dans CopyAndPasteHandler
+//                        }
+//                        else if (r.getType().equals("notif")){
+//                            // rien
+//                        }
+//                    }
+//
+//                    k++;
+//                }
+//                if ((!foundRuleFalse) && (foundThisRule)){
+//                    foundQuestion=true;
+//                    selectedQuestion=lesQuestions.get(j);
+//                }
+//
+//                j++;
+//            }
+//
+//        return selectedQuestion;
+
+
+            // New version : select a random question from a list of validated
+            //               questions
+            ArrayList<Question> lesQuestions = new ArrayList<Question>();
+            ArrayList<Question> askableQuestions = new ArrayList<Question>();
+            Question selectedQuestion = null;
+            try{
+                lesQuestions = Utils.importFormXML();
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Faire des while avec deux booleens plutot pour la validité.
+
+            Boolean foundQuestion = false;
+            int j=0;
+            while (j<lesQuestions.size()){
+                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
+
+                // Pour chaque regle on vérifie si elle est valide.
+                //Si une seule n'est pas valide la question ne l'est pas
+                // Si elles le sont toutes alors on a trouvé la question à poser
+
+                Boolean foundRuleFalse = false;
+                Boolean foundThisRule = false;
+                int k=0;
+                while ((k< lesRegles.size()) && ((foundRuleFalse) || (!foundThisRule))){
+
+                    Regle r = lesRegles.get(k);
+                    if ((r.getEvent().equals(reg.getEvent())) && (r.getType().equals(reg.getType()))){
+                        foundThisRule=true;
+                    }
+                    if (r.getEvent().equals("fullscreen")){
+                        if (r.getType().equals("if")){
+                            //TODO
+                          /*  if (!checkEvent("fullscreen")){
+                                foundRuleFalse=true;
+                            } */
+                        } else if (r.getType().equals("notif")){
+                            //TODO
+                            //TODO
+                          /*  if (checkEvent("fullscreen")){
+                                foundRuleFalse=true;
+                            } */
+                        }
+                    } else if (r.getEvent().equals("copyImage")){
+                        if (r.getType().equals("if")){
+                            //Traité dans CopyAndPasteHandler
+                        }
+                        else if (r.getType().equals("notif")){
+                            // rien
+                        }
+                    } else if (r.getEvent().equals("copyText")){
+                        if (r.getType().equals("if")){
+                            //Traité dans CopyAndPasteHandler
+                        }
+                        else if (r.getType().equals("notif")){
+                            // rien
+                        }
+                    } else if (r.getEvent().equals("copyFile")){
+                        if (r.getType().equals("if")){
+                            //Traité dans CopyAndPasteHandler
+                        }
+                        else if (r.getType().equals("notif")){
+                            // rien
+                        }
+                    } else if (r.getEvent().equals("copy")){
+                        if (r.getType().equals("if")){
+                            //Traité dans CopyAndPasteHandler
+                        }
+                        else if (r.getType().equals("notif")){
+                            // rien
+                        }
+                    }
+
+                    k++;
+                }
+                if ((!foundRuleFalse) && (foundThisRule)){
+                    foundQuestion=true;
+                    askableQuestions.add(lesQuestions.get(j));
+                    //selectedQuestion=lesQuestions.get(j);
+                }
+
+                j++;
+            }
+            //System.out.println("Nombre de questions posables : "+askableQuestions.size());
+            if (askableQuestions.size()>0){
+                int rang = (new Random().nextInt(askableQuestions.size()));
+                //System.out.println("Num question choisie : "+rang);
+                selectedQuestion=askableQuestions.get(rang);
+            } else {
+                selectedQuestion=null;
+            }
+        return askableQuestions;
+
+    }
+
+    public void loadForm(){
+
+    }
+
 
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
@@ -939,15 +1274,37 @@ public class AskFrame extends GenericFrame {
                 }
                 hideCD.cancel();
                 this.hideTheFrame();
+
+
+
+
+                // Restart application to avoid huge memory consumption because of images
+                //if (Runtime.getRuntime().freeMemory()// and Runtime.totalMemory()
+                //double cons = ((double)Runtime.getRuntime().freeMemory()/(double)Runtime.getRuntime().totalMemory())*100.0;
+                Runtime.getRuntime().gc();
+                OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+                Long usedMemory = operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize();
+                //long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                double cons = ((double)usedMemory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
+                //double cons = ((double)memory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
+                System.out.println("Consumption : "+cons);
+                if (cons>80){
+                    System.out.println("High memory consumption...Restarting...");
+                    api.utils.appManagement.restartApplication(this);
+                }
+                System.out.println(operatingSystemMXBean.getFreePhysicalMemorySize());
+                System.out.println(operatingSystemMXBean.getTotalPhysicalMemorySize());
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         } else if (s.equals(labelButtonSkip)) {
                 // Hide frame & delete screenshot
-                if (!absoluteScreenshotFilePath.equals("")) {
-                    File f = new File(absoluteScreenshotFilePath);
-                    if (f.exists()) {
-                        f.delete();
+                if (absoluteScreenshotFilePath!=null){
+                    if (!absoluteScreenshotFilePath.equals("")) {
+                        File f = new File(absoluteScreenshotFilePath);
+                        if (f.exists()) {
+                            f.delete();
+                        }
                     }
                 }
                 clearFrame();
@@ -989,4 +1346,8 @@ public class AskFrame extends GenericFrame {
             thePanel.b1.doClick();
         }
     }
+
+
+
+
 }
