@@ -1,119 +1,516 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <questions>
-	<!-- Questions list											  -->
-	<!-- They have to be sorted in this order because only        --> 
-	<!-- first question with all rules checked is asked           -->
-	
-	<!-- More specific question -->
-	<question type="open">
-        <title>
-        What was your experience?
-        </title>
-		<rules>
-			<!-- if : Condition for asking -->
-			<rule type="if" event="copyImage">
-			</rule>
-			<!-- notif : Condition for not asking -->
-			<rule type="notif" event="fullscreen">
-			</rule>
-		</rules>
-    </question>
-
-	<question type="open">
-
-        <title>
-        What was your experience?
-        </title>
-		<rules>
-			<rule type="if" event="copyText">
-			</rule>
-			<rule type="notif" event="fullscreen">
-			</rule>
-		</rules>
-    </question>	
-	
-	<question type="open">
-        <title>
-        What was your experience?
-        </title>
-		<rules>
-			<rule type="if" event="copyFile">
-			</rule>
-			<rule type="notif" event="fullscreen">
-			</rule>
-		</rules>
-    </question>		
-	
-	<question type="open">
-        <title>
-        What was your experience?
-        </title>
-		<rules>
-			<rule type="if" event="copy">
-			</rule>
-			<rule type="notif" event="fullscreen">
-			</rule>
-		</rules>
-    </question>		
-	
-	<question type="open">
-        <title>
-        What was your experience?
-        </title>
-		<rules>
-			<rule type="notif" event="fullscreen">
-			</rule>	
-		</rules>
-	</question>		
-	
-	<!-- Examples of other types of question -->
-	<!-- Multiple choice question with radio buttons (one choice max) -->
-	<!--
+	<!-- Regular experience -->
 	<question type="QCMRadio">
 			<title>
-			What was your experience?
+			Saviez-vous ce que vous alliez faire durant les prochaines secondes?
 			</title>
 			<choices>
 				<choice type="normal">
-					Waiting for some event
-				</choice>
-				<choice type="normal">
-					Thinking about some other activity
+					Oui
 				</choice>
 				<choice type="other">
-					Other
-				</choice>					
-			<choices>
+					Non
+				</choice>				
+			</choices>
 			<rules>
 				<rule type="notif" event="fullscreen">
 				</rule>
 			</rules>
-	</question>		
-	-->
-
-	<!-- Multiple choice question with checkboxes (answer can be composed of more than one choice at once) -->
-	<!--
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Pensiez-vous à quelque chose qui n'était pas présent sur l'écran?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Vous représentiez-vous visuellement quelque chose qui n'existait pas sur l'écran?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous ce que vous faisiez avec le curseur de la souris?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Regardiez-vous la zone où se trouve la souris?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Ressentiez-vous des émotions ou un état d'esprit particuliers?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui. Les décrire ci-dessous en quelques mots:
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
 	<question type="QCMChkBox">
 			<title>
-			What was your experience?
+			Vous pensiez...
 			</title>
 			<choices>
 				<choice type="normal">
-					Waiting for some event
+					...au passé
 				</choice>
 				<choice type="normal">
-					Thinking about some other activity
+					...au présent
 				</choice>
 				<choice type="other">
-					Other
-				</choice>					
-			<choices>
+					...au futur
+				</choice>				
+			</choices>
 			<rules>
 				<rule type="notif" event="fullscreen">
 				</rule>
 			</rules>
+	</question>	
+	
+	<!-- Copy-and-paste  of image event -->
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez vraiment coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyImage">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>			
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous exactement où vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyImage">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>				
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyImage">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Pouviez-vous imaginer où et comment vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyImage">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>	
+	<question type="QCMRadio">
+			<title>
+			Ressentiez-vous des émotions ou un état d'esprit particuliers?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui. Les décrire ci-dessous en quelques mots:
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyImage">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	
+	<!-- Copy-and-paste of text event -->
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez vraiment coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>			
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous exactement où vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>				
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Pouviez-vous imaginer où et comment vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>	
+	<question type="QCMRadio">
+			<title>
+			Ressentiez-vous des émotions ou un état d'esprit particuliers?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui. Les décrire ci-dessous en quelques mots:
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
 	</question>		
-	-->
+
+	<!-- Copy-and-paste of file(s) event -->
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez vraiment coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyFile">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>			
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous exactement où vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyFile">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>				
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyFile">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Pouviez-vous imaginer où et comment vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyFile">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>	
+	<question type="QCMRadio">
+			<title>
+			Ressentiez-vous des émotions ou un état d'esprit particuliers?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui. Les décrire ci-dessous en quelques mots:
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyFile">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>		
+
+	<!-- Copy-and-paste of other types event -->
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez vraiment coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copy">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>			
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous exactement où vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Oui
+				</choice>
+				<choice type="other">
+					Non
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copy">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>				
+	<question type="QCMRadio">
+			<title>
+			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copy">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Pouviez-vous imaginer où et comment vous alliez coller cet élément?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copy">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>	
+	<question type="QCMRadio">
+			<title>
+			Ressentiez-vous des émotions ou un état d'esprit particuliers?
+			</title>
+			<choices>
+				<choice type="normal">
+					Non
+				</choice>
+				<choice type="other">
+					Oui. Les décrire ci-dessous en quelques mots:
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copy">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>			
 
 	<!-- Actions associated with all questions of the form -->
     <actions>
@@ -127,7 +524,7 @@
 		<!-- closed and user is warned 							--> 
 		<htimetolive>48</htimetolive>
 		
-		<!-- Max is 2 questions asked per hour					-->
+		<!-- Max is 3 questions asked per hour					-->
 		<nbQuestionsPerHour>3</nbQuestionsPerHour>		
 	</meta>
 </questions>
