@@ -353,6 +353,7 @@ public class Utils {
      */
     public static void setNewFormFile(String file) throws BadXMLFileException  {
         try{
+                System.out.println("File : "+file);
                 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
                 Document doc;

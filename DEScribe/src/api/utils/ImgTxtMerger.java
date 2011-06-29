@@ -22,6 +22,9 @@
  */
 package api.utils;
 
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -32,7 +35,12 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,20 +57,30 @@ public class ImgTxtMerger extends JPanel {
     }
 
     public ImgTxtMerger(String file, String text) {
-        try {
-            image = ImageIO.read(new File(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       // try {
+            image.flush();
+            //image = ImageIO.read(new File(file));
+            image = api.utils.ImageBytes.FileToBufferedImage(file);
+       // } catch (IOException e) {
+       //     e.printStackTrace();
+       // }
         this.setPreferredSize(new Dimension(
             image.getWidth(), image.getHeight()));
         image = process(image, text);
             File file2 = new File(file);
         try {
-            javax.imageio.ImageIO.write(image, "gif", file2);
+            // try {
+            api.utils.ImageBytes.createFileFromBytes(api.utils.ImageBytes.bufferedImageToByteArray(image), file2);
+        } catch (ImageFormatException ex) {
+            Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
         }
+            //javax.imageio.ImageIO.write(image, "gif", file2);
+            image.flush();
+        //} catch (IOException ex) {
+        //    Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }
 
     public BufferedImage process(BufferedImage old, String text) {
@@ -140,7 +158,9 @@ public class ImgTxtMerger extends JPanel {
 
     public void fusion(Reponse r){
         try {
+
             BufferedImage src = ImageIO.read(new File(r.getScreenshot()));
+            //BufferedImage src=api.utils.ImageBytes.FileToBufferedImage(r.getScreenshot());
             int newHeight= (int)80*src.getHeight()/100;
             int newWidth= src.getWidth();
 
@@ -153,7 +173,11 @@ public class ImgTxtMerger extends JPanel {
             BufferedImage res=process(resize(append(buf, src), newWidth, newHeight), r.getIntituleQuestion() + " \n " + r.getLaReponse() + " \n " + r.getInstant().toString());
             File file2 = new File(r.getScreenshot());
             try {
+                //api.utils.ImageBytes.createFileFromBytes(api.utils.ImageBytes.bufferedImageToByteArray(res), file2);
                 javax.imageio.ImageIO.write(res, "gif", file2);
+                res.flush();
+                buf.flush();
+                g2.dispose();
             } catch (IOException ex) {
                 Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
             }
