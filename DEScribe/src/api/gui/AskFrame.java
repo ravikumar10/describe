@@ -97,12 +97,16 @@ public class AskFrame extends GenericFrame {
     public static String labelButtonSkip = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonSkip");
     public static String toolTipButtonSkip = Lang.getLang().getValueFromRef("QuestionFrame.toolTipButtonSkip");
 
+    public static String toolTipLogo = Lang.getLang().getValueFromRef("QuestionFrame.toolTipLogo");
+
     /** Full screenshot file name **/
     private String absoluteScreenshotFilePath="";
 
     private Question currentQuestion=null;
 
     private static int EVENT_CPY_PROBA = 20;
+
+
 
     private static class interiorPanel extends JPanel {
 
@@ -118,17 +122,18 @@ public class AskFrame extends GenericFrame {
         public JTextField jtaOther = null;
 
         public static JButton buttonSkip = null;
-
+        public JLabel logo = null;
         public interiorPanel(AskFrame param) {
             super();
             this.listeners = param;
             this.setLayout(new BorderLayout(0, 10));
             this.setBackground(new Color(178,34,34));
-            JLabel logo= new JLabel(new ImageIcon("media/describe-title.jpg"));
+            logo= new JLabel(new ImageIcon("media/describe-title.jpg"));
+            logo.setToolTipText(toolTipLogo);
             logo.addMouseMotionListener(new MouseMotionListener() {
 
                 public void mouseDragged(MouseEvent e) {
-                    AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX(), AskFrame.getTheFrame().getLocation().y+e.getY());
+                    AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX()-(logo.getIcon().getIconWidth()/2), AskFrame.getTheFrame().getLocation().y+e.getY()-(logo.getIcon().getIconHeight()/2));
                 }
 
                 public void mouseMoved(MouseEvent e) {
@@ -420,6 +425,9 @@ public class AskFrame extends GenericFrame {
             interiorPanel.lbCtrlMaj.setText(helpCtrlMaj);
 
             appTitle = Lang.getLang().getValueFromRef("QuestionFrame.appTitle");
+
+            toolTipLogo=Lang.getLang().getValueFromRef("QuestionFrame.toolTipLogo");
+            thePanel.logo.setToolTipText(toolTipLogo);
             this.setTitle(appTitle);
 
             ArrayList<Action> lesActions = new ArrayList<Action>();
