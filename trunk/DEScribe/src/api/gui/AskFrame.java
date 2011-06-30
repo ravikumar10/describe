@@ -310,7 +310,7 @@ public class AskFrame extends GenericFrame {
             JPanel panQuestion = new JPanel(new BorderLayout());
             panQuestion.setBackground(Color.lightGray);
             //QuestionTextArea jlQuest= new QuestionTextArea(q.intitule);
-            JTextArea jlQuest=new JTextArea("\n"+q.intitule);
+            QuestionTextArea jlQuest=new QuestionTextArea("\n"+q.intitule);
 
             jlQuest.setLineWrap(true);
             jlQuest.setWrapStyleWord(true);
@@ -417,42 +417,40 @@ public class AskFrame extends GenericFrame {
         }
         this.refresh();
 
+        // Only if there is a question to ask!
+        if (currentQuestion!=null){
 
+            hideCD = new Timer();
+            TimerTask taskCD = new TimerTask() {
 
-        hideCD = new Timer();
-        TimerTask taskCD = new TimerTask() {
-
-            @Override
-            public void run() {
-                AskFrame.getTheFrame().hideTheFrame();
-            }
-        };
-        // After 2 minutes of inactivity, the frame disappears by itself
-        hideCD.schedule(taskCD, 100000);
+                @Override
+                public void run() {
+                    AskFrame.getTheFrame().hideTheFrame();
+                }
+            };
+            // After 2 minutes of inactivity, the frame disappears by itself
+            hideCD.schedule(taskCD, 100000);
 
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
-        try {
-            lesQuestions = Utils.importFormXML();
-        } catch (BadXMLFileException ex) {
-            Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
-                if (OptionFrame.isSoundEnabled()) {
-                    Toolkit.getDefaultToolkit().beep();
-                }
-                this.pack();
-
-                System.out.println(thePanel.jspMid.getVerticalScrollBar().getValue());
-                                this.setVisible(true);
-                               Thread t=new Thread(new Runnable() {
-
-            public void run() {
-                fixScrollBar();
+            try {
+                lesQuestions = Utils.importFormXML();
+            } catch (BadXMLFileException ex) {
+                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-        t.start();
-        this.setVisible(false);
-
+            this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
+            if (OptionFrame.isSoundEnabled()) {
+                Toolkit.getDefaultToolkit().beep();
+            }
+            this.pack();
+            this.setVisible(true);
+           Thread t=new Thread(new Runnable() {
+                public void run() {
+                    fixScrollBar();
+                }
+            });
+            t.start();
+            this.setVisible(false);
+        }
         
     }
 
@@ -899,7 +897,7 @@ public class AskFrame extends GenericFrame {
 
                 j++;
             }
-            //System.out.println("Nombre de questions posables : "+askableQuestions.size());
+            System.out.println("Nombre de questions posables : "+askableQuestions.size());
             if (askableQuestions.size()>0){
                 int rang = (new Random().nextInt(askableQuestions.size()));
                 //System.out.println("Num question choisie : "+rang);
@@ -924,12 +922,12 @@ public class AskFrame extends GenericFrame {
         } else {
             questions=getAskableQuestionsFromForm();
         }
-
+        currentQuestion=null;
         for (int i=0;i<questions.size();i++){
             currentQuestion=questions.get(i);
             thePanel.addQuestion(questions.get(i));
         }
-        System.out.println(thePanel.jspMid.getVerticalScrollBar().getValue());
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -1039,7 +1037,6 @@ public class AskFrame extends GenericFrame {
             }
         } else if (s.equals(labelButtonSkip)) {
                 // Hide frame & delete screenshot
-                System.out.println(thePanel.jspMid.getVerticalScrollBar().getValue());
                 if (absoluteScreenshotFilePath!=null){
                     if (!absoluteScreenshotFilePath.equals("")) {
                         File f = new File(absoluteScreenshotFilePath);
