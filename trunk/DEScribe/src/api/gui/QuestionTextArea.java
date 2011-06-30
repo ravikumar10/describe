@@ -5,14 +5,14 @@
 
 package api.gui;
 
-import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author Seb
  */
-public class QuestionLabel extends JLabel{
-    public QuestionLabel(String text){
+public class QuestionTextArea extends JTextArea{
+    public QuestionTextArea(String text){
         super(text);
     }
 }

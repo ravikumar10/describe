@@ -38,6 +38,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -64,9 +66,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
+import javax.swing.border.BevelBorder;
 import model.Action;
 import model.ActionScreenshot;
 import model.QCMChkBox;
@@ -107,6 +112,17 @@ public class AskFrame extends GenericFrame {
     private static int EVENT_CPY_PROBA = 20;
 
     private Regle currentRegle=null;
+
+    private void fixScrollBar() {
+                try {
+            Thread.currentThread().sleep(240);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        thePanel.jspMid.getVerticalScrollBar().setValue(0);
+        thePanel.jpMiddle.revalidate();
+                this.setVisible(true);
+    }
 
     private static class interiorPanel extends JPanel {
 
@@ -197,7 +213,7 @@ public class AskFrame extends GenericFrame {
             jta1.setForeground(Color.BLUE);
             jta1.setHorizontalAlignment(JTextField.CENTER);
             JScrollPane jsp = new JScrollPane(jta1);
-            jsp.setPreferredSize(new Dimension(600, 150));
+            jsp.setPreferredSize(new Dimension(500, 150));
             res.add(jsp);
             res.setBackground(new Color(178,34,34));
             return res;
@@ -213,7 +229,7 @@ public class AskFrame extends GenericFrame {
             jta2.setLineWrap(true);
             jta2.addKeyListener(listeners);
             JScrollPane jsp = new JScrollPane(jta2);
-            jsp.setPreferredSize(new Dimension(600, 150));
+            jsp.setPreferredSize(new Dimension(500, 150));
             res.add(jsp);
             res.setBackground(new Color(178,34,34));
             return res;
@@ -254,7 +270,7 @@ public class AskFrame extends GenericFrame {
                 res.add(jtaOther);
             }
             //res.add(this);
-            res.setPreferredSize(new Dimension(600, 150));
+            res.setPreferredSize(new Dimension(500, 150));
             res.setBackground(new Color(178,34,34));
             jpMiddle=res;
             return res;
@@ -290,15 +306,22 @@ public class AskFrame extends GenericFrame {
         }
 
         public void addQuestion(Question q){
-            JPanel panQuestion = new JPanel(new GridLayout(2, 1));
+            //JPanel panQuestion = new JPanel(new GridLayout(2, 1));
+            JPanel panQuestion = new JPanel(new BorderLayout());
             panQuestion.setBackground(Color.lightGray);
-            QuestionLabel jlQuest= new QuestionLabel(q.intitule);
-            panQuestion.add(jlQuest);
-            jlQuest.setFont(new Font("Verdana", Font.BOLD, 12));
+            //QuestionTextArea jlQuest= new QuestionTextArea(q.intitule);
+            JTextArea jlQuest=new JTextArea("\n"+q.intitule);
+
+            jlQuest.setLineWrap(true);
+            jlQuest.setWrapStyleWord(true);
+            jlQuest.setEditable(false);
+            jlQuest.setPreferredSize(new Dimension(476, 80));
+            panQuestion.add(jlQuest,BorderLayout.NORTH);
+            jlQuest.setFont(new Font("Verdana", Font.BOLD, 14));
             jlQuest.setForeground(Color.BLUE);
             jlQuest.setBackground(Color.lightGray);
             if (q instanceof QReponseLibre){
-                panQuestion.add(new AnswerTextArea());
+                panQuestion.add(new AnswerTextArea(),BorderLayout.CENTER);
             } else if ((q instanceof  QCMChkBox) || (q instanceof QCMRadio)){
                 ArrayList<QCMChoice> choices = new ArrayList<QCMChoice>();
                 if (q instanceof QCMChkBox)
@@ -332,10 +355,10 @@ public class AskFrame extends GenericFrame {
                     jtaOther.addKeyListener(listeners);
                     res.add(jtaOther);
                 }
-                res.setBackground(new Color(178,34,34));
-                panQuestion.add(res);
+                res.setBackground(Color.lightGray);
+                panQuestion.add(res, BorderLayout.SOUTH);
             }
-            panQuestion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+            panQuestion.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
             jpMiddle.add(panQuestion);
         }
  
@@ -418,27 +441,43 @@ public class AskFrame extends GenericFrame {
                     Toolkit.getDefaultToolkit().beep();
                 }
                 this.pack();
-                this.setVisible(true);
+
+                System.out.println(thePanel.jspMid.getVerticalScrollBar().getValue());
+                                this.setVisible(true);
+                               Thread t=new Thread(new Runnable() {
+
+            public void run() {
+                fixScrollBar();
+            }
+        });
+        t.start();
+        this.setVisible(false);
+
+        
     }
 
     private void refresh() {
         try {
-
-            ArrayList<Question> lesQuestions = new ArrayList<Question>();
-            lesQuestions = Utils.importFormXML();
-            thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
+            if (currentRegle!=null){
+                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromFormWithRule(currentRegle).size(), 1));
+            } else {
+                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
+            }
             thePanel.jspMid=new JScrollPane();
 
 
-            thePanel.jspMid.setPreferredSize(new Dimension(600,600));
-            thePanel.jspMid.setViewportView(thePanel.jpMiddle);
-            thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
+
 
             if (thePanel.jtaOther!=null){
                 thePanel.remove(thePanel.jtaOther);
             }
 
             loadForm();
+            thePanel.jspMid.setPreferredSize(new Dimension(500,400));
+            thePanel.jspMid.setViewportView(thePanel.jpMiddle);
+
+            thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
+     
             pack();
             labelButtonValider = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonValider");
             interiorPanel.b1.setText(labelButtonValider);
@@ -477,9 +516,6 @@ public class AskFrame extends GenericFrame {
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-
-
-
         } catch (BadXMLFileException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -893,6 +929,7 @@ public class AskFrame extends GenericFrame {
             currentQuestion=questions.get(i);
             thePanel.addQuestion(questions.get(i));
         }
+        System.out.println(thePanel.jspMid.getVerticalScrollBar().getValue());
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -910,13 +947,13 @@ public class AskFrame extends GenericFrame {
                 for (int i=0; i<panQuests.length;i++){
                     Component tsub[] = ((JPanel) panQuests[i]).getComponents();
                     for (int j=0; j<tsub.length;j++){
-                        if (tsub[j] instanceof QuestionLabel){
-                            QuestionLabel ql=(QuestionLabel) tsub[j];
-                            questions+=idQuestion+". "+ql.getText()+" \n";
+                        if (tsub[j] instanceof QuestionTextArea){
+                            QuestionTextArea ql=(QuestionTextArea) tsub[j];
+                            questions+=idQuestion+". "+ql.getText().replace("\n","")+" \n";
                             if (idQuestion==1){
-                                answers+=" "+idQuestion+". "+ql.getText()+" : ";
+                                answers+=" "+idQuestion+". "+ql.getText().replace("\n","")+" : ";
                             } else {
-                                answers+=idQuestion+". "+ql.getText()+" : ";
+                                answers+=idQuestion+". "+ql.getText().replace("\n","")+" : ";
                             }
                             idQuestion++;
                         }  else {
@@ -1002,6 +1039,7 @@ public class AskFrame extends GenericFrame {
             }
         } else if (s.equals(labelButtonSkip)) {
                 // Hide frame & delete screenshot
+                System.out.println(thePanel.jspMid.getVerticalScrollBar().getValue());
                 if (absoluteScreenshotFilePath!=null){
                     if (!absoluteScreenshotFilePath.equals("")) {
                         File f = new File(absoluteScreenshotFilePath);
