@@ -28,23 +28,9 @@ import api.dbc.DBConnexion;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.utils.CopyAndPasteHandler;
-import com.sun.image.codec.jpeg.ImageFormatException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import model.SessionManager;
 
 /**
@@ -77,6 +63,11 @@ public class Main {
         };
         try {
             Thread.sleep(1000);
+            if (args.length>0){
+                if (args[0].equals("reboot")){
+                    System.out.println(api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true));
+                }
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
