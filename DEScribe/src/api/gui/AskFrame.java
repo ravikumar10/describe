@@ -30,7 +30,6 @@ import api.utils.ImgTxtMerger;
 import api.xml.Utils;
 import com.sun.management.OperatingSystemMXBean;
 import exceptions.BadXMLFileException;
-import java.awt.Adjustable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -41,8 +40,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -136,17 +133,19 @@ public class AskFrame extends GenericFrame {
             this.setBackground(new Color(178,34,34));
             logo= new JLabel(new ImageIcon("media/describe-title.jpg"));
             logo.setToolTipText(toolTipLogo);
-            logo.addMouseMotionListener(new MouseMotionListener() {
+            jpUp = new JPanel(new GridLayout());
+            jpUp.add(logo);
+            jpUp.setBackground(Color.white);
+            MouseMotionListener mml=new MouseMotionListener() {
 
                 public void mouseDragged(MouseEvent e) {
-                    //AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX()-(logo.getIcon().getIconWidth()/2), AskFrame.getTheFrame().getLocation().y+e.getY()-(logo.getIcon().getIconHeight()/2));
                     AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX()-(jpUp.getWidth()/2), AskFrame.getTheFrame().getLocation().y+e.getY()-(jpUp.getHeight()/2));
                 }
 
                 public void mouseMoved(MouseEvent e) {
                 }
-            });
-            logo.addMouseListener(new MouseListener() {
+            };
+            MouseListener ml=new MouseListener() {
 
                 public void mouseClicked(MouseEvent e) {
 
@@ -167,18 +166,15 @@ public class AskFrame extends GenericFrame {
                 public void mouseExited(MouseEvent e) {
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR) );
                 }
-            });
-            jpUp = new JPanel();
-            jpUp.setLayout(new GridLayout(1,1));
-            //logo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            jpUp.add(logo);
-            //jpUp.add(this.firstTextField());
-            jpUp.setBackground(Color.white);
-
+            };
+            jpUp.addMouseMotionListener(mml);
+            jpUp.addMouseListener(ml);
+            logo.addMouseMotionListener(mml);
+            logo.addMouseListener(ml);
+            jpUp.setToolTipText(toolTipLogo);
             this.add(jpUp, BorderLayout.NORTH);
             //this.add(this.secondTextField(), BorderLayout.CENTER);
             this.add(this.ButtonsRow(), BorderLayout.SOUTH);
-            this.initThePanel();
         }
 
         private JPanel oneRow() {
@@ -187,6 +183,10 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
+        /**
+         * @deprecated
+         * @return
+         */
         private JPanel firstTextField() {
             JPanel res = this.oneRow();
             jta1 = new JTextField();
@@ -203,6 +203,10 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
+        /**
+         * @deprecated
+         * @return
+         */
         private JPanel secondTextField() {
             JPanel res = this.oneRow();
             jta2 = new JTextArea();
@@ -215,6 +219,12 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
+        /**
+         * @deprecated 
+         * @param choices
+         * @param style
+         * @return
+         */
         private JPanel choicesGroup(ArrayList<QCMChoice> choices, String style) {
             Boolean other=false;
             JPanel res = new JPanel(new GridLayout(0,1));
@@ -279,7 +289,7 @@ public class AskFrame extends GenericFrame {
         public void initThePanel() {
         }
 
- public void addQuestion(Question q){
+        public void addQuestion(Question q){
             JPanel panQuestion = new JPanel(new GridLayout(2, 1));
             panQuestion.setBackground(Color.lightGray);
             QuestionLabel jlQuest= new QuestionLabel(q.intitule);
@@ -322,8 +332,6 @@ public class AskFrame extends GenericFrame {
                     jtaOther.addKeyListener(listeners);
                     res.add(jtaOther);
                 }
-                //res.add(this);
-                //res.setPreferredSize(new Dimension(400, 150));
                 res.setBackground(new Color(178,34,34));
                 panQuestion.add(res);
             }
@@ -405,41 +413,12 @@ public class AskFrame extends GenericFrame {
         } catch (BadXMLFileException ex) {
             Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-            
-            // If there is a question to ask
-            /*if (currentQuestion!=null){
-                setText1(currentQuestion.intitule);
-                if (quest!=null){
-                    if (!quest.equals("rule")){
-                        setText1(quest);
-                    }
-                }
-                if (currentQuestion instanceof QReponseLibre){
-                    thePanel.jta2.requestFocus();
-                } else if (thePanel.jtaOther!=null){
-                    thePanel.jtaOther.requestFocus();
-                }
-
-                //thePanel.jta2.requestFocus();*/
                 this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
                 if (OptionFrame.isSoundEnabled()) {
                     Toolkit.getDefaultToolkit().beep();
                 }
                 this.pack();
                 this.setVisible(true);
-/*
-                thePanel.jta1.requestFocus();
-
-                //thePanel.j
-                if (currentQuestion instanceof QReponseLibre){
-                    thePanel.jta2.requestFocus();
-                } else if (thePanel.jtaOther!=null){
-                    thePanel.jpMiddle.requestFocus();
-                    thePanel.jtaOther.requestFocus();
-                }
-            }*/
-
     }
 
     private void refresh() {
@@ -447,44 +426,17 @@ public class AskFrame extends GenericFrame {
 
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             lesQuestions = Utils.importFormXML();
-            //setText1(lesQuestions.get(0).intitule);
-            /* removed! setText1(currentQuestion.intitule);*/
-            //thePanel.remove(thePanel.getComponent(0));
-            //Component xt[]= ((JPanel)thePanel.getComponent(2)).getComponents();
             thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
             thePanel.jspMid=new JScrollPane();
 
-            // Listen for value changes in the scroll pane's scrollbars
-           // AdjustmentListener listener = new MyAdjustmentListener();
-            //thePanel.jspMid.getHorizontalScrollBar().addAdjustmentListener(listener);
-            //thePanel.jspMid.getVerticalScrollBar().addAdjustmentListener(listener);
+
             thePanel.jspMid.setPreferredSize(new Dimension(600,600));
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
             thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
-            //thePanel.add(thePanel.jpMiddle,BorderLayout.CENTER);
-            //this.add(thePanel.jpMiddle, BorderLayout.SOUTH);
+
             if (thePanel.jtaOther!=null){
                 thePanel.remove(thePanel.jtaOther);
             }
-            /*removed! if (currentQuestion instanceof QReponseLibre){
-                // Add textfield to panel
-                //this.add(this.secondTextField(), BorderLayout.CENTER);
-                thePanel.add(thePanel.secondTextField(), BorderLayout.CENTER);
-                setText2("");
-                pack();
-            }
-            if (currentQuestion instanceof QCMRadio){
-                // Add radio buttons
-                thePanel.add(thePanel.choicesGroup(((QCMRadio) currentQuestion).getChoices(), "radio"), BorderLayout.CENTER);
-
-                pack();
-            }
-
-            if (currentQuestion instanceof QCMChkBox){
-                // Add radio buttons
-                thePanel.add(thePanel.choicesGroup(((QCMChkBox) currentQuestion).getChoices(), "checkbox"), BorderLayout.CENTER);
-                pack();
-            }*/
 
             loadForm();
             pack();
@@ -504,12 +456,13 @@ public class AskFrame extends GenericFrame {
 
             toolTipLogo=Lang.getLang().getValueFromRef("QuestionFrame.toolTipLogo");
             thePanel.logo.setToolTipText(toolTipLogo);
+            thePanel.jpUp.setToolTipText(toolTipLogo);
             this.setTitle(appTitle);
 
             ArrayList<Action> lesActions = new ArrayList<Action>();
             lesActions = Utils.importFormActionsXML();
-            // For each action execute it
 
+            // For each action execute it
             try{
                 DBConnexion conn = DBConnexion.getConnexion();
                 SessionManager sm = SessionManager.getSessionManager();
@@ -533,104 +486,11 @@ public class AskFrame extends GenericFrame {
     }
 
     private void clearFrame() {
-                ArrayList<Question> lesQuestions = new ArrayList<Question>();
-                //Netoyage : à faire
-            /*try{
-                lesQuestions = Utils.importFormXML();
-                if (currentQuestion instanceof QReponseLibre) {
-                    AskFrame.setText2("");
-                }
-
-
-                if (currentQuestion instanceof QCMRadio)
-                    thePanel.bg2.clearSelection();
-                if (currentQuestion instanceof QCMChkBox){
-                    Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
-                    for (int i =0; i<t.length; i++){
-                        if (t[i] instanceof JCheckBox)
-                            ((JCheckBox) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setSelected(false);
-                        if (t[i] instanceof JTextField){
-                            ((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setText("");
-                            //((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setVisible(false);
-                        }
-                    }
-                }
-            } catch (BadXMLFileException ex) {
-                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
             hideCD.cancel();
     }
 
 
     public Question selectQuestionFromForm(){
-        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
-//            ArrayList<Question> lesQuestions = new ArrayList<Question>();
-//            Question selectedQuestion = null;
-//            try{
-//                lesQuestions = Utils.importFormXML();
-//            } catch (BadXMLFileException ex) {
-//                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            //Faire des while avec deux booleens plutot pour la validité.
-//
-//            Boolean foundQuestion = false;
-//            int j=0;
-//            while ((j<lesQuestions.size()) && (!foundQuestion)){
-//
-//                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
-//
-//                // Pour chaque regle on vérifie si elle est valide.
-//                //Si une seule n'est pas valide la question ne l'est pas
-//                // Si elles le sont toutes alors on a trouvé la question à poser
-//
-//                Boolean foundRuleFalse = false;
-//                int k=0;
-//                while ((k< lesRegles.size()) &&(!foundRuleFalse)){
-//
-//                    Regle r = lesRegles.get(k);
-//                    if (r.getEvent().equals("fullscreen")){
-//                        if (r.getType().equals("if")){
-//                            //TODO
-//                          /*  if (!checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        } else if (r.getType().equals("notif")){
-//                            //TODO
-//                          /*  if (checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        }
-//                    } else if (r.getEvent().equals("copyImage")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//
-//                    } else if (r.getEvent().equals("copyText")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//
-//
-//                    } else if (r.getEvent().equals("copyFile")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//                    } else if (r.getEvent().equals("copyFile")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//                    } else if (r.getEvent().equals("copy")){
-//                            foundRuleFalse=true;
-//                    }
-//
-//                    k++;
-//                }
-//                if (!foundRuleFalse){
-//                    foundQuestion=true;
-//                    selectedQuestion=lesQuestions.get(j);
-//                }
-//
-//                j++;
-//            }
-//
-//        return selectedQuestion;
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             ArrayList<Question> askableQuestions = new ArrayList<Question>();
             Question selectedQuestion = null;
@@ -639,8 +499,6 @@ public class AskFrame extends GenericFrame {
             } catch (BadXMLFileException ex) {
                 Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            //Faire des while avec deux booleens plutot pour la validité.
 
             Boolean foundQuestion = false;
             int j=0;
@@ -692,7 +550,6 @@ public class AskFrame extends GenericFrame {
                 }
                 if (!foundRuleFalse){
                     foundQuestion=true;
-//                    selectedQuestion=lesQuestions.get(j);
                     askableQuestions.add(lesQuestions.get(j));
 
                 }
@@ -713,92 +570,6 @@ public class AskFrame extends GenericFrame {
     }
 
     public Question selectQuestionFromFormWithRule(Regle reg){
-        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
-//            ArrayList<Question> lesQuestions = new ArrayList<Question>();
-//            ArrayList<Question> askableQuestions = new ArrayList<Question>();
-//            Question selectedQuestion = null;
-//            try{
-//                lesQuestions = Utils.importFormXML();
-//            } catch (BadXMLFileException ex) {
-//                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            //Faire des while avec deux booleens plutot pour la validité.
-//
-//            Boolean foundQuestion = false;
-//            int j=0;
-//            while ((j<lesQuestions.size()) && (!foundQuestion)){
-//                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
-//
-//                // Pour chaque regle on vérifie si elle est valide.
-//                //Si une seule n'est pas valide la question ne l'est pas
-//                // Si elles le sont toutes alors on a trouvé la question à poser
-//
-//                Boolean foundRuleFalse = false;
-//                Boolean foundThisRule = false;
-//                int k=0;
-//                while ((k< lesRegles.size()) && ((foundRuleFalse) || (!foundThisRule))){
-//
-//                    Regle r = lesRegles.get(k);
-//                    if ((r.getEvent().equals(reg.getEvent())) && (r.getType().equals(reg.getType()))){
-//                        foundThisRule=true;
-//                    }
-//                    if (r.getEvent().equals("fullscreen")){
-//                        if (r.getType().equals("if")){
-//                            //TODO
-//                          /*  if (!checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        } else if (r.getType().equals("notif")){
-//                            //TODO
-//                            //TODO
-//                          /*  if (checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        }
-//                    } else if (r.getEvent().equals("copyImage")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    } else if (r.getEvent().equals("copyText")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    } else if (r.getEvent().equals("copyFile")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    } else if (r.getEvent().equals("copy")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    }
-//
-//                    k++;
-//                }
-//                if ((!foundRuleFalse) && (foundThisRule)){
-//                    foundQuestion=true;
-//                    selectedQuestion=lesQuestions.get(j);
-//                }
-//
-//                j++;
-//            }
-//
-//        return selectedQuestion;
-        
-        
             // New version : select a random question from a list of validated
             //               questions
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
@@ -923,74 +694,7 @@ public class AskFrame extends GenericFrame {
 
 
     public ArrayList<Question> getAskableQuestionsFromForm(){
-        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
-//            ArrayList<Question> lesQuestions = new ArrayList<Question>();
-//            Question selectedQuestion = null;
-//            try{
-//                lesQuestions = Utils.importFormXML();
-//            } catch (BadXMLFileException ex) {
-//                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            //Faire des while avec deux booleens plutot pour la validité.
-//
-//            Boolean foundQuestion = false;
-//            int j=0;
-//            while ((j<lesQuestions.size()) && (!foundQuestion)){
-//
-//                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
-//
-//                // Pour chaque regle on vérifie si elle est valide.
-//                //Si une seule n'est pas valide la question ne l'est pas
-//                // Si elles le sont toutes alors on a trouvé la question à poser
-//
-//                Boolean foundRuleFalse = false;
-//                int k=0;
-//                while ((k< lesRegles.size()) &&(!foundRuleFalse)){
-//
-//                    Regle r = lesRegles.get(k);
-//                    if (r.getEvent().equals("fullscreen")){
-//                        if (r.getType().equals("if")){
-//                            //TODO
-//                          /*  if (!checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        } else if (r.getType().equals("notif")){
-//                            //TODO
-//                          /*  if (checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        }
-//                    } else if (r.getEvent().equals("copyImage")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//
-//                    } else if (r.getEvent().equals("copyText")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//
-//
-//                    } else if (r.getEvent().equals("copyFile")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//                    } else if (r.getEvent().equals("copyFile")){
-//                            //Traité dans CopyAndPasteHandler
-//                            foundRuleFalse=true;
-//                    } else if (r.getEvent().equals("copy")){
-//                            foundRuleFalse=true;
-//                    }
-//
-//                    k++;
-//                }
-//                if (!foundRuleFalse){
-//                    foundQuestion=true;
-//                    selectedQuestion=lesQuestions.get(j);
-//                }
-//
-//                j++;
-//            }
-//
-//        return selectedQuestion;
+
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             ArrayList<Question> askableQuestions = new ArrayList<Question>();
             Question selectedQuestion = null;
@@ -1072,95 +776,11 @@ public class AskFrame extends GenericFrame {
 
     }
 
+
     public ArrayList<Question> getAskableQuestionsFromFormWithRule(Regle reg){
-        // Mettre les regles dans la classe Question et initialisé dans importForm.xml
-//            ArrayList<Question> lesQuestions = new ArrayList<Question>();
-//            ArrayList<Question> askableQuestions = new ArrayList<Question>();
-//            Question selectedQuestion = null;
-//            try{
-//                lesQuestions = Utils.importFormXML();
-//            } catch (BadXMLFileException ex) {
-//                Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            //Faire des while avec deux booleens plutot pour la validité.
-//
-//            Boolean foundQuestion = false;
-//            int j=0;
-//            while ((j<lesQuestions.size()) && (!foundQuestion)){
-//                ArrayList<Regle> lesRegles = lesQuestions.get(j).getRegles();
-//
-//                // Pour chaque regle on vérifie si elle est valide.
-//                //Si une seule n'est pas valide la question ne l'est pas
-//                // Si elles le sont toutes alors on a trouvé la question à poser
-//
-//                Boolean foundRuleFalse = false;
-//                Boolean foundThisRule = false;
-//                int k=0;
-//                while ((k< lesRegles.size()) && ((foundRuleFalse) || (!foundThisRule))){
-//
-//                    Regle r = lesRegles.get(k);
-//                    if ((r.getEvent().equals(reg.getEvent())) && (r.getType().equals(reg.getType()))){
-//                        foundThisRule=true;
-//                    }
-//                    if (r.getEvent().equals("fullscreen")){
-//                        if (r.getType().equals("if")){
-//                            //TODO
-//                          /*  if (!checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        } else if (r.getType().equals("notif")){
-//                            //TODO
-//                            //TODO
-//                          /*  if (checkEvent("fullscreen")){
-//                                foundRuleFalse=true;
-//                            } */
-//                        }
-//                    } else if (r.getEvent().equals("copyImage")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    } else if (r.getEvent().equals("copyText")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    } else if (r.getEvent().equals("copyFile")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    } else if (r.getEvent().equals("copy")){
-//                        if (r.getType().equals("if")){
-//                            //Traité dans CopyAndPasteHandler
-//                        }
-//                        else if (r.getType().equals("notif")){
-//                            // rien
-//                        }
-//                    }
-//
-//                    k++;
-//                }
-//                if ((!foundRuleFalse) && (foundThisRule)){
-//                    foundQuestion=true;
-//                    selectedQuestion=lesQuestions.get(j);
-//                }
-//
-//                j++;
-//            }
-//
-//        return selectedQuestion;
 
-
-            // New version : select a random question from a list of validated
-            //               questions
+            // New version : returns a list of askable questions according to
+            // a rule
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             ArrayList<Question> askableQuestions = new ArrayList<Question>();
             Question selectedQuestion = null;
@@ -1256,10 +876,11 @@ public class AskFrame extends GenericFrame {
     }
 
     public void loadForm(){
-        // On parcourt les questions posables et pour chacune :
-        //      - On crée un sous-panel dans interiorPanel et on y ajoute :
-        //          - un Label de l'intitulé
-        //          - Puis le choiceGroup en appelant la methode choicesGroupe(notre Panel).
+        // Browse askable questions and for earch :
+        //      - add question in the panel :
+        //          - Label for the question itself
+        //          - BoutonGroup, textfield or textarea according to the type
+        //            of the question
 
         ArrayList<Question> questions = new ArrayList<Question>();
         if (currentRegle!=null){
@@ -1267,25 +888,12 @@ public class AskFrame extends GenericFrame {
         } else {
             questions=getAskableQuestionsFromForm();
         }
-        System.out.println("Nombre de questions trouvées : "+questions.size());
-        //thePanel.addQuestion(questions.get(1));
+
         for (int i=0;i<questions.size();i++){
             currentQuestion=questions.get(i);
             thePanel.addQuestion(questions.get(i));
         }
     }
-
-
-    public void loadFormFromRule(Regle reg){
-        // On parcourt les questions posables et pour chacune :
-        //      - On crée un sous-panel dans interiorPanel et on y ajoute :
-        //          - un Label de l'intitulé
-        //          - Puis le choiceGroup en appelant la methode choicesGroupe(notre Panel).
-
-        ArrayList<Question> questions = new ArrayList<Question>();
-        questions=getAskableQuestionsFromFormWithRule(reg);
-    }
-
 
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
@@ -1294,134 +902,64 @@ public class AskFrame extends GenericFrame {
                 DBConnexion conn = DBConnexion.getConnexion();
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
-                Reponse rep=null;
-/*
-                ArrayList<Question> lesQuestions = new ArrayList<Question>();
-                lesQuestions = Utils.importFormXML();
-                //setText1(lesQuestions.get(0).intitule);
-                Reponse rep = null;
-                if (currentQuestion instanceof QReponseLibre){
-                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), AskFrame.getText2(), maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-                    rep.setReglesQuestion(currentQuestion.getRegles());
-                }
-                if (currentQuestion instanceof QCMRadio) {
-                    String res="";
-                    Enumeration<AbstractButton> en = thePanel.bg2.getElements();
-                    while (en.hasMoreElements()) {
-
-                        AbstractButton ab = en.nextElement();
-                        if (ab.isSelected()){
-                            if (!res.equals("")){
-                                res=res+" \n ";
+            Reponse rep=null;
+                String questions="";
+                String answers="";
+                int idQuestion=1;
+                Component panQuests[] = thePanel.jpMiddle.getComponents();
+                for (int i=0; i<panQuests.length;i++){
+                    Component tsub[] = ((JPanel) panQuests[i]).getComponents();
+                    for (int j=0; j<tsub.length;j++){
+                        if (tsub[j] instanceof QuestionLabel){
+                            QuestionLabel ql=(QuestionLabel) tsub[j];
+                            questions+=idQuestion+". "+ql.getText()+" \n";
+                            if (idQuestion==1){
+                                answers+=" "+idQuestion+". "+ql.getText()+" : ";
+                            } else {
+                                answers+=idQuestion+". "+ql.getText()+" : ";
                             }
-                            res+=ab.getText();
-                        }
-                    }
-                    
-                    Component ti[]= ((JPanel)thePanel.getComponent(2)).getComponents();
-                    for (int i=0; i<ti.length;i++){
-                        if (ti[i] instanceof JTextField){
-                            if (!((JTextField) ti[i]).getText().equals("")){
-                                res+=" \n "+((JTextField) ti[i]).getText();
-                            }
-                        }                        
-                    }
-
-                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-                    rep.setReglesQuestion(currentQuestion.getRegles());
-                    thePanel.bg2.clearSelection();
-                }
-                
-                if (currentQuestion instanceof QCMChkBox){
-                    String res="";
-                    Component t[]= ((JPanel)thePanel.getComponent(2)).getComponents();
-
-                    for (int i=0; i<t.length;i++){
-
-                        if (t[i] instanceof AbstractButton){
-                            AbstractButton ab=(AbstractButton) t[i];
-                            if (ab.isSelected()){
-                                if (!res.equals("")){
-                                    res=res+" \n ";
-                                }
-                                res+=ab.getText();
-                            }
-                        } else if (!((JTextField) t[i]).getText().equals("")){
-                            res+=" \n "+((JTextField) t[i]).getText();
-                        }
-                    }
- */
-                    String questions="";
-                    String answers="";
-                    int idQuestion=1;
-                    Component panQuests[] = thePanel.jpMiddle.getComponents();
-                    for (int i=0; i<panQuests.length;i++){
-                        Component tsub[] = ((JPanel) panQuests[i]).getComponents();
-                        for (int j=0; j<tsub.length;j++){
-                            if (tsub[j] instanceof QuestionLabel){
-                                QuestionLabel ql=(QuestionLabel) tsub[j];
-                                questions+=idQuestion+". "+ql.getText()+" \n";
-                                if (idQuestion==1){
-                                    answers+=" "+idQuestion+". "+ql.getText()+" : ";
-                                } else {
-                                    answers+=idQuestion+". "+ql.getText()+" : ";
-                                }
-                                idQuestion++;
-                            }  else {
-                                // Subpanel "res" of panel PanQuestion contents
-                                Component tsub2[] = ((JPanel) tsub[j]).getComponents();
-                                for (int k=0; k<tsub2.length;k++){
-                                    if (tsub2[k] instanceof AnswerTextField){
-                                        AnswerTextField atf=(AnswerTextField) tsub2[k];
-                                        if (!atf.equals("")){
-                                            if (k==tsub2.length-1){
-                                                answers+=atf.getText()+" \n ";
-                                            } else {
-                                                answers+=atf.getText()+" --- ";
-                                            }
+                            idQuestion++;
+                        }  else {
+                            // Subpanel "res" of panel PanQuestion contents
+                            Component tsub2[] = ((JPanel) tsub[j]).getComponents();
+                            for (int k=0; k<tsub2.length;k++){
+                                if (tsub2[k] instanceof AnswerTextField){
+                                    AnswerTextField atf=(AnswerTextField) tsub2[k];
+                                    if (!atf.equals("")){
+                                        if (k==tsub2.length-1){
+                                            answers+=atf.getText()+" \n ";
+                                        } else {
+                                            answers+=atf.getText()+" --- ";
                                         }
-                                    } else if (tsub2[k] instanceof AbstractButton){
-                                        AbstractButton ab=(AbstractButton) tsub2[k];
-                                        if (ab.isSelected()){
-                                            if (k==tsub2.length-1){
-                                                answers+=ab.getText()+" \n ";
-                                            } else {
-                                                answers+=ab.getText()+" --- ";
-                                            }
+                                    }
+                                } else if (tsub2[k] instanceof AbstractButton){
+                                    AbstractButton ab=(AbstractButton) tsub2[k];
+                                    if (ab.isSelected()){
+                                        if (k==tsub2.length-1){
+                                            answers+=ab.getText()+" \n ";
+                                        } else {
+                                            answers+=ab.getText()+" --- ";
                                         }
-                                    } else if (tsub2[k] instanceof AnswerTextArea){
-                                        AnswerTextArea ata=(AnswerTextArea) tsub2[k];
-                                        if (!ata.equals("")){
-                                            if (k==tsub2.length-1){
-                                                answers+=ata.getText()+" /n ";
-                                            } else {
-                                                answers+=ata.getText()+" --- ";
-                                            }
+                                    }
+                                } else if (tsub2[k] instanceof AnswerTextArea){
+                                    AnswerTextArea ata=(AnswerTextArea) tsub2[k];
+                                    if (!ata.equals("")){
+                                        if (k==tsub2.length-1){
+                                            answers+=ata.getText()+" /n ";
+                                        } else {
+                                            answers+=ata.getText()+" --- ";
                                         }
                                     }
                                 }
                             }
                         }
                     }
-
-                    //System.out.println(questions+" : \n "+answers);
-                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1, questions, answers, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-                    rep.setReglesQuestion(currentQuestion.getRegles());
-
-/*
-                    // Reinit
-                    
-                    for (int i =0; i<t.length; i++){
-                        if (t[i] instanceof JCheckBox)
-                            ((JCheckBox) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setSelected(false);
-                        if (t[i] instanceof JTextField){
-                            ((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setText("");
-                            //((JTextField) ((JPanel)thePanel.getComponent(2)).getComponent(i)).setVisible(false);
-                        }
-                    }
-
                 }
-  */
+
+                //System.out.println(questions+" : \n "+answers);
+                rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1, questions, answers, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                rep.setReglesQuestion(currentQuestion.getRegles());
+
                 ArrayList<Regle> lesR=rep.getReglesQuestion();
                 String strRegles="";
                 for (int i=0; i<lesR.size();i++){
@@ -1439,16 +977,9 @@ public class AskFrame extends GenericFrame {
                     ImgTxtMerger imTxtM  = new ImgTxtMerger();
                     imTxtM.fusion(rep);
                 }
-                //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
-                /*if (currentQuestion instanceof QReponseLibre){
-                    AskFrame.setText2("");
-                }*/
 
                 hideCD.cancel();
                 this.hideTheFrame();
-
-
-
 
                 // Restart application to avoid huge memory consumption because of images
                 //if (Runtime.getRuntime().freeMemory()// and Runtime.totalMemory()
@@ -1518,41 +1049,4 @@ public class AskFrame extends GenericFrame {
             thePanel.b1.doClick();
         }
     }
-
-
-    /*class MyAdjustmentListener implements AdjustmentListener {
-      public void adjustmentValueChanged(AdjustmentEvent evt) {
-         AskFrame.getTheFrame().repaint();
-        Adjustable source = evt.getAdjustable();
-        if (evt.getValueIsAdjusting()) {
-          return;
-        }
-        int orient = source.getOrientation();
-        if (orient == Adjustable.HORIZONTAL) {
-          System.out.println("from horizontal scrollbar");
-        } else {
-          System.out.println("from vertical scrollbar");
-        }
-        int type = evt.getAdjustmentType();
-        switch (type) {
-        case AdjustmentEvent.UNIT_INCREMENT:
-          System.out.println("Scrollbar was increased by one unit");
-          break;
-        case AdjustmentEvent.UNIT_DECREMENT:
-          System.out.println("Scrollbar was decreased by one unit");
-          break;
-        case AdjustmentEvent.BLOCK_INCREMENT:
-          System.out.println("Scrollbar was increased by one block");
-          break;
-        case AdjustmentEvent.BLOCK_DECREMENT:
-          System.out.println("Scrollbar was decreased by one block");
-          break;
-        case AdjustmentEvent.TRACK:
-          System.out.println("The knob on the scrollbar was dragged");
-          break;
-        }
-        int value = evt.getValue();
-      }
-    }*/
-
 }
