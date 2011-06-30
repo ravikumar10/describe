@@ -30,6 +30,7 @@ import api.utils.ImgTxtMerger;
 import api.xml.Utils;
 import com.sun.management.OperatingSystemMXBean;
 import exceptions.BadXMLFileException;
+import java.awt.Adjustable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -40,6 +41,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -106,7 +109,7 @@ public class AskFrame extends GenericFrame {
 
     private static int EVENT_CPY_PROBA = 20;
 
-
+    private Regle currentRegle=null;
 
     private static class interiorPanel extends JPanel {
 
@@ -118,11 +121,14 @@ public class AskFrame extends GenericFrame {
 
         public ButtonGroup bg2 = null;
         public JPanel jpMiddle = null;
+        
+        public JScrollPane jspMid = null;
 
-        public JTextField jtaOther = null;
+        public AnswerTextField jtaOther = null;
 
         public static JButton buttonSkip = null;
         public JLabel logo = null;
+        public JPanel jpUp= null;
         public interiorPanel(AskFrame param) {
             super();
             this.listeners = param;
@@ -133,7 +139,8 @@ public class AskFrame extends GenericFrame {
             logo.addMouseMotionListener(new MouseMotionListener() {
 
                 public void mouseDragged(MouseEvent e) {
-                    AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX()-(logo.getIcon().getIconWidth()/2), AskFrame.getTheFrame().getLocation().y+e.getY()-(logo.getIcon().getIconHeight()/2));
+                    //AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX()-(logo.getIcon().getIconWidth()/2), AskFrame.getTheFrame().getLocation().y+e.getY()-(logo.getIcon().getIconHeight()/2));
+                    AskFrame.getTheFrame().setLocation(AskFrame.getTheFrame().getLocation().x+e.getX()-(jpUp.getWidth()/2), AskFrame.getTheFrame().getLocation().y+e.getY()-(jpUp.getHeight()/2));
                 }
 
                 public void mouseMoved(MouseEvent e) {
@@ -161,11 +168,11 @@ public class AskFrame extends GenericFrame {
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR) );
                 }
             });
-            JPanel jpUp = new JPanel();
-            jpUp.setLayout(new GridLayout(2,1));
+            jpUp = new JPanel();
+            jpUp.setLayout(new GridLayout(1,1));
             //logo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             jpUp.add(logo);
-            jpUp.add(this.firstTextField());
+            //jpUp.add(this.firstTextField());
             jpUp.setBackground(Color.white);
 
             this.add(jpUp, BorderLayout.NORTH);
@@ -190,7 +197,7 @@ public class AskFrame extends GenericFrame {
             jta1.setForeground(Color.BLUE);
             jta1.setHorizontalAlignment(JTextField.CENTER);
             JScrollPane jsp = new JScrollPane(jta1);
-            jsp.setPreferredSize(new Dimension(500, 150));
+            jsp.setPreferredSize(new Dimension(600, 150));
             res.add(jsp);
             res.setBackground(new Color(178,34,34));
             return res;
@@ -202,7 +209,7 @@ public class AskFrame extends GenericFrame {
             jta2.setLineWrap(true);
             jta2.addKeyListener(listeners);
             JScrollPane jsp = new JScrollPane(jta2);
-            jsp.setPreferredSize(new Dimension(500, 150));
+            jsp.setPreferredSize(new Dimension(600, 150));
             res.add(jsp);
             res.setBackground(new Color(178,34,34));
             return res;
@@ -232,12 +239,12 @@ public class AskFrame extends GenericFrame {
                 }
             }
             if (other){
-                jtaOther = new JTextField();
+                jtaOther = new AnswerTextField();
                 jtaOther.addKeyListener(listeners);
                 res.add(jtaOther);
             }
             //res.add(this);
-            res.setPreferredSize(new Dimension(500, 150));
+            res.setPreferredSize(new Dimension(600, 150));
             res.setBackground(new Color(178,34,34));
             jpMiddle=res;
             return res;
@@ -271,6 +278,59 @@ public class AskFrame extends GenericFrame {
 
         public void initThePanel() {
         }
+
+ public void addQuestion(Question q){
+            JPanel panQuestion = new JPanel(new GridLayout(2, 1));
+            panQuestion.setBackground(Color.lightGray);
+            QuestionLabel jlQuest= new QuestionLabel(q.intitule);
+            panQuestion.add(jlQuest);
+            jlQuest.setFont(new Font("Verdana", Font.BOLD, 12));
+            jlQuest.setForeground(Color.BLUE);
+            jlQuest.setBackground(Color.lightGray);
+            if (q instanceof QReponseLibre){
+                panQuestion.add(new AnswerTextArea());
+            } else if ((q instanceof  QCMChkBox) || (q instanceof QCMRadio)){
+                ArrayList<QCMChoice> choices = new ArrayList<QCMChoice>();
+                if (q instanceof QCMChkBox)
+                    choices=((QCMChkBox)q).getChoices();
+                if (q instanceof QCMRadio)
+                    choices=((QCMRadio)q).getChoices();
+                Boolean other=false;
+                JPanel res = new JPanel(new GridLayout(0,1));
+                bg2 = new ButtonGroup();
+                for (Iterator<QCMChoice> it = choices.iterator(); it.hasNext();) {
+                    QCMChoice qcmC = it.next();
+                    if (q instanceof QCMRadio){
+                        bg2.add(new JRadioButton(qcmC.getText()));
+                        Enumeration<AbstractButton> en = thePanel.bg2.getElements();
+                        while (en.hasMoreElements()) {
+                            AbstractButton ab = en.nextElement();
+                            ab.addKeyListener(listeners);
+                            res.add(ab);
+                        }
+                    } else if (q instanceof QCMChkBox){
+                        JCheckBox jcb = new JCheckBox(qcmC.getText());
+                        jcb.addKeyListener(listeners);
+                        res.add(jcb);
+                    }
+                    if (qcmC.getIsOtherChoice()){
+                        other=true;
+                    }
+                }
+                if (other){
+                    jtaOther = new AnswerTextField();
+                    jtaOther.addKeyListener(listeners);
+                    res.add(jtaOther);
+                }
+                //res.add(this);
+                //res.setPreferredSize(new Dimension(400, 150));
+                res.setBackground(new Color(178,34,34));
+                panQuestion.add(res);
+            }
+            panQuestion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+            jpMiddle.add(panQuestion);
+        }
+ 
     }
 
     private AskFrame() {
@@ -307,6 +367,9 @@ public class AskFrame extends GenericFrame {
 
     @Override
     public void showTheFrame(String quest) {
+        if (quest==null){
+            currentRegle=null;
+        }
         absoluteScreenshotFilePath="";
         try{
             if (thePanel.getComponent(2)!=null){
@@ -345,7 +408,7 @@ public class AskFrame extends GenericFrame {
 
             
             // If there is a question to ask
-            if (currentQuestion!=null){
+            /*if (currentQuestion!=null){
                 setText1(currentQuestion.intitule);
                 if (quest!=null){
                     if (!quest.equals("rule")){
@@ -358,14 +421,14 @@ public class AskFrame extends GenericFrame {
                     thePanel.jtaOther.requestFocus();
                 }
 
-                //thePanel.jta2.requestFocus();
+                //thePanel.jta2.requestFocus();*/
                 this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
                 if (OptionFrame.isSoundEnabled()) {
                     Toolkit.getDefaultToolkit().beep();
                 }
                 this.pack();
                 this.setVisible(true);
-
+/*
                 thePanel.jta1.requestFocus();
 
                 //thePanel.j
@@ -375,7 +438,7 @@ public class AskFrame extends GenericFrame {
                     thePanel.jpMiddle.requestFocus();
                     thePanel.jtaOther.requestFocus();
                 }
-            }
+            }*/
 
     }
 
@@ -385,14 +448,25 @@ public class AskFrame extends GenericFrame {
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             lesQuestions = Utils.importFormXML();
             //setText1(lesQuestions.get(0).intitule);
-            setText1(currentQuestion.intitule);
+            /* removed! setText1(currentQuestion.intitule);*/
             //thePanel.remove(thePanel.getComponent(0));
             //Component xt[]= ((JPanel)thePanel.getComponent(2)).getComponents();
+            thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
+            thePanel.jspMid=new JScrollPane();
 
+            // Listen for value changes in the scroll pane's scrollbars
+           // AdjustmentListener listener = new MyAdjustmentListener();
+            //thePanel.jspMid.getHorizontalScrollBar().addAdjustmentListener(listener);
+            //thePanel.jspMid.getVerticalScrollBar().addAdjustmentListener(listener);
+            thePanel.jspMid.setPreferredSize(new Dimension(600,600));
+            thePanel.jspMid.setViewportView(thePanel.jpMiddle);
+            thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
+            //thePanel.add(thePanel.jpMiddle,BorderLayout.CENTER);
+            //this.add(thePanel.jpMiddle, BorderLayout.SOUTH);
             if (thePanel.jtaOther!=null){
                 thePanel.remove(thePanel.jtaOther);
             }
-            if (currentQuestion instanceof QReponseLibre){
+            /*removed! if (currentQuestion instanceof QReponseLibre){
                 // Add textfield to panel
                 //this.add(this.secondTextField(), BorderLayout.CENTER);
                 thePanel.add(thePanel.secondTextField(), BorderLayout.CENTER);
@@ -410,8 +484,10 @@ public class AskFrame extends GenericFrame {
                 // Add radio buttons
                 thePanel.add(thePanel.choicesGroup(((QCMChkBox) currentQuestion).getChoices(), "checkbox"), BorderLayout.CENTER);
                 pack();
-            }
+            }*/
 
+            loadForm();
+            pack();
             labelButtonValider = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonValider");
             interiorPanel.b1.setText(labelButtonValider);
 
@@ -458,7 +534,8 @@ public class AskFrame extends GenericFrame {
 
     private void clearFrame() {
                 ArrayList<Question> lesQuestions = new ArrayList<Question>();
-            try{
+                //Netoyage : à faire
+            /*try{
                 lesQuestions = Utils.importFormXML();
                 if (currentQuestion instanceof QReponseLibre) {
                     AskFrame.setText2("");
@@ -480,7 +557,7 @@ public class AskFrame extends GenericFrame {
                 }
             } catch (BadXMLFileException ex) {
                 Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
             hideCD.cancel();
     }
 
@@ -826,12 +903,14 @@ public class AskFrame extends GenericFrame {
             // If so, ask the first
             // Else do nothing
             q=selectQuestionFromFormWithRule(new Regle(event, "if"));
+
             if (q!=null){
                 currentQuestion=q;
                 Random rand = new Random();
 
                 int nb = rand.nextInt(100);
                 if (nb<EVENT_CPY_PROBA){
+                    currentRegle=new Regle(event, "if");
                     showTheFrame("rule");
                     TimerQuestion.getTimerQuestion().resetTimerAfterQuestion();
                 }
@@ -1177,7 +1256,34 @@ public class AskFrame extends GenericFrame {
     }
 
     public void loadForm(){
+        // On parcourt les questions posables et pour chacune :
+        //      - On crée un sous-panel dans interiorPanel et on y ajoute :
+        //          - un Label de l'intitulé
+        //          - Puis le choiceGroup en appelant la methode choicesGroupe(notre Panel).
 
+        ArrayList<Question> questions = new ArrayList<Question>();
+        if (currentRegle!=null){
+            questions=getAskableQuestionsFromFormWithRule(currentRegle);
+        } else {
+            questions=getAskableQuestionsFromForm();
+        }
+        System.out.println("Nombre de questions trouvées : "+questions.size());
+        //thePanel.addQuestion(questions.get(1));
+        for (int i=0;i<questions.size();i++){
+            currentQuestion=questions.get(i);
+            thePanel.addQuestion(questions.get(i));
+        }
+    }
+
+
+    public void loadFormFromRule(Regle reg){
+        // On parcourt les questions posables et pour chacune :
+        //      - On crée un sous-panel dans interiorPanel et on y ajoute :
+        //          - un Label de l'intitulé
+        //          - Puis le choiceGroup en appelant la methode choicesGroupe(notre Panel).
+
+        ArrayList<Question> questions = new ArrayList<Question>();
+        questions=getAskableQuestionsFromFormWithRule(reg);
     }
 
 
@@ -1188,7 +1294,8 @@ public class AskFrame extends GenericFrame {
                 DBConnexion conn = DBConnexion.getConnexion();
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
-
+                Reponse rep=null;
+/*
                 ArrayList<Question> lesQuestions = new ArrayList<Question>();
                 lesQuestions = Utils.importFormXML();
                 //setText1(lesQuestions.get(0).intitule);
@@ -1243,9 +1350,65 @@ public class AskFrame extends GenericFrame {
                             res+=" \n "+((JTextField) t[i]).getText();
                         }
                     }
-                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1,AskFrame.getText1(), res, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+ */
+                    String questions="";
+                    String answers="";
+                    int idQuestion=1;
+                    Component panQuests[] = thePanel.jpMiddle.getComponents();
+                    for (int i=0; i<panQuests.length;i++){
+                        Component tsub[] = ((JPanel) panQuests[i]).getComponents();
+                        for (int j=0; j<tsub.length;j++){
+                            if (tsub[j] instanceof QuestionLabel){
+                                QuestionLabel ql=(QuestionLabel) tsub[j];
+                                questions+=idQuestion+". "+ql.getText()+" \n";
+                                if (idQuestion==1){
+                                    answers+=" "+idQuestion+". "+ql.getText()+" : ";
+                                } else {
+                                    answers+=idQuestion+". "+ql.getText()+" : ";
+                                }
+                                idQuestion++;
+                            }  else {
+                                // Subpanel "res" of panel PanQuestion contents
+                                Component tsub2[] = ((JPanel) tsub[j]).getComponents();
+                                for (int k=0; k<tsub2.length;k++){
+                                    if (tsub2[k] instanceof AnswerTextField){
+                                        AnswerTextField atf=(AnswerTextField) tsub2[k];
+                                        if (!atf.equals("")){
+                                            if (k==tsub2.length-1){
+                                                answers+=atf.getText()+" \n ";
+                                            } else {
+                                                answers+=atf.getText()+" --- ";
+                                            }
+                                        }
+                                    } else if (tsub2[k] instanceof AbstractButton){
+                                        AbstractButton ab=(AbstractButton) tsub2[k];
+                                        if (ab.isSelected()){
+                                            if (k==tsub2.length-1){
+                                                answers+=ab.getText()+" \n ";
+                                            } else {
+                                                answers+=ab.getText()+" --- ";
+                                            }
+                                        }
+                                    } else if (tsub2[k] instanceof AnswerTextArea){
+                                        AnswerTextArea ata=(AnswerTextArea) tsub2[k];
+                                        if (!ata.equals("")){
+                                            if (k==tsub2.length-1){
+                                                answers+=ata.getText()+" /n ";
+                                            } else {
+                                                answers+=ata.getText()+" --- ";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //System.out.println(questions+" : \n "+answers);
+                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1, questions, answers, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                     rep.setReglesQuestion(currentQuestion.getRegles());
 
+/*
                     // Reinit
                     
                     for (int i =0; i<t.length; i++){
@@ -1258,7 +1421,7 @@ public class AskFrame extends GenericFrame {
                     }
 
                 }
-                
+  */
                 ArrayList<Regle> lesR=rep.getReglesQuestion();
                 String strRegles="";
                 for (int i=0; i<lesR.size();i++){
@@ -1277,9 +1440,10 @@ public class AskFrame extends GenericFrame {
                     imTxtM.fusion(rep);
                 }
                 //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
-                if (currentQuestion instanceof QReponseLibre){
+                /*if (currentQuestion instanceof QReponseLibre){
                     AskFrame.setText2("");
-                }
+                }*/
+
                 hideCD.cancel();
                 this.hideTheFrame();
 
@@ -1356,6 +1520,39 @@ public class AskFrame extends GenericFrame {
     }
 
 
-
+    /*class MyAdjustmentListener implements AdjustmentListener {
+      public void adjustmentValueChanged(AdjustmentEvent evt) {
+         AskFrame.getTheFrame().repaint();
+        Adjustable source = evt.getAdjustable();
+        if (evt.getValueIsAdjusting()) {
+          return;
+        }
+        int orient = source.getOrientation();
+        if (orient == Adjustable.HORIZONTAL) {
+          System.out.println("from horizontal scrollbar");
+        } else {
+          System.out.println("from vertical scrollbar");
+        }
+        int type = evt.getAdjustmentType();
+        switch (type) {
+        case AdjustmentEvent.UNIT_INCREMENT:
+          System.out.println("Scrollbar was increased by one unit");
+          break;
+        case AdjustmentEvent.UNIT_DECREMENT:
+          System.out.println("Scrollbar was decreased by one unit");
+          break;
+        case AdjustmentEvent.BLOCK_INCREMENT:
+          System.out.println("Scrollbar was increased by one block");
+          break;
+        case AdjustmentEvent.BLOCK_DECREMENT:
+          System.out.println("Scrollbar was decreased by one block");
+          break;
+        case AdjustmentEvent.TRACK:
+          System.out.println("The knob on the scrollbar was dragged");
+          break;
+        }
+        int value = evt.getValue();
+      }
+    }*/
 
 }

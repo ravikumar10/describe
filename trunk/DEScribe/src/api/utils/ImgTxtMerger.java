@@ -170,7 +170,8 @@ public class ImgTxtMerger extends JPanel {
             Graphics2D g2 = buf.createGraphics();
             g2.drawRect(0, 0, newWidth, rectHeight);
 
-            BufferedImage res=process(resize(append(buf, src), newWidth, newHeight), r.getIntituleQuestion() + " \n " + r.getLaReponse() + " \n " + r.getInstant().toString());
+            //BufferedImage res=process(resize(append(buf, src), newWidth, newHeight), r.getIntituleQuestion() + " \n " + r.getLaReponse() + " \n " + r.getInstant().toString());
+            BufferedImage res=process(resize(append(buf, src), newWidth, newHeight), r.getLaReponse() + " \n " + r.getInstant().toString());
             File file2 = new File(r.getScreenshot());
             try {
                 //api.utils.ImageBytes.createFileFromBytes(api.utils.ImageBytes.bufferedImageToByteArray(res), file2);
