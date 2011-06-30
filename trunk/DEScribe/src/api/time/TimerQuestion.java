@@ -97,7 +97,7 @@ public class TimerQuestion {
                     setNewTimer();
                     timer.cancel();
                     Date madate = new Date();
-                    System.out.println(madate.toString() + " - Premiere question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                    //System.out.println(madate.toString() + " - Premiere question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                 } catch (SQLException ex) {
                     Logger.getLogger(TimerQuestion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -138,7 +138,7 @@ public class TimerQuestion {
                     }
 
                     if (SessionManager.getSessionManager().getSessionCourante().getPause()){
-                        System.out.println("Nb ms remaining : "+(SessionFrame.getFrame().instantReprise-new Date().getTime()));
+                        //System.out.println("Nb ms remaining : "+(SessionFrame.getFrame().instantReprise-new Date().getTime()));
                         if (SessionFrame.getFrame().isTimeToResumeSession()){
                             SessionFrame.getFrame().leavePause();
                         }
@@ -155,7 +155,7 @@ public class TimerQuestion {
                         setRandomNum(nb);
                         setTemps(nb);
                         Date madate = new Date();
-                        System.out.println(madate.toString() + "Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                        //System.out.println(madate.toString() + "Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                         setNewTimer();
                     } else {
                         Date madate = new Date();
@@ -171,7 +171,7 @@ public class TimerQuestion {
                         int nb = rand.nextInt(max - min + 1) + min;
                         setRandomNum(nb);
                         setTemps(nb);
-                        System.out.println(new Date().toString()+" Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                        //System.out.println(new Date().toString()+" Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                         setNewTimer();
                     }
                 } catch (SQLException ex) {

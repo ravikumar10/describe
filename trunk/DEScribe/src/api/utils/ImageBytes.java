@@ -1,9 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+DEScribe - A Descriptive Experience Sampling cross platform application
+Copyright (C) 2011
+Sébastien Faure <sebastien.faure3@gmail.com>,
+Bertrand Gros   <gros.bertrand@gmail.com>,
+Yannick Prie    <yannick.prie@univ-lyon1.fr>.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 package api.utils;
+
 import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -37,11 +56,10 @@ public class ImageBytes {
         byte[] buf = new byte[1024];
         try {
 
-        for (int readNum; (readNum = fis.read(buf)) != -1;) {
-        bos.write(buf, 0, readNum);
-        System.out.println("read " + readNum + " bytes,");
-                    }
-                } catch (IOException ex) {
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum);
+            }
+        } catch (IOException ex) {
         }
         byte[] bytes =bos.toByteArray();
 
@@ -62,7 +80,6 @@ public class ImageBytes {
         Graphics2D g2 =bufferedImage.createGraphics();
         g2.drawImage(image, null,null);
         ImageIO.write(bufferedImage,"jpeg", imageFile);
-        System.out.println(imageFile.getPath());
     }
 
     public static byte[] bufferedImageToByteArray(BufferedImage img) throws ImageFormatException, IOException{

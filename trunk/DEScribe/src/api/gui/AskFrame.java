@@ -186,11 +186,11 @@ public class AskFrame extends GenericFrame {
             jta1.setEditable(false);
             //jta1.setLineWrap(false);
             jta1.setBackground(Color.lightGray);
-            jta1.setFont(new Font("Verdana", Font.BOLD, 16));
+            jta1.setFont(new Font("Verdana", Font.BOLD, 14));
             jta1.setForeground(Color.BLUE);
             jta1.setHorizontalAlignment(JTextField.CENTER);
             JScrollPane jsp = new JScrollPane(jta1);
-            jsp.setPreferredSize(new Dimension(400, 150));
+            jsp.setPreferredSize(new Dimension(500, 150));
             res.add(jsp);
             res.setBackground(new Color(178,34,34));
             return res;
@@ -202,7 +202,7 @@ public class AskFrame extends GenericFrame {
             jta2.setLineWrap(true);
             jta2.addKeyListener(listeners);
             JScrollPane jsp = new JScrollPane(jta2);
-            jsp.setPreferredSize(new Dimension(400, 150));
+            jsp.setPreferredSize(new Dimension(500, 150));
             res.add(jsp);
             res.setBackground(new Color(178,34,34));
             return res;
@@ -237,7 +237,7 @@ public class AskFrame extends GenericFrame {
                 res.add(jtaOther);
             }
             //res.add(this);
-            res.setPreferredSize(new Dimension(400, 150));
+            res.setPreferredSize(new Dimension(500, 150));
             res.setBackground(new Color(178,34,34));
             jpMiddle=res;
             return res;
@@ -1295,13 +1295,13 @@ public class AskFrame extends GenericFrame {
                 //long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
                 double cons = ((double)usedMemory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
                 //double cons = ((double)memory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
-                System.out.println("Consumption : "+cons);
+                //System.out.println("Consumption : "+cons);
                 if (cons>80){
-                    System.out.println("High memory consumption...Restarting...");
-                    api.utils.appManagement.restartApplication(this);
+                    //System.out.println("High memory consumption...Restarting...");
+                    api.utils.appManagement.restartApplication(this, false);
                 }
-                System.out.println(operatingSystemMXBean.getFreePhysicalMemorySize());
-                System.out.println(operatingSystemMXBean.getTotalPhysicalMemorySize());
+                //System.out.println(operatingSystemMXBean.getFreePhysicalMemorySize());
+                //System.out.println(operatingSystemMXBean.getTotalPhysicalMemorySize());
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
             }

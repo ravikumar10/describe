@@ -182,14 +182,14 @@ public class TaskTrayMenu {
             // \DEBUG-ONLY\
 
             //DEBUG
-            MenuItem restartDES = new MenuItem("Restart");
+            /*MenuItem restartDES = new MenuItem("Restart");
             restartDES.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(api.utils.appManagement.restartApplication(this));
+                    api.utils.appManagement.restartApplication(this, false);
                 }
             });
-            popup.add(restartDES);
+            popup.add(restartDES);*/
             // \DEBUG-ONLY\
 
 

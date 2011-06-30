@@ -911,7 +911,7 @@ public class SessionFrame extends JFrame {
         /*chrono.setText(""+nbH);
         btPauseCurrentSession.doClick();*/
         instantReprise=new Date().getTime()+nbH*3600000;
-        System.out.println("Reprise à : "+new Date(instantReprise));
+        //System.out.println("Reprise à : "+new Date(instantReprise));
         try {
             SessionManager.getSessionManager().getSessionCourante().setPause(true);
             TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionInPauseItemLabel);
@@ -920,6 +920,7 @@ public class SessionFrame extends JFrame {
             TaskTrayMenu.pauseSession1HItem.setEnabled(false);
             TaskTrayMenu.pauseSession3HItem.setEnabled(false);
             TaskTrayMenu.pauseSession24HItem.setEnabled(false);
+            TaskTrayMenu.pauseSessionCustomItem.setEnabled(false);
             TaskTrayMenu.resumeSessionItem.setEnabled(true);            
         } catch (SQLException ex) {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -933,6 +934,7 @@ public class SessionFrame extends JFrame {
             TaskTrayMenu.pauseSession1HItem.setEnabled(true);
             TaskTrayMenu.pauseSession3HItem.setEnabled(true);
             TaskTrayMenu.pauseSession24HItem.setEnabled(true);
+            TaskTrayMenu.pauseSessionCustomItem.setEnabled(true);
             TaskTrayMenu.resumeSessionItem.setEnabled(false);
             resetInstantReprise();
             RefreshFrame();
