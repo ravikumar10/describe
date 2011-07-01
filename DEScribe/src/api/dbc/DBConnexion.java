@@ -391,7 +391,7 @@ public class DBConnexion {
 
             while (rs.next()) {
                     //s=s+rs.getString("question")+" - "+rs.getString("reponse").replaceAll("\n", " ")+" - "+rs.getString("instant")+" - "+rs.getString("session")+"\n";
-                    s=rs.getString("idreponse")+" - "+rs.getString("instant")+" - "+rs.getString("reponse").replaceAll("\n", " ")+"\n";
+                    s=s+rs.getString("idreponse")+" - "+rs.getString("instant")+" - "+rs.getString("reponse").replaceAll("\n", " ")+"\n";
             }
             rs.close();
             return s;
