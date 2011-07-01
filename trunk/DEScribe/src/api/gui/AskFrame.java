@@ -115,13 +115,17 @@ public class AskFrame extends GenericFrame {
 
     private void fixScrollBar() {
                 try {
-            Thread.currentThread().sleep(220);
+            Thread.currentThread().sleep(300);
         } catch (InterruptedException ex) {
             Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        thePanel.jspMid.getVerticalScrollBar().setValue(0);
+        //thePanel.jspMid.getVerticalScrollBar().setValue(0);
+        JViewport jv = thePanel.jspMid.getViewport();
+        jv.setViewPosition(new Point(0,1));
         thePanel.jpMiddle.revalidate();
-                this.setVisible(true);
+        //this.pack();
+        this.setVisible(true);
+        jv.setViewPosition(new Point(0,0));
     }
 
     private static class interiorPanel extends JPanel {
@@ -308,10 +312,10 @@ public class AskFrame extends GenericFrame {
         public void addQuestion(Question q){
             //JPanel panQuestion = new JPanel(new GridLayout(2, 1));
             JPanel panQuestion = new JPanel(new BorderLayout());
-            panQuestion.setBackground(Color.lightGray);
+            panQuestion.setBackground(new Color(197, 211, 209));
             //QuestionTextArea jlQuest= new QuestionTextArea(q.intitule);
             QuestionTextArea jlQuest=new QuestionTextArea("\n"+q.intitule);
-            jlQuest.setBackground(new Color(197, 211, 209));
+            jlQuest.setBackground(Color.lightGray);
             jlQuest.setLineWrap(true);
             jlQuest.setWrapStyleWord(true);
             jlQuest.setEditable(false);
@@ -338,11 +342,13 @@ public class AskFrame extends GenericFrame {
                         while (en.hasMoreElements()) {
                             AbstractButton ab = en.nextElement();
                             ab.addKeyListener(listeners);
+                            ab.setBackground(new Color(197, 211, 209));
                             res.add(ab);
                         }
                     } else if (q instanceof QCMChkBox){
                         JCheckBox jcb = new JCheckBox(qcmC.getText());
                         jcb.addKeyListener(listeners);
+                        jcb.setBackground(new Color(197, 211, 209));
                         res.add(jcb);
                     }
                     if (qcmC.getIsOtherChoice()){
@@ -354,7 +360,7 @@ public class AskFrame extends GenericFrame {
                     jtaOther.addKeyListener(listeners);
                     res.add(jtaOther);
                 }
-                res.setBackground(Color.lightGray);
+                res.setBackground(new Color(197, 211, 209));
                 panQuestion.add(res, BorderLayout.SOUTH);
             }
             panQuestion.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
@@ -470,7 +476,7 @@ public class AskFrame extends GenericFrame {
             }
 
             loadForm();
-            thePanel.jspMid.setPreferredSize(new Dimension(500,400));
+            thePanel.jspMid.setPreferredSize(new Dimension(520,580));
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
 
             thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
@@ -1014,7 +1020,9 @@ public class AskFrame extends GenericFrame {
 
                 hideCD.cancel();
                 this.hideTheFrame();
-
+                //thePanel.jspMid.getVerticalScrollBar().setValue(0);
+                JViewport jv = thePanel.jspMid.getViewport();
+                jv.setViewPosition(new Point(0,0));
                 // Restart application to avoid huge memory consumption because of images
                 //if (Runtime.getRuntime().freeMemory()// and Runtime.totalMemory()
                 //double cons = ((double)Runtime.getRuntime().freeMemory()/(double)Runtime.getRuntime().totalMemory())*100.0;
@@ -1046,7 +1054,9 @@ public class AskFrame extends GenericFrame {
                 }
                 clearFrame();
                 this.hideTheFrame();
-
+                //thePanel.jspMid.getVerticalScrollBar().setValue(0);
+                JViewport jv = thePanel.jspMid.getViewport();
+jv.setViewPosition(new Point(0,0));
         }
     }
 
