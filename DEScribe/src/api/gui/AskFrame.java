@@ -115,7 +115,7 @@ public class AskFrame extends GenericFrame {
 
     private void fixScrollBar() {
                 try {
-            Thread.currentThread().sleep(240);
+            Thread.currentThread().sleep(220);
         } catch (InterruptedException ex) {
             Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -311,7 +311,7 @@ public class AskFrame extends GenericFrame {
             panQuestion.setBackground(Color.lightGray);
             //QuestionTextArea jlQuest= new QuestionTextArea(q.intitule);
             QuestionTextArea jlQuest=new QuestionTextArea("\n"+q.intitule);
-
+            jlQuest.setBackground(new Color(197, 211, 209));
             jlQuest.setLineWrap(true);
             jlQuest.setWrapStyleWord(true);
             jlQuest.setEditable(false);
@@ -319,7 +319,6 @@ public class AskFrame extends GenericFrame {
             panQuestion.add(jlQuest,BorderLayout.NORTH);
             jlQuest.setFont(new Font("Verdana", Font.BOLD, 14));
             jlQuest.setForeground(Color.BLUE);
-            jlQuest.setBackground(Color.lightGray);
             if (q instanceof QReponseLibre){
                 panQuestion.add(new AnswerTextArea(),BorderLayout.CENTER);
             } else if ((q instanceof  QCMChkBox) || (q instanceof QCMRadio)){
@@ -442,14 +441,14 @@ public class AskFrame extends GenericFrame {
                 Toolkit.getDefaultToolkit().beep();
             }
             this.pack();
-            this.setVisible(true);
+           // this.setVisible(true);
+            //this.setVisible(false);
            Thread t=new Thread(new Runnable() {
                 public void run() {
                     fixScrollBar();
                 }
             });
             t.start();
-            this.setVisible(false);
         }
         
     }
@@ -897,7 +896,7 @@ public class AskFrame extends GenericFrame {
 
                 j++;
             }
-            System.out.println("Nombre de questions posables : "+askableQuestions.size());
+            //System.out.println("Nombre de questions posables : "+askableQuestions.size());
             if (askableQuestions.size()>0){
                 int rang = (new Random().nextInt(askableQuestions.size()));
                 //System.out.println("Num question choisie : "+rang);

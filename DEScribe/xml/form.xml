@@ -127,7 +127,7 @@
 	<!-- Copy-and-paste  of image event -->
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez vraiment coller cet élément?
+			Alliez-vous vraiment coller cet élément?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -165,7 +165,7 @@
 	</question>				
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			Alliez-vous coller cet élément dans une autre application?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -224,7 +224,7 @@
 	<!-- Copy-and-paste of text event -->
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez vraiment coller cet élément?
+			Alliez-vous vraiment coller cet élément?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -262,7 +262,7 @@
 	</question>				
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			Alliez-vous coller cet élément dans une autre application?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -321,7 +321,7 @@
 	<!-- Copy-and-paste of file(s) event -->
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez vraiment coller cet élément?
+			Alliez-vous vraiment coller cet élément?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -359,7 +359,7 @@
 	</question>				
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			Alliez-vous coller cet élément dans une autre application?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -418,7 +418,7 @@
 	<!-- Copy-and-paste of other types event -->
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez vraiment coller cet élément?
+			Alliez-vous vraiment coller cet élément?
 			</title>
 			<choices>
 				<choice type="normal">
@@ -456,7 +456,7 @@
 	</question>				
 	<question type="QCMRadio">
 			<title>
-			Saviez-vous si vous alliez coller cet élément dans une autre application?
+			Alliez-vous coller cet élément dans une autre application?
 			</title>
 			<choices>
 				<choice type="normal">
