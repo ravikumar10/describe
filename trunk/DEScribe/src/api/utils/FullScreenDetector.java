@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 public class FullScreenDetector {
             private static Boolean isFullScreen;
   public static Boolean isFullScreenProgramRunning() {
+      isFullScreen=false;
       if (api.utils.getOs.isWindows()){
-        isFullScreen=false;
         try {
             Runtime runtime = Runtime.getRuntime();
             final Process process = runtime.exec("testDEScribe.exe");
@@ -62,10 +62,45 @@ public class FullScreenDetector {
       {
           if (api.utils.getOs.isMac()){
                 try {
-                    Runtime.getRuntime().exec(new String[]{"open", "testDEScribe.app"});
-                } catch (IOException ex) {
-                    Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    final Process process=Runtime.getRuntime().exec(new String[]{"./testFS"});
+                    Thread t=new Thread() {
+
+                    public void run() {
+                        try {
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                            String line = "";
+                            try {
+                                if (line.length()==0){
+                                    System.out.println("Rien sur la sortie standard");
+                                }
+                                while ((line = reader.readLine()) != null) {
+                                    // Traitement du flux de sortie de l'application si besoin est
+                                   System.out.println("ligne lue : "+line);
+                                    if (line.equals("fullscreen")){
+                                        isFullScreen=true;
+                                    } else {
+                                        isFullScreen=false;
+                                    }
+                                }
+                            } finally {
+                                reader.close();
+                                return;
+                            }
+                        } catch (IOException ioe) {
+                            ioe.printStackTrace();
+                        }
+                    }
+                };
+                t.start();
+                    try {
+                        t.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    } catch (IOException ex) {
+                        Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return isFullScreen;
           }
         return false;
       }

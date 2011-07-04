@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 public class testFullscreen {
 
   public static void main(String[] args) {
-            /*try {
+            try {
                 Thread.currentThread().sleep(10000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(testFullscreen.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
             Boolean b = api.utils.FullScreenDetector.isFullScreenProgramRunning();
             if (b) {
                 System.out.println("Plein écran détecté");
