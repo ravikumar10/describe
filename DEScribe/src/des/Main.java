@@ -63,7 +63,9 @@ public class Main {
         };
         try {
             Thread.sleep(1000);
+
             if (args.length>0){
+                // If param = reboot => used for Mac : reboot from .jar to .app
                 if (args[0].equals("reboot")){
                     System.out.println(api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true));
                 }

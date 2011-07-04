@@ -37,9 +37,9 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -60,18 +60,17 @@ import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
-import javax.swing.border.BevelBorder;
 import model.Action;
 import model.ActionScreenshot;
 import model.QCMChkBox;
@@ -126,6 +125,8 @@ public class AskFrame extends GenericFrame {
         //this.pack();
         this.setVisible(true);
         jv.setViewPosition(new Point(0,0));
+        this.setVisible(false);
+        this.setVisible(true);
     }
 
     private static class interiorPanel extends JPanel {
@@ -313,15 +314,23 @@ public class AskFrame extends GenericFrame {
             //JPanel panQuestion = new JPanel(new GridLayout(2, 1));
             JPanel panQuestion = new JPanel(new BorderLayout());
             panQuestion.setBackground(new Color(197, 211, 209));
-            //QuestionTextArea jlQuest= new QuestionTextArea(q.intitule);
             QuestionTextArea jlQuest=new QuestionTextArea("\n"+q.intitule);
             jlQuest.setBackground(Color.lightGray);
             jlQuest.setLineWrap(true);
             jlQuest.setWrapStyleWord(true);
             jlQuest.setEditable(false);
-            jlQuest.setPreferredSize(new Dimension(476, 80));
+            /*if (jlQuest.getText().length()>140){
+                jlQuest.setPreferredSize(new Dimension(476, 80));
+            } else {
+                jlQuest.setPreferredSize(new Dimension(476, 50));
+            }*/
+
+
+
+            // While size texte de l'area < size question alors on ajoute 35 px
+            jlQuest.setSize(476,50);
             panQuestion.add(jlQuest,BorderLayout.NORTH);
-            jlQuest.setFont(new Font("Verdana", Font.BOLD, 14));
+            jlQuest.setFont(new Font("Verdana", Font.BOLD, 11));
             jlQuest.setForeground(Color.BLUE);
             if (q instanceof QReponseLibre){
                 panQuestion.add(new AnswerTextArea(),BorderLayout.CENTER);
@@ -332,24 +341,37 @@ public class AskFrame extends GenericFrame {
                 if (q instanceof QCMRadio)
                     choices=((QCMRadio)q).getChoices();
                 Boolean other=false;
-                JPanel res = new JPanel(new GridLayout(0,1));
+                //JPanel res = new JPanel(new GridLayout(0,1));
+                FlowLayout fL = new FlowLayout();
+                fL.setAlignment(FlowLayout.LEFT);
+                fL.setAlignOnBaseline(true);
+                JPanel res = new JPanel(fL);
+                //res.setPreferredSize(new Dimension(476,50));
+
                 bg2 = new ButtonGroup();
+                int widthOfChoices=0;
                 for (Iterator<QCMChoice> it = choices.iterator(); it.hasNext();) {
                     QCMChoice qcmC = it.next();
                     if (q instanceof QCMRadio){
-                        bg2.add(new JRadioButton(qcmC.getText()));
+                        JRadioButton jRB=new JRadioButton(qcmC.getText());
+                        System.out.println("jRB:"+jRB.getText().length()*9);
+
+                        widthOfChoices+=jRB.getText().length()*9.1;
+                        bg2.add(jRB);
                         Enumeration<AbstractButton> en = thePanel.bg2.getElements();
                         while (en.hasMoreElements()) {
                             AbstractButton ab = en.nextElement();
                             ab.addKeyListener(listeners);
                             ab.setBackground(new Color(197, 211, 209));
-                            res.add(ab);
+                            res.add(ab);                           
                         }
                     } else if (q instanceof QCMChkBox){
                         JCheckBox jcb = new JCheckBox(qcmC.getText());
                         jcb.addKeyListener(listeners);
                         jcb.setBackground(new Color(197, 211, 209));
                         res.add(jcb);
+                        System.out.println("jRB:"+jcb.getText().length()*9);
+                        widthOfChoices+=jcb.getText().length()*9;
                     }
                     if (qcmC.getIsOtherChoice()){
                         other=true;
@@ -357,11 +379,24 @@ public class AskFrame extends GenericFrame {
                 }
                 if (other){
                     jtaOther = new AnswerTextField();
+                    jtaOther.setPreferredSize(new Dimension(160,25));
                     jtaOther.addKeyListener(listeners);
                     res.add(jtaOther);
+                    widthOfChoices+=160;
                 }
+
+                System.out.println(widthOfChoices);
+                System.out.println(widthOfChoices+" div 476 ="+(int)(widthOfChoices/476));
+
+                res.setPreferredSize(new Dimension(476,35));
+                if (widthOfChoices>0){
+                    if ((int)((widthOfChoices/476)*35)>0){
+                        res.setPreferredSize(new Dimension(476,((int)(widthOfChoices/476)+1)*35));
+                    }
+                }
+                
                 res.setBackground(new Color(197, 211, 209));
-                panQuestion.add(res, BorderLayout.SOUTH);
+                panQuestion.add(res, BorderLayout.CENTER);
             }
             panQuestion.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
             jpMiddle.add(panQuestion);
@@ -462,12 +497,11 @@ public class AskFrame extends GenericFrame {
     private void refresh() {
         try {
             if (currentRegle!=null){
-                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromFormWithRule(currentRegle).size(), 1));
+                thePanel.jpMiddle=new JPanel(new GridLayout2(getAskableQuestionsFromFormWithRule(currentRegle).size(), 1));
             } else {
-                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
+                thePanel.jpMiddle=new JPanel(new GridLayout2(getAskableQuestionsFromForm().size(), 1));
             }
             thePanel.jspMid=new JScrollPane();
-
 
 
 
@@ -525,6 +559,11 @@ public class AskFrame extends GenericFrame {
     }
 
     private void clearFrame() {
+            thePanel.jpMiddle.removeAll();
+            thePanel.jspMid.removeAll();
+            thePanel.jspMid.revalidate();
+            thePanel.jpMiddle.revalidate();
+            setVisible(true);
             hideCD.cancel();
     }
 
@@ -1018,8 +1057,12 @@ public class AskFrame extends GenericFrame {
                     imTxtM.fusion(rep);
                 }
 
-                hideCD.cancel();
-                this.hideTheFrame();
+
+                                clearFrame();
+                                pack();
+                                                this.validate();
+                this.repaint(0);
+                                this.hideTheFrame();
                 //thePanel.jspMid.getVerticalScrollBar().setValue(0);
                 JViewport jv = thePanel.jspMid.getViewport();
                 jv.setViewPosition(new Point(0,0));
@@ -1052,7 +1095,12 @@ public class AskFrame extends GenericFrame {
                         }
                     }
                 }
+
+
                 clearFrame();
+                pack();
+                this.validate();
+                this.repaint(0);
                 this.hideTheFrame();
                 //thePanel.jspMid.getVerticalScrollBar().setValue(0);
                 JViewport jv = thePanel.jspMid.getViewport();
