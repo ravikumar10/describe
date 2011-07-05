@@ -125,8 +125,6 @@ public class AskFrame extends GenericFrame {
         //this.pack();
         this.setVisible(true);
         jv.setViewPosition(new Point(0,0));
-        this.setVisible(false);
-        this.setVisible(true);
     }
 
     private static class interiorPanel extends JPanel {
@@ -497,6 +495,30 @@ public class AskFrame extends GenericFrame {
     private void refresh() {
         try {
             if (currentRegle!=null){
+                //Flowlayout problem refresh on Mac
+                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromFormWithRule(currentRegle).size(), 1));
+            } else {
+                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
+            }
+            thePanel.jspMid=new JScrollPane();
+
+
+
+            if (thePanel.jtaOther!=null){
+                thePanel.remove(thePanel.jtaOther);
+            }
+
+            //loadForm();
+            thePanel.jspMid.setPreferredSize(new Dimension(520,580));
+            thePanel.jspMid.setViewportView(thePanel.jpMiddle);
+
+            //thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
+     
+            pack();
+
+
+            if (currentRegle!=null){
+                //Flowlayout problem refresh on Mac
                 thePanel.jpMiddle=new JPanel(new GridLayout2(getAskableQuestionsFromFormWithRule(currentRegle).size(), 1));
             } else {
                 thePanel.jpMiddle=new JPanel(new GridLayout2(getAskableQuestionsFromForm().size(), 1));
@@ -513,9 +535,12 @@ public class AskFrame extends GenericFrame {
             thePanel.jspMid.setPreferredSize(new Dimension(520,580));
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
 
+            
             thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
      
             pack();
+
+
             labelButtonValider = Lang.getLang().getValueFromRef("QuestionFrame.labelButtonValider");
             interiorPanel.b1.setText(labelButtonValider);
 
