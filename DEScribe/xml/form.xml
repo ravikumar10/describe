@@ -95,7 +95,7 @@
 					Non
 				</choice>
 				<choice type="other">
-					Oui. Les décrire ci-dessous en quelques mots:
+					Oui. Veuillez les décrire ci-dessous en quelques mots:
 				</choice>				
 			</choices>
 			<rules>
@@ -210,7 +210,7 @@
 					Non
 				</choice>
 				<choice type="other">
-					Oui. Les décrire ci-dessous en quelques mots:
+					Oui. Veuillez les décrire ci-dessous en quelques mots:
 				</choice>				
 			</choices>
 			<rules>
@@ -307,7 +307,7 @@
 					Non
 				</choice>
 				<choice type="other">
-					Oui. Les décrire ci-dessous en quelques mots:
+					Oui. Veuillez les décrire ci-dessous en quelques mots:
 				</choice>				
 			</choices>
 			<rules>
@@ -404,7 +404,7 @@
 					Non
 				</choice>
 				<choice type="other">
-					Oui. Les décrire ci-dessous en quelques mots:
+					Oui. Veuillez les décrire ci-dessous en quelques mots:
 				</choice>				
 			</choices>
 			<rules>
@@ -501,7 +501,7 @@
 					Non
 				</choice>
 				<choice type="other">
-					Oui. Les décrire ci-dessous en quelques mots:
+					Oui. Veuillez les décrire ci-dessous en quelques mots:
 				</choice>				
 			</choices>
 			<rules>
