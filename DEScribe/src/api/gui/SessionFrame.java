@@ -25,6 +25,7 @@ package api.gui;
 
 import api.dbc.DBConnexion;
 import api.i18n.Lang;
+import java.awt.BorderLayout;
 import java.awt.List;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -52,6 +53,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 import model.Session;
 import model.SessionManager;
 
@@ -329,18 +331,46 @@ public class SessionFrame extends JFrame {
         c1.gridx = 1;
         c1.gridy = 1;
         jpLeft.add(jpLeftUpOneOne, c1);
-        JPanel jpLeftUpOneTwo = new JPanel(new FlowLayout());
+        JPanel jpLeftUpOneTwo = new JPanel(new GridLayout(2,1));
         jpLeftUpOneTwo.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
         jpLeftUpOneTwo.setBackground(new Color(178,34,34));
         c1.fill = GridBagConstraints.HORIZONTAL;
-        c1.ipady = 100;
+        c1.ipady = 32;
         c1.weightx = 1;
         c1.gridwidth=3;
         c1.gridx = 1;
         c1.gridy = 2;
+
+        JPanel jpLeftUpOneTwoLbCommands = new JPanel(new FlowLayout());
+
+        lbCommandsCurrentSession = new Label(labelCommandsCurrentSession);
+        lbCommandsCurrentSession.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbCommandsCurrentSession.setForeground(Color.white);
+        lbCommandsCurrentSession.setBackground(new Color(178,34,34));
+        jpLeftUpOneTwoLbCommands.add(lbCommandsCurrentSession);
+        JPanel jpLeftUpOneTwoCommands = new JPanel(new FlowLayout());
+        jpLeftUpOneTwoLbCommands.setBackground(new Color(178,34,34));
+        jpLeftUpOneTwoCommands.setBackground(new Color(178,34,34));
+
+        btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
+        btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
+        btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
+        jpLeftUpOneTwoCommands.add(btNewSessionCurrentSession);
+
+        btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
+        btDeleteOldSessions.addActionListener(Listeners.getListeners());
+        btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
+        jpLeftUpOneTwoCommands.add(btDeleteOldSessions);
+
+        jpLeftUpOneTwo.add(jpLeftUpOneTwoLbCommands);
+        jpLeftUpOneTwo.add(jpLeftUpOneTwoCommands);
+
         jpLeft.add(jpLeftUpOneTwo, c1);
         c1.fill = GridBagConstraints.HORIZONTAL;
-        c1.ipady = 383;      //make this component tall
+        if (api.utils.getOs.isWindows())
+            c1.ipady = 376;      //make this component tall
+        else
+            c1.ipady = 383;
         c1.weightx = 1;
         c1.gridwidth = 3;
         c1.gridx = 1;
@@ -354,11 +384,11 @@ public class SessionFrame extends JFrame {
         JPanel jpLeftMidFlowTwo = new JPanel(new FlowLayout());
         JPanel jpLeftMidFlowThree = new JPanel(new FlowLayout());
 
-        lbCommandsCurrentSession = new Label(labelCommandsCurrentSession);
-        lbCommandsCurrentSession.setFont(new Font("Verdana", Font.BOLD, 16));
-        lbCommandsCurrentSession.setForeground(Color.white);
-        lbCommandsCurrentSession.setBackground(new Color(178,34,34));
-        jpLeftMidFlowOne.add(lbCommandsCurrentSession);
+        lbCommandsClosedSession = new Label(labelCommandsClosedSession);
+        lbCommandsClosedSession.setFont(new Font("Verdana", Font.BOLD, 16));
+        lbCommandsClosedSession.setForeground(Color.white);
+        lbCommandsClosedSession.setBackground(new Color(178,34,34));
+        jpLeftMidFlowOne.add(lbCommandsClosedSession);
         jpLeftMidFlowOne.setBackground(new Color(178,34,34));
 
         /*btPauseCurrentSession = new JButton(labelBtPauseCurrentSession);
@@ -383,10 +413,10 @@ public class SessionFrame extends JFrame {
         //jpLeftMidFlowThree.add(btExportCurrentSession);
         btExportCurrentSession.setToolTipText(toolTipBtExportCurrentSession);
 
-        btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
-        btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
-        jpLeftMidFlowThree.add(btNewSessionCurrentSession);
-        btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
+        //btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
+        //btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
+        //jpLeftMidFlowThree.add(btNewSessionCurrentSession);
+        //btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
 
         btCloseSessionCurrentSession = new JButton(labelBtCloseSessionCurrentSession);
         btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
@@ -522,13 +552,14 @@ public class SessionFrame extends JFrame {
         jpRightMidFlowTwo.setBackground(new Color(178,34,34));
         btExportOldSessions = new JButton(labelBtExportOldSessions);
         btExportOldSessions.addActionListener(Listeners.getListeners());
+        //jpRightMidFlowTwo.add(btExportOldSessions);
         jpRightMidFlowTwo.add(btExportOldSessions);
         btExportOldSessions.setToolTipText(toolTipBtExportOldSessions);
 
-        btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
-        btDeleteOldSessions.addActionListener(Listeners.getListeners());
-        jpRightMidFlowTwo.add(btDeleteOldSessions);
-        btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
+        //btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
+        //btDeleteOldSessions.addActionListener(Listeners.getListeners());
+        //jpRightMidFlowTwo.add(btDeleteOldSessions);
+        //btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
 
         jpRightMidFlowTwo.setBackground(new Color(178,34,34));
 
