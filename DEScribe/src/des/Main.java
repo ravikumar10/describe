@@ -28,6 +28,7 @@ import api.dbc.DBConnexion;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.utils.CopyAndPasteHandler;
+import api.utils.FullScreenDetector;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,11 +64,11 @@ public class Main {
         };
         try {
             Thread.sleep(1000);
-
             if (args.length>0){
                 // If param = reboot => used for Mac : reboot from .jar to .app
                 if (args[0].equals("reboot")){
-                    System.out.println(api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true));
+                    //System.out.println(api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true));
+                    api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true);
                 }
             }
         } catch (InterruptedException ex) {
