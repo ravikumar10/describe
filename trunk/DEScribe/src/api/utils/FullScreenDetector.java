@@ -14,10 +14,11 @@ public class FullScreenDetector {
             private static Boolean isFullScreen;
   public static Boolean isFullScreenProgramRunning() {
       isFullScreen=false;
+      //System.out.println("Testing fullscreen mode...");
       if (api.utils.getOs.isWindows()){
         try {
             Runtime runtime = Runtime.getRuntime();
-            final Process process = runtime.exec("testDEScribe.exe");
+            final Process process = runtime.exec(".\\tools\\testFS.exe");
             // Consommation de la sortie standard de l'application externe dans un Thread separe
 
 
@@ -30,7 +31,7 @@ public class FullScreenDetector {
                         try {
                             while ((line = reader.readLine()) != null) {
                                 // Traitement du flux de sortie de l'application si besoin est
-                               System.out.println(line);
+                               //System.out.println(line);
                                 if (line.equals("fullscreen")){
                                     isFullScreen=true;
                                 } else {
@@ -62,7 +63,7 @@ public class FullScreenDetector {
       {
           if (api.utils.getOs.isMac()){
                 try {
-                    final Process process=Runtime.getRuntime().exec(new String[]{"./testFS"});
+                    final Process process=Runtime.getRuntime().exec(new String[]{"tools/testFS"});
                     Thread t=new Thread() {
 
                     public void run() {
@@ -70,12 +71,11 @@ public class FullScreenDetector {
                             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                             String line = "";
                             try {
-                                if (line.length()==0){
-                                    System.out.println("Rien sur la sortie standard");
-                                }
+
                                 while ((line = reader.readLine()) != null) {
                                     // Traitement du flux de sortie de l'application si besoin est
-                                   System.out.println("ligne lue : "+line);
+                                   //System.out.println("ligne lue : "+line);
+                                   //javax.swing.JOptionPane.showMessageDialog(null, line);
                                     if (line.equals("fullscreen")){
                                         isFullScreen=true;
                                     } else {

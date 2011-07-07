@@ -352,7 +352,7 @@ public class AskFrame extends GenericFrame {
                     QCMChoice qcmC = it.next();
                     if (q instanceof QCMRadio){
                         JRadioButton jRB=new JRadioButton(qcmC.getText());
-                        System.out.println("jRB:"+jRB.getText().length()*9);
+                        //System.out.println("jRB:"+jRB.getText().length()*9);
 
                         widthOfChoices+=jRB.getText().length()*9.1;
                         bg2.add(jRB);
@@ -368,7 +368,7 @@ public class AskFrame extends GenericFrame {
                         jcb.addKeyListener(listeners);
                         jcb.setBackground(new Color(197, 211, 209));
                         res.add(jcb);
-                        System.out.println("jRB:"+jcb.getText().length()*9);
+                        //System.out.println("jRB:"+jcb.getText().length()*9);
                         widthOfChoices+=jcb.getText().length()*9;
                     }
                     if (qcmC.getIsOtherChoice()){
@@ -383,8 +383,8 @@ public class AskFrame extends GenericFrame {
                     widthOfChoices+=160;
                 }
 
-                System.out.println(widthOfChoices);
-                System.out.println(widthOfChoices+" div 476 ="+(int)(widthOfChoices/476));
+                //System.out.println(widthOfChoices);
+                //System.out.println(widthOfChoices+" div 476 ="+(int)(widthOfChoices/476));
 
                 res.setPreferredSize(new Dimension(476,35));
                 if (widthOfChoices>0){
