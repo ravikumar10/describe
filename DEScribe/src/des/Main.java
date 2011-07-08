@@ -28,7 +28,6 @@ import api.dbc.DBConnexion;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.utils.CopyAndPasteHandler;
-import api.utils.FullScreenDetector;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +70,9 @@ public class Main {
                     api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true);
                 }
             }
+                /*Thread.sleep(20000);
+                //System.out.println("Fullscreen :"+api.utils.FullScreenDetector.isFullScreenProgramRunning().toString());
+                javax.swing.JOptionPane.showMessageDialog(null, "Fullscreen :"+api.utils.FullScreenDetector.isFullScreenProgramRunning().toString());*/
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,7 +88,12 @@ public class Main {
             OptionFrame.getOptionFrame();
             //TimerQuestion timr = new TimerQuestion();
             TimerQuestion timr=TimerQuestion.getTimerQuestion();
-
+            /*try {
+                Thread.sleep(10000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            javax.swing.JOptionPane.showMessageDialog(null, timr.canIAskQuestionNow().toString());*/
             /*if (Utils.isPriorityProgramRunningOSWin("POWERP")){
             System.out.println("RUNNING");
             } else {
