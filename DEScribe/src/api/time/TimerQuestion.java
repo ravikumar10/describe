@@ -92,6 +92,7 @@ public class TimerQuestion {
                 try {
                     Random rand = new Random();
                     max = (int) 3600000 / SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour();
+                    //System.out.println("Max ="+max);
                     int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
                     setRandomNum(nb);
                     setTemps(nb);
@@ -155,7 +156,7 @@ public class TimerQuestion {
                         int nb = (rand.nextInt(max - min + 1) + min) * coeffCurrent;
                         setRandomNum(nb);
                         setTemps(nb);
-                        Date madate = new Date();
+                        //Date madate = new Date();
                         //System.out.println(madate.toString() + "Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                         setNewTimer();
                     } else {
@@ -172,7 +173,7 @@ public class TimerQuestion {
                         int nb = rand.nextInt(max - min + 1) + min;
                         setRandomNum(nb);
                         setTemps(nb);
-                        //System.out.println(new Date().toString()+" Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
+                        //System.out.println("PPP: fullscreen="+FullScreenDetector.isFullScreenProgramRunning().toString()+" - "+new Date().toString()+" Prochaine question dans : " + randomNum / (1000 * 60) + " minutes, soit " + randomNum / 1000 + " secondes.");
                         setNewTimer();
                     }
                 } catch (SQLException ex) {
