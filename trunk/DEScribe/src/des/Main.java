@@ -42,9 +42,9 @@ import model.SessionManager;
  */
 public class Main {
 
-    public static String version = "1.0.9";
-    public static String datemaj = "2011-07-05";
-    public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nBertrand Gros<gros.bertrand@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
+    public static String version = "1.1.0";
+    public static String datemaj = "2011-07-08";
+    public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
     public static String cpRight = "(C)2010-2011";
@@ -93,7 +93,8 @@ public class Main {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
-            javax.swing.JOptionPane.showMessageDialog(null, timr.canIAskQuestionNow().toString());*/
+            //javax.swing.JOptionPane.showMessageDialog(null, timr.canIAskQuestionNow().toString());*/
+            //javax.swing.JOptionPane.showMessageDialog(null, api.utils.FullScreenDetector.isFullScreenProgramRunning().toString());
             /*if (Utils.isPriorityProgramRunningOSWin("POWERP")){
             System.out.println("RUNNING");
             } else {
