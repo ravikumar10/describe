@@ -29,5 +29,4 @@ At application's launch, or at language change, a hashmap associating references
 
 = Contacts =
 Sebastien Faure <sebastien.faure3@gmail.com><br />
-Bertrand Gros 	<gros.bertrand@gmail.com><br />
 Yannick Prié 	<yannick.prie@univ-lyon1.fr><br />
