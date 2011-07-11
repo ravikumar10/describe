@@ -113,7 +113,7 @@ public class AskFrame extends GenericFrame {
     private Regle currentRegle=null;
 
     private void fixScrollBar() {
-                try {
+        try {
             Thread.currentThread().sleep(300);
         } catch (InterruptedException ex) {
             Logger.getLogger(AskFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,6 +125,10 @@ public class AskFrame extends GenericFrame {
         //this.pack();
         this.setVisible(true);
         jv.setViewPosition(new Point(0,0));
+        //javax.swing.JOptionPane.showMessageDialog(null, ((JPanel)thePanel.jpMiddle.getComponent(0)).getComponent(1).getClass().getCanonicalName());
+        if (thePanel.jpMiddle.getComponents().length>0){
+            ((JPanel)thePanel.jpMiddle.getComponent(0)).getComponent(1).requestFocus();
+        }
     }
 
     private static class interiorPanel extends JPanel {
@@ -311,9 +315,9 @@ public class AskFrame extends GenericFrame {
         public void addQuestion(Question q){
             //JPanel panQuestion = new JPanel(new GridLayout(2, 1));
             JPanel panQuestion = new JPanel(new BorderLayout());
-            panQuestion.setBackground(new Color(197, 211, 209));
+            panQuestion.setBackground(Color.lightGray);
             QuestionTextArea jlQuest=new QuestionTextArea("\n"+q.intitule);
-            jlQuest.setBackground(Color.lightGray);
+            jlQuest.setBackground(new Color(197, 211, 209));
             jlQuest.setLineWrap(true);
             jlQuest.setWrapStyleWord(true);
             jlQuest.setEditable(false);
@@ -323,15 +327,18 @@ public class AskFrame extends GenericFrame {
                 jlQuest.setPreferredSize(new Dimension(476, 50));
             }*/
 
-
-
             // While size texte de l'area < size question alors on ajoute 35 px
             jlQuest.setSize(476,50);
             panQuestion.add(jlQuest,BorderLayout.NORTH);
-            jlQuest.setFont(new Font("Verdana", Font.BOLD, 11));
+            jlQuest.setFont(new Font("Verdana", Font.BOLD, 13));
             jlQuest.setForeground(Color.BLUE);
             if (q instanceof QReponseLibre){
-                panQuestion.add(new AnswerTextArea(),BorderLayout.CENTER);
+                AnswerTextArea ata =new AnswerTextArea();
+                ata.addKeyListener(listeners);
+                ata.setLineWrap(true);
+                ata.setWrapStyleWord(true);
+                ata.setSize(476, 35);
+                panQuestion.add(ata,BorderLayout.CENTER);
             } else if ((q instanceof  QCMChkBox) || (q instanceof QCMRadio)){
                 ArrayList<QCMChoice> choices = new ArrayList<QCMChoice>();
                 if (q instanceof QCMChkBox)
@@ -360,13 +367,13 @@ public class AskFrame extends GenericFrame {
                         while (en.hasMoreElements()) {
                             AbstractButton ab = en.nextElement();
                             ab.addKeyListener(listeners);
-                            ab.setBackground(new Color(197, 211, 209));
+                            ab.setBackground(Color.lightGray);
                             res.add(ab);                           
                         }
                     } else if (q instanceof QCMChkBox){
                         JCheckBox jcb = new JCheckBox(qcmC.getText());
                         jcb.addKeyListener(listeners);
-                        jcb.setBackground(new Color(197, 211, 209));
+                        jcb.setBackground(Color.lightGray);
                         res.add(jcb);
                         //System.out.println("jRB:"+jcb.getText().length()*9);
                         widthOfChoices+=jcb.getText().length()*9;
@@ -393,7 +400,7 @@ public class AskFrame extends GenericFrame {
                     }
                 }
                 
-                res.setBackground(new Color(197, 211, 209));
+                res.setBackground(Color.lightGray);
                 panQuestion.add(res, BorderLayout.CENTER);
             }
             panQuestion.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
@@ -1006,7 +1013,7 @@ public class AskFrame extends GenericFrame {
                 DBConnexion conn = DBConnexion.getConnexion();
                 SessionManager sm = SessionManager.getSessionManager();
                 Date maDate = new Date();
-            Reponse rep=null;
+                Reponse rep=null;
                 String questions="";
                 String answers="";
                 int idQuestion=1;
@@ -1024,42 +1031,54 @@ public class AskFrame extends GenericFrame {
                             }
                             idQuestion++;
                         }  else {
-                            // Subpanel "res" of panel PanQuestion contents
-                            Component tsub2[] = ((JPanel) tsub[j]).getComponents();
-                            for (int k=0; k<tsub2.length;k++){
-                                if (tsub2[k] instanceof AnswerTextField){
-                                    AnswerTextField atf=(AnswerTextField) tsub2[k];
-                                    if (!atf.equals("")){
-                                        if (k==tsub2.length-1){
-                                            answers+=atf.getText()+" \n ";
-                                        } else {
-                                            answers+=atf.getText()+" --- ";
+                            if (tsub[j] instanceof JPanel){
+                                // Subpanel "res" of panel PanQuestion contents
+                                Component tsub2[] = ((JPanel) tsub[j]).getComponents();
+                                for (int k=0; k<tsub2.length;k++){
+                                    if (tsub2[k] instanceof AnswerTextField){
+                                        AnswerTextField atf=(AnswerTextField) tsub2[k];
+                                        if (!atf.equals("")){
+                                            if (k==tsub2.length-1){
+                                                answers+=atf.getText()+" \n ";
+                                            } else {
+                                                answers+=atf.getText()+" --- ";
+                                            }
+                                        }
+                                    } else if (tsub2[k] instanceof AbstractButton){
+                                        AbstractButton ab=(AbstractButton) tsub2[k];
+                                        if (ab.isSelected()){
+                                            if (k==tsub2.length-1){
+                                                answers+=ab.getText()+" \n ";
+                                            } else {
+                                                answers+=ab.getText()+" --- ";
+                                            }
+                                        }
+                                    } else if (tsub2[k] instanceof AnswerTextArea){
+                                        AnswerTextArea ata=(AnswerTextArea) tsub2[k];
+                                        if (!ata.equals("")){
+                                            if (k==tsub2.length-1){
+                                                answers+=ata.getText()+" \n ";
+                                            } else {
+                                                answers+=ata.getText()+" --- ";
+                                            }
                                         }
                                     }
-                                } else if (tsub2[k] instanceof AbstractButton){
-                                    AbstractButton ab=(AbstractButton) tsub2[k];
-                                    if (ab.isSelected()){
-                                        if (k==tsub2.length-1){
-                                            answers+=ab.getText()+" \n ";
-                                        } else {
-                                            answers+=ab.getText()+" --- ";
+                                }
+                            } else {
+                                if (tsub[j] instanceof  AnswerTextArea){
+                                        AnswerTextArea ata=(AnswerTextArea) tsub[j];
+                                        if (!ata.equals("")){
+                                            if (j==tsub.length-1){
+                                                answers+=ata.getText()+" \n ";
+                                            } else {
+                                                answers+=ata.getText()+" --- ";
+                                            }
                                         }
-                                    }
-                                } else if (tsub2[k] instanceof AnswerTextArea){
-                                    AnswerTextArea ata=(AnswerTextArea) tsub2[k];
-                                    if (!ata.equals("")){
-                                        if (k==tsub2.length-1){
-                                            answers+=ata.getText()+" /n ";
-                                        } else {
-                                            answers+=ata.getText()+" --- ";
-                                        }
-                                    }
                                 }
                             }
                         }
                     }
                 }
-
                 //System.out.println(questions+" : \n "+answers);
                 rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1, questions, answers, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
                 rep.setReglesQuestion(currentQuestion.getRegles());
