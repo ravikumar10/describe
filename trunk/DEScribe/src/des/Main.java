@@ -72,7 +72,7 @@ public class Main {
             }
                 /*Thread.sleep(20000);
                 //System.out.println("Fullscreen :"+api.utils.FullScreenDetector.isFullScreenProgramRunning().toString());
-                javax.swing.JOptionPane.showMessageDialog(null, "Fullscreen :"+api.utils.FullScreenDetector.isFullScreenProgramRunning().toString());*/
+                //javax.swing.JOptionPane.showMessageDialog(null, "Fullscreen :"+api.utils.FullScreenDetector.isFullScreenProgramRunning().toString());*/
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
