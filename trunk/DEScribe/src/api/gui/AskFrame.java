@@ -337,7 +337,7 @@ public class AskFrame extends GenericFrame {
                 ata.addKeyListener(listeners);
                 ata.setLineWrap(true);
                 ata.setWrapStyleWord(true);
-                ata.setSize(476, 35);
+                ata.setSize(476, 100);
                 panQuestion.add(ata,BorderLayout.CENTER);
             } else if ((q instanceof  QCMChkBox) || (q instanceof QCMRadio)){
                 ArrayList<QCMChoice> choices = new ArrayList<QCMChoice>();
