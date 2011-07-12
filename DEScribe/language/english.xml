@@ -253,7 +253,7 @@
 	</string>
 	<string>
 		<ref>SessionFrame.labelSessionsList</ref>
-		<value>Sessions list</value>
+		<value>Sessions</value>
 	</string>		
 	<string>
 		<ref>SessionFrame.labelSelectedSession</ref>
