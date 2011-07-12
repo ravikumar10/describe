@@ -325,7 +325,7 @@ public class SessionFrame extends JFrame {
         JPanel jpLeftUpOneOne = new JPanel(new FlowLayout());
         jpLeftUpOneOne.setBackground(Color.white);
         c1.fill = GridBagConstraints.HORIZONTAL;
-        c1.ipady = 48;
+        c1.ipady = 38;
         c1.weightx = 1;
         c1.gridwidth=3;
         c1.gridx = 1;
@@ -335,7 +335,7 @@ public class SessionFrame extends JFrame {
         jpLeftUpOneTwo.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
         jpLeftUpOneTwo.setBackground(new Color(178,34,34));
         c1.fill = GridBagConstraints.HORIZONTAL;
-        c1.ipady = 32;
+        c1.ipady = 22;
         c1.weightx = 1;
         c1.gridwidth=3;
         c1.gridx = 1;
@@ -368,7 +368,7 @@ public class SessionFrame extends JFrame {
         jpLeft.add(jpLeftUpOneTwo, c1);
         c1.fill = GridBagConstraints.HORIZONTAL;
         if (api.utils.getOs.isWindows())
-            c1.ipady = 376;      //make this component tall
+            c1.ipady = 343;      //make this component tall
         else
             c1.ipady = 383;
         c1.weightx = 1;
@@ -420,12 +420,12 @@ public class SessionFrame extends JFrame {
 
         btCloseSessionCurrentSession = new JButton(labelBtCloseSessionCurrentSession);
         btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
-        jpLeftMidFlowThree.add(btCloseSessionCurrentSession);
+        //jpLeftMidFlowThree.add(btCloseSessionCurrentSession);
         btCloseSessionCurrentSession.setToolTipText(toolTipBtCloseSessionCurrentSession);
 
         btVisualize = new JButton(labelBtVisualize);
         btVisualize.addActionListener(Listeners.getListeners());
-        jpLeftMidFlowThree.add(btVisualize);
+        //jpLeftMidFlowThree.add(btVisualize);
         btVisualize.setToolTipText(toolTipBtVisualize);
 
         jpLeftMid.setBackground(new Color(178,34,34));
@@ -481,8 +481,8 @@ public class SessionFrame extends JFrame {
         jpRightUp.add(jpRightUpFlowOne);
         JPanel jpRightUpFlowTwo = new JPanel(new FlowLayout());
         jpRightUpFlowTwo.setBackground(new Color(178,34,34));
-        jpRightUpFlowTwo.add(jpLeftUpFlowTwo);
-        jpRightUp.add(jpRightUpFlowTwo);
+        //jpRightUpFlowTwo.add(jpLeftUpFlowTwo);//-> add info
+        //jpRightUp.add(jpRightUpFlowTwo);
 
         jpRightUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
 
@@ -531,7 +531,7 @@ public class SessionFrame extends JFrame {
             }
         });
 */
-        jpRight.add(jpRightUp);
+        //jpRight.add(jpRightUp);
 
         JPanel jpRightMid = new JPanel(new GridLayout(5,1));
         jpRightMid.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
@@ -543,9 +543,12 @@ public class SessionFrame extends JFrame {
         lbCommandsClosedSession.setForeground(Color.white);
         lbCommandsClosedSession.setBackground(new Color(178,34,34));
         jpRightMidFlowOne.add(lbCommandsClosedSession);
-        jpRightMid.add(jpRightMidFlowOne);
+        //jpRightMid.add(jpRightMidFlowOne);
 
         //jpRightMid.add(c);
+        JPanel jplbCommandsAndCmds = new JPanel(new GridLayout(2,1));
+        jplbCommandsAndCmds.setBackground(new Color(178,34,34));
+        jplbCommandsAndCmds.add(jpRightMidFlowOne); //label commands
 
         JPanel jpRightMidFlowTwo = new JPanel();
         jpRightMidFlowTwo.setLayout(new FlowLayout());
@@ -556,19 +559,29 @@ public class SessionFrame extends JFrame {
         jpRightMidFlowTwo.add(btExportOldSessions);
         btExportOldSessions.setToolTipText(toolTipBtExportOldSessions);
 
+        jpRightMidFlowTwo.add(btCloseSessionCurrentSession);
+        jpRightMidFlowTwo.add(btVisualize);
         //btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
         //btDeleteOldSessions.addActionListener(Listeners.getListeners());
         //jpRightMidFlowTwo.add(btDeleteOldSessions);
         //btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
 
         jpRightMidFlowTwo.setBackground(new Color(178,34,34));
-
+        jplbCommandsAndCmds.add(jpRightMidFlowTwo);
         jpRightMid.setBackground(new Color(178,34,34));
 
         jpRightMid.add(jpLeftMidFlowTwo);
-        jpRightMid.add(jpLeftMidFlowThree);
-        jpRightMid.add(jpRightMidFlowTwo);
+        //jpRightMid.add(jpLeftMidFlowThree);
+        //jpRightMid.add(jpRightMidFlowTwo);
+        jpRightMid.add(jpLeftUpFlowTwo);
         jpRightMid.add(lbWarningUnexported);
+
+        //jpRightUpFlowTwo.add(jpLeftUpFlowTwo);//-> add info
+       // jpRightUpFlowTwo.add(jpRightMidFlowTwo);
+        jpRightUpFlowTwo.add(jplbCommandsAndCmds);
+        jpRightUp.add(jpRightUpFlowTwo);
+        jpRight.add(jpRightUp);
+
         jpRight.add(jpRightMid);
 
         txtAreaSelectedOldSession = new JTextArea();
@@ -632,7 +645,7 @@ public class SessionFrame extends JFrame {
         
         this.setAlwaysOnTop(true);
 
-        this.setPreferredSize(new Dimension(1280,720));
+        this.setPreferredSize(new Dimension(1280,665));
 
         this.pack();
         lbWarningUnexported.setVisible(false);

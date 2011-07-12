@@ -516,7 +516,7 @@ public class AskFrame extends GenericFrame {
             }
 
             //loadForm();
-            thePanel.jspMid.setPreferredSize(new Dimension(520,580));
+            thePanel.jspMid.setPreferredSize(new Dimension(520,400));
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
 
             //thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
@@ -539,7 +539,7 @@ public class AskFrame extends GenericFrame {
             }
 
             loadForm();
-            thePanel.jspMid.setPreferredSize(new Dimension(520,580));
+            thePanel.jspMid.setPreferredSize(new Dimension(520,400));
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
 
             
