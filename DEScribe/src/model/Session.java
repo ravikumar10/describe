@@ -121,4 +121,8 @@ public class Session {
     public int getQuestionsPerHour() {
         return questionsPerHour;
     }
+
+    public int getNbReponses() {
+        return 0;
+    }
 }

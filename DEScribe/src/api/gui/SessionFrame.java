@@ -132,6 +132,16 @@ public class SessionFrame extends JFrame {
     public static Label lbStatusClosed;
     public static String labelStatusClosed = Lang.getLang().getValueFromRef("SessionFrame.labelStatusClosed");
 
+    public static Label lbDateCreation;
+    public static Label lbCurrentSessionDateCreation;
+    public static String labelDateCreation = Lang.getLang().getValueFromRef("SessionFrame.labelDateCreation");
+    public static Label lbTimeToLive;
+    public static Label lbCurrentSessionTimeToLive;
+    public static String labelTimeToLive = Lang.getLang().getValueFromRef("SessionFrame.labelTimeToLive");
+    public static Label lbNbReponses;
+    public static Label lbCurrentSessionNbReponses;
+    public static String labelNbReponses = Lang.getLang().getValueFromRef("SessionFrame.labelNbReponses");
+
     private static JButton btVisualize = null;
     public static String labelBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.labelBtVisualize");
     public static String toolTipBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtVisualize");
@@ -191,32 +201,70 @@ public class SessionFrame extends JFrame {
         JPanel jpLeftUpFlowTwo = new JPanel(new FlowLayout());
         jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
 
+        lbName = new Label (labelName);
+        jpLeftUpFlowTwo.add(lbName);
+        lbName.setForeground(Color.white);
+        lbName.setBackground(new Color(178,34,34));
+        lbName.setFont(new Font("Verdana", Font.PLAIN, 14));
         try {
-            lbName = new Label (labelName);
-            jpLeftUpFlowTwo.add(lbName);
-
-            lbName.setForeground(Color.white);
-            lbName.setBackground(new Color(178,34,34));
-            lbName.setFont(new Font("Verdana", Font.PLAIN, 14));
-
             lbCurrentSessionName = new Label(SessionManager.getSessionManager().getSessionCourante().getNom());
-            jpLeftUpFlowTwo.add(lbCurrentSessionName);
-            jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
-            lbCurrentSessionName.setForeground(Color.white);
-            lbCurrentSessionName.setBackground(new Color(178,34,34));
-            lbCurrentSessionName.setFont(new Font("Verdana", Font.BOLD, 14));
 
-            lbStatus = new Label (labelStatus);
-            jpLeftUpFlowTwo.add(lbStatus);
-            lbStatus.setForeground(Color.white);
-            lbStatus.setBackground(new Color(178,34,34));
-            lbStatus.setFont(new Font("Verdana", Font.PLAIN, 14));
+        jpLeftUpFlowTwo.add(lbCurrentSessionName);
+        jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+        lbCurrentSessionName.setForeground(Color.white);
+        lbCurrentSessionName.setBackground(new Color(178,34,34));
+        lbCurrentSessionName.setFont(new Font("Verdana", Font.BOLD, 14));
 
-            lbStatusValue = new Label (labelStatusActive);
-            jpLeftUpFlowTwo.add(lbStatusValue);
-            lbStatusValue.setForeground(Color.GREEN);
-            lbStatusValue.setBackground(new Color(178,34,34));
-            lbStatusValue.setFont(new Font("Verdana", Font.BOLD, 14));
+        lbStatus = new Label (labelStatus);
+        jpLeftUpFlowTwo.add(lbStatus);
+        lbStatus.setForeground(Color.white);
+        lbStatus.setBackground(new Color(178,34,34));
+        lbStatus.setFont(new Font("Verdana", Font.PLAIN, 14));
+
+        lbStatusValue = new Label (labelStatusActive);
+        jpLeftUpFlowTwo.add(lbStatusValue);
+        lbStatusValue.setForeground(Color.GREEN);
+        lbStatusValue.setBackground(new Color(178,34,34));
+        lbStatusValue.setFont(new Font("Verdana", Font.BOLD, 14));
+
+        lbDateCreation = new Label (labelDateCreation);
+        //jpLeftUpFlowTwo.add(lbDateCreation);
+        lbDateCreation.setForeground(Color.white);
+        lbDateCreation.setBackground(new Color(178,34,34));
+        lbDateCreation.setFont(new Font("Verdana", Font.PLAIN, 14));
+
+        lbCurrentSessionDateCreation = new Label(SessionManager.getSessionManager().getSessionCourante().getDebut().toString());
+        //jpLeftUpFlowTwo.add(lbCurrentSessionDateCreation);
+        jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+        lbCurrentSessionDateCreation.setForeground(Color.white);
+        lbCurrentSessionDateCreation.setBackground(new Color(178,34,34));
+        lbCurrentSessionDateCreation.setFont(new Font("Verdana", Font.BOLD, 14));
+
+        lbTimeToLive = new Label (labelTimeToLive);
+        //jpLeftUpFlowTwo.add(lbTimeToLive);
+        lbTimeToLive.setForeground(Color.white);
+        lbTimeToLive.setBackground(new Color(178,34,34));
+        lbTimeToLive.setFont(new Font("Verdana", Font.PLAIN, 14));
+
+        lbCurrentSessionTimeToLive = new Label(Integer.toString(SessionManager.getSessionManager().getSessionCourante().getTimeToLive()));
+        //jpLeftUpFlowTwo.add(lbCurrentSessionTimeToLive);
+        jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+        lbCurrentSessionTimeToLive.setForeground(Color.white);
+        lbCurrentSessionTimeToLive.setBackground(new Color(178,34,34));
+        lbCurrentSessionTimeToLive.setFont(new Font("Verdana", Font.BOLD, 14));
+
+        lbNbReponses = new Label (labelNbReponses);
+        //jpLeftUpFlowTwo.add(lbNbReponses);
+        lbNbReponses.setForeground(Color.white);
+        lbNbReponses.setBackground(new Color(178,34,34));
+        lbNbReponses.setFont(new Font("Verdana", Font.PLAIN, 14));
+
+        lbCurrentSessionNbReponses = new Label(Integer.toString(SessionManager.getSessionManager().getNumberOfAnswers(SessionManager.getSessionManager().getSessionCourante())));
+        //jpLeftUpFlowTwo.add(lbCurrentSessionNbReponses);
+        jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
+        lbCurrentSessionNbReponses.setForeground(Color.white);
+        lbCurrentSessionNbReponses.setBackground(new Color(178,34,34));
+        lbCurrentSessionNbReponses.setFont(new Font("Verdana", Font.BOLD, 14));
 
         } catch (SQLException ex) {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,7 +355,13 @@ public class SessionFrame extends JFrame {
                             lbStatusValue.setText(labelStatusActive);
                             lbStatusValue.setForeground(Color.GREEN);
                         }
-
+                        lbCurrentSessionDateCreation.setText(getSessionSelectionnee().getDebut().toString());
+                        lbCurrentSessionTimeToLive.setText(Integer.toString(getSessionSelectionnee().getTimeToLive()));
+                    try {
+                        lbCurrentSessionNbReponses.setText(Integer.toString(SessionManager.getSessionManager().getNumberOfAnswers(getSessionSelectionnee())));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
@@ -370,7 +424,7 @@ public class SessionFrame extends JFrame {
         if (api.utils.getOs.isWindows())
             c1.ipady = 343;      //make this component tall
         else
-            c1.ipady = 383;
+            c1.ipady = 346;
         c1.weightx = 1;
         c1.gridwidth = 3;
         c1.gridx = 1;
@@ -574,6 +628,16 @@ public class SessionFrame extends JFrame {
         //jpRightMid.add(jpLeftMidFlowThree);
         //jpRightMid.add(jpRightMidFlowTwo);
         jpRightMid.add(jpLeftUpFlowTwo);
+        JPanel jpRightMidSpace = new JPanel(new FlowLayout());
+        jpRightMidSpace.add(lbDateCreation);
+        jpRightMidSpace.add(lbCurrentSessionDateCreation);
+        jpRightMidSpace.add(lbTimeToLive);
+        jpRightMidSpace.add(lbCurrentSessionTimeToLive);
+        jpRightMidSpace.add(lbNbReponses);
+        jpRightMidSpace.add(lbCurrentSessionNbReponses);
+        jpRightMidSpace.setBackground(new Color(178,34,34));
+        
+        jpRightMid.add(jpRightMidSpace);
         jpRightMid.add(lbWarningUnexported);
 
         //jpRightUpFlowTwo.add(jpLeftUpFlowTwo);//-> add info
@@ -756,6 +820,9 @@ public class SessionFrame extends JFrame {
         labelBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.labelBtVisualize");
         toolTipBtVisualize = Lang.getLang().getValueFromRef("SessionFrame.toolTipBtVisualize");
 
+        labelDateCreation = Lang.getLang().getValueFromRef("SessionFrame.labelDateCreation");
+        labelTimeToLive = Lang.getLang().getValueFromRef("SessionFrame.labelTimeToLive");
+        labelNbReponses = Lang.getLang().getValueFromRef("SessionFrame.labelNbReponses");
         // ---
 
         DBConnexion conn = DBConnexion.getConnexion();
@@ -819,8 +886,18 @@ public class SessionFrame extends JFrame {
                 lbStatusValue.setForeground(Color.GREEN);
             }
 
+        lbDateCreation.setText(labelDateCreation);
+        lbCurrentSessionDateCreation.setText(getSessionSelectionnee().getDebut().toString());
 
+        lbTimeToLive.setText(labelTimeToLive);
+        lbCurrentSessionTimeToLive.setText(Integer.toString(getSessionSelectionnee().getTimeToLive()));
 
+        lbNbReponses.setText(labelNbReponses);
+        try {
+            lbCurrentSessionNbReponses.setText(Integer.toString(SessionManager.getSessionManager().getNumberOfAnswers(getSessionSelectionnee())));
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }

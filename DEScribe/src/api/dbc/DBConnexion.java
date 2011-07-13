@@ -675,4 +675,32 @@ public class DBConnexion {
         }
 
     }
+
+    /**
+     * Number of answers of a session
+     * @return
+     */
+    public int getNbAnswers(Session s) {
+        int nb=0;
+
+        try {
+            Statement stat = null;
+            try {
+                stat = conn.createStatement();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             ResultSet rs0 = stat.executeQuery("select count(*) from entries where session=\""+s.getId()+"\";");
+            while (rs0.next()){
+                nb=Integer.parseInt(rs0.getString(1));
+            }
+            rs0.close();
+            return nb;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+
+    }
+
 }
