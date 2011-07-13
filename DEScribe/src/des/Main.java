@@ -44,7 +44,7 @@ public class Main {
 
     public static String version = "1.1.2";
     public static String datemaj = "2011-07-13";
-    public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>";
+    public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>\nAmaury Belin<amaury.belin@gmail.com>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
     public static String cpRight = "(C)2010-2011";
