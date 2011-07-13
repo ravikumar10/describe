@@ -205,11 +205,11 @@
 	</string>
 	<string>
 		<ref>SessionFrame.labelName</ref>
-		<value>Name :</value>
+		<value>Name:</value>
 	</string>
 	<string>
 		<ref>SessionFrame.labelStatus</ref>
-		<value>Status :</value>
+		<value>Status:</value>
 	</string>	
 	<string>
 		<ref>SessionFrame.labelStatusActive</ref>
@@ -223,6 +223,18 @@
 		<ref>SessionFrame.labelStatusClosed</ref>
 		<value>CLOSED!</value>
 	</string>
+	<string>
+		<ref>SessionFrame.labelDateCreation</ref>
+		<value>Creation date:</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelTimeToLive</ref>
+		<value>Length(hours):</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelNbReponses</ref>
+		<value>Answers:</value>
+	</string>	
 	<string>
 		<ref>SessionFrame.noAnswers</ref>
 		<value>No answers recorded for this session.</value>
