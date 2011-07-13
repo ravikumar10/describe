@@ -223,7 +223,7 @@ public class SessionManager {
         }
 
     /**
-     * Pour supprimer une session close
+     * Delete a closed session
      */
     public void deleteOldSession(Session s){
                 if (!s.getActive()){
@@ -233,8 +233,15 @@ public class SessionManager {
                     lesSessions.remove(s);
                     lesSessions = conn.getSessions();
                 }
-        }
+    }
 
+    /**
+     * Number of answers of a session
+     */
+    public int getNumberOfAnswers(Session s){
+                    DBConnexion conn = DBConnexion.getConnexion();
+                    int nb=conn.getNbAnswers(s);
+                    return nb;
+    }
 
-    //SEssion manager charge liste sessions
 }
