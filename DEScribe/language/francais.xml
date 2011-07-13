@@ -224,6 +224,18 @@
 		<value>CLOSE!</value>
 	</string>
 	<string>
+		<ref>SessionFrame.labelDateCreation</ref>
+		<value>Date création :</value>
+	</string>
+	<string>
+		<ref>SessionFrame.labelTimeToLive</ref>
+		<value>Durée(heures) :</value>
+	</string>	
+	<string>
+		<ref>SessionFrame.labelNbReponses</ref>
+		<value>Réponses :</value>
+	</string>		
+	<string>
 		<ref>SessionFrame.noAnswers</ref>
 		<value>Aucune réponse enregistrée pour cette session</value>
 	</string>
