@@ -144,10 +144,20 @@ public class ViewAnswers extends JFrame {
                     Session s = it.next();
                     listSessionID.add(""+s.getId());
                 }
-                selectedSession=sm.getLesSessions().get(0);
-                listSessionID.select(0);
-                DBConnexion conn = DBConnexion.getConnexion();
-                selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+                //selectedSession=sm.getLesSessions().get(0);
+                
+        selectedSession=SessionFrame.getFrame().getSessionSelectionnee();
+        DBConnexion conn = DBConnexion.getConnexion();
+        selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+        int ind=0;
+        while (!listSessionID.getItem(ind).equals(Long.toString(selectedSession.getId()))){
+            ind++;
+            listSessionID.select(ind);
+        }
+             
+                //listSessionID.select(0);
+                //DBConnexion conn = DBConnexion.getConnexion();
+                //selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
                 listAnswerID=new List();
                 for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
                     Reponse r = it.next();
@@ -186,7 +196,7 @@ public class ViewAnswers extends JFrame {
                     }
                 }
             });
-
+         
             listAnswerID.addItemListener(new ItemListener() {
 
                 public void itemStateChanged(ItemEvent ie) {
@@ -264,9 +274,7 @@ public class ViewAnswers extends JFrame {
             c.anchor = GridBagConstraints.CENTER;
             c.insets = new Insets(0,10,0,10);
             jpInternal.add(jpControls,c);
-          //  refresh();
-
-
+            //  refresh();
 
         } catch (Exception ex) {
             Logger.getLogger(ViewAnswers.class.getName()).log(Level.SEVERE, null, ex);
@@ -280,8 +288,9 @@ public class ViewAnswers extends JFrame {
         this.setAlwaysOnTop(true);
 
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
-        this.pack();
 
+
+        this.pack();
     }
 
     public static ViewAnswers getTheFrame() {
@@ -295,13 +304,15 @@ public class ViewAnswers extends JFrame {
         pack();
         this.setLocation(0, 0);
         validate();
-        setVisible(true);
+        //selectedSession=SessionFrame.getFrame().getSessionSelectionnee();
+        //DBConnexion conn = DBConnexion.getConnexion();
+        //selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
         if (selectedSessionAnswers.size()>0){
             displayScreenshot();
         } else {
             imgContainer.setIcon(null);
         }
-
+        setVisible(true);
     }
 
     private void displayScreenshot(){
@@ -370,10 +381,19 @@ public class ViewAnswers extends JFrame {
                     listSessionID.add(""+s.getId());
 
                 }
-                selectedSession=sm.getLesSessions().get(0);
-                listSessionID.select(0);
-                DBConnexion conn = DBConnexion.getConnexion();
-                selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+
+        selectedSession=SessionFrame.getFrame().getSessionSelectionnee();
+        DBConnexion conn = DBConnexion.getConnexion();
+        selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+        int ind=0;
+        while (!listSessionID.getItem(ind).equals(Long.toString(selectedSession.getId()))){
+            ind++;
+            listSessionID.select(ind);
+        }
+                //selectedSession=sm.getLesSessions().get(0);
+                //listSessionID.select(0);
+                //DBConnexion conn = DBConnexion.getConnexion();
+                //selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
                 for (Iterator<Reponse> it = selectedSessionAnswers.iterator(); it.hasNext();) {
                     Reponse r = it.next();
                     listAnswerID.add(""+r.getId());
