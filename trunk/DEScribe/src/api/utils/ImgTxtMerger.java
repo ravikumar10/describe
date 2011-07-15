@@ -3,7 +3,7 @@
     DEScribe - A Descriptive Experience Sampling cross platform application
     Copyright (C) 2011
     Sébastien Faure <sebastien.faure3@gmail.com>,
-    Bertrand Gros   <gros.bertrand@gmail.com>,
+    Amaury Belin    <amaury.belin@gmail.com>,
     Yannick Prie    <yannick.prie@univ-lyon1.fr>.
 
     This program is free software: you can redistribute it and/or modify
@@ -23,8 +23,6 @@
 package api.utils;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -35,12 +33,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -3,7 +3,7 @@
     DEScribe - A Descriptive Experience Sampling cross platform application
     Copyright (C) 2011
     Sébastien Faure <sebastien.faure3@gmail.com>,
-    Bertrand Gros   <gros.bertrand@gmail.com>,
+    Amaury Belin    <amaury.belin@gmail.com>,
     Yannick Prie    <yannick.prie@univ-lyon1.fr>.
 
     This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ import javax.swing.JFrame;
  * Class GenericFrame.java
  * @description Abstract frame for the application
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros    <gros.bertrand@gmail.com>
+ * @author Bertrand Gros
  * @version 2011-01-28
  */
 public abstract class GenericFrame extends JFrame implements ActionListener, WindowListener, KeyListener {

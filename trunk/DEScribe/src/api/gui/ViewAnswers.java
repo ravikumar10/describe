@@ -3,7 +3,7 @@
     DEScribe - A Descriptive Experience Sampling cross platform application
     Copyright (C) 2011
     Sébastien Faure <sebastien.faure3@gmail.com>,
-    Bertrand Gros   <gros.bertrand@gmail.com>,
+    Amaury Belin    <amaury.belin@gmail.com>,
     Yannick Prie    <yannick.prie@univ-lyon1.fr>.
 
     This program is free software: you can redistribute it and/or modify
@@ -25,8 +25,6 @@ package api.gui;
 
 import api.dbc.DBConnexion;
 import api.i18n.Lang;
-import api.utils.ImgTxtMerger;
-import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -43,30 +41,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import model.Reponse;
 import model.Session;
 import model.SessionManager;
 
-/**
- *
- * @author Seb
- */
 public class ViewAnswers extends JFrame {
 
     static Object getFrame() {
