@@ -297,17 +297,21 @@ public class SessionFrame extends JFrame {
                         txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
                         lbWarningUnexported.setVisible(false);
                     } else {
-                    if (getSessionSelectionnee().getLastExport() == null) {
-                        lbWarningUnexported.setVisible(true);
-                        //SessionFrame.getFrame().pack();
-                    } else {
-                        lbWarningUnexported.setVisible(false);
-                        //SessionFrame.getFrame().pack();
-                    }
-                    DBConnexion conn = DBConnexion.getConnexion();
-                    txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
-                    if (txtAreaSelectedOldSession.getText().equals(""))
-                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+                        if (getSessionSelectionnee().getLastExport() == null) {
+                            lbWarningUnexported.setVisible(true);
+                            //SessionFrame.getFrame().pack();
+                        } else {
+                            lbWarningUnexported.setVisible(false);
+                            //SessionFrame.getFrame().pack();
+                        }
+                        DBConnexion conn = DBConnexion.getConnexion();
+                        txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
+                        if (txtAreaSelectedOldSession.getText().equals("")){
+                            btVisualize.setEnabled(false);
+                            txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
+                        } else {
+                            btVisualize.setEnabled(true);
+                        }
                     }
 
                      if (getSessionSelectionnee() != null) {
@@ -481,6 +485,7 @@ public class SessionFrame extends JFrame {
         btVisualize.addActionListener(Listeners.getListeners());
         //jpLeftMidFlowThree.add(btVisualize);
         btVisualize.setToolTipText(toolTipBtVisualize);
+        btVisualize.setEnabled(false);
 
         jpLeftMid.setBackground(new Color(178,34,34));
         jpLeftMidFlowOne.setBackground(new Color(178,34,34));
@@ -757,6 +762,11 @@ public class SessionFrame extends JFrame {
             }
 
             c.select(c.getItemCount() - 1);
+            if (SessionManager.getSessionManager().getNumberOfAnswers(getSessionSelectionnee())>0){
+                btVisualize.setEnabled(true);
+            } else {
+                btVisualize.setEnabled(false);
+            }
             if (getSessionSelectionnee() != null) {
                 if (getSessionSelectionnee().getLastExport() == null) {
                     lbWarningUnexported.setVisible(true);
