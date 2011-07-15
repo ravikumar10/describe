@@ -142,18 +142,20 @@ public class ViewAnswers extends JFrame {
                 sm = SessionManager.getSessionManager();
                 for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
                     Session s = it.next();
-                    listSessionID.add(""+s.getId());
+                    if (sm.getNumberOfAnswers(s)>0){
+                        listSessionID.add(""+s.getId());
+                    }
                 }
                 //selectedSession=sm.getLesSessions().get(0);
                 
-        selectedSession=SessionFrame.getFrame().getSessionSelectionnee();
-        DBConnexion conn = DBConnexion.getConnexion();
-        selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
-        int ind=0;
-        while (!listSessionID.getItem(ind).equals(Long.toString(selectedSession.getId()))){
-            ind++;
-            listSessionID.select(ind);
-        }
+                selectedSession=SessionFrame.getFrame().getSessionSelectionnee();
+                DBConnexion conn = DBConnexion.getConnexion();
+                selectedSessionAnswers=conn.getEntriesBySession(selectedSession);
+                int ind=0;
+                while (!listSessionID.getItem(ind).equals(Long.toString(selectedSession.getId()))){
+                    ind++;
+                    listSessionID.select(ind);
+                }
              
                 //listSessionID.select(0);
                 //DBConnexion conn = DBConnexion.getConnexion();
@@ -378,7 +380,9 @@ public class ViewAnswers extends JFrame {
                 sm = SessionManager.getSessionManager();
                 for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
                     Session s = it.next();
-                    listSessionID.add(""+s.getId());
+                    if (sm.getNumberOfAnswers(s)>0){
+                        listSessionID.add(""+s.getId());
+                    }
 
                 }
 
