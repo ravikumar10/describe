@@ -3,7 +3,7 @@
     DEScribe - A Descriptive Experience Sampling cross platform application
     Copyright (C) 2011
     Sébastien Faure <sebastien.faure3@gmail.com>,
-    Bertrand Gros   <gros.bertrand@gmail.com>,
+    Amaury Belin    <amaury.belin@gmail.com>,
     Yannick Prie    <yannick.prie@univ-lyon1.fr>.
 
     This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@ package model;
  * Class QReponseLibre.java
  * @description Question with free open answer (text)
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros    <gros.bertrand@gmail.com>
+ * @author Bertrand Gros
  * @version 2011-01-28
  */
 public class QReponseLibre extends Question{

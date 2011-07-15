@@ -3,7 +3,7 @@
     DEScribe - A Descriptive Experience Sampling cross platform application
     Copyright (C) 2011
     Sébastien Faure <sebastien.faure3@gmail.com>,
-    Bertrand Gros   <gros.bertrand@gmail.com>,
+    Amaury Belin    <amaury.belin@gmail.com>,
     Yannick Prie    <yannick.prie@univ-lyon1.fr>.
 
     This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,6 @@ package api.gui;
 
 import api.dbc.DBConnexion;
 import api.i18n.Lang;
-import java.awt.BorderLayout;
 import java.awt.List;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,7 +52,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
-import javax.swing.border.Border;
 import model.Session;
 import model.SessionManager;
 
@@ -61,7 +59,7 @@ import model.SessionManager;
  * Class SessionFrame.java
  * @description Session management frame
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros    <gros.bertrand@gmail.com>
+ * @author Bertrand Gros
  * @version 2011-02-06
  */
 public class SessionFrame extends JFrame {
