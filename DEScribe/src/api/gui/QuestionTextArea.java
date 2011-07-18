@@ -26,8 +26,10 @@ package api.gui;
 import javax.swing.JTextArea;
 
 /**
- *
- * @author Seb
+ * Class QuestionTextArea.java
+ * @description Text area for questions
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class QuestionTextArea extends JTextArea{
     public QuestionTextArea(String text){

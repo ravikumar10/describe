@@ -59,8 +59,7 @@ import model.SessionManager;
  * Class SessionFrame.java
  * @description Session management frame
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-02-06
+ * @version 2011-07-18
  */
 public class SessionFrame extends JFrame {
 

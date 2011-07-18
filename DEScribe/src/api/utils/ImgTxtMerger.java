@@ -41,6 +41,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import model.Reponse;
 
+/**
+ * Class ImgTxtMerger.java
+ * @description Image and text merging
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
+ */
 public class ImgTxtMerger extends JPanel {
 
     private BufferedImage image;

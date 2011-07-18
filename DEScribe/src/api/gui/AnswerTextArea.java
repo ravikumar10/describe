@@ -25,6 +25,12 @@ package api.gui;
 
 import javax.swing.JTextArea;
 
+/**
+ * Class AnswerTextArea.java
+ * @description TextArea used to answer questions
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+  * @version 2011-07-18
+ */
 public class AnswerTextArea extends JTextArea{
     public AnswerTextArea(){
         super();

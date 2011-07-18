@@ -34,8 +34,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Makes a zip archive of a folder
- * 
+ * Class Zip.java
+ * @description Makes a zip archive of a folder
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class Zip {
 

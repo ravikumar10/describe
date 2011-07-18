@@ -30,8 +30,7 @@ import java.util.Date;
  * @description A session is a set of questions and answer for a certain period
  * of time - once a session is closed, no more questions can be asked.
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class Session {
     long id;

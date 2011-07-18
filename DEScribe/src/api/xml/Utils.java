@@ -66,8 +66,7 @@ import org.xml.sax.SAXException;
  * Class Utils.java
  * @description Everything to handle XML in DEScribe
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class Utils {
 

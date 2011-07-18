@@ -36,7 +36,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * Class ActionScreenshot.java
+ * @description Action associated to screenshot
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
+ */
 public class ActionScreenshot extends Action {
 
     private String absoluteFileName;

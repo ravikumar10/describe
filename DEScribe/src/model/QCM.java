@@ -27,10 +27,9 @@ import java.util.ArrayList;
 
 /**
  * Class QCM.java
- * @description Multiple choice question
+ * @description Multiple choices question
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class QCM extends Question {
 

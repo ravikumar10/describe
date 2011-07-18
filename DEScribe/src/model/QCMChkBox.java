@@ -29,7 +29,6 @@ import java.util.ArrayList;
  * Class QCMChkBox.java
  * @description Multiple choice question with possible multiple answers
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
  * @version 2011-01-28
  */
 public class QCMChkBox extends QCM{

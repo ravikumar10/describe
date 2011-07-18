@@ -48,8 +48,10 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.ImageIcon;
 
 /**
- * Image / byte Array conversion
- * @author Seb
+ * Class ImageBytes.java
+ * @description Image / byte Array conversion
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class ImageBytes {
 

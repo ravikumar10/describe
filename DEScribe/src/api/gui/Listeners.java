@@ -52,8 +52,7 @@ import model.SessionManager;
  * Class Listeners.java
  * @description Application's buttons' listeners
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros    <gros.bertrand@gmail.com>
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class Listeners implements ActionListener, WindowListener {
 
@@ -304,7 +303,7 @@ public class Listeners implements ActionListener, WindowListener {
             AskFrame.getTheFrame().showTheFrame(null);
         } else if (s.equals(TaskTrayMenu.ReportItemLabel)) {
             LaunchReportPage.LaunchPage();
-        } else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
+        /*} else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             try {
@@ -317,7 +316,7 @@ public class Listeners implements ActionListener, WindowListener {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strBeforeListAnwsers") + conn.getEntriesStringBySession(SessionFrame.getFrame().getSessionSelectionnee()));
-            SessionFrame.getFrame().setAlwaysOnTop(true);
+            SessionFrame.getFrame().setAlwaysOnTop(true);*/
         } else if (s.equals(TaskTrayMenu.ConfigItemLabel)) {
             OptionFrame.getOptionFrame().ShowFrame();
             // dossier par défaut (d'export et pour les données)\n- ...");

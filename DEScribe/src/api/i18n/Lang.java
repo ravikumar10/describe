@@ -38,8 +38,7 @@ import org.xml.sax.SAXException;
  * Class Lang.java
  * @description Internationalization. Load language from XML file to hashmap
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class Lang {
 
