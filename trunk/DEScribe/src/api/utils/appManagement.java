@@ -26,11 +26,19 @@ package api.utils;
 import java.io.File;
 
 /**
- *  Restarts the application
- * 
+ * Class appManagement.java
+ * @description Manage DEScribe's execution
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class appManagement {
 
+    /**
+     * Restarts DEScribe
+     * @param classInJarFile class
+     * @param isMacReboot true if its called from mac
+     * @return
+     */
     public static boolean  restartApplication( Object classInJarFile, Boolean isMacReboot )
     {
         String javaBin = System.getProperty("java.home");

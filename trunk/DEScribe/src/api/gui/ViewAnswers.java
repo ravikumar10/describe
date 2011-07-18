@@ -56,6 +56,12 @@ import model.Reponse;
 import model.Session;
 import model.SessionManager;
 
+/**
+ * Class ViewAnswers.java
+ * @description Answers visualization frame
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
+ */
 public class ViewAnswers extends JFrame {
 
     static Object getFrame() {

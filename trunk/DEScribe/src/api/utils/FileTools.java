@@ -31,8 +31,7 @@ import java.io.IOException;
  * Class FileTools.java
  * @description Tools for files
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-02-02
+ * @version 2011-07-18
  */
 public class FileTools {
 

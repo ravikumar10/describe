@@ -29,8 +29,7 @@ import api.i18n.Lang;
  * Class BadXMFileException.java
  * @description Exception to throw when problem with Options or Form XML files
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-02-01
+ * @version 2011-07-18
  */
 public class BadXMLFileException extends Exception {
     public static String BAD_OPTION_FILE=Lang.getLang().getValueFromRef("BadXMLFileException.BAD_OPTION_FILE");

@@ -25,7 +25,10 @@
 package model;
 
 /**
- * Rule (condition of asking question)
+ * Class Regle.java
+ * @description Rule (condition of asking question)
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class Regle {
     String event; //fullscreen, copy, copyImage, copyText, copyFile

@@ -23,7 +23,12 @@
 package api.gui;
 import java.awt.*;
 
-// Grid Layout which allows components of differrent sizes
+/**
+ * Class GridLayout2.java
+ * @description GridLayout allowing different sizes of components
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
+ */
 public class GridLayout2 extends GridLayout
 {
   public GridLayout2() {

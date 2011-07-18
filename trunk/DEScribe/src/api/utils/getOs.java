@@ -27,8 +27,7 @@ package api.utils;
  * Class getOs.java
  * @description Tools around OS detection
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class getOs {
 

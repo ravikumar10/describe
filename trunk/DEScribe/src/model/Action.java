@@ -28,8 +28,7 @@ package model;
  * @description Actions to execute before or after asking a question. For
  * instance, a snapshot.
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class Action {
 

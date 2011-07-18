@@ -33,8 +33,7 @@ import java.util.logging.Logger;
  * Class LaunchProjectPage.java
  * @description Open DEScribe's web page in user's browser
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-02-06
+ * @version 2011-07-18
  */
 public class LaunchProjectPage {
 

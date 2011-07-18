@@ -25,8 +25,10 @@
 package model;
 
 /**
- * Multiple choices question
- * 
+ * Class Main.java
+ * @description Multiple Choices Question's choice
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class QCMChoice {
     private String text;

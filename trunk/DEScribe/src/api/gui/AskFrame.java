@@ -85,8 +85,7 @@ import sun.management.ManagementFactory;
  * Class AskFrame.java
  * @description Frame to ask questions and get user's answers
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros    <gros.bertrand@gmail.com>
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class AskFrame extends GenericFrame {
 

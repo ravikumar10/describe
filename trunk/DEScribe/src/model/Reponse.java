@@ -32,7 +32,6 @@ import java.util.Date;
  * Class Reponse.java
  * @description Answer
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
  * @version 2011-01-28
  */
 public class Reponse {

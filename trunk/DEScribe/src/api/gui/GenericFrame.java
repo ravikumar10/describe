@@ -35,8 +35,7 @@ import javax.swing.JFrame;
  * Class GenericFrame.java
  * @description Abstract frame for the application
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public abstract class GenericFrame extends JFrame implements ActionListener, WindowListener, KeyListener {
 

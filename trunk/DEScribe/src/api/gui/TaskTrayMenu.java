@@ -39,8 +39,7 @@ import javax.swing.JOptionPane;
  * Class TaskTrayMenu.java
  * @description System Tray menu
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class TaskTrayMenu {
 

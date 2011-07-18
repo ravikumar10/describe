@@ -29,8 +29,7 @@ import java.util.ArrayList;
  * Class QCMRadio.java
  * @description Multiple choice question with at most one answer
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class QCMRadio extends QCM{
 

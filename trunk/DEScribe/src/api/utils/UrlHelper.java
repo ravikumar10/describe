@@ -43,8 +43,7 @@ import java.net.URLConnection;
  * Class UrlHelper.java
  * @description Tool to download file from url
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-02-01
+ * @version 2011-07-18
  */
 public class UrlHelper {
 

@@ -29,6 +29,12 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Class FullScreenDetector.java
+ * @description Full screen program detection
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
+ */
 public class FullScreenDetector {
             private static Boolean isFullScreen;
   public static Boolean isFullScreenProgramRunning() {

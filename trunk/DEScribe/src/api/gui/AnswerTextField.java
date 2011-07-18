@@ -26,8 +26,10 @@ package api.gui;
 import javax.swing.JTextField;
 
 /**
- *
- * @author Seb
+ * Class AnswerTextField.java
+ * @description TextField used to answer questions
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+  * @version 2011-07-18
  */
 public class AnswerTextField extends JTextField{
   public AnswerTextField(){

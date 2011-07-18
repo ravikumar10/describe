@@ -30,8 +30,7 @@ import javax.swing.filechooser.FileFilter;
  * Class Xmlfilter.java
  * @description XML file filter
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class Xmlfilter extends FileFilter{
 

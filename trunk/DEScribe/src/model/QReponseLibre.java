@@ -27,8 +27,7 @@ package model;
  * Class QReponseLibre.java
  * @description Question with free open answer (text)
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @author Bertrand Gros
- * @version 2011-01-28
+ * @version 2011-07-18
  */
 public class QReponseLibre extends Question{
 
