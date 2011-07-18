@@ -498,11 +498,14 @@ public class AskFrame extends GenericFrame {
 
     private void refresh() {
         try {
+            int nbQuests=0;
             if (currentRegle!=null){
                 //Flowlayout problem refresh on Mac
-                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromFormWithRule(currentRegle).size(), 1));
+                nbQuests=getAskableQuestionsFromFormWithRule(currentRegle).size();
+                thePanel.jpMiddle=new JPanel(new GridLayout(nbQuests, 1));
             } else {
-                thePanel.jpMiddle=new JPanel(new GridLayout(getAskableQuestionsFromForm().size(), 1));
+                nbQuests=getAskableQuestionsFromForm().size();
+                thePanel.jpMiddle=new JPanel(new GridLayout(nbQuests, 1));
             }
             thePanel.jspMid=new JScrollPane();
 
@@ -514,7 +517,11 @@ public class AskFrame extends GenericFrame {
 
             //loadForm();
             //thePanel.jspMid.setPreferredSize(new Dimension(520,400));
-            thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/2)));
+            if (nbQuests==1){
+                thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/4)));
+            } else {
+                thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/2)));
+            }
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
 
             //thePanel.add(thePanel.jspMid, BorderLayout.CENTER);
@@ -537,7 +544,12 @@ public class AskFrame extends GenericFrame {
             }
 
             loadForm();
-            thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/2)));
+            //thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/2)));
+            if (nbQuests==1){
+                thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/4)));
+            } else {
+                thePanel.jspMid.setPreferredSize(new Dimension(520,(int) (Toolkit.getDefaultToolkit().getScreenSize().height/2)));
+            }
             thePanel.jspMid.setViewportView(thePanel.jpMiddle);
 
             
