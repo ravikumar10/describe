@@ -109,6 +109,9 @@ public class AskFrame extends GenericFrame {
 
     private Regle currentRegle=null;
 
+    /**
+     * To set vertical scrollbar at the top if visible
+     */
     private void fixScrollBar() {
         try {
             Thread.currentThread().sleep(300);
@@ -128,6 +131,9 @@ public class AskFrame extends GenericFrame {
         }
     }
 
+    /**
+     * Intern panel of the frame
+     */
     private static class interiorPanel extends JPanel {
 
         AskFrame listeners = null;
@@ -203,7 +209,7 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
-        /**
+        /** Initialize question's textfield
          * @deprecated
          * @return
          */
@@ -224,6 +230,7 @@ public class AskFrame extends GenericFrame {
         }
 
         /**
+         * Initialize answer text area
          * @deprecated
          * @return
          */
@@ -240,6 +247,7 @@ public class AskFrame extends GenericFrame {
         }
 
         /**
+         * Initialize choices button group
          * @deprecated 
          * @param choices
          * @param style
@@ -280,6 +288,10 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
+        /**
+         * Initialize the row of buttons (submit,...) of the frame
+         * @return
+         */
         private JPanel ButtonsRow() {
             JPanel res = this.oneRow();
             res.setLayout(new GridLayout(2, 1));
@@ -306,9 +318,16 @@ public class AskFrame extends GenericFrame {
             return res;
         }
 
+        /**
+         * Initialize the intern panel of the frame
+         */
         public void initThePanel() {
         }
 
+        /**
+         * Add a new question to the frame
+         * @param q
+         */
         public void addQuestion(Question q){
             //JPanel panQuestion = new JPanel(new GridLayout(2, 1));
             JPanel panQuestion = new JPanel(new BorderLayout());
@@ -406,6 +425,9 @@ public class AskFrame extends GenericFrame {
  
     }
 
+    /**
+     * Constructor
+     */
     private AskFrame() {
         super("DEScribe"); //i18n
         thePanel = new interiorPanel(this);
@@ -413,8 +435,15 @@ public class AskFrame extends GenericFrame {
         thePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         pack();
     }
+    /**
+     * Unique instance of the frame
+     */
     private static AskFrame instance;
 
+    /**
+     * Create or get (if already exists) the unique frame instance
+     * @return
+     */
     public static AskFrame getTheFrame() {
         if (instance == null) {
             instance = new AskFrame();
@@ -422,22 +451,46 @@ public class AskFrame extends GenericFrame {
         return instance;
     }
 
+    /**
+     * Fill question textfield
+     * @deprecated
+     * @param param
+     */
     public static void setText1(String param) {
         thePanel.jta1.setText(param);
     }
 
+    /**
+     * Get contents of question textfield
+     * @deprecated
+     * @param param
+     */
     public static String getText1() {
         return thePanel.jta1.getText();
     }
 
+    /**
+     * Fill answer text area
+     * @deprecated
+     * @param param
+     */
     public static void setText2(String param) {
         thePanel.jta2.setText(param);
     }
 
+    /**
+     * Get contents of answer text area
+     * @deprecated
+     * @return
+     */
     public static String getText2() {
         return thePanel.jta2.getText();
     }
 
+    /**
+     * Show the frame with intialized questions
+     * @param quest
+     */
     @Override
     public void showTheFrame(String quest) {
         if (quest==null){
@@ -496,6 +549,9 @@ public class AskFrame extends GenericFrame {
         
     }
 
+    /**
+     * Refresh contents
+     */
     private void refresh() {
         try {
             int nbQuests=0;
@@ -600,6 +656,9 @@ public class AskFrame extends GenericFrame {
         }
     }
 
+    /**
+     * Clear the frame
+     */
     private void clearFrame() {
             thePanel.jpMiddle.removeAll();
             thePanel.jspMid.removeAll();
@@ -609,7 +668,10 @@ public class AskFrame extends GenericFrame {
             hideCD.cancel();
     }
 
-
+    /**
+     * Get the first askable question of form
+     * @return Question
+     */
     public Question selectQuestionFromForm(){
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
             ArrayList<Question> askableQuestions = new ArrayList<Question>();
@@ -689,6 +751,11 @@ public class AskFrame extends GenericFrame {
 
     }
 
+    /**
+     * Get first askable question of form with rule reg
+     * @param reg
+     * @return Question
+     */
     public Question selectQuestionFromFormWithRule(Regle reg){
             // New version : select a random question from a list of validated
             //               questions
@@ -786,6 +853,10 @@ public class AskFrame extends GenericFrame {
 
     }
 
+    /**
+     * Ask question with rule event
+     * @param event
+     */
     public void askQuestionWithRule(String event) {
         Question q;
         // Check if it's not to early to ask a question
@@ -812,7 +883,10 @@ public class AskFrame extends GenericFrame {
 
 
 
-
+    /**
+     * Get all askable question from form
+     * @return
+     */
     public ArrayList<Question> getAskableQuestionsFromForm(){
 
             ArrayList<Question> lesQuestions = new ArrayList<Question>();
@@ -897,6 +971,11 @@ public class AskFrame extends GenericFrame {
     }
 
 
+    /**
+     * Get all askable questions from form with rule reg
+     * @param reg
+     * @return
+     */
     public ArrayList<Question> getAskableQuestionsFromFormWithRule(Regle reg){
 
             // New version : returns a list of askable questions according to
@@ -995,6 +1074,9 @@ public class AskFrame extends GenericFrame {
 
     }
 
+    /**
+     * Fill the frame form with questions
+     */
     public void loadForm(){
         // Browse askable questions and for earch :
         //      - add question in the panel :
@@ -1016,183 +1098,195 @@ public class AskFrame extends GenericFrame {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-        String s = e.getActionCommand();
-        if (s.equals(labelButtonValider)) {
-            try {
-                DBConnexion conn = DBConnexion.getConnexion();
-                SessionManager sm = SessionManager.getSessionManager();
-                Date maDate = new Date();
-                Reponse rep=null;
-                String questions="";
-                String answers="";
-                int idQuestion=1;
-                Component panQuests[] = thePanel.jpMiddle.getComponents();
-                for (int i=0; i<panQuests.length;i++){
-                    Component tsub[] = ((JPanel) panQuests[i]).getComponents();
-                    for (int j=0; j<tsub.length;j++){
-                        if (tsub[j] instanceof QuestionTextArea){
-                            QuestionTextArea ql=(QuestionTextArea) tsub[j];
-                            questions+=idQuestion+". "+ql.getText().replace("\n","")+" \n";
-                            if (idQuestion==1){
-                                answers+=" "+idQuestion+". "+ql.getText().replace("\n","")+" : ";
-                            } else {
-                                answers+=idQuestion+". "+ql.getText().replace("\n","")+" : ";
-                            }
-                            idQuestion++;
-                        }  else {
-                            if (tsub[j] instanceof JPanel){
-                                // Subpanel "res" of panel PanQuestion contents
-                                Component tsub2[] = ((JPanel) tsub[j]).getComponents();
-                                for (int k=0; k<tsub2.length;k++){
-                                    if (tsub2[k] instanceof AnswerTextField){
-                                        AnswerTextField atf=(AnswerTextField) tsub2[k];
-                                        if (!atf.equals("")){
-                                            if (k==tsub2.length-1){
-                                                answers+=atf.getText()+" \n ";
-                                            } else {
-                                                answers+=atf.getText()+" --- ";
+        /**
+         * Buttons actions
+         * @param e
+         */
+        public void actionPerformed(ActionEvent e) {
+            String s = e.getActionCommand();
+            if (s.equals(labelButtonValider)) {
+                try {
+                    DBConnexion conn = DBConnexion.getConnexion();
+                    SessionManager sm = SessionManager.getSessionManager();
+                    Date maDate = new Date();
+                    Reponse rep=null;
+                    String questions="";
+                    String answers="";
+                    int idQuestion=1;
+                    Component panQuests[] = thePanel.jpMiddle.getComponents();
+                    for (int i=0; i<panQuests.length;i++){
+                        Component tsub[] = ((JPanel) panQuests[i]).getComponents();
+                        for (int j=0; j<tsub.length;j++){
+                            if (tsub[j] instanceof QuestionTextArea){
+                                QuestionTextArea ql=(QuestionTextArea) tsub[j];
+                                questions+=idQuestion+". "+ql.getText().replace("\n","")+" \n";
+                                if (idQuestion==1){
+                                    answers+=" "+idQuestion+". "+ql.getText().replace("\n","")+" : ";
+                                } else {
+                                    answers+=idQuestion+". "+ql.getText().replace("\n","")+" : ";
+                                }
+                                idQuestion++;
+                            }  else {
+                                if (tsub[j] instanceof JPanel){
+                                    // Subpanel "res" of panel PanQuestion contents
+                                    Component tsub2[] = ((JPanel) tsub[j]).getComponents();
+                                    for (int k=0; k<tsub2.length;k++){
+                                        if (tsub2[k] instanceof AnswerTextField){
+                                            AnswerTextField atf=(AnswerTextField) tsub2[k];
+                                            if (!atf.equals("")){
+                                                if (k==tsub2.length-1){
+                                                    answers+=atf.getText()+" \n ";
+                                                } else {
+                                                    answers+=atf.getText()+" --- ";
+                                                }
                                             }
-                                        }
-                                    } else if (tsub2[k] instanceof AbstractButton){
-                                        AbstractButton ab=(AbstractButton) tsub2[k];
-                                        if (ab.isSelected()){
-                                            if (k==tsub2.length-1){
-                                                answers+=ab.getText()+" \n ";
-                                            } else {
-                                                answers+=ab.getText()+" --- ";
+                                        } else if (tsub2[k] instanceof AbstractButton){
+                                            AbstractButton ab=(AbstractButton) tsub2[k];
+                                            if (ab.isSelected()){
+                                                if (k==tsub2.length-1){
+                                                    answers+=ab.getText()+" \n ";
+                                                } else {
+                                                    answers+=ab.getText()+" --- ";
+                                                }
                                             }
-                                        }
-                                    } else if (tsub2[k] instanceof AnswerTextArea){
-                                        AnswerTextArea ata=(AnswerTextArea) tsub2[k];
-                                        if (!ata.equals("")){
-                                            if (k==tsub2.length-1){
-                                                answers+=ata.getText()+" \n ";
-                                            } else {
-                                                answers+=ata.getText()+" --- ";
+                                        } else if (tsub2[k] instanceof AnswerTextArea){
+                                            AnswerTextArea ata=(AnswerTextArea) tsub2[k];
+                                            if (!ata.equals("")){
+                                                if (k==tsub2.length-1){
+                                                    answers+=ata.getText()+" \n ";
+                                                } else {
+                                                    answers+=ata.getText()+" --- ";
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            } else {
-                                if (tsub[j] instanceof  AnswerTextArea){
-                                        AnswerTextArea ata=(AnswerTextArea) tsub[j];
-                                        if (!ata.equals("")){
-                                            if (j==tsub.length-1){
-                                                answers+=ata.getText()+" \n ";
-                                            } else {
-                                                answers+=ata.getText()+" --- ";
+                                } else {
+                                    if (tsub[j] instanceof  AnswerTextArea){
+                                            AnswerTextArea ata=(AnswerTextArea) tsub[j];
+                                            if (!ata.equals("")){
+                                                if (j==tsub.length-1){
+                                                    answers+=ata.getText()+" \n ";
+                                                } else {
+                                                    answers+=ata.getText()+" --- ";
+                                                }
                                             }
-                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                //System.out.println(questions+" : \n "+answers);
-                rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1, questions, answers, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
-                rep.setReglesQuestion(currentQuestion.getRegles());
+                    //System.out.println(questions+" : \n "+answers);
+                    rep = new Reponse(conn.getMaxIdReponseBySession(sm.getSessionCourante())+1, questions, answers, maDate, sm.getSessionCourante(),absoluteScreenshotFilePath);
+                    rep.setReglesQuestion(currentQuestion.getRegles());
 
-                ArrayList<Regle> lesR=rep.getReglesQuestion();
-                String strRegles="";
-                for (int i=0; i<lesR.size();i++){
-                    if (i==0) {
-                        strRegles+=lesR.get(i).getType()+":"+lesR.get(i).getEvent();
-                    } else if (i<=(lesR.size()-1)){
-                        strRegles+=", "+lesR.get(i).getType()+":"+lesR.get(i).getEvent();
-                    }
-                }
-                conn.newAddEntry(rep);
-
-
-                if (!absoluteScreenshotFilePath.equals("")){
-                    // Réouvrir l'image et la resize et ajouter réponse comme dans ViewAnswers
-                    ImgTxtMerger imTxtM  = new ImgTxtMerger();
-                    imTxtM.fusion(rep);
-                }
-
-
-                                clearFrame();
-                                pack();
-                                                this.validate();
-                this.repaint(0);
-                                this.hideTheFrame();
-                //thePanel.jspMid.getVerticalScrollBar().setValue(0);
-                JViewport jv = thePanel.jspMid.getViewport();
-                jv.setViewPosition(new Point(0,0));
-                // Restart application to avoid huge memory consumption because of images
-                //if (Runtime.getRuntime().freeMemory()// and Runtime.totalMemory()
-                //double cons = ((double)Runtime.getRuntime().freeMemory()/(double)Runtime.getRuntime().totalMemory())*100.0;
-                Runtime.getRuntime().gc();
-                OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-                Long usedMemory = operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize();
-                //long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-                double cons = ((double)usedMemory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
-                //double cons = ((double)memory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
-                //System.out.println("Consumption : "+cons);
-                if (cons>80){
-                    //System.out.println("High memory consumption...Restarting...");
-                    api.utils.appManagement.restartApplication(this, false);
-                }
-                //System.out.println(operatingSystemMXBean.getFreePhysicalMemorySize());
-                //System.out.println(operatingSystemMXBean.getTotalPhysicalMemorySize());
-            } catch (Exception ex) {
-                javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        } else if (s.equals(labelButtonSkip)) {
-                // Hide frame & delete screenshot
-                if (absoluteScreenshotFilePath!=null){
-                    if (!absoluteScreenshotFilePath.equals("")) {
-                        File f = new File(absoluteScreenshotFilePath);
-                        if (f.exists()) {
-                            f.delete();
+                    ArrayList<Regle> lesR=rep.getReglesQuestion();
+                    String strRegles="";
+                    for (int i=0; i<lesR.size();i++){
+                        if (i==0) {
+                            strRegles+=lesR.get(i).getType()+":"+lesR.get(i).getEvent();
+                        } else if (i<=(lesR.size()-1)){
+                            strRegles+=", "+lesR.get(i).getType()+":"+lesR.get(i).getEvent();
                         }
                     }
+                    conn.newAddEntry(rep);
+
+
+                    if (!absoluteScreenshotFilePath.equals("")){
+                        // Réouvrir l'image et la resize et ajouter réponse comme dans ViewAnswers
+                        ImgTxtMerger imTxtM  = new ImgTxtMerger();
+                        imTxtM.fusion(rep);
+                    }
+
+
+                                    clearFrame();
+                                    pack();
+                                                    this.validate();
+                    this.repaint(0);
+                                    this.hideTheFrame();
+                    //thePanel.jspMid.getVerticalScrollBar().setValue(0);
+                    JViewport jv = thePanel.jspMid.getViewport();
+                    jv.setViewPosition(new Point(0,0));
+                    // Restart application to avoid huge memory consumption because of images
+                    //if (Runtime.getRuntime().freeMemory()// and Runtime.totalMemory()
+                    //double cons = ((double)Runtime.getRuntime().freeMemory()/(double)Runtime.getRuntime().totalMemory())*100.0;
+                    Runtime.getRuntime().gc();
+                    OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+                    Long usedMemory = operatingSystemMXBean.getTotalPhysicalMemorySize()-operatingSystemMXBean.getFreePhysicalMemorySize();
+                    //long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                    double cons = ((double)usedMemory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
+                    //double cons = ((double)memory/(double)operatingSystemMXBean.getTotalPhysicalMemorySize())*100.0;
+                    //System.out.println("Consumption : "+cons);
+                    if (cons>80){
+                        //System.out.println("High memory consumption...Restarting...");
+                        api.utils.appManagement.restartApplication(this, false);
+                    }
+                    //System.out.println(operatingSystemMXBean.getFreePhysicalMemorySize());
+                    //System.out.println(operatingSystemMXBean.getTotalPhysicalMemorySize());
+                } catch (Exception ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
+            } else if (s.equals(labelButtonSkip)) {
+                    // Hide frame & delete screenshot
+                    if (absoluteScreenshotFilePath!=null){
+                        if (!absoluteScreenshotFilePath.equals("")) {
+                            File f = new File(absoluteScreenshotFilePath);
+                            if (f.exists()) {
+                                f.delete();
+                            }
+                        }
+                    }
 
 
-                clearFrame();
-                pack();
-                this.validate();
-                this.repaint(0);
-                this.hideTheFrame();
-                //thePanel.jspMid.getVerticalScrollBar().setValue(0);
-                JViewport jv = thePanel.jspMid.getViewport();
-jv.setViewPosition(new Point(0,0));
+                    clearFrame();
+                    pack();
+                    this.validate();
+                    this.repaint(0);
+                    this.hideTheFrame();
+                    //thePanel.jspMid.getVerticalScrollBar().setValue(0);
+                    JViewport jv = thePanel.jspMid.getViewport();
+                    jv.setViewPosition(new Point(0,0));
+            }
         }
-    }
 
-    public void windowOpened(WindowEvent e) {
-    }
-
-    public void windowClosing(WindowEvent e) {
-    }
-
-    public void windowClosed(WindowEvent e) {
-    }
-
-    public void windowIconified(WindowEvent e) {
-    }
-
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    public void windowActivated(WindowEvent e) {
-    }
-
-    public void windowDeactivated(WindowEvent e) {
-    }
-
-    public void keyTyped(KeyEvent e) {
-        hideCD.cancel();
-    }
-
-    public void keyPressed(KeyEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-        if (e.getModifiers() == KeyEvent.CTRL_MASK && e.getKeyCode() == KeyEvent.VK_ENTER) {
-            thePanel.b1.doClick();
+        public void windowOpened(WindowEvent e) {
         }
-    }
+
+        public void windowClosing(WindowEvent e) {
+        }
+
+        public void windowClosed(WindowEvent e) {
+        }
+
+        public void windowIconified(WindowEvent e) {
+        }
+
+        public void windowDeiconified(WindowEvent e) {
+        }
+
+        public void windowActivated(WindowEvent e) {
+        }
+
+        public void windowDeactivated(WindowEvent e) {
+        }
+
+        /**
+         * Stop timer when key typed
+         * @param e
+         */
+        public void keyTyped(KeyEvent e) {
+            hideCD.cancel();
+        }
+
+        public void keyPressed(KeyEvent e) {
+        }
+
+        /**
+         * Validating form by typing ctrl+enter
+         * @param e
+         */
+        public void keyReleased(KeyEvent e) {
+            if (e.getModifiers() == KeyEvent.CTRL_MASK && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                thePanel.b1.doClick();
+            }
+        }
 }
