@@ -3,7 +3,7 @@
     DEScribe - A Descriptive Experience Sampling cross platform application
     Copyright (C) 2011
     Sébastien Faure <sebastien.faure3@gmail.com>,
-    Amaury Belin   <amaury.belin@gmail.com>,
+    Amaury Belin    <amaury.belin@gmail.com>,
     Yannick Prie    <yannick.prie@univ-lyon1.fr>.
 
     This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ public class DBConnexion {
     private Connection conn;
 
     /**
-     * CONSTRUCTEUR
+     * Constructor
      */
     public DBConnexion() {
         try {
@@ -91,8 +91,8 @@ public class DBConnexion {
      */
 
     /**
-     * methode de récupération de singleton de connexion à la base
-     * @return l'instance unique de connexion ou une erreurs
+     * To get the unique instance of DB Connexion
+     * @return unique DB Connexion instance
      */
     public static DBConnexion getConnexion() {
         if (instance == null) {
@@ -102,7 +102,7 @@ public class DBConnexion {
     }
 
     /**
-     * METHODES A REFAIRE
+     * Reset Database
      */
     public void resetBD() {
         try {
@@ -117,24 +117,11 @@ public class DBConnexion {
         }
     }
 
-    public void addEntry(String question, String reponse, String instant, String session) {
-        try {
-            PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?, ?);");
-            prep.setString(1, question);
-            prep.setString(2, reponse);
-            prep.setString(3, instant);
-            prep.setString(4, session);
-            prep.addBatch();
-            conn.setAutoCommit(false);
-            prep.executeBatch();
-            conn.setAutoCommit(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
-        public ArrayList<Reponse> getEntriesNew() {
+    /**
+     * Get Database answers
+     * @return ArrayList of answers
+     */
+    public ArrayList<Reponse> getEntriesNew() {
         ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
 
         try {
@@ -162,6 +149,11 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Get database answers : old version
+     * @deprecated
+     * @return
+     */
     public ArrayList<Reponse> getEntries() {
         ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
 
@@ -190,6 +182,11 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Get all the answers of a session
+     * @param se the session
+     * @return the answers of se
+     */
     public ArrayList<Reponse> getEntriesBySession(Session se) {
         ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
 
@@ -229,6 +226,10 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Get the Database sessions
+     * @return Arraylist of sessions
+     */
         public ArrayList<Session> getSessions() {
         ArrayList<Session> lesSessions = new ArrayList<Session>();
         try {
@@ -280,125 +281,148 @@ public class DBConnexion {
         }
     }
 
-   public Session getSessionById(long id) {
-       Session s = null;
-        try {
-            Statement stat = null;
+       /**
+        * Get the session with specified id
+        * @param id
+        * @return Session with Id "id" if exists, else returns null
+        */
+       public Session getSessionById(long id) {
+           Session s = null;
             try {
-                stat = conn.createStatement();
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            ResultSet rs = stat.executeQuery("select * from session where idsession=\""+id+"\";");
-
-            while (rs.next()) {
+                Statement stat = null;
                 try {
-                    if(rs.getString("datefin").equals("null")){
-                        if(rs.getString("dateexport").equals("null")){
-                                s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
-                                s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
-                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
-                        } else {
-                                s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
-                                s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));     
-                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
-                        }
-                    } else {
-                        if(rs.getString("dateexport").equals("null")){
-                            s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
-                            s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
-                            s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
-                        } else {
-                            s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
-                            s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
-                            s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
-                        }
-                    }
-                } catch (ParseException ex) {
+                    stat = conn.createStatement();
+                } catch (SQLException ex) {
                     Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            rs.close();
-            return s;
+                ResultSet rs = stat.executeQuery("select * from session where idsession=\""+id+"\";");
 
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
+                while (rs.next()) {
+                    try {
+                        if(rs.getString("datefin").equals("null")){
+                            if(rs.getString("dateexport").equals("null")){
+                                    s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
+                                    s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                    s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
+                            } else {
+                                    s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), null, Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
+                                    s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                    s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
+                            }
+                        } else {
+                            if(rs.getString("dateexport").equals("null")){
+                                s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),null);
+                                s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
+                            } else {
+                                s = new Session(id, DateOutils.stringToDate(rs.getString("datedebut")), DateOutils.stringToDate(rs.getString("datefin")), Boolean.parseBoolean(rs.getString("active")), rs.getString("nom"),DateOutils.stringToDate(rs.getString("dateexport")));
+                                s.setTimeToLive(Integer.parseInt(rs.getString("timetolive")));
+                                s.setQuestionsPerHour(Integer.parseInt(rs.getString("questionsperhour")));
+                            }
+                        }
+                    } catch (ParseException ex) {
+                        Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                rs.close();
+                return s;
 
-
-   public String getEntriesString() {
-        ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
-
-        try {
-            Statement stat = null;
-            try {
-                stat = conn.createStatement();
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
             }
-            String s = "";
-            ResultSet rs = stat.executeQuery("select * from entries;");
-
-            while (rs.next()) {
-                    s=s+rs.getString("question")+" - "+rs.getString("reponse")+" - "+rs.getString("instant")+"\n";
-            }
-            rs.close();
-            return s;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
-    }
 
-      public String newgetEntriesString() {
 
-        try {
-            Statement stat = null;
+       /**
+        * Get answers in string format
+        * @return String containing all answers (new line per answer)
+        * @deprecated
+        */
+       public String getEntriesString() {
+            ArrayList<Reponse> lesReponses = new ArrayList<Reponse>();
+
             try {
-                stat = conn.createStatement();
+                Statement stat = null;
+                try {
+                    stat = conn.createStatement();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String s = "";
+                ResultSet rs = stat.executeQuery("select * from entries;");
+
+                while (rs.next()) {
+                        s=s+rs.getString("question")+" - "+rs.getString("reponse")+" - "+rs.getString("instant")+"\n";
+                }
+                rs.close();
+                return s;
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
             }
-            String s = "";
-            ResultSet rs = stat.executeQuery("select * from entries;");
-
-            while (rs.next()) {
-                    s=s+rs.getString("question")+" - "+rs.getString("reponse")+" - "+rs.getString("instant")+" - "+rs.getString("session")+"\n";
-            }
-            rs.close();
-            return s;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
-    }
 
-      public String getEntriesStringBySession(Session se) {
+       /**
+        * Get answers in string format
+        * @return String containing all answers (new line per answer)
+        */
+        public String newgetEntriesString() {
 
-        try {
-            Statement stat = null;
             try {
-                stat = conn.createStatement();
+                Statement stat = null;
+                try {
+                    stat = conn.createStatement();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String s = "";
+                ResultSet rs = stat.executeQuery("select * from entries;");
+
+                while (rs.next()) {
+                        s=s+rs.getString("question")+" - "+rs.getString("reponse")+" - "+rs.getString("instant")+" - "+rs.getString("session")+"\n";
+                }
+                rs.close();
+                return s;
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
             }
-            String s = "";
-            ResultSet rs = stat.executeQuery("select * from entries where session=\""+se.getId()+"\";");
-
-            while (rs.next()) {
-                    //s=s+rs.getString("question")+" - "+rs.getString("reponse").replaceAll("\n", " ")+" - "+rs.getString("instant")+" - "+rs.getString("session")+"\n";
-                    s=s+rs.getString("idreponse")+" - "+rs.getString("instant")+" - "+rs.getString("reponse").replaceAll("\n", " ")+"\n";
-            }
-            rs.close();
-            return s;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
-    }
 
+
+       /**
+        * Get answers in string format of specified session
+        * @return String containing all answers of session se
+        */
+        public String getEntriesStringBySession(Session se) {
+
+            try {
+                Statement stat = null;
+                try {
+                    stat = conn.createStatement();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String s = "";
+                ResultSet rs = stat.executeQuery("select * from entries where session=\""+se.getId()+"\";");
+
+                while (rs.next()) {
+                        //s=s+rs.getString("question")+" - "+rs.getString("reponse").replaceAll("\n", " ")+" - "+rs.getString("instant")+" - "+rs.getString("session")+"\n";
+                        s=s+rs.getString("idreponse")+" - "+rs.getString("instant")+" - "+rs.getString("reponse").replaceAll("\n", " ")+"\n";
+                }
+                rs.close();
+                return s;
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+
+       /**
+        * Get sessions in string format
+        * @return String containing all sessions
+        */
        public String getSessionsString() {
 
         try {
@@ -425,6 +449,9 @@ public class DBConnexion {
 
 
 
+    /**
+     * Close database link
+     */
     public void closeBDLink() {
         try {
             this.conn.close();
@@ -433,6 +460,11 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Add answer to database
+     * @deprecated
+     * @param rep
+     */
     public void addEntry(Reponse rep) {
         try {
             PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?);");
@@ -449,6 +481,10 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Add answer to database
+     * @param rep
+     */
     public void newAddEntry(Reponse rep) {
         try {
             PreparedStatement prep = conn.prepareStatement("insert into entries values (?, ?, ?, ?, ?, ?, ?);");
@@ -482,6 +518,10 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Add session to database
+     * @param s
+     */
     public void addSession(Session s) {
         try {
             PreparedStatement prep = conn.prepareStatement("insert into session values (?, ?, ?, ?, ?, ?, ?, ?);");
@@ -515,7 +555,7 @@ public class DBConnexion {
     }
 
     /**
-     * Met a jour la session s dans la base
+     * Update session s in database
      * @param s la session
      */
     public void updateSession(Session s) {
@@ -545,7 +585,7 @@ public class DBConnexion {
     }
 
     /**
-     * Met a jour la session s dans la base
+     * Delete all closed sessions of the database
      * @param s la session
      */
     public void deleteOldSession() {
@@ -561,7 +601,7 @@ public class DBConnexion {
     }
 
     /**
-     * Retourne le plus grand identifiant de session
+     * Get max session id of database
      * @return
      */
     public Long getMaxIdSession() {
@@ -598,8 +638,8 @@ public class DBConnexion {
     }
 
     /**
-     * Retourne le plus grand identifiant de réponse pour une session
-     * @return
+     * Get max answer id of session s
+     * @return Long answer id
      */
     public Long getMaxIdReponseBySession(Session s) {
         Long idmax = Long.parseLong("0");
@@ -633,7 +673,7 @@ public class DBConnexion {
 
     }
      /**
-     * Met a jour la session s dans la base
+     * Delete session s from database
      * @param s la session
      */
     public void deleteSession(Session s) {
@@ -648,6 +688,10 @@ public class DBConnexion {
         }
     }
 
+    /**
+     * Delete all answers of session s from database
+     * @param s
+     */
     public void deleteAnswersOfSession(Session s) {
         try {
             PreparedStatement prep = conn.prepareStatement("delete from entries where session =\""+s.getId()+"\";");
@@ -661,6 +705,10 @@ public class DBConnexion {
 
     }
 
+    /**
+     * Delete the answer r from database
+     * @param r
+     */
     public void deleteAnwser(Reponse r) {
         try {
             PreparedStatement prep = conn.prepareStatement("delete from entries where session =\""+r.getSession().getId()+"\" and idreponse=\""+r.getId()+"\";");
@@ -676,7 +724,7 @@ public class DBConnexion {
 
     /**
      * Number of answers of a session
-     * @return
+     * @return int number of answers of session s
      */
     public int getNbAnswers(Session s) {
         int nb=0;
