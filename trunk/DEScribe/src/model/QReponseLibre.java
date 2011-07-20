@@ -31,6 +31,10 @@ package model;
  */
 public class QReponseLibre extends Question{
 
+    /**
+     * Constructor
+     * @param enonce
+     */
     public QReponseLibre(String enonce){
         super(enonce);
     }

@@ -40,6 +40,9 @@ public class LaunchReportPage {
     private static Runtime r = null;
     private static String ReportURL = "http://code.google.com/p/describe/issues/list";
 
+    /**
+     * Launch DEScribe's bugs reporting web page
+     */
     public static void LaunchPage() {
         if (getOs.isWindows()) {
             try {

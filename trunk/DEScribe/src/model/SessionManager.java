@@ -44,20 +44,22 @@ import java.util.logging.Logger;
 public class SessionManager {
 
     /**
-     * Instance unique du SessionManager
+     * SessionManager unique instance
      */
     static protected SessionManager sm = null;
+
     /**
-     * Les sessions chargées depuis la base
+     * Loaded sessions
      */
     ArrayList<Session> lesSessions;
+
     /**
-     * La session courante
+     * Current session
      */
     Session courante;
 
     /**
-     * Constructeur
+     * Constructor
      * @throws SQLException
      */
     public SessionManager() throws SQLException {
@@ -70,7 +72,7 @@ public class SessionManager {
     }
 
     /**
-     * Permet d'instancier ou d'obtenir l'unique instance existante du SessionManager selon le cas
+     * Gets SessionManager instance
      * @return
      * @throws SQLException
      */
@@ -82,14 +84,13 @@ public class SessionManager {
     }
 
     /**
-     * Chargement d'une session par défaut (la dernière) :
-     * à utiliser au lancement auto de l'application
+     * Load session
      */
     public void load() {
-        //Lancement de la session par défaut
+        //Default sessions if none created yet
         if (lesSessions.isEmpty()) {
             try {
-                // Initialisation de la nouvelle session
+                // Init new session
                 String nom = "default";
                 lesSessions.add(new Session(Long.parseLong("1"), new Date(), null, true, nom, null));
                 courante = lesSessions.get(0);
@@ -122,22 +123,14 @@ public class SessionManager {
 
         } else {
             /**
-             * Chargement de la session la plus récente.
+             * Latest session's loading
              */
             courante = lesSessions.get(lesSessions.size() - 1);
         }
     }
 
     /**
-     * Pour charger une session en particulier
-     * @param idSession
-     */
-    public void load(long idSession) {
-        //Lancement de la session
-    }
-
-    /**
-     * Pour obtenir la session courante
+     * Gets current session
      * @return
      */
     public Session getSessionCourante() {
@@ -145,9 +138,8 @@ public class SessionManager {
     }
 
     /**
-     * Pour créer une nouvelle session : objet puis enregistrement dans la base
-     * Cette session devient la session courante
-     * A coder
+     * Creates a new session : instanciate object and creates a new session
+     * in database. This new session becomes current session/
      * @return
      */
     public void createSession(String name) {
@@ -179,7 +171,7 @@ public class SessionManager {
     }
 
     /**
-     * Pour obtenir la liste des sessions manipulées par le SessionManager
+     * Gets the list of sessions
      * @return
      */
     public ArrayList<Session> getLesSessions() {
@@ -188,7 +180,7 @@ public class SessionManager {
 
 
     /**
-     * Pour clore une session
+     * Closes a session
      */
     public void closeSession(Session s){
         s.setActive(false);
@@ -200,7 +192,7 @@ public class SessionManager {
     }
 
     /**
-     * Pour supprimer les sessions closes et leurs réponses
+     * Deletes all closed sessions and their answers
      */
     public void cleanOldSessions(){
        DBConnexion conn = DBConnexion.getConnexion();
@@ -214,15 +206,23 @@ public class SessionManager {
 
             }
         lesSessions = conn.getSessions();
+
+        //TODO : Also delete answers screenshots!
         }
 
     /**
-     * Delete a closed session
+     * Deletes a closed session and its answers
      */
     public void deleteOldSession(Session s){
                 if (!s.getActive()){
                     DBConnexion conn = DBConnexion.getConnexion();
-                    conn.deleteAnswersOfSession(s);
+                    ArrayList<Reponse> aR=conn.getEntriesBySession(s);
+                    if (aR != null){
+                       for (int i=0;i<aR.size();i++){
+                          aR.get(i).deleteReponse();
+                       }
+                    }
+                    //conn.deleteAnswersOfSession(s);
                     conn.deleteSession(s);
                     lesSessions.remove(s);
                     lesSessions = conn.getSessions();
@@ -230,7 +230,7 @@ public class SessionManager {
     }
 
     /**
-     * Number of answers of a session
+     * Gets number of answers of a session
      */
     public int getNumberOfAnswers(Session s){
                     DBConnexion conn = DBConnexion.getConnexion();

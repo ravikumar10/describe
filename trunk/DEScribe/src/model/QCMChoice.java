@@ -34,15 +34,29 @@ public class QCMChoice {
     private String text;
     private Boolean isOtherChoice;
 
+    /**
+     * Constructor
+     * @param t
+     * @param iOC
+     */
     public QCMChoice(String t, Boolean iOC){
         text=t;
         isOtherChoice=iOC;
     }
 
+    /**
+     * Gets choice to string
+     * @return
+     */
     public String getText(){
         return text;
     }
 
+    /**
+     * Checks if choice is of type "other" (will be followed by a textfield for
+     * free answer)
+     * @return
+     */
     public Boolean getIsOtherChoice(){
         return isOtherChoice;
     }

@@ -50,22 +50,35 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        // Port à utiliser pour communiquer avec l'instance de l'application lancée.
+        /**
+         * Port used to communicate with the instance launched
+         */
         final int PORT = 32145;
-        // Message à envoyer à l'application lancée lorsqu'une autre instance essaye de démarrer.
+
+        /**
+         * Message to send to the instance launched
+         */
         final String MESSAGE = "DEScribe";
-        // Actions à effectuer lorsqu'une autre instance essaye de démarrer.
+        
+        /**
+         * Actions to do when another instance is trying to start up
+         */
         final Runnable RUN_ON_RECEIVE = new Runnable() {
 
             public void run() {
+                /* Nothing for now */
             }
         };
+        
         try {
+            /**
+             * 1 sec wait because of Mac version and its possible reboot
+             * (see following lines)
+             */
             Thread.sleep(1000);
             if (args.length>0){
                 // If param = reboot => used for Mac : reboot from .jar to .app
                 if (args[0].equals("reboot")){
-                    //System.out.println(api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true));
                     api.utils.appManagement.restartApplication(OptionFrame.getOptionFrame(), true);
                 }
             }
@@ -76,17 +89,33 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         UniqueInstance uniqueInstance = new UniqueInstance(PORT, MESSAGE, RUN_ON_RECEIVE);
-        // Si aucune autre instance n'est lancée...
+        // If no oter instance is already launched...
         if (uniqueInstance.launch()) {
-            // On démarre l'application.
+            // Let's start it up!
+
+            /** Database connexion */
             DBConnexion conn = DBConnexion.getConnexion();
-            //conn.resetBD();
+
+            /**
+             * Tasktray menu
+             */
             TaskTrayMenu tt = new TaskTrayMenu();
+
+            /**
+             * Sessions manager
+             */
             SessionManager sm = SessionManager.getSessionManager();
 
+            /**
+             * Option frame
+             */
             OptionFrame.getOptionFrame();
-            //TimerQuestion timr = new TimerQuestion();
+            
+            /**
+             * Question timer
+             */
             TimerQuestion timr=TimerQuestion.getTimerQuestion();
+
             /*try {
                 Thread.sleep(10000);
             } catch (InterruptedException ex) {
@@ -100,10 +129,9 @@ public class Main {
             System.out.println("NOT RUNNING");
             }*/
             
-            /* Lancer le détecteur de Copier-Coller */
+            /* Copy and Paste handler */
             CopyAndPasteHandler cPH =CopyAndPasteHandler.getInstance();
 
         }
     }
-
 }

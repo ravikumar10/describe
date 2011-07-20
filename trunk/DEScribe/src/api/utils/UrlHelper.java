@@ -47,18 +47,27 @@ import java.net.URLConnection;
  */
 public class UrlHelper {
 
+    /**
+     * Download a file by URL
+     * @param adresse
+     */
     public static void downloadFile(String adresse) {
 
         downloadFile(adresse, null);
     }
 
+  /**
+   * Download file to specified dest directory
+   * @param adresse
+   * @param dest
+   */
     public static void downloadFile(String adresse, File dest) {
         BufferedReader reader = null;
         FileOutputStream fos = null;
         InputStream in = null;
         try {
 
-            // création de la connection
+            /* Connexion creation */
             URL url = new URL(adresse);
             URLConnection conn = url.openConnection();
             String FileType = conn.getContentType();
@@ -68,7 +77,7 @@ public class UrlHelper {
                 throw new IOException("Fichier non valide.");
             }
 
-            // lecture de la réponse
+            /* Reading answer */
             in = conn.getInputStream();
             reader = new BufferedReader(new InputStreamReader(in));
             if (dest == null) {

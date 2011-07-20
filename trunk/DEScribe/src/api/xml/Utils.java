@@ -75,8 +75,8 @@ public class Utils {
     public static String defaultSessionsFolder = "sessions";
 
     /**
-     * Méthode de lecture d'un fichier XML pour
-     * @param File String définissant le chemin du fichier XML
+     * Imports a questions form from XML form file
+     * @param File XML file path
      * @throws SAXException
      * @throws IOException
      * @throws ParserConfigurationException
@@ -197,13 +197,8 @@ public class Utils {
     }
 
      /**
-     * Méthode de lecture d'un fichier XML pour
-     * @param File String définissant le chemin du fichier XML
-     * @throws SAXException
-     * @throws IOException
-     * @throws ParserConfigurationException
-     * @throws SQLException
-     * @throws ParseException
+     * Import actions associated to a the form (for example "screenshot")
+     * @throws BadXMLFileException
      */
     public static ArrayList<Action> importFormActionsXML() throws BadXMLFileException {
         try {
@@ -260,13 +255,11 @@ public class Utils {
     }
 
     /**
-     * Méthode de lecture d'un fichier XML de langue pour charger une hashmap de correspondance entre reference et traduction
-     * @param File String définissant le chemin du fichier XML
+     * XML translation file reading method to load the conversion hashmap between references and translations
+     * @param File XML translation file's path
      * @throws SAXException
      * @throws IOException
      * @throws ParserConfigurationException
-     * @throws SQLException
-     * @throws ParseException
      */
     public static HashMap importTranslationHashMapFromXML(String file) throws SAXException, IOException, ParserConfigurationException {
 
@@ -295,6 +288,12 @@ public class Utils {
 
     }
 
+    /**
+     * Exports a list of answers to XML file
+     * @param entries list of answers
+     * @param fichier destination file's path
+     * @throws IOException
+     */
     public static void ExportReponsesToXML(ArrayList<Reponse> entries, String fichier) throws IOException {
         OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(fichier), "ISO-8859-1");
         fw.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n");
@@ -347,27 +346,26 @@ public class Utils {
     }
 
     /**
-     * Modifie le fichier options.xml pour y mettre le nouveau chemin du fichier xml de questions
+     * Update options.xml file to set the new path of XML form file
      * @param file
+     * @throws BadXMLFileException
      */
     public static void setNewFormFile(String file) throws BadXMLFileException  {
         try{
-                //System.out.println("File : "+file);
                 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
                 Document doc;
                 if (getOs.isWindows()) {
-                    doc = docBuilder.parse("xml\\"+defaultOptionFile); //fichier d'options a parser
+                    doc = docBuilder.parse("xml\\"+defaultOptionFile);
                 } else {
                     doc = docBuilder.parse("xml/"+defaultOptionFile);
                 }
-                //Get the staff element by tag name directly
+
                 Node form = doc.getElementsByTagName("form").item(0);
 
                 if (form==null){
                     throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
                 } else {
-                    //update staff attribute
                     NamedNodeMap attr = form.getAttributes();
                     if (attr==null){
                         throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
@@ -377,10 +375,9 @@ public class Utils {
                             throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
                         } else {
                             nodeAttr.setTextContent(file);
-                            //ICI FAIRE LE TEST DE VALIDITE DU NOUVEAU FICHIER DE QUESTIONS, AVANT DE SAUVEGARDER LES OPTIONS
                             try{
                                 testIsFormXML(file);
-                                //write the content into xml file
+                                //write contents into xml file
                                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                                 Transformer transformer = transformerFactory.newTransformer();
                                 DOMSource source = new DOMSource(doc);
@@ -417,8 +414,9 @@ public class Utils {
     }
 
     /**
-     * Modifie le fichier options.xml pour y mettre le chemin du fichier xml de questions par défaut
+     * Update options.xml file to set the default path of XML form file
      * @param file
+     * @throws BadXMLFileException
      */
     public static void setDefaultFormFile() throws BadXMLFileException {
 
@@ -476,6 +474,11 @@ public class Utils {
 
     }
 
+    /**
+     * Loads current language
+     * @return
+     * @throws BadXMLFileException
+     */
     public static String loadLanguage() throws BadXMLFileException {
         String s = "english";
         try {
@@ -503,6 +506,10 @@ public class Utils {
         return s;
     }
 
+    /**
+     * Loads settings
+     * @throws BadXMLFileException
+     */
     public static void loadSettings() throws BadXMLFileException {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -555,6 +562,10 @@ public class Utils {
 
     }
 
+    /**
+     * Save settings
+     * @throws BadXMLFileException
+     */
     public static void saveSettings() throws BadXMLFileException {
         try{
                 String oldFormURL;
@@ -648,12 +659,10 @@ public class Utils {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
                     throw new BadXMLFileException(BadXMLFileException.BAD_OPTION_FILE);
             }
-
-
     }
 
     /**
-     * LoadSessionsFolder : return current sessions' folder string
+     * LoadSessionsFolder : returns current sessions' folder string
      * @return
      * @throws BadXMLFileException
      */
@@ -685,13 +694,9 @@ public class Utils {
     }
 
      /**
-     * Méthode de lecture d'un fichier XML pour
-     * @param File String définissant le chemin du fichier XML
-     * @throws SAXException
-     * @throws IOException
-     * @throws ParserConfigurationException
-     * @throws SQLException
-     * @throws ParseException
+     * Checks if file is in good XML form format
+     * @param File path
+     * @throws BadXMLFileException
      */
     public static void testIsFormXML(String file) throws BadXMLFileException {
         try {
@@ -745,6 +750,11 @@ public class Utils {
 
     }
 
+    /**
+     * Checks if the specified program is currently running on Windows
+     * @param process
+     * @return
+     */
     public static boolean isPriorityProgramRunningOSWin(String process){
         List<String> processes = new ArrayList<String>();
         try {
@@ -770,6 +780,11 @@ public class Utils {
         return false;
     }
 
+    /**
+     * Checks if the specified program is currently running on Mac/Unix/Linux
+     * @param process
+     * @return
+     */
     public static boolean isPriorityProgramRunningOSMacLinux(String process){
     String command="ps -A -U "+System.getProperty("user.name")+" -d";
     try {
@@ -786,7 +801,7 @@ public class Utils {
     }catch (Exception err) {
       err.printStackTrace();
     }
-return false;
+        return false;
     }
 
     /**
@@ -800,7 +815,7 @@ return false;
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc;
             if (getOs.isWindows()) {
-                doc = db.parse("xml\\options.xml"); //fichier d'options a parser
+                doc = db.parse("xml\\options.xml");
             } else {
                 doc = db.parse("xml/options.xml");
             }
@@ -810,11 +825,9 @@ return false;
             form = root.getElementsByTagName("form");
             Element e = (Element) form.item(0);
             String url = e.getAttribute("url");
-            /**
-             * Récupération des questions du fichier "url"
-             */
+
             DocumentBuilder db2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc2 = db2.parse(url); //fichier d'options a parser
+            Document doc2 = db2.parse(url);
 
             Element rootQuestions = doc2.getDocumentElement();
             NodeList httl = null;
@@ -834,8 +847,8 @@ return false;
     }
 
     /**
-     * loadSessionsNbQuestionsPerHour : return current sessions' number of questions per
-     * hour
+     * loadSessionsNbQuestionsPerHour : return current sessions' number of 
+     * questions per hour
      * @return
      * @throws BadXMLFileException
      */
@@ -855,11 +868,9 @@ return false;
             form = root.getElementsByTagName("form");
             Element e = (Element) form.item(0);
             String url = e.getAttribute("url");
-            /**
-             * Récupération des questions du fichier "url"
-             */
+
             DocumentBuilder db2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc2 = db2.parse(url); //fichier d'options a parser
+            Document doc2 = db2.parse(url);
 
             Element rootQuestions = doc2.getDocumentElement();
             NodeList httl = null;

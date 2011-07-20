@@ -44,12 +44,22 @@ import java.util.logging.Logger;
  */
 public class ActionScreenshot extends Action {
 
+    /**
+     * Screenshot complete file path
+     */
     private String absoluteFileName;
 
+    /**
+     * Constructor
+     */
     public ActionScreenshot() {
         name ="screenshot";
     }
 
+    /**
+     * Take a screenshot
+     * @param resultFileName destination file path
+     */
     public void takeCapture(String resultFileName) {
         try {
 
@@ -112,6 +122,10 @@ public class ActionScreenshot extends Action {
 
     }
 
+    /**
+     * Gets absolute screenshot file path
+     * @return screenshot file path
+     */
     public String getAbsFileName(){
         return absoluteFileName;
     }

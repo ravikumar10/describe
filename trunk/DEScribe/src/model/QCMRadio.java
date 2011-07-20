@@ -45,12 +45,21 @@ public class QCMRadio extends QCM{
         return choices;
     }
 */
+    /**
+     * Constructor
+     * @param intitule
+     * @param ch
+     */
     public QCMRadio(String intitule, ArrayList<QCMChoice> ch) {
         super(intitule);
         choices=new ArrayList<QCMChoice>();
         choices=ch;
     }
 
+    /**
+     * Choices of answers proposed by the Multiple Choices Question
+     * @return
+     */
     public ArrayList<QCMChoice> getChoices(){
         return choices;
     }

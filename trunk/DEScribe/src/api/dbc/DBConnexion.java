@@ -691,6 +691,7 @@ public class DBConnexion {
     /**
      * Delete all answers of session s from database
      * @param s
+     * @deprecated doesn't delete screenshots files
      */
     public void deleteAnswersOfSession(Session s) {
         try {

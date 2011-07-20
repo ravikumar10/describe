@@ -47,12 +47,21 @@ public class QCMChkBox extends QCM{
 
      */
 
+    /**
+     * Constructor
+     * @param intitule
+     * @param ch
+     */
     public QCMChkBox(String intitule, ArrayList<QCMChoice> ch) {
         super(intitule);
         choices=new ArrayList<QCMChoice>();
         choices=ch;
     }
 
+    /**
+     * Choices of answers proposed by the Multiple Choices Question
+     * @return
+     */
     public ArrayList<QCMChoice> getChoices(){
         return choices;
     }
