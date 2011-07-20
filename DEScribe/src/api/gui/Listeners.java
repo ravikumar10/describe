@@ -330,8 +330,8 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
         } else if (s.equals(SessionFrame.labelBtNewSessionCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
-            int retour = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
-            if (retour == 0) {
+            /*int retour = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
+            if (retour == 0) {*/
                 try {
                     int ret = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strFormChoiceForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameFormChoiceForNewSession"), JOptionPane.YES_NO_CANCEL_OPTION);
                     if (ret == 0) {
@@ -458,7 +458,7 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                 } catch (SQLException ex) {
                     Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            /*}*/
             SessionFrame.getFrame().setAlwaysOnTop(true);
 
             /**
