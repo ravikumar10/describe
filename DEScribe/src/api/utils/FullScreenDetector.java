@@ -36,57 +36,71 @@ import java.util.logging.Logger;
  * @version 2011-07-18
  */
 public class FullScreenDetector {
-            private static Boolean isFullScreen;
-  public static Boolean isFullScreenProgramRunning() {
-      isFullScreen=false;
-      //System.out.println("Testing fullscreen mode...");
-      if (api.utils.getOs.isWindows()){
-        try {
-            Runtime runtime = Runtime.getRuntime();
-            final Process process = runtime.exec(".\\tools\\testFS.exe");
-            // Consommation de la sortie standard de l'application externe dans un Thread separe
+        /**
+         * Boolean of full screen mode detection
+         */
+        private static Boolean isFullScreen;
 
+        /**
+         * Checks if any computer's application currently running is in
+         * full screen mode
+         * @return true if at least one application is in full screen mode, else
+         * false
+         */
+        public static Boolean isFullScreenProgramRunning() {
+            isFullScreen=false;
 
-            Thread t=new Thread() {
-
-                public void run() {
-                    try {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                        String line = "";
-                        try {
-                            while ((line = reader.readLine()) != null) {
-                                // Traitement du flux de sortie de l'application si besoin est
-                               //System.out.println(line);
-                                if (line.equals("fullscreen")){
-                                    isFullScreen=true;
-                                } else {
-                                    isFullScreen=false;
-                                }
-                            }
-                        } finally {
-                            reader.close();
-                            return;
-                        }
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-                }
-            };
-            t.start();
+            /**
+             * Windows solution
+             */
+            if (api.utils.getOs.isWindows()){
                 try {
-                    t.join();
-                } catch (InterruptedException ex) {
+                    Runtime runtime = Runtime.getRuntime();
+                    final Process process = runtime.exec(".\\tools\\testFS.exe");
+                    // Consommation de la sortie standard de l'application externe dans un Thread separe
+
+
+                    Thread t=new Thread() {
+
+                        public void run() {
+                            try {
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                                String line = "";
+                                try {
+                                    while ((line = reader.readLine()) != null) {
+                                        // Traitement du flux de sortie de l'application si besoin est
+                                       //System.out.println(line);
+                                        if (line.equals("fullscreen")){
+                                            isFullScreen=true;
+                                        } else {
+                                            isFullScreen=false;
+                                        }
+                                    }
+                                } finally {
+                                    reader.close();
+                                    return;
+                                }
+                            } catch (IOException ioe) {
+                                ioe.printStackTrace();
+                            }
+                        }
+                    };
+                    t.start();
+                    try {
+                        t.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (IOException ex) {
                     Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        } catch (IOException ex) {
-            Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        return isFullScreen;
-      }
-      else
-      {
-          if (api.utils.getOs.isMac()){
+                return isFullScreen;
+          }
+          /**
+           * Mac solution
+           */
+          else if (api.utils.getOs.isMac()){
                 try {
                     final Process process=Runtime.getRuntime().exec(new String[]{"tools/testFS"});
                     Thread t=new Thread() {
@@ -126,8 +140,12 @@ public class FullScreenDetector {
                         Logger.getLogger(FullScreenDetector.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     return isFullScreen;
-          }
-        return false;
+      /**
+       * UNIX solution NOT IMPLEMENTED YET, TO BE DONE...
+       */
+      } else if (api.utils.getOs.isUnix()){
+         return false;
       }
+        return false;
   }
 }

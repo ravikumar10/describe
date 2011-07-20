@@ -64,6 +64,10 @@ import model.SessionManager;
  */
 public class ViewAnswers extends JFrame {
 
+    /**
+     * Get frame
+     * @return
+     */
     static Object getFrame() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -89,6 +93,9 @@ public class ViewAnswers extends JFrame {
     public static String btClose = Lang.getLang().getValueFromRef("ViewAnswers.btClose");
     public static String title = Lang.getLang().getValueFromRef("ViewAnswers.title");
 
+    /**
+     * Constructor
+     */
     private ViewAnswers() {
         // 2 JPanels
         // One for pictures, other for controls
@@ -173,7 +180,10 @@ public class ViewAnswers extends JFrame {
             }
             //panelDownList.add(c);
             listSessionID.addItemListener(new ItemListener() {
-
+                /**
+                 * When selected session changes :
+                 * - refresh answers' list
+                 */
                 public void itemStateChanged(ItemEvent ie) {
                     if (ie.getStateChange() == ItemEvent.SELECTED) {
                         if (!listSessionID.getSelectedItem().equals("")){
@@ -235,6 +245,9 @@ public class ViewAnswers extends JFrame {
             });
 
             deleteButton.addActionListener(new ActionListener() {
+                /**
+                 * Delete current answer (screenshot too)
+                 */
                 public void actionPerformed(ActionEvent e) {
                     if (selectedSessionAnswers.size()>0)
                         selectedSessionAnswers.get(listAnswerID.getSelectedIndex()).deleteReponse();
@@ -290,6 +303,10 @@ public class ViewAnswers extends JFrame {
         this.pack();
     }
 
+    /**
+     * Get the frame unique instance
+     * @return
+     */
     public static ViewAnswers getTheFrame() {
         if (instance == null) {
             instance = new ViewAnswers();
@@ -297,6 +314,9 @@ public class ViewAnswers extends JFrame {
         return instance;
     }
 
+    /**
+     * Refresh frame
+     */
     public void refresh() {
         pack();
         this.setLocation(0, 0);
@@ -312,6 +332,9 @@ public class ViewAnswers extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Display screenshot
+     */
     private void displayScreenshot(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screen.width;
@@ -364,6 +387,9 @@ public class ViewAnswers extends JFrame {
 
     }
 
+    /**
+     * Reset frame contents
+     */
     public void reset(){
         listAnswerID.removeAll();
         listSessionID.removeAll();
@@ -420,6 +446,13 @@ public class ViewAnswers extends JFrame {
 
     }
 
+    /**
+     * Resize a buffered image to the specified dimension
+     * @param img
+     * @param newW
+     * @param newH
+     * @return
+     */
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
             int w = img.getWidth();
             int h = img.getHeight();
@@ -434,6 +467,13 @@ public class ViewAnswers extends JFrame {
 
 
     // Pour fusionner le screenshot avec un blanc en haut:
+    /**
+     * Merge two images vertically
+     * first on top, second on bottom
+     * @param img1
+     * @param img2
+     * @return merged buffered image
+     */
     public static BufferedImage append(Image img1, Image img2) {
         BufferedImage buf = null;
         if(img1 != null && img2 != null) {
@@ -454,27 +494,4 @@ public class ViewAnswers extends JFrame {
         return buf;
     }
 
-  /*
-   public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(3);
-        f.setSize(800, 600);
-        f.setLocationRelativeTo(null);
-
-
-        ImageIcon img1 = new ImageIcon("img1.png");
-        ImageIcon img2 = new ImageIcon("img2.png");
-        ImageIcon image = new ImageIcon(append(img1.getImage(), img2.getImage()));
-        JLabel label = new JLabel();
-        label.setIcon(image);
-
-
-        f.setContentPane(label);
-        f.setVisible(true);
-    }
-   */
-
-
-    //Puis mettre le texte
-    //ImgTxtMerger.merge(absoluteScreenshotFilePath, rep.getIntituleQuestion()+ " \n "+rep.getLaReponse()+" \n "+rep.getInstant().toString());
 }

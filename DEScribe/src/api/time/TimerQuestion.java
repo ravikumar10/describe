@@ -48,9 +48,7 @@ import model.SessionManager;
 public class TimerQuestion {
 
     int heureDerniereQuestion = -1;
-
     long instantDerniereQuestion=-1;
-
     static int randomNum;
     static Timer timer;
     static Timer timer2;
@@ -67,12 +65,22 @@ public class TimerQuestion {
     TimerTask tache;
     static Date dateDeReprise;
 
+    /**
+     * Unique instance of TimerQuestion (singleton design pattern)
+     */
     private static TimerQuestion instance;
 
+    /**
+     * Contructor
+     */
     public TimerQuestion(){
         chrono();
     }
 
+    /**
+     * Get unique instance
+     * @return
+     */
     public static TimerQuestion getTimerQuestion(){
         if (instance == null) {
             instance = new TimerQuestion();
@@ -80,6 +88,9 @@ public class TimerQuestion {
         return instance;
     }
 
+    /**
+     * Launch the timer
+     */
     public void chrono() {
 
         // délai avant la mise en route (0 demarre immediatement)
@@ -107,10 +118,17 @@ public class TimerQuestion {
         timer.schedule(tache, temps);  // ici on lance la mecanique
     }
 
+    /**
+     * Get the current timer
+     * @return
+     */
     public static Timer getTimer() {
         return timer;
     }
 
+    /**
+     * Set a new timer
+     */
     public void setNewTimer() {
         if (timer2 != null) {
             timer2.cancel();
@@ -183,22 +201,41 @@ public class TimerQuestion {
         timer2.schedule(tache, temps);  // ici on lance la mecanique
     }
 
+    /**
+     * Generate new random int value in rd range for randomNum
+     * @param rd
+     */
     public void setRandomNum(int rd) {
         randomNum = rd;
     }
 
+    /**
+     * Change time value
+     * @param tps
+     */
     public void setTemps(int tps) {
         temps = tps;
     }
 
+    /**
+     * Set instant of next question
+     * @param d
+     */
     public static void setDateDelay(Date d) {
         dateDeReprise = d;
     }
 
+    /**
+     * Reset instant of next question
+     */
     public static void resetDateDelay() {
         dateDeReprise = null;
     }
 
+    /**
+     * Check if a question can be ask at the currnet moment
+     * @return true if a question can be asked, else fase
+     */
     public Boolean canIAskQuestionNow(){
         GregorianCalendar gc = new GregorianCalendar();
         try {
@@ -214,7 +251,9 @@ public class TimerQuestion {
     }
 
 
-    // Call it when a new question has been asked : not needed
+    /**
+     * Call it when a new question has been asked : not needed
+     */
     public void resetTimerAfterQuestion(){
         try {
             GregorianCalendar gc = new GregorianCalendar();
