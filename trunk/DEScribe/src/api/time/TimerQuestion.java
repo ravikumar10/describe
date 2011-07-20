@@ -146,7 +146,7 @@ public class TimerQuestion {
                     }
 
 //                    if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
-                    if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>(3600000/SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour()))) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause()) && (!FullScreenDetector.isFullScreenProgramRunning())) {
+                    if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>(3600000/SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour()))) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause()) && (!FullScreenDetector.isFullScreenProgramRunning()) && (!SessionFrame.getFrame().isVisible()) ) {
                         heureDerniereQuestion = gc.get(Calendar.HOUR_OF_DAY);
                         instantDerniereQuestion=new Date().getTime();
                         AskFrame.getTheFrame().showTheFrame(null);
@@ -204,7 +204,7 @@ public class TimerQuestion {
         try {
 //            if (((heureDerniereQuestion == -1) || (gc.get(Calendar.HOUR_OF_DAY) != heureDerniereQuestion)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
 //        if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>1800000)) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause())) {
-        if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>(3600000/SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour()))) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause()) && (!FullScreenDetector.isFullScreenProgramRunning())) {
+        if (((instantDerniereQuestion == -1) || ((new Date().getTime()-instantDerniereQuestion)>(3600000/SessionManager.getSessionManager().getSessionCourante().getQuestionsPerHour()))) && (!AskFrame.getTheFrame().isVisible()) && (SessionManager.getSessionManager().getSessionCourante().getActive()) && (!SessionManager.getSessionManager().getSessionCourante().getPause()) && (!FullScreenDetector.isFullScreenProgramRunning())  && (!SessionFrame.getFrame().isVisible()) ) {
             return true;
             }
         } catch (SQLException ex) {

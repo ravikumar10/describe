@@ -150,18 +150,21 @@ public class SessionFrame extends JFrame {
 
     public static long instantReprise;
 
+    /**
+     * Constructor
+     */
     public SessionFrame() {
-
-        // LA FENETRE PRINCIPALE
-
-        // New version
 
         this.setTitle(title);
         this.setIconImage(new ImageIcon("media/des.gif").getImage());
         this.setResizable(true);
         this.addWindowListener(Listeners.getListeners());
 
-
+        /**
+         * Two main panels : Left side of the frame and right side of the frame
+         * - jpLeft : Sessions list with creation/deletion buttons
+         * - jpRight : Selected session commands and data
+         */
 
         JPanel jpLeft = new JPanel(new GridBagLayout());
         jpLeft.setBorder(BorderFactory.createLineBorder(Color.darkGray,4));
@@ -181,19 +184,6 @@ public class SessionFrame extends JFrame {
         lbSessionsList.setForeground(new Color(178,34,34));
         lbSessionsList.setBackground(Color.white);
         jpLeftUpFlowOne.add(lbSessionsList);
-
-
-        /*c.gridy = 0;
-        c.gridx = 1;
-        c.gridheight = 2;
-        container.add(Button3, c);*/
-
-        /*jpLeft.setLayout(new GridLayout(3,1));
-        JPanel jpLeftUp = new JPanel(new GridLayout(2,1));
-
-        jpLeftUp.setBackground(new Color(178,34,34));
-        jpLeftUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
-*/
 
         JPanel jpLeftUpFlowTwo = new JPanel(new FlowLayout());
         jpLeftUpFlowTwo.setBackground(new Color(178,34,34));
@@ -445,33 +435,11 @@ public class SessionFrame extends JFrame {
         lbCommandsClosedSession.setBackground(new Color(178,34,34));
         jpLeftMidFlowOne.add(lbCommandsClosedSession);
         jpLeftMidFlowOne.setBackground(new Color(178,34,34));
-
-        /*btPauseCurrentSession = new JButton(labelBtPauseCurrentSession);
-        btPauseCurrentSession.addActionListener(Listeners.getListeners());
-        jpLeftMidFlowTwo.add(btPauseCurrentSession);
-        btPauseCurrentSession.setToolTipText(toolTipBtPauseCurrentSession);
-        chrono = new JTextField(textInactiveTimer, 8);
-        chrono.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                chrono.setSelectionStart(0);
-                chrono.setSelectionEnd(chrono.getText().length());
-            }
-        });
-
-        jpLeftMidFlowTwo.add(chrono);
-         */
         
         btExportCurrentSession = new JButton(labelBtExportCurrentSession);
         btExportCurrentSession.addActionListener(Listeners.getListeners());
         //jpLeftMidFlowThree.add(btExportCurrentSession);
         btExportCurrentSession.setToolTipText(toolTipBtExportCurrentSession);
-
-        //btNewSessionCurrentSession = new JButton(labelBtNewSessionCurrentSession);
-        //btNewSessionCurrentSession.addActionListener(Listeners.getListeners());
-        //jpLeftMidFlowThree.add(btNewSessionCurrentSession);
-        //btNewSessionCurrentSession.setToolTipText(toolTipBtNewSessionCurrentSession);
 
         btCloseSessionCurrentSession = new JButton(labelBtCloseSessionCurrentSession);
         btCloseSessionCurrentSession.addActionListener(Listeners.getListeners());
@@ -537,8 +505,6 @@ public class SessionFrame extends JFrame {
         jpRightUp.add(jpRightUpFlowOne);
         JPanel jpRightUpFlowTwo = new JPanel(new FlowLayout());
         jpRightUpFlowTwo.setBackground(new Color(178,34,34));
-        //jpRightUpFlowTwo.add(jpLeftUpFlowTwo);//-> add info
-        //jpRightUp.add(jpRightUpFlowTwo);
 
         jpRightUp.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
 
@@ -546,48 +512,6 @@ public class SessionFrame extends JFrame {
         lbWarningUnexported.setFont(new Font("Verdana", Font.BOLD, 16));
         lbWarningUnexported.setForeground(Color.YELLOW);
         lbWarningUnexported.setBackground(new Color(178,34,34));
-
-        /*c = new List();
-        c.setPreferredSize(new Dimension(280, 20));
-        SessionManager sm;
-        try {
-            sm = SessionManager.getSessionManager();
-            for (Iterator<Session> it = sm.getLesSessions().iterator(); it.hasNext();) {
-                Session s = it.next();
-                if (!s.getActive()) {
-                    c.add("" + s.getId() + " - " + s.getNom() + " - " + s.getDebut());
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //panelDownList.add(c);
-        c.addItemListener(new ItemListener() {
-
-            public void itemStateChanged(ItemEvent ie) {
-                if (ie.getStateChange() == ItemEvent.SELECTED) {
-                    if (c.getSelectedItem().equals(Lang.getLang().getValueFromRef("SessionFrame.noOldSessions"))) {
-                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
-                        lbWarningUnexported.setVisible(false);
-                    } else {
-                    if (getSessionSelectionnee().getLastExport() == null) {
-                        lbWarningUnexported.setVisible(true);
-                        //SessionFrame.getFrame().pack();
-                    } else {
-                        lbWarningUnexported.setVisible(false);
-                        //SessionFrame.getFrame().pack();
-                    }
-                    DBConnexion conn = DBConnexion.getConnexion();
-                    txtAreaSelectedOldSession.setText(conn.getEntriesStringBySession(getSessionSelectionnee()));
-                    if (txtAreaSelectedOldSession.getText().equals(""))
-                        txtAreaSelectedOldSession.setText(Lang.getLang().getValueFromRef("SessionFrame.noAnswers"));
-
-                    }
-                }
-            }
-        });
-*/
-        //jpRight.add(jpRightUp);
 
         JPanel jpRightMid = new JPanel(new GridLayout(5,1));
         jpRightMid.setBorder(BorderFactory.createLineBorder(Color.lightGray,3));
@@ -599,9 +523,7 @@ public class SessionFrame extends JFrame {
         lbCommandsClosedSession.setForeground(Color.white);
         lbCommandsClosedSession.setBackground(new Color(178,34,34));
         jpRightMidFlowOne.add(lbCommandsClosedSession);
-        //jpRightMid.add(jpRightMidFlowOne);
 
-        //jpRightMid.add(c);
         JPanel jplbCommandsAndCmds = new JPanel(new GridLayout(2,1));
         jplbCommandsAndCmds.setBackground(new Color(178,34,34));
         jplbCommandsAndCmds.add(jpRightMidFlowOne); //label commands
@@ -617,10 +539,6 @@ public class SessionFrame extends JFrame {
 
         jpRightMidFlowTwo.add(btCloseSessionCurrentSession);
         jpRightMidFlowTwo.add(btVisualize);
-        //btDeleteOldSessions = new JButton(labelBtDeleteOldSessions);
-        //btDeleteOldSessions.addActionListener(Listeners.getListeners());
-        //jpRightMidFlowTwo.add(btDeleteOldSessions);
-        //btDeleteOldSessions.setToolTipText(toolTipBtDeleteOldSessions);
 
         jpRightMidFlowTwo.setBackground(new Color(178,34,34));
         jplbCommandsAndCmds.add(jpRightMidFlowTwo);
@@ -699,15 +617,6 @@ public class SessionFrame extends JFrame {
         fullPanel.add(jpRight,c2);
 
         getContentPane().add(fullPanel);
-
-
-
-        //JPanel panel = new JPanel();
-        //panel.setLayout(new GridLayout(1, 2));
-        //getContentPane().add(panel);
-
-        //panel.add(jpLeft);
-        //panel.add(jpRight);
         
         this.setAlwaysOnTop(true);
 
@@ -742,12 +651,7 @@ public class SessionFrame extends JFrame {
     }
 
     public void RefreshFrame() {
-        //try {
-            repaint();
-            //lbCurrentSessionName.setText(SessionManager.getSessionManager().getSessionCourante().getNom());
-        //} catch (SQLException ex) {
-        //    Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        //}
+        repaint();
         c.removeAll();
         disableOldSessionsButtons();
         try {
@@ -786,8 +690,6 @@ public class SessionFrame extends JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
 
         //Maj language ---
         title = Lang.getLang().getValueFromRef("SessionFrame.title");
@@ -851,17 +753,6 @@ public class SessionFrame extends JFrame {
         lbSelectedSession.setText(labelSelectedSession);
 
         lbCurrentSessionName.setText(getSessionSelectionnee().getNom());
-
-        /*try {
-            if (SessionManager.getSessionManager().getSessionCourante().getPause()) {
-                btPauseCurrentSession.setText(labelBtRetourDePauseCurrentSession);
-            } else {
-                btPauseCurrentSession.setText(labelBtPauseCurrentSession);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
         
         //btPauseCurrentSession.setToolTipText(toolTipBtPauseCurrentSession);
         btExportCurrentSession.setText(labelBtExportCurrentSession);
@@ -909,6 +800,10 @@ public class SessionFrame extends JFrame {
 
     }
 
+    /**
+     * Get selected session from list
+     * @return
+     */
     public Session getSessionSelectionnee() {
         try {
             if (c.getSelectedIndex() > -1) {
@@ -922,119 +817,37 @@ public class SessionFrame extends JFrame {
         }
     }
 
+    /**
+     * Get Delay time selected
+     * @return
+     * @deprecated
+     */
     public Date getDateDelaySelectionnee() {
         return (Date) spinner.getValue();
     }
 
+    /**
+     * Enable old sessions buttons
+     * @deprecated
+     */
     private void enableOldSessionsButtons() {
         btExportOldSessions.setEnabled(true);
         btDeleteOldSessions.setEnabled(true);
     }
 
+    /**
+     * Disable old sessions buttons
+     * @deprecated
+     */
     private void disableOldSessionsButtons() {
         btExportOldSessions.setEnabled(false);
         btDeleteOldSessions.setEnabled(false);
     }
-/*
-    public void launchChrono() {
-      if (!chrono.getText().equals("")){
-        try {
 
-            btPauseCurrentSession.setText(SessionFrame.labelBtRetourDePauseCurrentSession);
-            SessionManager.getSessionManager().getSessionCourante().setPause(true);
-            TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionInPauseItemLabel);
-            TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.BOLD, 12));
-            RefreshFrame();
-            TaskTrayMenu.pauseSession1HItem.setEnabled(false);
-            TaskTrayMenu.pauseSession3HItem.setEnabled(false);
-            TaskTrayMenu.pauseSession24HItem.setEnabled(false);
-            TaskTrayMenu.resumeSessionItem.setEnabled(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        chrono.setEditable(false);
-        final long current = System.currentTimeMillis();
-        try {
-            final long limit = Integer.parseInt(chrono.getText().trim()) * 3600000; // X minutes
-
-            ActionListener al = new ActionListener() {
-
-                public void actionPerformed(ActionEvent event) {
-                    long time = System.currentTimeMillis();
-                    long passed = time - current;
-                    long remaining = limit - passed;
-                    if (remaining <= 0) {
-                        try {
-                            SessionManager.getSessionManager().getSessionCourante().setPause(false);
-                            chrono.setEditable(true);
-                            RefreshFrame();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        chrono.setText(textInactiveTimer);
-                        timer.stop();
-                        btPauseCurrentSession.setText(labelBtPauseCurrentSession);
-                        TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
-                        TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
-                        TaskTrayMenu.pauseSession1HItem.setEnabled(true);
-                        TaskTrayMenu.pauseSession3HItem.setEnabled(true);
-                        TaskTrayMenu.pauseSession24HItem.setEnabled(true);
-                        TaskTrayMenu.resumeSessionItem.setEnabled(false);
-                        chrono.setEditable(false);
-                    } else {
-                        long seconds = remaining / 1000;
-                        long minutes = seconds / 60;
-                        long hours = minutes / 60;
-                        chrono.setText(String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60));
-                    }
-                }
-            };
-            timer = new Timer(1000, al);
-            timer.start();
-
-        } catch (Exception e) {
-            btPauseCurrentSession.setText(SessionFrame.labelBtPauseCurrentSession);
-                try {
-                    SessionManager.getSessionManager().getSessionCourante().setPause(false);
-                } catch (SQLException ex) {
-                    Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            javax.swing.JOptionPane.showMessageDialog(null, lbErrorNbHoursMessage);
-
-            chrono.setEditable(true);
-            chrono.setText("");
-            chrono.requestFocus();
-
-            TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
-            TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
-            TaskTrayMenu.pauseSession1HItem.setEnabled(true);
-            TaskTrayMenu.pauseSession3HItem.setEnabled(true);
-            TaskTrayMenu.pauseSession24HItem.setEnabled(true);
-            TaskTrayMenu.resumeSessionItem.setEnabled(false);
-            RefreshFrame();
-        }
-        }
-    }
-
-    public void resetChrono() {
-        try {
-            SessionManager.getSessionManager().getSessionCourante().setPause(false);
-            TaskTrayMenu.pauseSession1HItem.setEnabled(true);
-            TaskTrayMenu.pauseSession3HItem.setEnabled(true);
-            TaskTrayMenu.pauseSession24HItem.setEnabled(true);
-            TaskTrayMenu.resumeSessionItem.setEnabled(false);
-            RefreshFrame();
-            if (timer != null) {
-                timer.stop();
-            }
-            chrono.setText(textInactiveTimer);
-            chrono.setEditable(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-*/
-    
+    /**
+     * Set length of delay in number of hours for the current session
+     * @param nbH
+     */
     public void setNbHoursOfDelay(int nbH){
         /*chrono.setText(""+nbH);
         btPauseCurrentSession.doClick();*/
@@ -1055,6 +868,9 @@ public class SessionFrame extends JFrame {
         }
     }
 
+    /**
+     * Leave pause for the current session
+     */
     public void leavePause() {
             //SessionFrame.btPauseCurrentSession.setText(SessionFrame.labelBtPauseCurrentSession);
             TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
@@ -1068,6 +884,9 @@ public class SessionFrame extends JFrame {
             RefreshFrame();
     }
 
+    /**
+     * Reset instant of resume fo current session
+     */
     public void resetInstantReprise() {
         try {
             SessionManager.getSessionManager().getSessionCourante().setPause(false);
@@ -1077,6 +896,10 @@ public class SessionFrame extends JFrame {
         instantReprise=-1;
     }
 
+    /**
+     * To know if it's time to resume current session or not
+     * @return true if current has to be resumed
+     */
     public Boolean isTimeToResumeSession(){
         if ((instantReprise==-1) || (new Date().getTime()>=instantReprise))
             return true;

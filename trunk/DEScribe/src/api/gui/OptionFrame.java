@@ -51,7 +51,7 @@ import javax.swing.JTextField;
 
 /**
  * Class OptionFrame.java
- * @description Old settings' frame
+ * @description Settings' frame
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
  * @version 2011-07-18
  */
@@ -82,6 +82,9 @@ public class OptionFrame extends JFrame {
     public static String defaultSessionFolder="sessions";
 
 
+    /**
+     * Constructor
+     */
     private OptionFrame() {
         // LA FENETRE PRINCIPALE
         this.setTitle(Lang.getLang().getValueFromRef("OptionFrame.title"));
@@ -225,6 +228,9 @@ public class OptionFrame extends JFrame {
         buttonline.add(okButton);
         okButton.addActionListener(new ActionListener() {
 
+            /**
+             * OK buttons' action
+             */
             public void actionPerformed(ActionEvent e) {
                 try {
                     OptionFrame.saveSettings();
@@ -246,14 +252,18 @@ public class OptionFrame extends JFrame {
         });
 
         cancelButton.addActionListener(new ActionListener() {
-
+            /**
+             * Cancel button's action
+             */
             public void actionPerformed(ActionEvent e) {
                 OptionFrame.getOptionFrame().HideFrame();
             }
         });
 
         defaultButton.addActionListener(new ActionListener() {
-
+            /**
+             * Delete button's action
+             */
             public void actionPerformed(ActionEvent e) {
                 c1.setSelected(true);
                 jrb.setSelected(true);
@@ -274,6 +284,10 @@ public class OptionFrame extends JFrame {
 
     }
 
+    /**
+     * Get unique instance of the frame
+     * @return
+     */
     public static OptionFrame getOptionFrame() {
         if (of == null) {
             of = new OptionFrame();
@@ -281,6 +295,9 @@ public class OptionFrame extends JFrame {
         return of;
     }
 
+    /**
+     * Display the frame
+     */
     public void ShowFrame() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
@@ -288,23 +305,41 @@ public class OptionFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Hide the frame
+     */
     public void HideFrame() {
         setVisible(false);
     }
 
+    /**
+     * Get speed indicator
+     * @return true for normal speed
+     */
     public boolean isNormalSpeed() {
         return c1.isSelected();
     }
 
+    /**
+     * Get sound indactor
+     * @return true for enabled
+     */
     public static boolean isSoundEnabled() {
         return jrb.isSelected();
     }
 
+    /**
+     * Save selected settings
+     * @throws BadXMLFileException
+     */
     private static void saveSettings() throws BadXMLFileException {
         Utils.saveSettings();
         OptionFrame.getOptionFrame().HideFrame();
     }
 
+    /**
+     * Load settings
+     */
     private static void loadSettings() {
         try {
             Utils.loadSettings();
@@ -313,14 +348,25 @@ public class OptionFrame extends JFrame {
         }
     }
 
+    /**
+     * Set the sessions output folder
+     * @param outputDir
+     */
     public void setSessionFolder(String outputDir) {
         sessionFolder.setText(outputDir);
     }
 
+    /**
+     * Get sessions output folder
+     * @return
+     */
     public String getSessionFolder(){
         return sessionFolder.getText();
     }
 
+    /**
+     * Refresh the frame
+     */
     public static void refresh() {
         jl.setText(Lang.getLang().getValueFromRef("OptionFrame.frequencies"));
         c1.setText(Lang.getLang().getValueFromRef("OptionFrame.normalFrequency"));

@@ -56,8 +56,15 @@ import model.SessionManager;
  */
 public class Listeners implements ActionListener, WindowListener {
 
+    /**
+     * Unique instance
+     */
     static private Listeners li = null;
 
+    /**
+     * Get unique instance
+     * @return
+     */
     public static Listeners getListeners() {
         if (li == null) {
             li = new Listeners();
@@ -65,30 +72,23 @@ public class Listeners implements ActionListener, WindowListener {
         return li;
     }
 
+    /**
+     * Actions for buttons of application
+     * Warning : Some buttons actions are implemented in the frame class
+     * they belong
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
-        /*if (s.equals(QuestionFrame.labelButtonValider)) {
-        try {
-        // CE QU'ON VEUT FAIRE AVEC LE BOUTON VALIDER
-        DBConnexion conn = DBConnexion.getConnexion();
-        SessionManager sm = SessionManager.getSessionManager();
-        Date maDate = new Date();
-        Reponse rep = new Reponse(QuestionFrame.GetText1(), QuestionFrame.GetText2(), maDate, sm.getSessionCourante());
-        conn.newAddEntry(rep);
-        QuestionFrame.SetText2("");
-        QuestionFrame.getFrame().HideFrame();
-        } catch (SQLException ex) {
-        Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } else */
+
+        /**
+         * Export session button
+         */
         if (s.equals(SessionFrame.labelBtExportCurrentSession)) {
-            // CE QU'ON VEUT FAIRE AVEC LE BOUTON EXPORTER
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             String cheminExportation;
             Xmlfilter filtre_xml = new Xmlfilter(Lang.getLang().getValueFromRef("SessionFrame.strXmlFile"), ".xml");
-
-            /* UTILISER CA PLUTOT */
             if (!getOs.isWindows()){
                 System.setProperty("apple.awt.fileDialogForDirectories", "true");
                 FileDialog d = new FileDialog(SessionFrame.getFrame());
@@ -97,21 +97,8 @@ public class Listeners implements ActionListener, WindowListener {
 
                     try {
                         cheminExportation = "";
-                        // un fichier a été choisi ( sortie par OK)
-                        // nom du fichier  choisi
-                        //choix.getSelectedFile().getName();
-                        // chemin absolu du fichier choisi
                         cheminExportation = d.getDirectory()+d.getFile()+"/";
 
-                        // A FAIRE : Mettre date debut et date fin au bon format
-           /*             if (SessionManager.getSessionManager().getSessionCourante().getFin() != null) {
-                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                        } else {
-                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                        }
-            */
 
                         if (SessionManager.getSessionManager().getSessionCourante().getFin() != null) {
                             Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionManager.getSessionManager().getSessionCourante()), OptionFrame.getOptionFrame().getSessionFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId() + "_" + SessionManager.getSessionManager().getSessionCourante().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionManager.getSessionManager().getSessionCourante().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
@@ -120,7 +107,8 @@ public class Listeners implements ActionListener, WindowListener {
                         }
                         api.utils.Zip.zipFolder(OptionFrame.getOptionFrame().getSessionFolder() + "/session" + SessionManager.getSessionManager().getSessionCourante().getId(), cheminExportation+System.getProperty("user.name")+"_Session"+SessionManager.getSessionManager().getSessionCourante().getId()+"_"+SessionManager.getSessionManager().getSessionCourante().getNom()+".zip");
                         javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), cheminExportation+System.getProperty("user.name")+"_Session"+SessionManager.getSessionManager().getSessionCourante().getId()+"_"+SessionManager.getSessionManager().getSessionCourante().getNom()+".zip");
-                        // On met à jour la nouvelle date d'export pour la session
+                        
+                        // Update export date of session
                         SessionManager.getSessionManager().getSessionCourante().setLastExport(new Date());
                         conn.updateSession(SessionManager.getSessionManager().getSessionCourante());
                         SessionFrame.getFrame().RefreshFrame();
@@ -188,7 +176,9 @@ public class Listeners implements ActionListener, WindowListener {
 
             SessionFrame.getFrame().setAlwaysOnTop(true);
 
-
+          /**
+           * Export closed sessions button (deprecated)
+           */
         } else if (s.equals(SessionFrame.labelBtExportOldSessions)) {
             // CE QU'ON VEUT FAIRE AVEC LE BOUTON EXPORTER
             SessionFrame.getFrame().setAlwaysOnTop(false);
@@ -258,16 +248,6 @@ public class Listeners implements ActionListener, WindowListener {
                             cheminExportation = cheminExportation + "/";
                         }
 
-                        // A FAIRE : Mettre date debut et date fin au bon format
-                        /*if (SessionFrame.getFrame().getSessionSelectionnee().getFin() != null) {
-                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
-                        } else {
-                            Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                            javax.swing.JOptionPane.showMessageDialog(null, cheminExportation + "session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_now.xml");
-                        }*/
-
-                        //System.out.println(OptionFrame.getOptionFrame().getSessionFolder() + "\\session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
                         if (SessionFrame.getFrame().getSessionSelectionnee().getFin() != null) {
                             Utils.ExportReponsesToXML(conn.getEntriesBySession(SessionFrame.getFrame().getSessionSelectionnee()), OptionFrame.getOptionFrame().getSessionFolder() + "\\session" + SessionFrame.getFrame().getSessionSelectionnee().getId()+ "\\session" + SessionFrame.getFrame().getSessionSelectionnee().getId() + "_" + SessionFrame.getFrame().getSessionSelectionnee().getDebut().toString().replaceAll(" ", "_").replaceAll(":", "-") + "_" + SessionFrame.getFrame().getSessionSelectionnee().getFin().toString().replaceAll(" ", "_").replaceAll(":", "-") + ".xml");
                         } else {
@@ -275,53 +255,57 @@ public class Listeners implements ActionListener, WindowListener {
                         }
                         api.utils.Zip.zipFolder(OptionFrame.getOptionFrame().getSessionFolder() + "\\session" + SessionFrame.getFrame().getSessionSelectionnee().getId(), cheminExportation+System.getProperty("user.name")+"_Session"+SessionFrame.getFrame().getSessionSelectionnee().getId()+"_"+SessionFrame.getFrame().getSessionSelectionnee().getNom()+".zip");
                         javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), cheminExportation+System.getProperty("user.name")+"_Session"+SessionFrame.getFrame().getSessionSelectionnee().getId()+"_"+SessionFrame.getFrame().getSessionSelectionnee().getNom()+".zip");
-                        // On met à jour la nouvelle date d'export pour la session
+
+                        // Update export date
                         SessionFrame.getFrame().getSessionSelectionnee().setLastExport(new Date());
                         conn.updateSession(SessionFrame.getFrame().getSessionSelectionnee());
                         SessionFrame.getFrame().RefreshFrame();
                     }
                         SessionFrame.getFrame().setAlwaysOnTop(true);
-                    /**
-                     * Faire redirection ou message de succès
-                     */
+
                 } catch (Exception ex) {
+                    /**
+                     * Error message
+                     */
                     javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strXmlError") + ex.toString());
                     SessionFrame.getFrame().setAlwaysOnTop(true);
 
                 }
             }
-
-
             SessionFrame.getFrame().setAlwaysOnTop(true);
+
+          /**
+           * Exit button (tasktray menu)
+           */
         } else if (s.equals(TaskTrayMenu.ExitItemLabel)) {
             int retour = JOptionPane.showConfirmDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strReallyQuit"), Lang.getLang().getValueFromRef("SessionFrame.strFrameTitleReallyQuit"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 DBConnexion.getConnexion().closeBDLink();
                 System.exit(0);
             }
+            /**
+             * Show the frame button
+             */
         } else if (s.equals(TaskTrayMenu.ShowItemLabel)) {
             AskFrame.getTheFrame().showTheFrame(null);
+            /**
+             * Report bug button
+             */
         } else if (s.equals(TaskTrayMenu.ReportItemLabel)) {
             LaunchReportPage.LaunchPage();
-        /*} else if (s.equals(SessionFrame.labelBtConsultCurrentSession)) {
-            SessionFrame.getFrame().setAlwaysOnTop(false);
-            DBConnexion conn = DBConnexion.getConnexion();
-            try {
-                ConsultFrame.getTheFrame(conn.getEntriesStringBySession(SessionManager.getSessionManager().getSessionCourante())).showTheFrame(null);
-            } catch (SQLException ex) {
-                Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            SessionFrame.getFrame().setAlwaysOnTop(true);
-        } else if (s.equals(SessionFrame.labelBtConsultOldSessions)) {
-            SessionFrame.getFrame().setAlwaysOnTop(false);
-            DBConnexion conn = DBConnexion.getConnexion();
-            javax.swing.JOptionPane.showMessageDialog(null, Lang.getLang().getValueFromRef("SessionFrame.strBeforeListAnwsers") + conn.getEntriesStringBySession(SessionFrame.getFrame().getSessionSelectionnee()));
-            SessionFrame.getFrame().setAlwaysOnTop(true);*/
+            /**
+             * Settings button
+             */
         } else if (s.equals(TaskTrayMenu.ConfigItemLabel)) {
             OptionFrame.getOptionFrame().ShowFrame();
-            // dossier par défaut (d'export et pour les données)\n- ...");
+            /**
+             * Sessions button
+             */
         } else if ((s.equals(TaskTrayMenu.SessionItemLabel)) || (s.equals(TaskTrayMenu.SessionInPauseItemLabel))) {
             SessionFrame.getFrame().ShowFrame();
+            /**
+             * About... button
+             */
         } else if (s.equals(TaskTrayMenu.AboutItemLabel)) {
         
             JOptionPane d = new JOptionPane();
@@ -332,7 +316,7 @@ public class Listeners implements ActionListener, WindowListener {
 
             int  retour  = // indice du bouton qui a été cliqué ou CLOSED_OPTION
 
-                 d.showOptionDialog(null, Main.appName + "\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strVersion") + " " + Main.version + "\n" + Main.datemaj + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strProjectPage") + ": " + Main.projectPage + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strContacts") + ":\n" + Main.contacts + "\n\n" + Main.cpRight, Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemLabel"),
+             d.showOptionDialog(null, Main.appName + "\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strVersion") + " " + Main.version + "\n" + Main.datemaj + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strProjectPage") + ": " + Main.projectPage + "\n\n" + Lang.getLang().getValueFromRef("TaskTrayMenu.strContacts") + ":\n" + Main.contacts + "\n\n" + Main.cpRight, Lang.getLang().getValueFromRef("TaskTrayMenu.AboutItemLabel"),
 
 JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1]);
 
@@ -340,16 +324,15 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                                 LaunchProjectPage.LaunchPage();
                   }
 
-            //Bouton nouvelle session
+            /**
+             * New session button
+             */
         } else if (s.equals(SessionFrame.labelBtNewSessionCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             DBConnexion conn = DBConnexion.getConnexion();
             int retour = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningBeforeClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.OK_CANCEL_OPTION);
             if (retour == 0) {
                 try {
-
-
-
                     int ret = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strFormChoiceForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameFormChoiceForNewSession"), JOptionPane.YES_NO_CANCEL_OPTION);
                     if (ret == 0) {
                         try {
@@ -358,10 +341,9 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                         } catch (BadXMLFileException ex) {
                             javax.swing.JOptionPane.showMessageDialog(SessionFrame.getFrame(), ex.getMessage());
                         }
-                        // Initialisation de la nouvelle session
+                        // Init new session
                         String nom = JOptionPane.showInputDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strNameForNewSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningBeforeClosingSession"), JOptionPane.QUESTION_MESSAGE);
-                        // Cloture de la session courante
-                        //SessionFrame.getFrame().resetChrono();
+                        // Close current session
                         SessionFrame.getFrame().resetInstantReprise();
                         SessionManager.getSessionManager().closeSession(SessionManager.getSessionManager().getSessionCourante()); 
                         if (!nom.equals("")) {
@@ -478,6 +460,10 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                 }
             }
             SessionFrame.getFrame().setAlwaysOnTop(true);
+
+            /**
+             * Close current session button
+             */
         } else if (s.equals(SessionFrame.labelBtCloseSessionCurrentSession)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             int retour = JOptionPane.showConfirmDialog(SessionFrame.getFrame(), Lang.getLang().getValueFromRef("SessionFrame.strWarningClosingSession"), Lang.getLang().getValueFromRef("SessionFrame.strFrameWarningClosingSession"), JOptionPane.OK_CANCEL_OPTION);
@@ -494,20 +480,11 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                 }
             }
             SessionFrame.getFrame().setAlwaysOnTop(true);
-        }/* else if (s.equals(SessionFrame.labelBtPauseCurrentSession)) {
-            SessionFrame.getFrame().setAlwaysOnTop(false);
-            SessionFrame.getFrame().launchChrono();
-            SessionFrame.getFrame().setAlwaysOnTop(true);
-        } else if (s.equals(SessionFrame.labelBtRetourDePauseCurrentSession)) {
-            SessionFrame.getFrame().setAlwaysOnTop(false);
-            //TimerQuestion.resetDateDelay();
-            SessionFrame.getFrame().resetChrono();
-            SessionFrame.btPauseCurrentSession.setText(SessionFrame.labelBtPauseCurrentSession);
-            TaskTrayMenu.sessionItem.setLabel(TaskTrayMenu.SessionItemLabel);
-            TaskTrayMenu.sessionItem.setFont(new Font("Verdana", Font.PLAIN, 12));
-            SessionFrame.getFrame().RefreshFrame();
-            SessionFrame.getFrame().setAlwaysOnTop(true);
-        }*/ else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
+
+            /**
+             * Delete closed session button
+             */
+        } else if (s.equals(SessionFrame.labelBtDeleteOldSessions)) {
             SessionFrame.getFrame().setAlwaysOnTop(false);
             try {
                 if (SessionManager.getSessionManager().getSessionCourante().getId()!= SessionFrame.getFrame().getSessionSelectionnee().getId()){
@@ -521,8 +498,14 @@ JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, lesTextes,lesTextes[1
                 Logger.getLogger(Listeners.class.getName()).log(Level.SEVERE, null, ex);
             }
             SessionFrame.getFrame().setAlwaysOnTop(true);
+            /**
+             * Session frame's OK button
+             */
         } else if (s.equals(SessionFrame.labelBtOk)) {
             SessionFrame.getFrame().HideFrame();
+            /**
+             * Visualize answers button
+             */
         } else if (s.equals(SessionFrame.labelBtVisualize)) {
             ViewAnswers.getTheFrame().reset();
         }
