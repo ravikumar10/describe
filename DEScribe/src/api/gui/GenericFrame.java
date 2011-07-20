@@ -42,9 +42,17 @@ public abstract class GenericFrame extends JFrame implements ActionListener, Win
     protected int x = 0;
     protected int y = 0;
 
+    /**
+     * Constructor
+     */
     protected GenericFrame() {
         this("Untitled");
     }
+
+    /**
+     * Constructor
+     * @param title
+     */
     protected GenericFrame(String title) {
         this.setIconImage(new ImageIcon("media/des.gif").getImage());
         this.setTitle(title);
@@ -59,11 +67,18 @@ public abstract class GenericFrame extends JFrame implements ActionListener, Win
         y=screen.height;
     }
 
+    /**
+     * Display the frame, at center of screen
+     * @param quest
+     */
     public void showTheFrame(String quest) {
         this.setLocation((x - this.getSize().width) / 2, (y - this.getSize().height) / 2);
         this.setVisible(true);
     }
 
+    /**
+     * Hide the frame
+     */
     public void hideTheFrame() {
         this.setVisible(false);
     }
