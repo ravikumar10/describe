@@ -43,6 +43,14 @@ public class Zip {
 
     private static int BUFFER = 1024;
 
+    /**
+     * Zips contents of a folder
+     * @param folderSrc
+     * @param archiveDest
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws Exception
+     */
     public static void zipFolder(String folderSrc, String archiveDest) throws FileNotFoundException, IOException, Exception
     {
         byte data[] = new byte[BUFFER];

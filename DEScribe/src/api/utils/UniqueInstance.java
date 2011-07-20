@@ -23,12 +23,6 @@
 
 package api.utils;
 
-/**
- * Class UniqueInstance.java
- * @description Limit the use of only one instance of DEScribe at a time
- * @author Sébastien Faure  <sebastien.faure3@gmail.com>
- * @version 2011-07-18
- */
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -37,109 +31,83 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 /**
-Cette classe permet d'assurer l'unicité de l'instance de l'application. Deux applications ne peuvent pas être lancées
-simultanément. Voici un exemple typique d'utilisation :
- *
- * <pre>
- * // Port à utiliser pour communiquer avec l'instance de l'application lancée.
- * final int PORT = 32145;
- * // Message à envoyer à l'application lancée lorsqu'une autre instance essaye de démarrer.
- * final String MESSAGE = "nomDeMonApplication";
- * // Actions à effectuer lorsqu'une autre instance essaye de démarrer.
- * final Runnable RUN_ON_RECEIVE = new Runnable() {
- * public void run() {
- * if(mainFrame != null) {
- * // Si la fenêtre n'est pas visible (uniquement dans le systray par exemple), on la rend visible.
- * if(!mainFrame.isVisible())
- * mainFrame.setVisible(true);
- * // On demande à la mettre au premier plan.
- * mainFrame.toFront();
- * }
- * }
- * });
- *
- * UniqueInstance uniqueInstance = new UniqueInstance(PORT, MESSAGE, RUN_ON_RECEIVE);
- * // Si aucune autre instance n'est lancée...
- * if(uniqueInstance.launch()) {
- * // On démarre l'application.
- * new MonApplication();
- * }
- * </pre>
- *
- * @author rom1v
+ * Class UniqueInstance.java
+ * @description Limit the use of only one instance of DEScribe at a time
+ * @author Sébastien Faure  <sebastien.faure3@gmail.com>
+ * @version 2011-07-18
  */
 public class UniqueInstance {
 
-    /** Port d'écoute utilisé pour l'unique instance de l'application. */
+    /** listening port */
     private int port;
-    /** Message à envoyer à l'éventuelle application déjà lancée. */
+    /** Message to send to the application if already launched */
     private String message;
-    /** Actions à effectuer lorsqu'une autre instance de l'application a indiqué qu'elle avait essayé de démarrer. */
+    /** Actions to do when when another instance is trying to launch */
     private Runnable runOnReceive;
 
     /**
-     * Créer un gestionnaire d'instance unique de l'application.
+     * Creates a unique instance manager for DEScribe
      *
      * @param port
-     * Port d'écoute utilisé pour l'unique instance de l'application.
+     * Port
      * @param message
-     * Message à envoyer à l'éventuelle application déjà lancée, {@code null} si aucune action.
+     * Message
      * @param runOnReceive
-     * Actions à effectuer lorsqu'une autre instance de l'application a indiqué qu'elle avait essayé de
-     * démarrer, {@code null} pour aucune action.
+     * Actions to do when when another instance is trying to launch,
+     * {@code null} for no action.
      */
     public UniqueInstance(int port, String message, Runnable runOnReceive) {
-        assert port > 0 && port < 1 << 16 : "Le port doit être entre 1 et 65535";
-        assert message != null || runOnReceive == null : "Il y a des actions à effectuer => le message ne doit pas être null.";
+        assert port > 0 && port < 1 << 16 : "Port must be between 1 and 65535";
+        assert message != null || runOnReceive == null : "There are actions to do => Message can't be null!.";
         this.port = port;
         this.message = message;
         this.runOnReceive = runOnReceive;
     }
 
     /**
-     * Créer un gestionnaire d'instance unique de l'application. Ce constructeur désactive la communication entre
-     * l'instance déjà lancée et l'instance qui essaye de démarrer.
+     * Creates a unique instance manager for DEScribe. This constructor disables
+     * communication between instance already launched and the new one
      *
      * @param port
-     * Port d'écoute utilisé pour l'unique instance de l'application.
+     * listening port
      */
     public UniqueInstance(int port) {
         this(port, null, null);
     }
 
     /**
-     * Essaye de démarrer le gestionnaire d'instance unique. Si l'initialisation a réussi, c'est que l'instance est
-     * unique. Sinon, c'est qu'une autre instance de l'application est déjà lancée. L'appel de cette méthode prévient
-     * l'application déjà lancée qu'une autre vient d'essayer de se connecter.
+     * Tries to launch the unique instance manager. If works, it means instance 
+     * is unique. Else, there's already one running : application is warned that
+     * another instance is trying to connect
      *
-     * @return {@code true} si l'instance de l'application est unique.
+     * @return {@code true} if DEScribe's instance is unique
      */
     public boolean launch() {
-        /* Indique si l'instance du programme est unique. */
+        /* Result */
         boolean unique;
 
         try {
-            /* On crée une socket sur le port défini. */
+            /* Socket creation on the listening port */
             final ServerSocket server = new ServerSocket(port);
 
-            /* Si la création de la socket réussit, c'est que l'instance du programme est unique, aucune autre n'existe. */
+            /* If socket creation worked, it means instance is unique */
             unique = true;
 
-            /* Si il y a des actions à faire lorsqu'une autre instance essaye de démarrer... */
+            /* If there are actions to do... */
             if (runOnReceive != null) {
 
-                /* On lance un Thread d'écoute sur ce port. */
+                /* Creation of a listening thread on this port. */
                 Thread portListenerThread = new Thread() {
 
                     @Override
                     public void run() {
-                        /* Tant que l'application est lancée... */
+                        /* While DEScribe is running... */
                         while (true) {
                             try {
-                                /* On attend qu'une socket se connecte sur le serveur. */
+                                /* Waiting for a socket to connect to the server */
                                 final Socket socket = server.accept();
 
-                                /* Si une socket est connectée, on écoute le message envoyé dans un nouveau Thread. */
+                                /* If a socket is connected, then listen the message send in a new thread */
                                 new Thread() {
 
                                     @Override
@@ -154,21 +122,23 @@ public class UniqueInstance {
                     }
                 };
 
-                /* Le Thread d'écoute de port est démon. */
+                /* Listening port thread is a daemon */
                 portListenerThread.setDaemon(true);
 
-                /* On démarre le Thread. */
+                /* Strating the thread */
                 portListenerThread.start();
             }
         } catch (IOException e) {
-            /* Si la création de la socket échoue, c'est que l'instance de n'est pas unique, une autre n'existe. */
+            /**
+             * If socket's creation fails, it means that DEScribe's new instance
+             * is not unique
+             */
             unique = false;
 
-            /* Si des actions sont prévues par l'instance déjà lancée... */
+            /* If actions are planed by the already running instance.... */
             if (runOnReceive != null) {
                 /*
-                 * Dans ce cas, on envoie un message à l'autre instance de l'application pour lui demander d'avoir le
-                 * focus (par exemple).
+                 * Send the other instance the message
                  */
                 send();
             }
@@ -177,21 +147,21 @@ public class UniqueInstance {
     }
 
     /**
-     * Envoie un message à l'instance de l'application déjà ouverte.
+     * Sends a mesage to the already running instance of DEScribe
      */
     private void send() {
         PrintWriter pw = null;
         try {
-            /* On se connecte sur la machine locale. */
+            /* Connexion to local machine */
             Socket socket = new Socket("localhost", port);
 
-            /* On définit un PrintWriter pour écrire sur la sortie de la socket. */
+            /* Use of PrintWriterOn to write on output of the socket */
             pw = new PrintWriter(socket.getOutputStream());
 
-            /* On écrit le message sur la socket. */
+            /* Writing the message on the socket */
             pw.write(message);
         } catch (IOException e) {
-            Logger.getLogger("UniqueInstance").warning("Écriture sur flux de sortie de la socket échoué.");
+            Logger.getLogger("UniqueInstance").warning("Socket output flow writing failed.");
         } finally {
             if (pw != null) {
                 pw.close();
@@ -200,37 +170,36 @@ public class UniqueInstance {
     }
 
     /**
-     * Reçoit un message d'une socket s'étant connectée au serveur d'écoute. Si ce message est le message de l'instance
-     * unique, l'application demande le focus.
+     * Receives a message from a socket connected to the listening server
+     * If this is the message of unique instance then actions are done
      *
      * @param socket
-     * Socket connecté au serveur d'écoute.
+     * Socket connected to the server
      */
     private void receive(Socket socket) {
         Scanner sc = null;
 
         try {
-            /* On n'écoute que 5 secondes, si aucun message n'est reçu, tant pis... */
+            /* Only listens for 5 secondes... */
             socket.setSoTimeout(5000);
 
-            /* On définit un Scanner pour lire sur l'entrée de la socket. */
+            /* Use of a Scanner to read on socket's input */
             sc = new Scanner(socket.getInputStream());
 
-            /* On ne lit qu'une ligne. */
+            /* We only read one line */
             String s = sc.nextLine();
 
-            /* Si cette ligne est le message de l'instance unique... */
+            /* If it's the unique instance message... */
             if (message.equals(s)) {
-                /* On exécute le code demandé. */
+                /* Launch the code */
                 runOnReceive.run();
             }
         } catch (IOException e) {
-            Logger.getLogger("UniqueInstance").warning("Lecture du flux d'entrée de la socket échoué.");
+            Logger.getLogger("UniqueInstance").warning("Socket input flow reading failed.");
         } finally {
             if (sc != null) {
                 sc.close();
             }
         }
-
     }
 }

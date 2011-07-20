@@ -36,28 +36,61 @@ import java.util.Date;
  */
 public class Reponse {
 
+    /**
+     * Question's text
+     */
     String intituleQuestion;
 
+    /**
+     * The answer itself
+     */
     String laReponse;
 
+    /**
+     * Date of answering
+     */
     Date instant;
 
+    /**
+     * Session of the question
+     */
     Session session;
 
+    /**
+     * Answer screenshot file path
+     */
     String screenshot;
 
+    /**
+     * Answer id
+     */
     Long id;
 
+    /**
+     * List of rules respected at the moment of the question
+     */
     private ArrayList<Regle> lesRegles;
 
-     public Reponse(String q, String r, Date d){
+    /**
+     * Constructeur
+     * @param q
+     * @param r
+     * @param d
+     */
+    public Reponse(String q, String r, Date d){
         this.intituleQuestion = q;
         this.laReponse = r;
         this.instant = d;
         this.lesRegles=new ArrayList<Regle>();
     }
 
-
+    /**
+     * Constructor
+     * @param q
+     * @param r
+     * @param d
+     * @param s
+     */
     public Reponse(String q, String r, Date d, Session s){
         this.intituleQuestion = q;
         this.laReponse = r;
@@ -67,6 +100,15 @@ public class Reponse {
         this.lesRegles=new ArrayList<Regle>();
     }
 
+    /**
+     * Constructor
+     * @param num
+     * @param q
+     * @param r
+     * @param d
+     * @param s
+     * @param screenCapture
+     */
     public Reponse(Long num, String q, String r, Date d, Session s, String screenCapture){
         this.id=num;
         this.intituleQuestion = q;
@@ -77,6 +119,14 @@ public class Reponse {
         this.lesRegles=new ArrayList<Regle>();
     }
 
+    /**
+     * Constructor
+     * @param num
+     * @param q
+     * @param r
+     * @param d
+     * @param screenCapture
+     */
     public Reponse(Long num, String q, String r, Date d, String screenCapture){
         this.id=num;
         this.intituleQuestion = q;
@@ -86,34 +136,65 @@ public class Reponse {
         this.lesRegles=new ArrayList<Regle>();
     }
 
+    /**
+     * Gets question's text
+     * @return
+     */
     public String getIntituleQuestion(){
         return intituleQuestion;
     }
 
+    /**
+     * Gets answer
+     * @return
+     */
      public String getLaReponse(){
         return laReponse;
     }
 
+     /**
+      * Gets date of answering
+      * @return
+      */
     public Date getInstant(){
         return instant;
     }
 
+    /**
+     * Gets session
+     * @return
+     */
     public Session getSession(){
         return session;
     }
 
+    /**
+     * Sets the answer's session
+     * @param s
+     */
     public void setSession(Session s){
         session = s;
     }
 
+    /**
+     * Gets answer's screenshot file path
+     * @return
+     */
     public String getScreenshot() {
         return screenshot;
     }
 
+    /**
+     * Gets answer's id
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Deletes answer
+     */
     public void deleteReponse(){
         // First : Delete screenshot
         if (!this.getScreenshot().equals(""))
@@ -123,17 +204,24 @@ public class Reponse {
                 f.delete();
             }
         }
-
         // Then delete answer in DB
        DBConnexion conn = DBConnexion.getConnexion();
        conn.deleteAnwser(this);
 
     }
 
+    /**
+     * Sets rules
+     * @param lesR
+     */
     public void setReglesQuestion(ArrayList<Regle> lesR){
         this.lesRegles=lesR;
     }
 
+    /**
+     * Gets rules
+     * @return
+     */
     public ArrayList<Regle> getReglesQuestion(){
         return lesRegles;
     }

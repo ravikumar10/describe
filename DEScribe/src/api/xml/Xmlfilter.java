@@ -34,18 +34,19 @@ import javax.swing.filechooser.FileFilter;
  */
 public class Xmlfilter extends FileFilter{
 
- //Description et extension acceptée par le filtre
+   /* Description et extension accepted by the filter */
    private String description;
    private String extension;
-   //Constructeur à partir de la description et de l'extension acceptée
+   
+   /* Constructor */
    public Xmlfilter(String description, String extension){
       if(description == null || extension ==null){
-         throw new NullPointerException("La description (ou extension) ne peut être null.");
+         throw new NullPointerException("Description and extension can't be NULL.");
       }
       this.description = description;
       this.extension = extension;
    }
-   //Implémentation de FileFilter
+   //FileFilter implementation
    public boolean accept(File file){
       if(file.isDirectory()) {
          return true;

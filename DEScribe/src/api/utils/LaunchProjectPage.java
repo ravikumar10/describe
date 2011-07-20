@@ -41,6 +41,9 @@ public class LaunchProjectPage {
     private static String os = null;
     private static Runtime r = null;
 
+    /**
+     * Launch DEScribe's project web page
+     */
     public static void LaunchPage() {
         if (getOs.isWindows()) {
             try {

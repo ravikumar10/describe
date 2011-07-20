@@ -33,8 +33,15 @@ import java.util.ArrayList;
  */
 public class QCM extends Question {
 
+    /**
+     * Possible choices of the question
+     */
     protected ArrayList<QCMChoice> choices;
-    
+
+    /**
+     * Constrructor
+     * @param q
+     */
     public QCM (String q){
         super(q);
     }

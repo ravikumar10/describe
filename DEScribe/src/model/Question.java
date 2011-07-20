@@ -34,21 +34,18 @@ import java.util.ArrayList;
 public class Question {
 
     /**
-     * Attributs
-     */
-
-
-
-    /**
-     * Identifiant de la question
+     * Question id
      */
     long id;
 
     /**
-     * La question elle même
+     * Question's text
      */
     public String intitule;
 
+    /**
+     * Rules of the question
+     */
     private ArrayList<Regle> lesRegles;
 
     /**
@@ -60,14 +57,26 @@ public class Question {
         lesRegles=new ArrayList<Regle>();
     }
 
+    /**
+     * Adds a rule to the question
+     * @param r
+     */
     public void addRegle(Regle r){
         lesRegles.add(r);
     }
 
+    /**
+     * Sets the lists of rules of the question
+     * @param lesR
+     */
     public void setRegles(ArrayList<Regle> lesR){
         lesRegles=lesR;
     }
 
+    /**
+     * Gets the list of rules of the question
+     * @return
+     */
     public ArrayList<Regle> getRegles(){
         return lesRegles;
     }

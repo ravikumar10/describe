@@ -31,6 +31,10 @@ package api.utils;
  */
 public class getOs {
 
+    /**
+     * Checks if current OS is Windows
+     * @return
+     */
 	public static boolean isWindows(){
 
 		String os = System.getProperty("os.name").toLowerCase();
@@ -39,6 +43,10 @@ public class getOs {
 
 	}
 
+        /**
+         * Checks if current instance is Mac OS
+         * @return
+         */
 	public static boolean isMac(){
 
 		String os = System.getProperty("os.name").toLowerCase();
@@ -47,6 +55,10 @@ public class getOs {
 
 	}
 
+        /**
+         * Checks if current instance is Unix/Linux
+         * @return
+         */
 	public static boolean isUnix(){
 
 		String os = System.getProperty("os.name").toLowerCase();

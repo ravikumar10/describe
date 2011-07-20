@@ -232,9 +232,6 @@ public class ImgTxtMerger extends JPanel {
             return dimg;
         }
 
-
-
-    // Pour fusionner le screenshot avec un blanc en haut:
     /**
      * Merge vertically two images
      * @param img1

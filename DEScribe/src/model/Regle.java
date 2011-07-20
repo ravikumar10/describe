@@ -31,18 +31,39 @@ package model;
  * @version 2011-07-18
  */
 public class Regle {
-    String event; //fullscreen, copy, copyImage, copyText, copyFile
-    String type; //if, notif
 
+    /**
+     * Name of event : fullscreen, copy, copyImage, copyText, copyFile...
+     */
+    String event;
+
+    /**
+     * Type of rule : if, notif
+     */
+    String type;
+
+    /**
+     * Constructor
+     * @param e
+     * @param t
+     */
     public Regle(String e, String t){
         event=e;
         type=t;
     }
 
+    /**
+     * Gets event
+     * @return
+     */
     public String getEvent(){
         return event;
     }
 
+    /**
+     * Gets type
+     * @return
+     */
     public String getType(){
         return type;
     }

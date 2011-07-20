@@ -33,21 +33,61 @@ import java.util.Date;
  * @version 2011-07-18
  */
 public class Session {
+
+    /**
+     * Session's id
+     */
     long id;
+
+    /**
+     * Session's creation date
+     */
     Date debut;
+
+    /**
+     * Session's closure date
+     */
     Date fin;
+
+    /**
+     * Session's level of activity
+     */
     Boolean active;
+
+    /**
+     * Session's name
+     */
     String nom;
+
+    /**
+     * Session's state
+     */
     boolean pause;
+
+    /**
+     * Session's last export's date
+     */
     Date lastExport;
 
     /* Life time of the session in number of hours */
     /* For instance, 48 hours */
     int timeToLive;
 
+    /**
+     * Number of questions per hour
+     */
     int questionsPerHour;
 
 
+    /**
+     * Constructor
+     * @param id
+     * @param d
+     * @param f
+     * @param a
+     * @param n
+     * @param e
+     */
     public Session(Long id, Date d, Date f, Boolean a, String n, Date e){
         this.debut=d;
         this.fin=f;
@@ -57,70 +97,137 @@ public class Session {
         this.lastExport=e;
     }
 
+    /**
+     * Gets session's id
+     * @return
+     */
     public long getId(){
         return id;
     }
 
+    /**
+     * Gets session's creation date
+     * @return
+     */
      public Date getDebut(){
         return debut;
     }
 
+     /**
+      * Gets session's closure date
+      * @return
+      */
      public Date getFin(){
         return fin;
     }
 
+     /**
+      * Gets session's name
+      */
      public String getNom(){
          return nom;
      }
 
+     /**
+      * Gets session's level of activity
+      * @return
+      */
     public Boolean getActive() {
         return active;
     }
 
+    /**
+     * Sets session's level of activity
+     * @param b true for active
+     */
     public void setActive(boolean b) {
         active=b;
     }
 
+    /**
+     * Sets session's closure date
+     * @param d
+     */
     public void setfin(Date d) {
         fin=d;
     }
 
+    /**
+     *  Sets session's name
+     * @param n
+     */
     public void setnom(String n) {
         nom=n;
     }
 
+    /**
+     * Sets session in pause/resume session
+     * @param b true for pause
+     */
     public void setPause(boolean b) {
         pause=b;
     }
 
+    /**
+     * Checks if session is in pause
+     * @return
+     */
     public boolean getPause() {
         return pause;
     }
 
+    /**
+     * Sets last export date
+     * @param d
+     */
     public void setLastExport(Date d){
         lastExport=d;
     }
 
+    /**
+     * Gets last export date
+     * @return
+     */
     public Date getLastExport(){
         return lastExport;
     }
 
+    /**
+     * Sets session's time to live
+     * @param ttl
+     */
     public void setTimeToLive(int ttl){
         this.timeToLive=ttl;
     }
 
+    /**
+     * Gets session's time to live
+     * @return
+     */
     public int getTimeToLive(){
         return timeToLive;
     }
 
+    /**
+     * Sets number of questions per hour
+     * @param nbQuestions
+     */
     public void setQuestionsPerHour(int nbQuestions){
         this.questionsPerHour=nbQuestions;
     }
 
+    /**
+     * Gets number of questions per hour
+     * @return
+     */
     public int getQuestionsPerHour() {
         return questionsPerHour;
     }
 
+    /**
+     * Gets session's number of answers
+     * @return
+     */
     public int getNbReponses() {
         return 0;
     }
