@@ -55,6 +55,12 @@ import javax.swing.ImageIcon;
  */
 public class ImageBytes {
 
+    /**
+     * Converts image to bytes array
+     * @param filePath
+     * @return
+     * @throws FileNotFoundException
+     */
     public static byte [] ImageToByte(File filePath) throws FileNotFoundException{
 
         FileInputStream fis = new FileInputStream(filePath);
@@ -72,6 +78,12 @@ public class ImageBytes {
         return bytes;
     }
 
+    /**
+     * Converts bytes array to image
+     * @param bytes
+     * @param imageFile
+     * @throws IOException
+     */
     public static void byteToImage(byte [] bytes,File imageFile) throws IOException{
 
         ByteArrayInputStream bis =new ByteArrayInputStream(bytes);
@@ -88,6 +100,13 @@ public class ImageBytes {
         ImageIO.write(bufferedImage,"jpeg", imageFile);
     }
 
+    /**
+     * Converts bufferedImage to Bytes Array
+     * @param img
+     * @return
+     * @throws ImageFormatException
+     * @throws IOException
+     */
     public static byte[] bufferedImageToByteArray(BufferedImage img) throws ImageFormatException, IOException{
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
@@ -95,6 +114,11 @@ public class ImageBytes {
         return os.toByteArray();
     }
 
+    /**
+     * Create a file from a bytes array
+     * @param bA
+     * @param f
+     */
     public static void createFileFromBytes(byte[] bA, File f){
             FileOutputStream fos;
         try {
@@ -108,6 +132,12 @@ public class ImageBytes {
         }
     }
 
+    /**
+     * Get bytes array from file
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public static byte[] getBytesFromFile(File file) throws IOException {
         InputStream is = new FileInputStream(file);
 
@@ -139,6 +169,11 @@ public class ImageBytes {
         return bytes;
     }
 
+    /**
+     * Convert image file to bufferedImage
+     * @param file
+     * @return
+     */
     public static BufferedImage FileToBufferedImage(String file){
 
                 ImageIcon icon = new ImageIcon(file);

@@ -35,8 +35,11 @@ import java.io.IOException;
  */
 public class FileTools {
 
-    /** copie le fichier source dans le fichier resultat
-     * retourne vrai si cela réussit
+    /**
+     * Copy source file to destination directory dest
+     * @param source
+     * @param dest
+     * @return true if it worked fine, else false
      */
     public static boolean copyFile(File source, File dest){
             try{
@@ -70,9 +73,11 @@ public class FileTools {
             return true; // Résultat OK
     }
 
-
     /**
-     * Déplace le fichier source dans le fichier résultat
+     * Move source file to directory destination
+     * @param source
+     * @param destination
+     * @return
      */
     public static boolean moveFile(File source,File destination) {
             if( !destination.exists() ) {

@@ -32,12 +32,24 @@ import java.text.*;
  * @version 2011-07-18
  */
 public class DateOutils {
+    /**
+     * Converts string to Date format
+     * @param d
+     * @return
+     * @throws ParseException
+     */
    public static Date stringToDate(String d) throws ParseException{
         DateFormat formatter = new SimpleDateFormat( "EEE MMM d HH:mm:ss z yyyy", Locale.UK );
         Date date = (Date)formatter.parse(d);
         return date;
     }
 
+   /**
+    * Determinates the number of hours between two dates
+    * @param d1
+    * @param d2
+    * @return nb of hours (int)
+    */
    public static int nbHoursBetweenTwoDates(Date d1, Date d2){
        return (int) ((d2.getTime()-d1.getTime())/3600000);
    }

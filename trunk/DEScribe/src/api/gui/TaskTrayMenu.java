@@ -75,8 +75,14 @@ public class TaskTrayMenu {
 
     public static PopupMenu popupDelay;
 
+    /**
+     * Constructor
+     */
     public TaskTrayMenu() {
 
+        /**
+         * Checks if Systemtray is supported by the OS
+         */
         if (SystemTray.isSupported()) {
             SystemTray tray = SystemTray.getSystemTray();
             Image image = Toolkit.getDefaultToolkit().getImage("media/des.gif");
@@ -84,34 +90,56 @@ public class TaskTrayMenu {
             PopupMenu popup = new PopupMenu();
 
             //For debug only
-            showItem = new MenuItem(ShowItemLabel);
-            showItem.addActionListener(Listeners.getListeners());
+            /**
+             * Show ask frame (old version)
+             */
+            //showItem = new MenuItem(ShowItemLabel);
+            //showItem.addActionListener(Listeners.getListeners());
             //popup.add(showItem);
-            
+
+            /**
+             * Exit application
+             */
             exitItem = new MenuItem(ExitItemLabel);
             exitItem.addActionListener(Listeners.getListeners());
 
+            /**
+             * Settings frame
+             */
             configItem = new MenuItem(ConfigItemLabel);
             configItem.addActionListener(Listeners.getListeners());
 
+            /**
+             * Sessions frame
+             */
             sessionItem = new MenuItem(SessionItemLabel);
             sessionItem.addActionListener(Listeners.getListeners());
 
+            /**
+             * About... frame
+             */
             aboutItem = new MenuItem(AboutItemLabel);
             aboutItem.addActionListener(Listeners.getListeners());
 
+            /**
+             * Report bugs frame
+             */
             reportItem = new MenuItem(ReportItemLabel);
             reportItem.addActionListener(Listeners.getListeners());
-
-
 
             popup.add(configItem);
             popup.add(sessionItem);
 
 
+            /**
+             * Delay current session
+             */
             popupDelay = new PopupMenu(PopupDelayLabel);
             popup.add(popupDelay);
 
+            /**
+             * Delay current session for 1 hour
+             */
             pauseSession1HItem = new MenuItem(PauseSession1HLabel);
             pauseSession1HItem.addActionListener(new ActionListener() {
 
@@ -121,6 +149,9 @@ public class TaskTrayMenu {
             });
             popupDelay.add(pauseSession1HItem);
 
+            /**
+             * Delay current session for 3 hours
+             */
             pauseSession3HItem = new MenuItem(PauseSession3HLabel);
             pauseSession3HItem.addActionListener(new ActionListener() {
 
@@ -130,6 +161,9 @@ public class TaskTrayMenu {
             });
             popupDelay.add(pauseSession3HItem);
 
+            /**
+             * Delay current session for 24h
+             */
             pauseSession24HItem = new MenuItem(PauseSession24HLabel);
             pauseSession24HItem.addActionListener(new ActionListener() {
 
@@ -139,6 +173,9 @@ public class TaskTrayMenu {
             });
             popupDelay.add(pauseSession24HItem);
 
+            /**
+             * Delay current session for a specified time
+             */
             pauseSessionCustomItem = new MenuItem(PauseSessionCustomLabel);
             pauseSessionCustomItem.addActionListener(new ActionListener() {
 
@@ -155,7 +192,9 @@ public class TaskTrayMenu {
             });
             popupDelay.add(pauseSessionCustomItem);
 
-
+            /**
+             * Resume current session
+             */
             resumeSessionItem = new MenuItem(ResumeSessionLabel);
             resumeSessionItem.addActionListener(new ActionListener() {
 
@@ -169,7 +208,10 @@ public class TaskTrayMenu {
             popup.add(reportItem);
             popup.add(aboutItem);
 
-            //DEBUG
+            //For debug only
+            /**
+             * Show ask frame
+             */
             MenuItem displayAskFrame = new MenuItem("Display AskFrame (testing)");
             displayAskFrame.addActionListener(new ActionListener() {
 
@@ -220,6 +262,9 @@ public class TaskTrayMenu {
         }
     }
 
+    /**
+     * Refresh DES tray menu
+     */
     public static void refresh() {
         ShowItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ShowItemLabel");
         ExitItemLabel = Lang.getLang().getValueFromRef("TaskTrayMenu.ExitItemLabel");

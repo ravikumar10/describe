@@ -42,13 +42,29 @@ import java.util.logging.Logger;
  */
 public class CopyAndPasteHandler {
 
-
+    /**
+     * Previous contents of clipboard
+     */
     private Transferable oldContents=null;
+
+    /**
+     * Typ of clipboard contents
+     */
     private String contentsType="";
-    
+
+    /**
+     * Unique instance of CopyAndPaseHandler
+     */
     private static CopyAndPasteHandler instance;
 
+    /**
+     * Clipboard
+     */
     private Clipboard systemClipboard;
+    
+    /**
+     * Constructor
+     */
     public CopyAndPasteHandler(){
         // get the system clipboard
         systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -83,7 +99,10 @@ public class CopyAndPasteHandler {
         scrutation();
     }
 
-
+    /**
+     * Get unique instance
+     * @return
+     */
     public static CopyAndPasteHandler getInstance(){
 
         if (instance == null) {
@@ -92,6 +111,9 @@ public class CopyAndPasteHandler {
         return instance;
     }
 
+    /**
+     * Polling
+     */
     public void scrutation(){
         while (true){
             try {
@@ -99,7 +121,6 @@ public class CopyAndPasteHandler {
                     DataFlavor t[]=systemClipboard.getAvailableDataFlavors();
                     if (systemClipboard.getAvailableDataFlavors().length>0){
 
-                        // Ask a new question - Only for test. To be generalized with rules in form.xml
                         if (isImageTransferable(oldContents)){
                             //AskFrame.getTheFrame().showTheFrame("What did you want to do with this picture?");
                             AskFrame.getTheFrame().askQuestionWithRule("copyImage");
@@ -147,6 +168,10 @@ public class CopyAndPasteHandler {
 
     }
 
+    /**
+     * Update clipboard contents
+     * @param newContents
+     */
     public void updateContents(Transferable newContents){
         oldContents=newContents;
         if (oldContents != null){
@@ -191,9 +216,12 @@ public class CopyAndPasteHandler {
 
     }
 
-    /* Check if the contents of clipBoard changed since last call, in other
-       words, if a copy-paste action has been started
-    */
+    /**
+     * Check if the contents of clipBoard changed since last call, in other
+     * words, if a copy and paste action has been started
+     * @return
+     * @throws IOException
+     */
     public Boolean isNewCopyDone() throws IOException {
 
 
@@ -219,6 +247,14 @@ public class CopyAndPasteHandler {
         return false;
      }
 
+    /**
+     * Checks if two transferable are similar
+     * @param tr1
+     * @param tr2
+     * @return true if tr1 and tr2 are similar
+     * @throws UnsupportedFlavorException
+     * @throws IOException
+     */
     public Boolean isEqual(Transferable tr1, Transferable tr2) throws UnsupportedFlavorException, IOException{
        if ((tr1.getTransferDataFlavors().length>0) && (tr2.getTransferDataFlavors().length>0)){
             /*if (tr1.isDataFlavorSupported(DataFlavor.imageFlavor) && tr2.isDataFlavorSupported(DataFlavor.imageFlavor)){
@@ -274,6 +310,11 @@ public class CopyAndPasteHandler {
 
     }
 
+    /**
+     * Checks if transferable tr is of image type
+     * @param tr
+     * @return
+     */
     public Boolean isImageTransferable(Transferable tr){
         DataFlavor t[]=tr.getTransferDataFlavors();
         if (t.length>0){
@@ -288,6 +329,11 @@ public class CopyAndPasteHandler {
             return false;
     }
 
+    /**
+     * Checks if transferable tr is of text type
+     * @param tr
+     * @return
+     */
     public Boolean isTextTransferable(Transferable tr){
         DataFlavor t[]=tr.getTransferDataFlavors();
         if (t.length>0){
@@ -302,6 +348,11 @@ public class CopyAndPasteHandler {
             return false;
     }
 
+    /**
+     * Checks if transferable tr is of file(s) type
+     * @param tr
+     * @return
+     */
     public Boolean isFileTransferable(Transferable tr){
         DataFlavor t[]=tr.getTransferDataFlavors();
         if (t.length>0){

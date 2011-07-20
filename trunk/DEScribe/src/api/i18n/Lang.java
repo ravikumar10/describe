@@ -42,11 +42,21 @@ import org.xml.sax.SAXException;
  */
 public class Lang {
 
+    /**
+     * HashMap containing keys and translations
+     */
     private static HashMap hm;
+
+    /**
+     * Unique instance of Lang
+     */
     private static Lang inst = null;
 
     public String applicationTitle = "english default version";
 
+    /**
+     * Constructor
+     */
     private Lang() {
         try {
             load(Utils.loadLanguage());
@@ -55,12 +65,20 @@ public class Lang {
         }
     }
 
+    /**
+     * Get unique instance of Lang
+     * @return
+     */
     public static Lang getLang(){
         if (inst==null)
             inst=new Lang();
         return inst;
     }
 
+    /**
+     * Load a language file (xml)
+     * @param language
+     */
     public void load(String language) {
         try {
 
@@ -77,11 +95,13 @@ public class Lang {
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(Lang.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-
     }
 
+    /**
+     * Get a string from its ref
+     * @param ref
+     * @return
+     */
     public String getValueFromRef(String ref) {
         return (String) hm.get(ref);
      }

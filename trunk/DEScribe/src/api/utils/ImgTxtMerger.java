@@ -49,39 +49,46 @@ import model.Reponse;
  */
 public class ImgTxtMerger extends JPanel {
 
+    /**
+     * Image
+     */
     private BufferedImage image;
 
+    /**
+     * Constructor
+     */
     public ImgTxtMerger(){
         
     }
 
+    /**
+     * Constructor
+     * @param file
+     * @param text
+     */
     public ImgTxtMerger(String file, String text) {
-       // try {
-            image.flush();
-            //image = ImageIO.read(new File(file));
-            image = api.utils.ImageBytes.FileToBufferedImage(file);
-       // } catch (IOException e) {
-       //     e.printStackTrace();
-       // }
+        image.flush();
+        image = api.utils.ImageBytes.FileToBufferedImage(file);
         this.setPreferredSize(new Dimension(
-            image.getWidth(), image.getHeight()));
+        image.getWidth(), image.getHeight()));
         image = process(image, text);
-            File file2 = new File(file);
+        File file2 = new File(file);
         try {
-            // try {
             api.utils.ImageBytes.createFileFromBytes(api.utils.ImageBytes.bufferedImageToByteArray(image), file2);
         } catch (ImageFormatException ex) {
             Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
         }
-            //javax.imageio.ImageIO.write(image, "gif", file2);
             image.flush();
-        //} catch (IOException ex) {
-        //    Logger.getLogger(ImgTxtMerger.class.getName()).log(Level.SEVERE, null, ex);
-        //}
     }
 
+    /**
+     * Add text at the top of a BufferedImage
+     * @param old
+     * @param text
+     * @return
+     */
     public BufferedImage process(BufferedImage old, String text) {
         int w = old.getWidth();
         int h = old.getHeight();
@@ -110,6 +117,11 @@ public class ImgTxtMerger extends JPanel {
         g.drawImage(image, 0, 0, null);
     }
 
+    /**
+     * Merge image from file path and text
+     * @param file
+     * @param text
+     */
     public static void merge(String file, String text) {
         //JFrame f = new JFrame();
         //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,6 +131,14 @@ public class ImgTxtMerger extends JPanel {
         //f.setVisible(true);
     }
 
+    /**
+     * Draw a string in Graphics
+     * @param g
+     * @param s
+     * @param x
+     * @param y
+     * @param width
+     */
     public void drawString(Graphics g, String s, int x, int y, int width)
     {
         // FontMetrics gives us information about the width,
@@ -155,6 +175,10 @@ public class ImgTxtMerger extends JPanel {
 
     }
 
+    /**
+     * Merge an answer text and its screenshot
+     * @param r
+     */
     public void fusion(Reponse r){
         try {
 
@@ -190,7 +214,13 @@ public class ImgTxtMerger extends JPanel {
 
 
 
-    // New version
+    /**
+     * Resize an image to the specified dimension
+     * @param img
+     * @param newW
+     * @param newH
+     * @return
+     */
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
             int w = img.getWidth();
             int h = img.getHeight();
@@ -205,6 +235,12 @@ public class ImgTxtMerger extends JPanel {
 
 
     // Pour fusionner le screenshot avec un blanc en haut:
+    /**
+     * Merge vertically two images
+     * @param img1
+     * @param img2
+     * @return
+     */
     public static BufferedImage append(Image img1, Image img2) {
         BufferedImage buf = null;
         if(img1 != null && img2 != null) {
