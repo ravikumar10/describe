@@ -74,7 +74,7 @@ As many answers as user wants.<br />
     </rules>
   </question>
 
-<br />http://describe.googlecode.com/files/askframe_qcmother.jpg<br />
+<br />http://describe.googlecode.com/files/askFrameQCMChkBoxQuestion.jpg<br />
 
 <br />
 
