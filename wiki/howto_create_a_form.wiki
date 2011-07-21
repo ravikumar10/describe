@@ -45,7 +45,7 @@ User can type his own answer. In the following example, "What was your experienc
 </question>
 
 
-<br />http://describe.googlecode.com/files/questionFrame.JPG<br />
+<br />http://describe.googlecode.com/files/askFrameOpenQuestion.jpg<br />
 
 = Example of Multiple Choice Question with 0..1 answer (Radio Buttons) =
 One answer max.<br />
