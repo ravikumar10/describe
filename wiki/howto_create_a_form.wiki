@@ -62,14 +62,17 @@ One answer max.<br />
 
 = Example of Multiple Choice Question with 0..n answers (Checkboxes) =
 As many answers as user wants.<br />
-	<question type="QCMChkBox">
-		<title>What was your experience?</title>
-		<choice type="normal">Surfing the internet</choice>
-		<choice type="normal">Chatting with friends</choice>
-		<choice type="normal">Programming</choice>
-		<choice type="normal">Playing video games</choice>
-		<choice type="other">Other</choice>
-	</question>
+  <question type="QCMChkBox">
+    <title>You were thinking about...</title> 
+    <choices>
+  	  <choice type="normal">...the past</choice> 
+	  <choice type="normal">...the present</choice> 
+	  <choice type="normal">...the future</choice> 
+    </choices>
+    <rules>
+	  <rule type="notif" event="fullscreen" /> 
+    </rules>
+  </question>
 
 <br />http://describe.googlecode.com/files/askframe_qcmother.jpg<br />
 
