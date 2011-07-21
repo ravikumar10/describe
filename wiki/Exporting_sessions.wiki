@@ -12,8 +12,6 @@ At any moment, user can export its session's data (answers, screenshots) in orde
 * The archive contains the full session's folder. This folder contains, the XML file listing all answers
 * All the screenshots associated with answers in JPEG format
 
-<br />
-
 = About the XML session export file =
 
 XML export file contains a list of "reponse" nodes located in the "reponses" root node. A "reponse" (=answer) contains the question associated with this answer ("question" node), the rules of the question (node "rules", for instance "notif:fullscreen" means only ask if no other application is currently running in fullscreen mode, it also could be "if:copyText" for copy and paste of text), the answer itself ("content" node's value), the instant of answering ("timecode" node) and the screenshot's path if exists (node "screenshot").
