@@ -85,6 +85,7 @@ More question types to come...<br />
 
 = Full form example =
 <br />
+If you want to study experience in copy and pate context, here is an intersting form example of what you can do.
 <br />
 <?xml version="1.0" encoding="iso-8859-1"?>
 <questions>
@@ -200,3 +201,5 @@ More question types to come...<br />
 
 <br />
 <br />
+<br />The result
+<br />http://describe.googlecode.com/files/askFrameFullFormExample.jpg<br />
