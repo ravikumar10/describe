@@ -237,5 +237,4 @@ public class SessionManager {
                     int nb=conn.getNbAnswers(s);
                     return nb;
     }
-
 }

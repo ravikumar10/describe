@@ -187,8 +187,20 @@ public class UniqueInstance {
             sc = new Scanner(socket.getInputStream());
 
             /* We only read one line */
-            String s = sc.nextLine();
-
+             //= sc.nextLine();
+             String s="";
+             String temp="";
+            try {
+                temp=sc.nextLine();
+                s=temp;
+                while (temp!=null){
+                    temp=sc.nextLine();
+                    s=s+"\n"+temp;
+                }
+            } catch (Exception ex){
+                
+            }
+            javax.swing.JOptionPane.showMessageDialog(null, s);
             /* If it's the unique instance message... */
             if (message.equals(s)) {
                 /* Launch the code */
