@@ -1,12 +1,31 @@
 #summary Result of sessions export in DEScribe explanation
+#labels ExperimenterGuide
 
 = Introduction =
 At any moment, user can export its session's data (answers, screenshots) in order to give/send it to DEScribe experimenter.
 
 
-= Details =
+= Exporting a session =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+* A session is exported by user from the sessions frame "export" button.
+* It creates a zip archive named [Username]_Session[SessionNumber]_[SessionName].zip.
+* The archive contains the full session's folder. This folder contains, the XML file listing all answers
+* All the screenshots associated with answers in JPEG format
+
+<br />
+
+= About the XML session export file =
+
+XML export file contains a list of "reponse" nodes located in the "reponses" root node. A "reponse" (=answer) contains the question associated with this answer ("question" node), the rules of the question (node "rules", for instance "notif:fullscreen" means only ask if no other application is currently running in fullscreen mode, it also could be "if:copyText" for copy and paste of text), the answer itself ("content" node's value), the instant of answering ("timecode" node) and the screenshot's path if exists (node "screenshot").
+
+= Example of XML file obtained with DEScribe  =
+
+<reponses>
+  <reponse>
+    <question>1. What was your experience?</question> 
+    <rules>notif:fullscreen</rules> 
+    <content>1. What was your experience? : I was thinking about my day tasks. A bit nervous. Using calendar application.</content> 
+    <timecode>Thu Jul 21 10:22:56 CEST 2011</timecode> 
+    <screenshot>sessions\session6\session6_reponse1_screenshot.jpg</screenshot> 
+    </reponse>
+</reponses>
