@@ -60,7 +60,7 @@ One answer max.<br />
 	</rules>
 	</question>
 
-<br />http://describe.googlecode.com/files/askFrameQCMRabioQuestion.jpg<br />
+<br />http://describe.googlecode.com/files/askFrameQCMRadioQuestion.jpg<br />
 
 = Example of Multiple Choice Question with 0..n answers (Checkboxes) =
 As many answers as user wants.<br />
