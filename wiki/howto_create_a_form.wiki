@@ -81,3 +81,122 @@ As many answers as user wants.<br />
 <br />
 
 More question types to come...<br />
+<br />
+
+= Full form example =
+<br />
+<br />
+<?xml version="1.0" encoding="iso-8859-1"?>
+<questions>
+	
+	<!-- Copy-and-paste of text event -->
+	<question type="QCMRadio">
+			<title>
+			Were you really about to paste this text?
+			</title>
+			<choices>
+				<choice type="normal">
+					Yes
+				</choice>
+				<choice type="normal">
+					No
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>			
+	<question type="QCMRadio">
+			<title>
+			Did you know exactly where you were going to paste this text?
+			</title>
+			<choices>
+				<choice type="normal">
+					Yes
+				</choice>
+				<choice type="other">
+					No
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>				
+	<question type="QCMRadio">
+			<title>
+			Were you about to paste this text in another application?
+			</title>
+			<choices>
+				<choice type="normal">
+					Yes
+				</choice>
+				<choice type="normal">
+					No
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>
+	<question type="QCMRadio">
+			<title>
+			Were you feeling any particular state of mind or feeling?
+			</title>
+			<choices>
+				<choice type="normal">
+					No
+				</choice>
+				<choice type="other">
+					Yes. Please describe it down there:
+				</choice>				
+			</choices>
+			<rules>
+				<rule type="if" event="copyText">
+				</rule>
+				<rule type="notif" event="fullscreen">
+				</rule>
+			</rules>
+	</question>		
+	<question type="QCMChkBox">
+		<title>You were thinking about...</title> 
+		<choices>
+			<choice type="normal">...the past</choice> 
+			<choice type="normal">...the present</choice> 
+			<choice type="other">...the future</choice> 
+		</choices>
+		<rules>
+			<rule type="notif" event="fullscreen" /> 
+			<rule type="if" event="copyText">
+			</rule>
+		</rules>
+	</question>
+
+
+	<!-- Actions associated with all questions of the form -->
+    <actions>
+		<!-- Takes a screenshot every time a question is asked -->
+        <action type="screenshot">
+        </action>
+    </actions>
+	<meta>
+		<!-- When a new session is created the countdown starts -->
+		<!-- Once it reaches his end, session is automatically  -->
+		<!-- closed and user is warned 							--> 
+		<htimetolive>48</htimetolive>
+		
+		<!-- Max is 3 questions asked per hour					-->
+		<nbQuestionsPerHour>3</nbQuestionsPerHour>		
+	</meta>
+</questions>
+
+<br />
+<br />
