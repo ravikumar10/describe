@@ -35,7 +35,7 @@ Root is "questions" node. Within this node, are first a list of "question" nodes
 
 
 = Example of open question =
-User can type his own answer.<br />
+User can type his own answer. In the following example, "What was your experience?" is asked if a file (or a list of files) is copied and only if no fullscreen application is running at the moment of the question.<br />
 <question type="open">
   <title>What was your experience?</title> 
   <rules>
