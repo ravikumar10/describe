@@ -36,9 +36,14 @@ Root is "questions" node. Within this node, are first a list of "question" nodes
 
 = Example of open question =
 User can type his own answer.<br />
-	<question type="open">
-	           <title>What was your experience?</title>
-	</question>
+<question type="open">
+  <title>What was your experience?</title> 
+  <rules>
+    <rule type="if" event="copyFile" /> 
+    <rule type="notif" event="fullscreen" /> 
+  </rules>
+</question>
+
 
 <br />http://describe.googlecode.com/files/questionFrame.JPG<br />
 
