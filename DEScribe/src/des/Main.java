@@ -41,8 +41,8 @@ import model.SessionManager;
  */
 public class Main {
 
-    public static String version = "1.1.2";
-    public static String datemaj = "2011-07-13";
+    public static String version = "1.1.3";
+    public static String datemaj = "2011-07-21";
     public static String contacts = "Sébastien Faure<sebastien.faure3@gmail.com>\nYannick Prié<yannick.prie@univ-lyon1.fr>\nAmaury Belin<amaury.belin@gmail.com>";
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
@@ -58,7 +58,7 @@ public class Main {
         /**
          * Message to send to the instance launched
          */
-        final String MESSAGE = "DEScribe";
+        final String MESSAGE = "Message envoyé : DEScribe is already running";
         
         /**
          * Actions to do when another instance is trying to start up

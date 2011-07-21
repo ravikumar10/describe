@@ -12,7 +12,7 @@ public class DBTest {
     public static void main(String args[]) {
         DBConnexion dbc = DBConnexion.getConnexion();
         for (int i = 0; i < 10000; i++) {
-            dbc.addEntry("Une question c'est assez long", "Une réponse c'est long aussi", "Wed Jan 19 10:44:37 CET 2011", "1");
+
             if (i == 2500) {
                 System.out.println("Quarter done !");
             }
