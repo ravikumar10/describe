@@ -1,8 +1,7 @@
-#summary One-sentence summary of this page.
+#summary Result of sessions export in DEScribe explanation
 
 = Introduction =
-
-Add your content here.
+At any moment, user can export its session's data (answers, screenshots) in order to give/send it to DEScribe experimenter.
 
 
 = Details =
