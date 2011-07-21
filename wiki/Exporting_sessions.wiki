@@ -8,7 +8,7 @@ At any moment, user can export its session's data (answers, screenshots) in orde
 = Exporting a session =
 
 * A session is exported by user from the sessions frame "export" button.
-* It creates a zip archive named [Username]_Session[SessionNumber]_[SessionName].zip.
+* It creates a zip archive named (Username)_Session(SessionNumber)_(SessionName).zip.
 * The archive contains the full session's folder. This folder contains, the XML file listing all answers
 * All the screenshots associated with answers in JPEG format
 
