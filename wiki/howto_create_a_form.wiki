@@ -50,12 +50,14 @@ User can type his own answer. In the following example, "What was your experienc
 = Example of Multiple Choice Question with 0..1 answer (Radio Buttons) =
 One answer max.<br />
 	<question type="QCMRadio">
-		<title>What was your experience?</title>
-		<choice type="normal">Surfing the internet</choice>
-		<choice type="normal">Chatting with friends</choice>
-		<choice type="normal">Programming</choice>
-		<choice type="normal">Playing video games</choice>
-		<choice type="normal">Other</choice>
+		<title>Did you know what you were doing with the mouse's cursor?</title> 
+		<choices>
+			<choice type="normal">Yes</choice> 
+			<choice type="normal">No</choice> 
+		</choices>
+	<rules>
+		<rule type="notif" event="fullscreen" /> 
+	</rules>
 	</question>
 
 <br />http://describe.googlecode.com/files/askframe_qcm_radiobt.jpg<br />
