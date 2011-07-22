@@ -1,4 +1,4 @@
-#summary All you need to know about DEScribe's use.
+#summary All you need to know to use DEScribe.
 #labels Phase-Support,UserGuide
 
 = Introduction =
@@ -9,7 +9,9 @@ Information about DEScribe according to your operating system.
 = About DEScribe =
 - DEScribe is a new open source java application for Descriptive Experience Sampling (DES). Launched in background, questions (loaded from an XML file form) will be asked to user and answers will be collected in order to export them (to XML file) and send them to an experimenter who will be able to analyze them.<br />
 
-- A set of questions and their answers represents what is here called "session". A session can be created, consulted, exported to XML, paused or closed.<br />
+- A set of questions and their answers represents what is here called "session". A session can be created, consulted, exported to XML, paused or closed from the sessions frame.<br />
+
+- DEScribe's settings frame allow user to edit DEScribe settings like : sound, language and DEScribe's sessions output folder (which will contain every files producted by sessions, for instance, screenshots file and the XML answers file after exporting a session).
 
 <br />http://describe.googlecode.com/files/askFrameFullFormExample.jpg<br />
 <br />http://describe.googlecode.com/files/sessionsFrame.jpg<br />
