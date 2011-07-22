@@ -40,5 +40,5 @@ Compile java project from svn. Then add application to your starting at login pr
 
 = Contacts =
 Sebastien Faure <sebastien.faure3@gmail.com><br />
-Bertrand Gros 	<gros.bertrand@gmail.com><br />
 Yannick Prié 	<yannick.prie@univ-lyon1.fr><br />
+Amaury Belin    <amaury.belin@gmail.com><br />
