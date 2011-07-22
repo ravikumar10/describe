@@ -1,5 +1,5 @@
 #summary All you need to know about DEScribe's use.
-#labels Phase-Deploy
+#labels Phase-Support,UserGuide
 
 = Introduction =
 
