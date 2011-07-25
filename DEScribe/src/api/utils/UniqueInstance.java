@@ -23,6 +23,7 @@
 
 package api.utils;
 
+import des.Main;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -160,6 +161,7 @@ public class UniqueInstance {
 
             /* Writing the message on the socket */
             pw.write(message);
+            //pw.write("copyText");
         } catch (IOException e) {
             Logger.getLogger("UniqueInstance").warning("Socket output flow writing failed.");
         } finally {
@@ -200,10 +202,14 @@ public class UniqueInstance {
             } catch (Exception ex){
                 
             }
-            javax.swing.JOptionPane.showMessageDialog(null, s);
+            //javax.swing.JOptionPane.showMessageDialog(null, s);
             /* If it's the unique instance message... */
             if (message.equals(s)) {
                 /* Launch the code */
+                Main.regleRead="";
+                runOnReceive.run();
+            } else if (s.length()>0){
+                Main.regleRead=s;
                 runOnReceive.run();
             }
         } catch (IOException e) {
