@@ -25,12 +25,15 @@ package des;
 import api.time.TimerQuestion;
 import api.utils.UniqueInstance;
 import api.dbc.DBConnexion;
+import api.gui.AskFrame;
 import api.gui.OptionFrame;
 import api.gui.TaskTrayMenu;
 import api.utils.CopyAndPasteHandler;
+import com.google.gson.Gson;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Regle;
 import model.SessionManager;
 
 /**
@@ -47,6 +50,7 @@ public class Main {
     public static String appName = "DEScribe";
     public static String projectPage = "http://describe.googlecode.com";
     public static String cpRight = "(C)2010-2011";
+    public static String regleRead = null;
 
     public static void main(String[] args) throws SQLException {
 
@@ -67,6 +71,19 @@ public class Main {
 
             public void run() {
                 /* Nothing for now */
+                if (regleRead.equals("")){
+                    javax.swing.JOptionPane.showMessageDialog(null, MESSAGE);
+                } else {
+                    //String json = "{'data1':100,'data2':'hello'}";
+                    Gson gson = new Gson();
+
+                    //convert JSON into java object
+                    Regle r = gson.fromJson(regleRead, Regle.class);
+                    //System.out.println(obj);
+                    javax.swing.JOptionPane.showMessageDialog(null, "New rule : "+r.getEvent());
+                    AskFrame.getTheFrame().askQuestionWithRule(r.getEvent());
+                }
+                
             }
         };
         
