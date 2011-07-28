@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 
 /**
  * Class UniqueInstance.java
- * @description Limit the use of only one instance of DEScribe at a time
+ * @description Limit the use of only one instance of DEScribe at a time and receive event from port
  * @author Sébastien Faure  <sebastien.faure3@gmail.com>
  * @version 2011-07-18
  */
@@ -45,6 +45,12 @@ public class UniqueInstance {
     private String message;
     /** Actions to do when when another instance is trying to launch */
     private Runnable runOnReceive;
+
+    private static String request = "<?xml version=\"1.0\"?><cross-domain-policy><allow-access-from domain=\"*\" to-ports=\"*\" /></cross-domain-policy>" ;
+
+
+    private static String policyAsk ="<policy-file-request/>"; //with a space at the end
+
 
     /**
      * Creates a unique instance manager for DEScribe
@@ -172,6 +178,31 @@ public class UniqueInstance {
     }
 
     /**
+     * Sends a mesage to the already running instance of DEScribe
+     */
+    private void sendRequest() {
+        PrintWriter pw = null;
+        try {
+            /* Connexion to local machine */
+            Socket socket = new Socket("localhost", port);
+            /* Use of PrintWriterOn to write on output of the socket */
+            pw = new PrintWriter(socket.getOutputStream());
+            /* Writing the message on the socket */
+
+            pw.write(request);
+            //pw.flush();
+            System.out.println("Policy renvoyé");
+            //pw.write("copyText");
+        } catch (IOException e) {
+            Logger.getLogger("UniqueInstance").warning("Socket output flow writing failed.");
+        } finally {
+            if (pw != null) {
+                pw.close();
+            }
+        }
+    }
+
+    /**
      * Receives a message from a socket connected to the listening server
      * If this is the message of unique instance then actions are done
      *
@@ -199,16 +230,27 @@ public class UniqueInstance {
                     temp=sc.nextLine();
                     s=s+"\n"+temp;
                 }
+               
             } catch (Exception ex){
-                
+                s=s.trim();
+                System.out.println("Message: "+s);
+                if (s.equalsIgnoreCase(policyAsk)){
+                    sendRequest();
+                } else {
+                    if (s.equalsIgnoreCase(request)){
+                        //nothing. Let it to client
+                    }
+                }
             }
-            //javax.swing.JOptionPane.showMessageDialog(null, s);
+            if (!message.equals(s)){
+                javax.swing.JOptionPane.showMessageDialog(null, s);
+            }
             /* If it's the unique instance message... */
             if (message.equals(s)) {
                 /* Launch the code */
                 Main.regleRead="";
                 runOnReceive.run();
-            } else if (s.length()>0){
+            } else if ((s.length()>0) && (!s.equalsIgnoreCase(policyAsk)) && (!s.equalsIgnoreCase(request))){
                 Main.regleRead=s;
                 runOnReceive.run();
             }
