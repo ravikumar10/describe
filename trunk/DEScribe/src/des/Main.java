@@ -70,18 +70,21 @@ public class Main {
         final Runnable RUN_ON_RECEIVE = new Runnable() {
 
             public void run() {
-                /* Nothing for now */
+                /**
+                 * If another instance of DEScribe is already running
+                 */
                 if (regleRead.equals("")){
                     javax.swing.JOptionPane.showMessageDialog(null, MESSAGE);
+                /**
+                 * If an event notification is received
+                 */
                 } else {
-                    //String json = "{'data1':100,'data2':'hello'}";
                     Gson gson = new Gson();
-
-                    //convert JSON into java object
+                    //convert JSON into java Regle object
                     Regle r = gson.fromJson(regleRead, Regle.class);
-                    //System.out.println(obj);
-                    javax.swing.JOptionPane.showMessageDialog(null, "New rule : "+r.getType());
+                    //javax.swing.JOptionPane.showMessageDialog(null, "New rule : "+r.getType());
                     regleRead="";
+                    // Ask questions with new rule
                     AskFrame.getTheFrame().askQuestionWithRule(r.getType());
                 }
                 
