@@ -49,12 +49,15 @@ public class UniqueInstance {
     private static String request = "<?xml version=\"1.0\"?><cross-domain-policy><allow-access-from domain=\"*\" to-ports=\"*\" /></cross-domain-policy>" ;
 
 
-    private static String policyAsk ="<policy-file-request/>"; //with a space at the end
+    private static String policyAsk ="<policy-file-request/>";
 
 
     /**
-     * Creates a unique instance manager for DEScribe
-     *
+     * Java port listening server
+     * Send and receive messages on a choosen port
+     * Used to detect already running instance of DEScribe
+     * Also receive events notifications from external application.
+     * 
      * @param port
      * Port
      * @param message
@@ -178,7 +181,7 @@ public class UniqueInstance {
     }
 
     /**
-     * Sends a mesage to the already running instance of DEScribe
+     * Sends a policy file to flash server
      */
     private void sendRequest() {
         PrintWriter pw = null;
@@ -238,18 +241,23 @@ public class UniqueInstance {
                     sendRequest();
                 } else {
                     if (s.equalsIgnoreCase(request)){
-                        //nothing. Let it to client
+                        //nothing. Let it to flash client
                     }
                 }
             }
             if (!message.equals(s)){
                 javax.swing.JOptionPane.showMessageDialog(null, s);
             }
-            /* If it's the unique instance message... */
+
             if (message.equals(s)) {
-                /* Launch the code */
+            /**
+             * If this is DEScribe already running instance message
+             */
                 Main.regleRead="";
                 runOnReceive.run();
+            /**
+             * If this is an external application's event notification
+             */
             } else if ((s.length()>0) && (!s.equalsIgnoreCase(policyAsk)) && (!s.equalsIgnoreCase(request))){
                 Main.regleRead=s;
                 runOnReceive.run();
