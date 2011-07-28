@@ -80,8 +80,9 @@ public class Main {
                     //convert JSON into java object
                     Regle r = gson.fromJson(regleRead, Regle.class);
                     //System.out.println(obj);
-                    javax.swing.JOptionPane.showMessageDialog(null, "New rule : "+r.getEvent());
-                    AskFrame.getTheFrame().askQuestionWithRule(r.getEvent());
+                    javax.swing.JOptionPane.showMessageDialog(null, "New rule : "+r.getType());
+                    regleRead="";
+                    AskFrame.getTheFrame().askQuestionWithRule(r.getType());
                 }
                 
             }
