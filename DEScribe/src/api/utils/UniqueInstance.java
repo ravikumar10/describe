@@ -194,7 +194,7 @@ public class UniqueInstance {
 
             pw.write(request);
             //pw.flush();
-            System.out.println("Policy renvoyé");
+            //System.out.println("Policy renvoyé");
             //pw.write("copyText");
         } catch (IOException e) {
             Logger.getLogger("UniqueInstance").warning("Socket output flow writing failed.");
@@ -236,7 +236,7 @@ public class UniqueInstance {
                
             } catch (Exception ex){
                 s=s.trim();
-                System.out.println("Message: "+s);
+                //System.out.println("Message: "+s);
                 if (s.equalsIgnoreCase(policyAsk)){
                     sendRequest();
                 } else {
@@ -246,7 +246,7 @@ public class UniqueInstance {
                 }
             }
             if (!message.equals(s)){
-                javax.swing.JOptionPane.showMessageDialog(null, s);
+                //javax.swing.JOptionPane.showMessageDialog(null, s);
             }
 
             if (message.equals(s)) {
