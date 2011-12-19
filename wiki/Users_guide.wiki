@@ -13,7 +13,7 @@ Information about DEScribe according to your operating system.
 
 - DEScribe's question frame allows user to fill a form with questions generated during a session. It can have many questions of different types. At the end user can validate or skip the form (no data saved) by clicking on the frame's bottom buttons.
 <br />http://describe.googlecode.com/files/askFrameFullFormExample.jpg<br />
-- DEScribe's sessions frame allows user to manage questions sessions (closed or not): close, delete, delay or visualize answers of a session.
+- DEScribe's sessions frame allows user to manage questions sessions (closed or not): i.e. close, delete, delay, export or visualize answers of a session.
 <br />http://describe.googlecode.com/files/sessionsFrame.jpg<br />
 
 
